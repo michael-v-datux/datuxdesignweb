@@ -1,5 +1,5 @@
-import { hashString } from '/src/scripts/hash.js';
-import { loadProject } from '/src/scripts/api.js';
+import { hashString } from './hash.js';
+import { loadProject } from './api.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("protected-container");
