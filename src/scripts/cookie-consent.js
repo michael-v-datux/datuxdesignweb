@@ -1,4 +1,4 @@
-import { initAnalytics } from './analytics.js';
+import { initAnalytics } from '/src/scripts/analytics.js';
 import { showToast } from './toast.js';
 
 document.addEventListener("DOMContentLoaded", () => {
