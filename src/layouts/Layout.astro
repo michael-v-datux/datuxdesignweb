@@ -9,7 +9,7 @@ const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
 const currentPath = Astro.url.pathname;
 
-const GA_ID = import.meta.env.PUBLIC_GA_ID;
+const GA_ID = import.meta.env.PUBLIC_GA_ID || "";
 
 const footerLinks = [
   { href: `/${lang}/privacy-policy`, label: lang === 'uk' ? 'Політика конфіденційності' : 'Privacy Policy' },
