@@ -6,4 +6,4 @@
 //   }
 // });
 
-console.log("ribbon.js loaded");
+console.log("Ribbon script loaded");
