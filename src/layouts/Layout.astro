@@ -9,6 +9,8 @@ const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
 const currentPath = Astro.url.pathname;
 
+const GA_ID = import.meta.env.PUBLIC_GA_ID;
+
 const footerLinks = [
   { href: `/${lang}/privacy-policy`, label: lang === 'uk' ? 'Політика конфіденційності' : 'Privacy Policy' },
   { href: `/${lang}/cookie-policy`, label: lang === 'uk' ? 'Політика cookie' : 'Cookie Policy' },
@@ -81,7 +83,7 @@ const footerLinks = [
     </footer>
 
     <script is:inline>
-        window.PUBLIC_GA_ID = "{import.meta.env.PUBLIC_GA_ID}";
+        window.PUBLIC_GA_ID = "{GA_ID}";
     </script>
 
     <!-- Публічні -->
