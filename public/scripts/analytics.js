@@ -1,5 +1,5 @@
 export function initAnalytics() {
-    const GA_ID = import.meta.env.PUBLIC_GA_ID;
+    const GA_ID = window.PUBLIC_GA_ID;
 
     if (!GA_ID) {
         console.warn('⚠️ Google Analytics ID is not set. Analytics will not be loaded.');
