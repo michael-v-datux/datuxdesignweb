@@ -11,12 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const declinedText = banner.dataset.declinedText;
 
     function deleteAnalyticsCookies() {
+        // Видаляємо GA-куки
         const cookies = document.cookie.split("; ");
         cookies.forEach(cookie => {
             if (cookie.startsWith("_ga") || cookie.startsWith("_gid") || cookie.startsWith("_gat")) {
                 document.cookie = `${cookie.split("=")[0]}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
             }
         });
+
+        // Видаляємо скрипт GA, якщо він був доданий
+        const gaScript = document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]');
+        if (gaScript) gaScript.remove();
+
+        // Очищаємо dataLayer і скидаємо прапорець
+        window.dataLayer = [];
+        window.gtagLoaded = false;
+        console.log("Google Analytics disabled and removed.");
     }
 
     function showBanner() {
@@ -32,21 +42,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { once: true });
     }
 
-
     const cookiesChoice = localStorage.getItem("cookiesAccepted");
 
-    if (cookiesChoice === null) {
-        setTimeout(() => {
-            showBanner();
-        }, 3000);
-    } else if (cookiesChoice === "true") {
+    // GA вантажиться тільки якщо є згода і ID
+    if (cookiesChoice === "true" && window.PUBLIC_GA_ID) {
         initAnalytics();
     }
 
     acceptBtn.addEventListener("click", () => {
         localStorage.setItem("cookiesAccepted", "true");
         showToast(acceptedText, "success");
-        hideBanner(() => initAnalytics());
+        hideBanner(() => {
+            if (window.PUBLIC_GA_ID) initAnalytics();
+        });
     });
 
     declineBtn.addEventListener("click", () => {
@@ -64,5 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("previousCookiesChoice", prevChoice);
             location.reload();
         });
+    }
+
+    if (cookiesChoice === null) {
+        setTimeout(() => {
+            showBanner();
+        }, 3000);
     }
 });
