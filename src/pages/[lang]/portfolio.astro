@@ -1,8 +1,8 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import SelectedProjects from '../../../components/SelectedProjects.astro'; // ← Додали
+import Layout from '../../layouts/Layout.astro';
+import SelectedProjects from '../../components/SelectedProjects.astro'; // ← Додали
 
-import { getTranslations } from '../../../utils/getTranslations';
+import { getTranslations } from '../../utils/getTranslations';
 
 const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
