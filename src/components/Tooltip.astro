@@ -1,0 +1,60 @@
+---
+import { motion } from "framer-motion";
+const { text } = Astro.props;
+---
+
+<div class="absolute bottom-3 right-3">
+  <!-- Іконка -->
+  <div class="w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center cursor-pointer tooltip-trigger">
+    i
+  </div>
+
+  <!-- Tooltip -->
+  <motion.div
+    class="tooltip-box absolute opacity-0 pointer-events-none bg-black text-white text-sm rounded-lg p-3 max-w-xs z-50"
+    initial={{ scale: 0.75, opacity: 0 }}
+    whileHover={{ scale: 1, opacity: 1 }}
+    transition={{ type: "spring", stiffness: 250, damping: 20 }}
+  >
+    {text}
+  </motion.div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tooltips = document.querySelectorAll('.tooltip-box');
+        tooltips.forEach((tooltip) => {
+            const parent = tooltip.parentElement;
+            const img = parent.closest('div').querySelector('img');
+            const icon = parent.querySelector('.tooltip-trigger');
+
+            icon.addEventListener('mouseenter', () => {
+                const rect = img.getBoundingClientRect();
+                const spaceRight = window.innerWidth - rect.right;
+                const spaceLeft = rect.left;
+                const spaceBottom = window.innerHeight - rect.bottom;
+                const spaceTop = rect.top;
+
+                let positionClass = '';
+                if (spaceRight > 200) {
+                    positionClass = 'left-full ml-3 bottom-0';
+                } else if (spaceLeft > 200) {
+                    positionClass = 'right-full mr-3 bottom-0';
+                } else if (spaceTop > 150) {
+                    positionClass = 'bottom-full mb-3 right-0';
+                } else {
+                    positionClass = 'top-full mt-3 right-0';
+                }
+
+                tooltip.className = `tooltip-box absolute bg-black text-white text-sm rounded-lg p-3 max-w-xs z-50 ${positionClass}`;
+                tooltip.style.opacity = '1';
+                tooltip.style.transform = 'scale(1)';
+            });
+
+            icon.addEventListener('mouseleave', () => {
+                tooltip.style.opacity = '0';
+                tooltip.style.transform = 'scale(0.75)';
+            });
+        });
+    });
+</script>

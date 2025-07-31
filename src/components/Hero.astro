@@ -1,0 +1,25 @@
+---
+// components/Hero.astro
+const { translations } = Astro.props;
+---
+
+<!-- <section class="container hero w-full min-h-screen flex flex-col justify-center items-center text-left px-6 md:px-10 lg:px-16"> -->
+<section id="hello" class="hero w-full min-h-screen flex flex-col justify-center text-left py-24 px-6 md:px-10 lg:px-16">
+  <div class="w-full max-w-6xl mx-auto text-left">
+    <h1 class="text-4xl md:text-5xl lg:text-7xl font-medium leading-tight">
+      {translations.hero.titleLine1}<br />
+      {translations.hero.titleLine2.before} <span class="text-pink-g italic font-medium">{translations.hero.titleLine2.purpose}</span> {translations.hero.titleLine2.and} <span class="text-sky-g italic font-medium">{translations.hero.titleLine2.precision}</span>
+    </h1>
+    <p class="mt-12 text-sm md:text-base text-neutral-600 dark:text-neutral-400">
+      {translations.hero.subtitleLine1}<br />
+      {translations.hero.subtitleLine2}
+    </p>
+  </div>
+
+  <!-- Scroll indicator -->
+  <!-- <div class="mt-14 animate-bounce text-neutral-400 dark:text-neutral-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+    </svg>
+  </div> -->
+</section>

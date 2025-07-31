@@ -1,0 +1,79 @@
+@use '../abstracts' as *;
+
+.project-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 5rem;
+
+    .section-description {
+        font-size: 1.1rem;
+        color: #444;
+        margin-bottom: 1rem;
+    }
+
+    &.full .screenshot-wrapper img {
+        width: 100%;
+        border-radius: 1rem;
+    }
+
+    &.side-by-side .side-by-side-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+        }
+
+        .screenshot-description {
+            font-size: 1rem;
+            color: #555;
+            align-self: center;
+        }
+    }
+
+    &.gallery .screenshot-gallery {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: 1fr; // мобілки — одна колонка
+
+        @media (min-width: 768px) {
+            grid-template-columns: repeat(2, 1fr); // 2 колонки для 4 і 5
+            grid-auto-rows: auto;
+        }
+
+        .screenshot-wrapper:first-child {
+            grid-column: 1 / -1; // перший займає весь ряд
+        }
+    }
+}
+
+.screenshot-wrapper {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+.gallery .screenshot-gallery {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr; // мобілки
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: auto;
+    }
+
+    .screenshot-wrapper:first-child {
+        grid-column: 1 / -1; // перший займає весь ряд
+    }
+}

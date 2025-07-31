@@ -1,0 +1,21 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getTranslations } from "../../utils/getTranslations";
+
+export async function getStaticPaths() {
+    const langs = ['en', 'uk'];
+    return langs.map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const translations = await getTranslations(lang);
+const terms = translations.terms;
+---
+
+<Layout {translations} {lang}>
+    <section class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-semibold mb-6">{terms.title}</h1>
+        {terms.content.map(p => <p class="mb-3" set:html={p}>{p}</p>)}
+        <p class="mt-12 text-sm text-neutral-500">{terms.lastUpdated}</p>
+    </section>
+</Layout>

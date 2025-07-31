@@ -1,0 +1,49 @@
+header {
+	border-bottom: 1px solid #EBEBEB;
+}
+
+.sticky-navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 50;
+	transform: translateY(-100%);
+	opacity: 0;
+	pointer-events: none;
+	transition:
+	transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+	opacity 0.3s ease;
+	background-color: rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(8px);
+	border-top: 6px solid;
+	border-image: linear-gradient(90deg, #a5c6eb, #fce992, #f5c4ad) 1;
+	will-change: transform, opacity;
+
+	a {
+		font-size: 16px;
+	}
+
+	img {
+		width: 25px;
+	}
+
+	.main-nav {
+	    align-self: baseline;
+	}
+
+	.container {
+		padding-bottom: 0;
+	}
+}
+
+.sticky-navbar.visible {
+	transform: translateY(0);
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.sticky-navbar.hidden {
+	transform: translateY(-100%);
+	opacity: 0;
+	pointer-events: none;
+}

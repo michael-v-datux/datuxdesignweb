@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+#protected-content.fade-in {
+	opacity: 0;
+	transform: translateY(10px);
+	animation: fadeInUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+// Selected Projects
+#toggle-password {
+	&:hover {
+		background-color: transparent;
+	}
+}
+
+@keyframes pop {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+.animate-pop {
+    animation: pop 0.3s ease-out forwards;
+}

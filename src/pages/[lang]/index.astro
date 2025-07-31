@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import About from '../../components/About.astro';
+import KeyStrengths from '../../components/KeyStrengths.astro';
+import SelectedProjects from '../../components/SelectedProjects.astro';
+import Availability from '../../components/Availability.astro';
+import Contact from '../../components/Contact.astro';
+
+import { getTranslations } from '../../utils/getTranslations';
+
+const lang = Astro.params.lang;
+const translations = await getTranslations(lang);
+
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'uk' } },
+  ];
+}
+---
+
+<Layout translations={translations}>
+  <Hero translations={translations} />
+  <About {translations} />
+  <KeyStrengths translations={translations} />
+  <SelectedProjects translations={translations} />
+  <Availability translations={translations} />
+  <Contact translations={translations} />
+</Layout>
+</Layout>

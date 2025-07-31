@@ -1,0 +1,29 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getTranslations } from "../../utils/getTranslations";
+
+export async function getStaticPaths() {
+    const langs = ['en', 'uk'];
+    return langs.map(lang => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const translations = await getTranslations(lang);
+const policy = translations.cookiesPolicy;
+---
+
+<Layout {translations} {lang}>
+    <section class="container mx-auto px-6 py-12">
+        <h1 class="text-4xl font-semibold mb-6">{policy.title}</h1>
+        <p class="mb-6">{policy.intro}</p>
+        <div class="space-y-8">
+            {Object.values(policy.sections).map(section => (
+                <div>
+                    <h2 class="text-2xl font-semibold mb-3">{section.title}</h2>
+                    {section.content.map(p => <p class="mb-3" set:html={p}>{p}</p>)}
+                </div>
+            ))}
+        </div>
+        <p class="mt-12 text-sm text-neutral-500">{policy.lastUpdated}</p>
+    </section>
+</Layout>

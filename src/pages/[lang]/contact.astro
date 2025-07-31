@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+import { getTranslations } from '../../utils/getTranslations';
+
+const lang = Astro.params.lang;
+const translations = await getTranslations(lang);
+
+export async function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'uk' } },
+  ];
+}
+---
+
+<Layout translations={translations}>
+  <head>
+    <title>{translations.navigation.about}</title>
+  </head>
+  <h1>{translations.navigation.about}</h1>
+  <p>{translations.about.description}</p>
+</Layout>

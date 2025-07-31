@@ -1,0 +1,118 @@
+---
+const { translations } = Astro.props;
+---
+<section id="contacts" class="contact w-full py-24 px-6 md:px-10 lg:px-16 relative">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 text-center">
+    <h2 class="text-2xl md:text-3xl font-semibold mb-12">
+      {translations.contact.title}
+    </h2>
+  </div>
+
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
+    <!-- Contact Form Column -->
+    <div class="bg-gradient-to-br from-[#fbe6e6] via-[#e6f1ff] to-[#fef9e7] p-6 rounded-2xl relative" id="form-wrapper">
+      <h3 class="text-xl font-semibold mb-4">{translations.contact.formTitle}</h3>
+      <form id="contact-form" class="flex flex-col gap-4" action="https://formspree.io/f/xeozqggl" method="POST" novalidate>
+        <!-- Honeypot -->
+        <div style="display:none;">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- Name -->
+        <div>
+            <label for="name" class="block text-sm font-medium mb-1">{translations.contact.name}</label>
+            <input id="name" name="name" type="text" class="border border-neutral-300 rounded px-4 py-2 w-full" />
+            <p id="name-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.name}</p>
+        </div>
+        <!-- Email -->
+        <div>
+            <label for="email" class="block text-sm font-medium mb-1">{translations.contact.email}</label>
+            <input id="email" name="email" type="email" class="border border-neutral-300 rounded px-4 py-2 w-full" />
+            <p id="email-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.email}</p>
+        </div>
+        <!-- Vacancy -->
+        <div>
+            <label for="vacancy" class="block text-sm font-medium mb-1">{translations.contact.vacancy}</label>
+            <div class="relative">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 select-none pointer-events-none">https://</span>
+                <input id="vacancy" name="vacancy" type="text" class="pl-[70px] border border-neutral-300 rounded px-4 py-2 w-full" />
+            </div>
+            <p id="vacancy-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.vacancy}</p>
+        </div>
+        <!-- Message -->
+        <div>
+            <label for="message" class="block text-sm font-medium mb-1">{translations.contact.message}</label>
+            <textarea id="message" name="message" rows="4" class="border border-neutral-300 rounded px-4 py-2 w-full"></textarea>
+            <p id="message-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.message}</p>
+        </div>
+
+        <input type="hidden" name="_subject" value="New message from portfolio site!" />
+        <button type="submit" id="submit-btn" class="btn-primary py-2 px-4 rounded w-fit self-end opacity-50 cursor-not-allowed" disabled>
+            {translations.contact.send}
+        </button>
+      </form>
+
+
+      <!-- Success Modal -->
+      <div id="success-modal" class="form-s-modal absolute inset-0 flex items-center justify-center text-center bg-white/80 backdrop-blur-md rounded-2xl border border-neutral-300/40 shadow-lg hidden z-50 p-6 modal-enter">
+        <div class="flex flex-col items-center justify-center space-y-4">
+          <div class="relative w-24 h-24">
+            <svg class="absolute top-0 left-0 w-full h-full text-green-400 animate-check p-6" viewBox="0 0 24 24" fill="none">
+              <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <svg class="absolute top-0 left-0 w-full h-full text-green-200 animate-spin-ring" viewBox="0 0 36  36">
+              <circle cx="18" cy="18" r="16" stroke="currentColor" stroke-width="3" fill="none" />
+            </svg>
+          </div>
+          <p class="text-green-700 font-semibold text-lg">{translations.contact.success.message}</p>
+          <p class="text-base !mt-0">{translations.contact.success.subMessage}</p>
+          <button id="confirm-btn" class="btn-success text-white px-4 py-2 rounded">{translations.contact.success.ok}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Services Column -->
+    <div class="flex flex-col items-center justify-center text-center relative min-h-[220px]">
+      <h3 class="email-service-title font-semibold">{translations.contact.emailTitle}</h3>
+      <h4 class="email-service-sub font-light mb-24">{translations.contact.emailTitleSub}</h4>
+      <div id="email-toggle" class="flex justify-center relative mail-services-b">
+        <button class="relative w-10 h-10 z-10 hover:bg-transparent">
+          <svg id="email-icon" viewBox="0 -20 75 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full transition-transform duration-300">
+            <!-- lid – верхня частина -->
+            <g id="lid" class="transition-transform duration-300 origin-top">
+              <path xmlns="http://www.w3.org/2000/svg" d="M72 3H3C3 3 14.5 15.5 24 25.5C27 28 32 35.5 37.5 35.5C41.9509 35.5 45.2246 31.8622 50.3303 26.1885L50.5 26C59.5 16 72 3 72 3Z" fill="#333333" stroke="#333333" stroke-width="5" stroke-linejoin="round"/>
+            </g>
+            <!-- base – нижня частина -->
+            <g id="base">
+              <path xmlns="http://www.w3.org/2000/svg" d="M70.275 51.125L42.5 31.5M35.5 31.5C23.4817 39.164 4.7251 51.125 4.7251 51.125M35.5 31.5C34.2594 31.192 27.4665 24.877 27.6429 25L3 3M35.5 31.5C34.5 31.5 38 32 38 32C38 32 40.2916 31.8429 41.5 31C42.7084 30.1571 72 3 72 3M3 3L8.6512 3.00005C8.6512 3.00005 13.7634 3 19.56 3H55.44C61.2367 3 66.5 3 66.5 3H72M3 3C3 3 3 13.7244 3 19.5V41.5C3 47.2757 3 50.1632 4.12808 52.3694C5.12037 54.3098 6.70371 55.8873 8.6512 56.8759C10.8652 58 13.7634 58 19.56 58H55.44C61.2367 58 64.1347 58 66.3489 56.8759C68.2964 55.8873 69.8796 54.3098 70.8718 52.3694C72 50.1632 72 47.2757 72 41.5V19.5C72 13.7244 72 3 72 3" stroke="#333333" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+        </button>
+
+        <div id="copy-tooltip" class="copy-tooltip text-xs text-green-600 mt-2 hidden absolute">Email copied!</div>
+
+        <div id="email-tooltip" class="email-tooltip absolute bottom-[calc(100%+20px)] -translate-y-1/2 p-4 rounded-[24px] bg-white z-20 transition-all duration-300 opacity-0 scale-95 pointer-events-none">
+          <div class="tooltip-gradient-border absolute inset-0 -z-10 rounded-[20px]"></div>
+          <div class="flex gap-5 relative z-10">
+            <a href="mailto:michael.v@datux.design?subject=Hello" target="_blank" title="Apple Mail">
+              <img src="/icons/apple-mail.svg" alt="Apple Mail" class="w-8 h-8" />
+            </a>
+            <a href="https://outlook.live.com/mail/0/deeplink/compose?to=michael.v@datux.design" target="_blank" title="Outlook">
+              <img src="/icons/outlook.svg" alt="Outlook" class="w-8 h-8" />
+            </a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=michael.v@datux.design" target="_blank" title="Gmail">
+              <img src="/icons/gmail.svg" alt="Gmail" class="w-8 h-8" />
+            </a>
+            <a href="https://compose.mail.yahoo.com/?to=michael.v@datux.design" target="_blank" title="Yahoo">
+              <img src="/icons/yahoo.svg" alt="Yahoo" class="w-8 h-8" />
+            </a>
+            <button id="copy-email" class="w-8 h-8" title="Copy Email">
+              <img src="/icons/default-mail.svg" alt="Copy Email" class="w-full h-full" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

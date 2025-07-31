@@ -1,0 +1,159 @@
+---
+import fs from "fs";
+import Layout from "../../../layouts/Layout.astro";
+import { getTranslations } from "../../../utils/getTranslations";
+
+export async function getStaticPaths() {
+    const langs = ['en', 'uk'];
+    const projectsDir = new URL("../../../data/projects", import.meta.url);
+    const files = fs.readdirSync(projectsDir).filter(f => f.endsWith(".json")).map(f => f.replace(".json", ""));
+    return langs.flatMap((lang) =>
+        files.map((slug) => ({
+            params: { lang, slug }
+        }))
+    );
+}
+
+const { lang, slug } = Astro.params;
+const translations = await getTranslations(lang);
+const projectPath = new URL(`../../../data/projects/${slug}.json`, import.meta.url);
+const project = JSON.parse(await fs.promises.readFile(projectPath, "utf-8"));
+---
+
+<Layout translations={translations}>
+    <head>
+        <title>{project?.title || translations.protectedProjects.defaultTitle}</title>
+    </head>
+
+    {project ? (
+        project.protected ? (
+            <!-- Блок із паролем (без змін) -->
+            <section
+                id="protected-container"
+                data-slug={slug}
+                data-lang={lang}
+                data-password-hash={project.passwordHash}
+                class="container mx-auto py-12 px-6 project-sections max-w-screen-xl"
+            >
+                <form id="password-form" class="project-pass-form flex flex-col items-center gap-4 transition-all duration-500">
+                    <h1 class="text-2xl font-semibold mb-4">{translations.protectedProjects.title}</h1>
+                    <p class="mb-10">{translations.protectedProjects.subtitle}</p>
+
+                    <div class="relative w-full max-w-xs">
+                        <input
+                            type="password"
+                            id="project-password"
+                            placeholder={translations.protectedProjects.passwordPlaceholder}
+                            class="border border-neutral-300 rounded px-4 py-2 w-full pr-10"
+                        />
+                        <button
+                            type="button"
+                            id="toggle-password"
+                            class="absolute inset-y-0 right-0 px-3 flex items-center text-neutral-500 hover:text-neutral-700"
+                            tabindex="-1"
+                        >
+                            👁
+                        </button>
+                    </div>
+
+                    <div id="terms-block" class="bg-neutral-100 p-4 rounded-xl text-left w-full max-w-xs transition-all">
+                        <p class="text-xs text-neutral-500 mb-3">{translations.protectedProjects.termsText}</p>
+                        <div class="flex flex-col items-start gap-1">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="accept-terms" class="h-4 w-4">
+                                <label for="accept-terms" class="text-sm text-neutral-700">{translations.protectedProjects.checkboxLabel}</label>
+                            </div>
+                            <p id="terms-error" class="text-red-500 text-sm hidden">{translations.protectedProjects.checkboxError}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="submit" id="unlock-btn" class="btn-primary" disabled>{translations.protectedProjects.unlockButton}</button>
+                        <button type="button" id="back-btn" class="btn-secondary">{translations.protectedProjects.backButton}</button>
+                    </div>
+                    <p id="error-message" class="text-red-500 text-sm hidden">{translations.protectedProjects.wrongPassword}</p>
+                </form>
+
+                <div id="unlock-success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+                    <div class="bg-white p-6 rounded-2xl shadow-xl text-center animate-pop">
+                        <svg class="mx-auto mb-3 w-12 h-12 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <p class="text-lg font-medium">Access granted</p>
+                    </div>
+                </div>
+
+                <div id="protected-content" class="hidden mt-12 text-left translate-y-4 transition-all duration-500"></div>
+                <div id="loader" class="hidden my-6">
+                    <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900 mx-auto"></div>
+                </div>
+                <script type="module" src="/src/scripts/project-protected.js"></script>
+            </section>
+        ) : (
+            <!-- Контент проекту -->
+            <section class="container mx-auto py-12 px-6 max-w-screen-xl">
+                <header class="section-animate mb-12">
+                    <h1 class="text-4xl font-bold mb-4">{project.title}</h1>
+                    {project.subtitle && <p class="text-lg text-neutral-600">{project.subtitle}</p>}
+                </header>
+
+                {project.sections.map((section) => (
+                    <section class={`project-section section-animate ${section.layout}`}>
+                        {section.description && (
+                            <p class="section-description">{section.description}</p>
+                        )}
+
+                        {section.layout === "full" && section.images.map((img) => (
+                            <div class="screenshot-wrapper relative">
+                                <img src={img.src} alt={img.alt || "Screenshot"} />
+                                {img.tooltip && (
+                                    <button class="info-icon absolute bottom-3 right-3" data-tooltip={img.tooltip}>i</button>
+                                )}
+                            </div>
+                        ))}
+
+                        {section.layout === "side-by-side" && (
+                            <div class="side-by-side-grid">
+                                {section.images.map((img) => (
+                                    <div class="screenshot-wrapper relative">
+                                        <img src={img.src} alt={img.alt || "Screenshot"} />
+                                        {img.tooltip && (
+                                            <button class="info-icon absolute bottom-3 right-3" data-tooltip={img.tooltip}>i</button>
+                                        )}
+                                    </div>
+                                ))}
+                                {section.description && (
+                                    <div class="screenshot-description">{section.description}</div>
+                                )}
+                            </div>
+                        )}
+
+                        {section.layout === "gallery" && (
+                            <div class="screenshot-gallery">
+                                {section.images.map((img) => (
+                                    <div class="screenshot-wrapper relative">
+                                        <img src={img.src} alt={img.alt || "Screenshot"} />
+                                        {img.tooltip && (
+                                            <button class="info-icon absolute bottom-3 right-3" data-tooltip={img.tooltip}>i</button>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {section.layout === "gallery" && section.description && (
+                            <p class="gallery-description">{section.description}</p>
+                        )}
+                    </section>
+                ))}
+            </section>
+        )
+    ) : (
+        <section class="text-center py-16">
+            <h1 class="text-xl font-semibold">Project Not Found</h1>
+        </section>
+    )}
+
+    <script type="module" src="/src/scripts/section-animate.js"></script>
+    <script type="module" src="/src/scripts/tooltip.js"></script>
+</Layout>

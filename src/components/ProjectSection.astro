@@ -1,0 +1,36 @@
+---
+const { section } = Astro.props;
+import Tooltip from './Tooltip.astro';
+---
+
+{section.type === "text" && (
+  <p class="mb-8 text-lg leading-relaxed col-span-12">{section.content}</p>
+)}
+
+{section.type === "image" && (
+  <div class="relative mb-8 col-span-12">
+    <img src={section.src} alt={section.alt} class="rounded-lg w-full object-cover" />
+  </div>
+)}
+
+{section.type === "image-with-description" && (
+  <div class="flex flex-col md:flex-row gap-6 mb-8 col-span-12">
+    <img src={section.src} alt={section.alt} class="rounded-lg md:w-1/2 object-cover" />
+    <p class="md:w-1/2 self-center text-base">{section.description}</p>
+  </div>
+)}
+
+{section.type === "gallery" && (
+  <div class="mb-8 col-span-12">
+    <div class="grid gap-4 grid-cols-1 md:grid-cols-6 auto-rows-[200px]">
+      {section.images.map((img, index) => (
+        <div class={`relative group overflow-hidden rounded-lg 
+          ${img.span ? img.span : index === 0 ? 'md:col-span-6 md:row-span-2' : 'md:col-span-3'}`}>
+          <img src={img.src} alt={img.alt} class="object-cover w-full h-full" />
+          {img.tooltip && <Tooltip text={img.tooltip} />}
+        </div>
+      ))}
+    </div>
+    {section.description && <p class="mt-4 text-sm text-gray-700">{section.description}</p>}
+  </div>
+)}

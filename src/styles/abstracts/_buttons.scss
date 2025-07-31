@@ -1,0 +1,143 @@
+@use '../abstracts/variables' as *;
+
+// --- Base button styles ---
+.btn-base {
+    position: relative;
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 45%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.08), transparent);
+        border-radius: 16px 16px 0 0;
+        pointer-events: none;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+// --- Primary button (як Send) ---
+.btn-primary {
+    @extend .btn-base;
+    color: #fff;
+    background-color: $text-black;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        background-color: #2b2b2b;
+        box-shadow:
+            inset 0 2px 4px rgba(255, 255, 255, 0.15),
+            0 6px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px) scale(1.02);
+    }
+
+    &:active {
+        background-color: #1f1f1f;
+        box-shadow:
+            inset 0 3px 6px rgba(0, 0, 0, 0.3),
+            0 2px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(0.97);
+    }
+}
+
+// --- Secondary button (як Back) ---
+.btn-secondary {
+    @extend .btn-base;
+    color: $text-black;
+    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.05),
+        0 4px 10px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow:
+            inset 0 2px 4px rgba(255, 255, 255, 0.1),
+            0 6px 16px rgba(0, 0, 0, 0.15);
+        transform: translateY(-1px) scale(1.02);
+    }
+
+    &:active {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(0.97);
+    }
+}
+
+// --- Blue primary button (як Send, але синя) ---
+// --- Solid Blue button (як Send, але синя) ---
+.btn-primary-blue {
+    @extend .btn-base;
+    padding: 6px 12px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: normal;
+    background-color: #4f46e5; // синій
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        background-color: #4338ca; // трохи темніший синій на hover
+        box-shadow:
+            inset 0 2px 4px rgba(255, 255, 255, 0.15),
+            0 6px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px) scale(1.02);
+    }
+
+    &:active {
+        background-color: #3730a3; // ще темніший при кліку
+        box-shadow:
+            inset 0 3px 6px rgba(0, 0, 0, 0.3),
+            0 2px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(0.97);
+    }
+}
+
+.btn-success {
+    @extend .btn-base;
+    color: #fff;
+    background-color: $color-success;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.15);
+
+    &:hover {
+        background-color: #15803d; // як hover:bg-green-700
+        box-shadow:
+            inset 0 2px 4px rgba(255, 255, 255, 0.15),
+            0 6px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px) scale(1.02);
+    }
+
+    &:active {
+        background-color: #166534;
+        box-shadow:
+            inset 0 3px 6px rgba(0, 0, 0, 0.3),
+            0 2px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(0.97);
+    }
+}

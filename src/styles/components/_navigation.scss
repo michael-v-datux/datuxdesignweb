@@ -1,0 +1,198 @@
+@use '../abstracts' as *;
+
+a {
+    color: $text-black;
+    @apply relative no-underline transition-all duration-300;
+}
+
+.nav-link,
+.footer-link {
+    @apply mr-4;
+}
+
+.nav-link {
+    position: relative;
+    color: $text-black;
+    font-size: 20px;
+    text-decoration: none;
+    margin-right: 1rem;
+
+  &:hover {
+      background: linear-gradient(76.57deg, #D1D5D8 -7.45%, #d85464 14.86%, #e7a99c 44.16%, #69b0ff 102.78%) !important;
+      -webkit-background-clip: text !important;
+      -webkit-text-fill-color: transparent !important;
+      background-clip: text !important;
+      text-fill-color: transparent !important;
+  }
+
+  &.active {
+      background: none;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: $text-black;
+      background-clip: text;
+      text-fill-color: $text-black;
+  }
+
+  &:hover::after,
+  &.active::after {
+      width: 100%;
+  }
+}
+
+.main-nav {
+    position: relative;
+
+    .nav-dot {
+        position: absolute;
+        left: 22px;
+        bottom: -12px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: $text-black;
+        transition: left 0.5s ease;
+        pointer-events: none;
+    }
+}
+
+.nav-blog {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "SOON";
+        font-size: 9px;
+        top: -9px;
+        right: -17px;
+        background-color: #ffe475;
+        line-height: initial;
+        padding: 2px 4px;
+        transform: rotate(5deg);
+        border-radius: 2px;
+        -webkit-text-fill-color: $text-black;
+        z-index: 1;
+    }
+
+    &:hover:before {
+        -webkit-text-fill-color: #333333 !important;
+    }
+
+    // &::after {
+    //     content: "";
+    //     position: absolute;
+    //     top: 2.5px;
+    //     right: -16px;
+    //     width: 34px;
+    //     height: 7px;
+    //     transform: rotate(17deg);
+    //     z-index: 0;
+    //     background: linear-gradient(to left, rgb(0 0 0), #000000);
+    //     clip-path: polygon(100% 100%, 100% 0%, 0% 100%);
+    //     filter: none;
+    //     pointer-events: none;
+    //     border-radius: 0 0 2px 0;
+    // }
+}
+
+// Logo animation
+.animated-bg {
+    background: linear-gradient(135deg, #D85666 0%, #BB96B2 29.4%, #A5C6EB 48.5%, #C9D1B7 73.6%, #FFE26B 100%);
+    background-size: 100% 100%;
+    transition: background 1s ease, background-position 2s ease;
+    will-change: background-position;
+}
+
+.logo-wrapper:hover .animated-bg {
+    background-size: 300% 300%;
+    background-position: 100% 50%;
+}
+
+// Mobile menu
+#mobile-menu {
+    transform: translateX(-100%);
+    background: transparent;
+    pointer-events: none;
+
+    &.open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    a {
+        padding: 8px 0;
+        font-size: 18px;
+        color: white;
+    }
+}
+
+#menu-toggle {
+    z-index: 999;
+    position: relative;
+
+    &:hover {
+        background-color: transparent;
+    }
+}
+
+@media (max-width: 639px) {
+  #sticky-navbar {
+    display: none !important;
+  }
+}
+
+/* Бекдроп */
+#menu-backdrop {
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+}
+
+#mobile-menu-wrapper:not(.hidden) #menu-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#mobile-menu {
+    transform: translateX(-100%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+
+    &.open {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    a {
+        width: auto;
+        padding: 12px 0;
+        font-size: 20px;
+        color: $text-black;
+        font-weight: 500;
+        text-align: center;
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+
+        &:hover {
+            color: #d85464;
+        }
+    }
+
+    &.open a {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    &.open a:nth-child(1) { transition-delay: 0.4s; }
+    &.open a:nth-child(2) { transition-delay: 0.5s; }
+    &.open a:nth-child(3) { transition-delay: 0.6s; }
+    &.open a:nth-child(4) { transition-delay: 0.7s; }
+    &.open a:nth-child(5) { transition-delay: 0.8s; }
+}

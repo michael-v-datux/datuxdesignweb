@@ -1,0 +1,28 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getTranslations } from '../../utils/getTranslations';
+
+export async function getStaticPaths() {
+    return [
+        { params: { lang: 'en' } },
+        { params: { lang: 'uk' } },
+    ];
+}
+
+const { lang } = Astro.params;
+const translations = await getTranslations(lang);
+const pageTitle = translations.navigation.articles || 'Articles';
+---
+
+<Layout lang={lang} translations={translations}>
+    <main class="container mx-auto px-6 py-16">
+        <h1 class="text-3xl font-bold mb-6">
+            {pageTitle}
+        </h1>
+        <p class="text-gray-600 dark:text-gray-300">
+            {lang === 'en'
+                ? 'This page will contain articles, case studies, and insights soon.'
+                : 'Ця сторінка незабаром міститиме статті, кейси та інсайти.'}
+        </p>
+    </main>
+</Layout>

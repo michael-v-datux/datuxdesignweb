@@ -1,0 +1,30 @@
+---
+const { translations } = Astro.props;
+const lang = Astro.params.lang;
+
+// Визначаємо альтернативну мову
+const altLang = lang === 'en' ? 'uk' : 'en';
+
+// Отримуємо поточний шлях і підставляємо іншу мову
+// const currentPath = Astro.url.pathname.replace(`/${lang}`, '');
+// const altLangLink = `/${altLang}${currentPath}`;
+---
+
+<nav>
+  <a href={`/${lang}/#hello`}>{translations.navigation.home}</a>
+  <a href={`/${lang}/#about`}>{translations.navigation.about}</a>
+  <a href={`/${lang}/#selected-projects`}>{translations.navigation.portfolio}</a>
+  <a href={`/${lang}/#`}>{translations.navigation.articles}</a>
+  <a href={`/${lang}/#contact`}>{translations.navigation.contact}</a>
+
+  <!-- Перемикач мов -->
+  <div class="font-base" style="margin-left: auto;">
+    <a href={altLangLink} onClick={(event) => {
+      event.preventDefault();
+      localStorage.setItem('preferredLanguage', altLang);
+      window.location.href = altLangLink;
+    }}>
+      {lang === 'en' ? '🇺🇦 UKR' : '🇬🇧 ENG'}
+    </a>
+  </div>
+</nav>

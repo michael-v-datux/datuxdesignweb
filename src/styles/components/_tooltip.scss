@@ -1,0 +1,94 @@
+@use '../abstracts/variables' as *;
+
+.custom-tooltip {
+    position: absolute;
+    min-width: 250px;
+    max-width: 320px;
+    max-height: 85%;
+    display: flex;
+    flex-direction: column;
+    background: $liquid-bg;
+    backdrop-filter: blur($blur-heavy);
+    -webkit-backdrop-filter: blur($blur-heavy);
+    border: 1px solid $liquid-border;
+    border-radius: $radius-lg;
+    color: $color-white;
+    font-family: $font-base;
+    font-size: 15px;
+    box-shadow: $shadow-glass;
+    animation: tooltipIn $animation-base;
+    z-index: 999;
+    overflow: hidden;
+    transition: background $transition-base, box-shadow $transition-fast;
+
+    &:hover {
+        background: $liquid-hover-bg;
+        border-color: $liquid-hover-border;
+        box-shadow: $shadow-glass-hover;
+    }
+
+    &.closing {
+        animation: tooltipOut $animation-base;
+    }
+
+    .tooltip-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        background: $liquid-hover-bg;
+        cursor: grab;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .tooltip-drag-handle {
+        cursor: grab;
+        font-size: 18px;
+        color: rgba($color-white, 0.8);
+    }
+
+    .tooltip-close {
+        background: rgba($color-white, 0.15);
+        color: $color-white;
+        border: none;
+        font-size: 18px;
+        border-radius: $radius-md;
+        padding: 4px 8px;
+        cursor: pointer;
+        transition: background $transition-fast;
+
+        &:hover {
+            background: rgba($color-white, 0.3);
+        }
+    }
+
+    .tooltip-content {
+        padding: 15px;
+        overflow-y: auto;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+}
+
+// Анімації
+@keyframes tooltipIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.95); filter: blur(4px); }
+    to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+@keyframes tooltipOut {
+    from { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    to { opacity: 0; transform: translateY(10px) scale(0.95); filter: blur(4px); }
+}
+
+// Адаптив (центрування на мобілках)
+@media (max-width: 768px) {
+    .custom-tooltip {
+        left: 50% !important;
+        top: 10% !important;
+        transform: translateX(-50%);
+        max-width: 90%;
+        max-height: 80%;
+    }
+}

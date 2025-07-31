@@ -1,0 +1,93 @@
+---
+import "../styles/main.scss";
+
+import { getTranslations } from '../utils/getTranslations';
+import Navbar from '../components/Navbar.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+
+const lang = Astro.params.lang;
+const translations = await getTranslations(lang);
+const currentPath = Astro.url.pathname;
+
+const footerLinks = [
+  { href: `/${lang}/privacy-policy`, label: lang === 'uk' ? 'Політика конфіденційності' : 'Privacy Policy' },
+  { href: `/${lang}/cookie-policy`, label: lang === 'uk' ? 'Політика cookie' : 'Cookie Policy' },
+  { href: `/${lang}/terms`, label: lang === 'uk' ? 'Умови використання' : 'Terms of Use' },
+];
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{translations.seo.title}</title>
+    <meta name="description" content={translations.seo.description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="bg-white text-gray-800 font-base flex flex-col min-h-screen">
+    <!-- Header -->
+    <Navbar {translations} {lang} />
+    
+    <!-- Main content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-100 text-gray-600 text-sm">
+      <div class="container mx-auto flex flex-col md:flex-row justify-between items-start gap-y-2 px-6 py-4">
+        
+        <!-- Ліва секція -->
+        <div class="w-full md:w-1/5 text-center md:text-left">
+          © {new Date().getFullYear()} datux.design
+        </div>
+
+        <!-- Центральна секція -->
+        <div class="w-full md:w-3/5 text-center">
+          {translations.footer.copyright}
+        </div>
+
+        <!-- Права секція -->
+        <div class="w-full md:w-1/5 text-center md:text-right flex justify-center md:justify-end items-center gap-1 mb-4 md:mb-0 mt-4 md:mt-0">
+          {translations.footer.madeWith}
+          <a href="https://astro.build/" target="_blank">
+            <img src="/icons/astro.svg" title="Astro" alt="Astro" class="h-5 w-5" />
+          </a>
+          <a href="https://tailwindcss.com/" target="_blank">
+            <img src="/icons/tailwind.svg" alt="Tailwind" class="h-5 w-5" />
+          </a>
+          <a href="https://sass-lang.com/" target="_blank">
+            <img src="/icons/scss.svg" alt="SCSS" class="h-5 w-5" />
+          </a>
+        </div>
+      </div>
+
+      <p class="flex items-center justify-center gap-6 text-sm mb-6 text-center md:text-left">
+          <button id="change-cookies" class="hover:underline hover:bg-transparent text-blue-600" type="button">
+              {translations.cookies.changeSettings}
+          </button>
+          {footerLinks.map(link => (
+              <a 
+                  href={link.href} 
+                  class={`hover:underline ${currentPath === link.href ? 'font-semibold text-blue-800' : 'text-blue-600'}`}
+              >
+                  {link.label}
+              </a>
+          ))}
+      </p>
+    </footer>
+
+    <script src="/src/scripts/cookie-consent.js" type="module" client:load></script>
+    <script src="/src/scripts/menu.js" type="module" client:load></script>
+    <script src="/src/scripts/nav-dot.js" type="module" client:load></script>
+    <script src="/src//scripts/ribbon.js" type="module" client:load></script>
+    <script src="/src/scripts/scroll-nav.js" type="module" client:load></script>
+    <script src="/src/scripts/contact-validation.js" type="module" client:load></script>
+    <script src="/src/scripts/email-service.js" type="module" client:load></script>
+
+    <CookieBanner translations={translations} lang={lang} />
+  </body>
+</html>

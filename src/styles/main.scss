@@ -1,0 +1,16 @@
+@use './abstracts/variables' as *;
+@use 'core' as *;
+@use './abstracts/buttons';
+@use './components/tooltip';
+@use './components/redirect';
+@use './components/navigation';
+@use './components/project';
+@use './components/hero';
+@use './components/keyStrengths';
+@use './components/portfolio';
+@use './components/availability';
+@use './components/contacts';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,44 @@
+@use '../abstracts' as *;
+
+.hero {
+    @apply bg-white dark:bg-neutral-900;
+    background-image: url('/images/hero-bg.png');
+    background-position: 105% 50%;
+    background-size: auto;
+    background-repeat: no-repeat;
+
+    @media (min-width: 1280px) and (max-width: 1580px) {
+        background-size: auto;
+        background-position: 140% 50%;
+    }
+
+    @media (max-width: 1279px) {
+        background-position: 200% 50%;
+    }
+
+    @media (max-width: 880px) {
+        background: none;
+    }
+
+    @media (max-width: 639px) {
+        background: none;
+    }
+}
+
+.text-pink-g {
+    font-family: font-secondary;
+    background: linear-gradient(29.94deg, #FF0000 -41.57%, #9DD6FF 73.54%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.text-sky-g {
+    font-family: font-secondary;
+    background: linear-gradient(90.08deg, #A5C6EB 29.29%, #FFEDA6 91.43%, #FFE16A 98.05%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}

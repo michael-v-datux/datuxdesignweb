@@ -1,0 +1,62 @@
+@use '../abstracts/variables' as *;
+
+#redirect-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $color-white;
+    font-family: $font-base;
+    color: $text-black;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &.loaded {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .logo-wrapper {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 16px;
+        position: relative;
+
+        .animated-bg {
+            background: linear-gradient(135deg, #D85666 0%, #BB96B2 29.4%, #A5C6EB 48.5%, #C9D1B7 73.6%, #FFE26B 100%);
+            background-size: 300% 300%;
+            animation: moveGradient 4s ease infinite;
+        }
+    }
+
+    h1 {
+        margin: 0 0 20px 0;
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+
+    .loader-bar {
+        width: 220px;
+        height: 6px;
+        background: rgba(0,0,0,0.1);
+        border-radius: $radius-sm;
+        overflow: hidden;
+    }
+
+    .loader-fill {
+        height: 100%;
+        width: 0%;
+        background: $text-black;
+        border-radius: $radius-sm;
+        transition: width 3s linear;
+    }
+}
+
+@keyframes fadeOut { to { opacity: 0; } }
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

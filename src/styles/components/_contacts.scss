@@ -1,0 +1,190 @@
+@use '../abstracts' as *;
+
+@keyframes spin-ring {
+    0% { stroke-dashoffset: 100; transform: rotate(0deg); }
+    100% { stroke-dashoffset: 0; transform: rotate(360deg); }
+}
+
+.animate-spin-ring circle {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transform-origin: center;
+    animation: spin-ring 4s linear forwards;
+}
+
+@keyframes check {
+    0% { stroke-dashoffset: 24; }
+    100% { stroke-dashoffset: 0; }
+}
+
+.animate-check path {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 24;
+    animation: check 0.6s ease forwards;
+}
+
+.animate-check {
+    padding: 8px;
+}
+
+@keyframes modalIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes modalOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+.modal-enter {
+    animation: modalIn 0.4s ease-out forwards;
+}
+
+.modal-exit {
+    animation: modalOut 0.4s ease-in forwards;
+}
+
+
+.form-s-modal {
+    --tw-backdrop-blur: blur(4px) !important;
+}
+
+
+// Email services
+.email-service-title {
+    font-size: 26px;
+}
+
+.email-services {
+    position: absolute;
+    visibility: hidden;
+}
+
+.mail-services-b {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    padding: 10px;
+    background: linear-gradient(to bottom right, #fbe6e6, #e6f1ff, #fef9e7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 1px 4px rgba(255, 255, 255, 0.3), 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    img {
+        vertical-align: middle;
+    }
+
+    &:hover {
+        box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.4), 0 6px 14px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
+
+    &:active {
+        box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.1);
+        transform: scale(0.98);
+    }
+}
+
+.email-tooltip {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+
+    &.visible {
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+        box-shadow: 0px 24px 28px 4px #00000024;
+    }
+
+    img {
+        max-width: none;
+    }
+
+    .tooltip-gradient-border {
+        z-index: -1;
+    }
+
+    button {
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+.copy-tooltip {
+    position: absolute;
+    top: -70px;
+    width: max-content;
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease-in-out;
+    z-index: 30;
+
+    &.visible {
+       opacity: 1;
+       pointer-events: auto;
+    }
+}
+
+#email-toggle {
+    overflow: visible;
+
+    &:hover {
+        background-color: transparent;
+    }
+}
+
+.tooltip-gradient-border {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 4px;
+      background: linear-gradient(to bottom right, #fbe6e6, #e6f1ff, #fef9e7);
+      -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+}
+// Button animation
+#email-icon {
+    overflow: visible;
+
+  #lid {
+    transform: rotateX(0deg);
+    transform-origin: center top;
+    transition: transform 0.4s ease;
+  }
+
+  &.hovered #lid {
+    transform: rotateX(55deg); // Привідкрито
+  }
+
+  &.opened #lid {
+    transform: rotateX(145deg);
+    transform-origin: 0 2px;
+  }
+}
+
+
