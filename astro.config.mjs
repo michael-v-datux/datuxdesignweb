@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 import react from '@astrojs/react';
 import path from 'path';
 
@@ -7,6 +8,9 @@ if (!process.env.GA_ID) {
 }
 
 export default defineConfig({
+  adapter: node({
+    mode: 'standalone', // важливо для Render
+  }),
   integrations: [react()],
   vite: {
     define: {
