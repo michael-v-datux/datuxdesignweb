@@ -1,23 +1,40 @@
 ---
-import fs from "fs";
+export const prerender = false;
+
 import Layout from "../../../layouts/Layout.astro";
 import { getTranslations } from "../../../utils/getTranslations";
-
-export async function getStaticPaths() {
-    const langs = ['en', 'uk'];
-    const projectsDir = new URL("../../../data/projects", import.meta.url);
-    const files = fs.readdirSync(projectsDir).filter(f => f.endsWith(".json")).map(f => f.replace(".json", ""));
-    return langs.flatMap((lang) =>
-        files.map((slug) => ({
-            params: { lang, slug }
-        }))
-    );
-}
+import { supabase } from "../../../lib/supabaseClient";
 
 const { lang, slug } = Astro.params;
 const translations = await getTranslations(lang);
-const projectPath = new URL(`../../../data/projects/${slug}.json`, import.meta.url);
-const project = JSON.parse(await fs.promises.readFile(projectPath, "utf-8"));
+
+// Отримуємо проект із Supabase
+const { data: projectData, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+if (error || !projectData) {
+    throw new Error("Project not found");
+}
+
+// Парсимо секції (content_en)
+let sections = [];
+try {
+    sections = JSON.parse(projectData.content_en || "{}").sections || [];
+} catch (e) {
+    sections = [];
+}
+
+// Готуємо проект у форматі, схожому на старий JSON
+const project = {
+    title: projectData.title_en,
+    subtitle: projectData.description_en,
+    protected: projectData.is_protected,
+    passwordHash: projectData.password_hash,
+    sections
+};
 ---
 
 <Layout translations={translations}>
@@ -27,7 +44,6 @@ const project = JSON.parse(await fs.promises.readFile(projectPath, "utf-8"));
 
     {project ? (
         project.protected ? (
-            <!-- Блок із паролем (без змін) -->
             <section
                 id="protected-container"
                 data-slug={slug}
