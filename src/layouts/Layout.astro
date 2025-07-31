@@ -82,9 +82,7 @@ const footerLinks = [
       </p>
     </footer>
 
-    <script is:inline>
-        window.PUBLIC_GA_ID = "${GA_ID}";
-    </script>
+    <script is:inline id="ga-config" data-ga-id={GA_ID}></script>
 
     <!-- Публічні -->
     <script src="/scripts/menu.js" type="module" client:load></script>

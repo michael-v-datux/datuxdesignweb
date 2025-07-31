@@ -1,5 +1,5 @@
 export function initAnalytics() {
-    const GA_ID = window.PUBLIC_GA_ID;
+    const GA_ID = document.getElementById('ga-config')?.dataset.gaId;
 
     if (!GA_ID) {
         console.warn('⚠️ Google Analytics ID is not set. Analytics will not be loaded.');
