@@ -103,7 +103,10 @@ const project = {
                 <div id="loader" class="hidden my-6">
                     <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900 mx-auto"></div>
                 </div>
-                <script type="module" src={Astro.resolve('../scripts/project-protected.js')}></script>
+                <script 
+                    type="module" 
+                    src={new URL('../../../scripts/project-protected.js', import.meta.url).pathname}>
+                </script>
             </section>
         ) : (
             <!-- Контент проекту -->
