@@ -81,10 +81,8 @@ const footerLinks = [
     </footer>
 
     <script is:inline>
-        window.PUBLIC_GA_ID = "{Astro.escapeHTML(import.meta.env.PUBLIC_GA_ID)}";
+        window.PUBLIC_GA_ID = {JSON.stringify(import.meta.env.PUBLIC_GA_ID)};
     </script>
-
-
 
     <!-- Публічні -->
     <script src="/scripts/menu.js" type="module" client:load></script>
