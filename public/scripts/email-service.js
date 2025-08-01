@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         form.reset();
         touched.clear();
         validateAll();
+        hcaptcha.reset(); // Скидаємо капчу після закриття
     };
 
     // === Додаємо контейнер для помилок із іконкою ===
@@ -145,8 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // === Перевіряємо токен hCaptcha ===
         const captchaResponse = hcaptcha.getResponse();
-        if (!captchaResponse) {
+        if (!captchaResponse || captchaResponse.length < 10) {
             showError("Please complete the captcha before sending.");
+            hcaptcha.reset();
             return;
         }
 
@@ -162,14 +164,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 showModal();
-                hcaptcha.reset(); // очищаємо капчу
             } else {
-                console.error("Formspree error:", await response.json());
-                showError("Failed to send the form. Please try again.");
+                const err = await response.json();
+                console.error("Formspree error:", err);
+                showError("Captcha failed or expired. Please try again.");
+                hcaptcha.reset();
             }
         } catch (err) {
             console.error("Network error:", err);
             showError("Network error. Please check your connection and try again.");
+            hcaptcha.reset();
         }
     });
 
