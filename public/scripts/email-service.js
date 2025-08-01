@@ -143,7 +143,15 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // === Перевіряємо токен hCaptcha ===
+        const captchaResponse = hcaptcha.getResponse();
+        if (!captchaResponse) {
+            showError("Please complete the captcha before sending.");
+            return;
+        }
+
         const formData = new FormData(form);
+        formData.append("h-captcha-response", captchaResponse);
 
         try {
             const response = await fetch(form.action, {
@@ -154,6 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 showModal();
+                hcaptcha.reset(); // очищаємо капчу
             } else {
                 console.error("Formspree error:", await response.json());
                 showError("Failed to send the form. Please try again.");
