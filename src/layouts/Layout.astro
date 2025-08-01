@@ -1,6 +1,4 @@
 ---
-import "../styles/main.scss";
-
 import { getTranslations } from '../utils/getTranslations';
 import Navbar from '../components/Navbar.astro';
 import CookieBanner from '../components/CookieBanner.astro';
@@ -28,6 +26,7 @@ const footerLinks = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
     <script id="ga-config" data-ga-id={GA_ID}></script>
   </head>
   <body class="bg-white text-gray-800 font-base flex flex-col min-h-screen">

@@ -35,3 +35,7 @@ export async function post({ request }) {
     return new Response(JSON.stringify({ success: false }), { status: 500 });
   }
 }
+
+export async function GET() {
+  return new Response("Method not allowed", { status: 405 });
+}

@@ -10,3 +10,9 @@ services:
         value: 22.16.0
     plan: starter
     autoDeploy: true
+
+staticPublishPath: ./dist
+headers:
+  - path: /styles/main.css
+    name: Cache-Control
+    value: public, max-age=31536000, immutable

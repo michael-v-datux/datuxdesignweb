@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host & node show-url.js",
-    "build": "astro build",
+    "build:css": "sass src/styles/main.scss public/styles/main.css --no-source-map",
+    "build": "npm run build:css && astro build",
     "preview": "astro preview --host 0.0.0.0 --port 10000",
     "astro": "astro"
   },
