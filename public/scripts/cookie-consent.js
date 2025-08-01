@@ -1,4 +1,4 @@
-import { initAnalytics } from './analytics.js';
+import { enableAnalytics } from './analytics.js';
 import { showToast } from '/scripts/toast.js';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const declinedText = banner.dataset.declinedText;
 
     function deleteAnalyticsCookies() {
-        // Видаляємо GA-куки
         const cookies = document.cookie.split("; ");
         cookies.forEach(cookie => {
             if (cookie.startsWith("_ga") || cookie.startsWith("_gid") || cookie.startsWith("_gat")) {
@@ -19,14 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Видаляємо скрипт GA, якщо він був доданий
         const gaScript = document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]');
         if (gaScript) gaScript.remove();
 
-        // Очищаємо dataLayer і скидаємо прапорець
         window.dataLayer = [];
         window.gtagLoaded = false;
-        console.log("Google Analytics disabled and removed.");
+        console.log("❌ [GA] Disabled and cookies removed");
     }
 
     function showBanner() {
@@ -44,23 +41,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const cookiesChoice = localStorage.getItem("cookiesAccepted");
 
-    // GA вантажиться тільки якщо є згода і ID
-    if (cookiesChoice === "true" && window.PUBLIC_GA_ID) {
-        initAnalytics();
+    if (cookiesChoice === "true") {
+        enableAnalytics();
+        console.log("ℹ️ [GA] Auto-enabled (previous consent)");
+    } else if (cookiesChoice === "false") {
+        console.log("ℹ️ [GA] Not loaded (previous decline)");
     }
 
     acceptBtn.addEventListener("click", () => {
         localStorage.setItem("cookiesAccepted", "true");
         showToast(acceptedText, "success");
-        hideBanner(() => {
-            if (window.PUBLIC_GA_ID) initAnalytics();
-        });
+        console.log("👍 [Cookies] Accepted");
+        hideBanner(() => enableAnalytics());
     });
 
     declineBtn.addEventListener("click", () => {
         localStorage.setItem("cookiesAccepted", "false");
         deleteAnalyticsCookies();
         showToast(declinedText, "error");
+        console.log("👎 [Cookies] Declined");
         hideBanner(() => setTimeout(() => location.reload(), 4000));
     });
 
@@ -70,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const prevChoice = localStorage.getItem("cookiesAccepted");
             localStorage.removeItem("cookiesAccepted");
             localStorage.setItem("previousCookiesChoice", prevChoice);
+            console.log("↩️ [Cookies] Choice reset");
             location.reload();
         });
     }
