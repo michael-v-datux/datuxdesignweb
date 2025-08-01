@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @use './abstracts/variables' as *;
 @use 'core' as *;
 @use './abstracts/buttons';
@@ -10,7 +14,3 @@
 @use './components/portfolio';
 @use './components/availability';
 @use './components/contacts';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
