@@ -1,67 +1,168 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.getElementById("email-toggle");
-  const icon = document.getElementById("email-icon");
-  const tooltip = document.getElementById("email-tooltip");
-  const copyBtn = document.getElementById("copy-email");
-  const copyTooltip = document.getElementById("copy-tooltip");
+    const form = document.getElementById("contact-form");
+    const btn = document.getElementById("submit-btn");
+    const honeypot = document.getElementById("website"); // honeypot
 
-  if (!toggleBtn || !icon || !tooltip || !copyBtn || !copyTooltip) return;
+    if (!form || !btn) return;
 
-  let isOpen = false;
+    const fields = {
+        name: {
+            input: document.getElementById("name"),
+            error: document.getElementById("name-error"),
+            validate: val => val.trim().length >= 1,
+        },
+        email: {
+            input: document.getElementById("email"),
+            error: document.getElementById("email-error"),
+            validate: val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim()),
+        },
+        vacancy: {
+            input: document.getElementById("vacancy"),
+            error: document.getElementById("vacancy-error"),
+            validate: val => {
+                const cleaned = val.trim().replace(/^https?:\/\//i, '');
+                const allowed = /^[a-z0-9\-._~:/?#\[\]@!$&'()*+,;=]+$/i.test(cleaned);
+                let isURL = false;
+                try {
+                    const url = new URL("https://" + cleaned);
+                    isURL = !!url.hostname && url.hostname.includes(".");
+                } catch (e) {
+                    isURL = false;
+                }
+                return allowed && isURL;
+            },
+        },
+        message: {
+            input: document.getElementById("message"),
+            error: document.getElementById("message-error"),
+            validate: val => val.trim().length >= 6,
+        },
+    };
 
-  const openTooltip = () => {
-    tooltip.classList.remove("hidden");
-    requestAnimationFrame(() => tooltip.classList.add("visible"));
-    icon.classList.remove("hovered");
-    icon.classList.add("opened");
-    isOpen = true;
-  };
+    let touched = new Set();
 
-  const closeTooltip = () => {
-    tooltip.classList.remove("visible");
-    setTimeout(() => tooltip.classList.add("hidden"), 200);
-    icon.classList.remove("opened");
-    isOpen = false;
-  };
+    const validateAll = () => {
+        let isValid = true;
 
-  const showCopyTooltip = () => {
-    copyTooltip.classList.remove("hidden");
-    void copyTooltip.offsetWidth;
-    copyTooltip.classList.add("visible");
+        Object.values(fields).forEach(({ input, error, validate }) => {
+            if (!input) return;
+            const value = input.value;
+            const valid = validate(value);
 
-    setTimeout(() => {
-      copyTooltip.classList.remove("visible");
-      copyTooltip.classList.add("hidden");
-    }, 2000);
-  };
+            if (touched.has(input) && error) {
+                error.classList.toggle("hidden", valid);
+            }
 
-  toggleBtn.addEventListener("mouseenter", () => {
-    if (!isOpen) icon.classList.add("hovered");
-  });
+            if (!valid) isValid = false;
+        });
 
-  toggleBtn.addEventListener("mouseleave", () => {
-    if (!isOpen) icon.classList.remove("hovered");
-  });
+        btn.disabled = !isValid;
+        btn.classList.toggle("opacity-50", !isValid);
+        btn.classList.toggle("cursor-not-allowed", !isValid);
+    };
 
-  toggleBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    isOpen ? closeTooltip() : openTooltip();
-  });
+    Object.entries(fields).forEach(([key, { input }]) => {
+        if (!input) return;
 
-  document.addEventListener("click", (e) => {
-    if (isOpen && !tooltip.contains(e.target) && !toggleBtn.contains(e.target)) {
-      closeTooltip();
-    }
-  });
+        input.addEventListener("input", () => {
+            setTimeout(validateAll, 300);
+        });
 
-  tooltip.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => closeTooltip());
-  });
-
-  copyBtn.addEventListener("click", () => {
-    navigator.clipboard.writeText("michael.v@datux.design").then(() => {
-      showCopyTooltip();
-      closeTooltip();
+        input.addEventListener("blur", () => {
+            touched.add(input);
+            if (key === "vacancy") {
+                input.value = input.value.trim().replace(/^https?:\/\//i, '');
+            }
+            validateAll();
+        });
     });
-  });
+
+    // Modal logic
+    const modal = document.getElementById("success-modal");
+    const confirmBtn = document.getElementById("confirm-btn");
+
+    const showModal = () => {
+        if (!modal || !confirmBtn) return;
+
+        modal.classList.remove("hidden", "modal-exit");
+        modal.classList.add("flex", "modal-enter");
+
+        const timer = setTimeout(() => startFadeOut(), 4000);
+
+        confirmBtn.onclick = () => {
+            clearTimeout(timer);
+            startFadeOut();
+        };
+    };
+
+    const startFadeOut = () => {
+        modal.classList.remove("modal-enter");
+        modal.classList.add("modal-exit");
+        setTimeout(() => hideModal(), 400);
+    };
+
+    const hideModal = () => {
+        modal.classList.remove("flex", "modal-exit");
+        modal.classList.add("hidden");
+        form.reset();
+        touched.clear();
+        validateAll();
+    };
+
+    // === Додаємо контейнер для помилок із іконкою ===
+    const errorBox = document.createElement("div");
+    errorBox.id = "form-error";
+    errorBox.className = "hidden opacity-0 flex items-center gap-2 mt-4 p-3 rounded-lg transition-opacity duration-300 ease-in-out";
+    errorBox.innerHTML = `
+        <svg class="w-5 h-5 flex-shrink-0 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z"/>
+        </svg>
+        <span class="text-sm text-red-700">Something went wrong. Please try again later.</span>
+    `;
+    form.appendChild(errorBox);
+
+    const showError = (message) => {
+        errorBox.querySelector("span").textContent = message || "Something went wrong. Please try again later.";
+        errorBox.classList.remove("hidden", "opacity-0");
+        errorBox.classList.add("opacity-100");
+    };
+
+    const hideError = () => {
+        errorBox.classList.add("opacity-0");
+        setTimeout(() => errorBox.classList.add("hidden"), 300);
+    };
+
+    // === Відправка на Formspree ===
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideError();
+
+        // === Honeypot check ===
+        if (honeypot && honeypot.value.trim() !== "") {
+            console.warn("Spam blocked: honeypot filled");
+            return;
+        }
+
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: { "Accept": "application/json" }
+            });
+
+            if (response.ok) {
+                showModal();
+            } else {
+                console.error("Formspree error:", await response.json());
+                showError("Failed to send the form. Please try again.");
+            }
+        } catch (err) {
+            console.error("Network error:", err);
+            showError("Network error. Please check your connection and try again.");
+        }
+    });
+
+    validateAll();
 });

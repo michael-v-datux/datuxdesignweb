@@ -187,4 +187,21 @@
   }
 }
 
+#form-error {
+    @apply bg-red-50 border border-red-200 shadow-md;
+    opacity: 0;
+
+    &.opacity-100 {
+        opacity: 1;
+    }
+
+    svg {
+        min-width: 20px;
+    }
+
+    span {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+}
 
