@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("contact-form");
     const btn = document.getElementById("submit-btn");
-    const honeypot = document.getElementById("website"); // honeypot
+    const honeypot = document.getElementById("website");
 
     if (!form || !btn) return;
 
@@ -77,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Modal logic
     const modal = document.getElementById("success-modal");
     const confirmBtn = document.getElementById("confirm-btn");
 
@@ -107,10 +106,8 @@ document.addEventListener("DOMContentLoaded", () => {
         form.reset();
         touched.clear();
         validateAll();
-        hcaptcha.reset(); // Скидаємо капчу після закриття
     };
 
-    // === Додаємо контейнер для помилок із іконкою ===
     const errorBox = document.createElement("div");
     errorBox.id = "form-error";
     errorBox.className = "hidden opacity-0 flex items-center gap-2 mt-4 p-3 rounded-lg transition-opacity duration-300 ease-in-out";
@@ -133,27 +130,16 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => errorBox.classList.add("hidden"), 300);
     };
 
-    // === Відправка на Formspree ===
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         hideError();
 
-        // === Honeypot check ===
         if (honeypot && honeypot.value.trim() !== "") {
             console.warn("Spam blocked: honeypot filled");
             return;
         }
 
-        // === Перевіряємо токен hCaptcha ===
-        const captchaResponse = hcaptcha.getResponse();
-        if (!captchaResponse || captchaResponse.length < 10) {
-            showError("Please complete the captcha before sending.");
-            hcaptcha.reset();
-            return;
-        }
-
         const formData = new FormData(form);
-        formData.append("h-captcha-response", captchaResponse);
 
         try {
             const response = await fetch(form.action, {
@@ -165,15 +151,12 @@ document.addEventListener("DOMContentLoaded", () => {
             if (response.ok) {
                 showModal();
             } else {
-                const err = await response.json();
-                console.error("Formspree error:", err);
-                showError("Captcha failed or expired. Please try again.");
-                hcaptcha.reset();
+                console.error("Formspree error:", await response.json());
+                showError("Failed to send the form. Please try again.");
             }
         } catch (err) {
             console.error("Network error:", err);
             showError("Network error. Please check your connection and try again.");
-            hcaptcha.reset();
         }
     });
 
