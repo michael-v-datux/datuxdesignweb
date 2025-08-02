@@ -14,6 +14,8 @@ const { data: projects, error } = await supabase
     .eq("is_published", true)
     .order("created_at", { ascending: false })
     .limit(3);
+
+console.log("Supabase response:", { projects, error });
 ---
 <Layout translations={translations}>
   <SelectedProjects translations={translations} lang={lang} projects={projects} loadMore={true} />

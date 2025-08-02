@@ -24,6 +24,8 @@ export async function getStaticPaths() {
     { params: { lang: 'uk' } },
   ];
 }
+
+console.log("Supabase response:", { projects, error });
 ---
 
 <Layout translations={translations}>
