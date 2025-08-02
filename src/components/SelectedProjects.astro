@@ -3,7 +3,12 @@ export const prerender = false;
 
 import { supabase } from '@/lib/supabaseClient';
 
-const { translations, lang, loadMore = true } = Astro.props;
+let { translations, lang, loadMore = true } = Astro.props;
+
+// Якщо мову не передали пропсом — визначаємо з URL
+if (!lang) {
+  lang = Astro.url.pathname.startsWith('/en') ? 'en' : 'uk';
+}
 
 // Отримуємо перші 3 проекти
 const { data: projectsRaw, error } = await supabase
@@ -35,9 +40,11 @@ const projects = projectsRaw?.map(p => ({
         {projects.map((item) => (
           <a href={`/${lang}/projects/${item.slug}`}
              class="group block w-full h-[300px] border border-neutral-200 rounded-xl px-6 text-center relative overflow-hidden transition-colors hover:bg-neutral-100 mx-auto flex flex-col items-center justify-center">
+              <!-- Категорія: тільки на hover -->
               <span class="block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm mb-1">
                 {item.category}
               </span>
+              <!-- Заголовок: завжди видно -->
               <span class="text-lg font-medium text-neutral-800">{item.title}</span>
           </a>
         ))}
