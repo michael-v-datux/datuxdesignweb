@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const tooltipEl = e.target.closest(".custom-tooltip");
         const existingTooltips = document.querySelectorAll(".custom-tooltip");
 
-        // Якщо клік поза тултіпом і не по іконці — закриваємо
         if (!icon && !tooltipEl && !isDragging) {
             existingTooltips.forEach(t => {
                 t.classList.add("closing");
@@ -27,10 +26,9 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Якщо клік по іконці — відкриваємо тултіп
         if (icon) {
             e.stopPropagation();
-            existingTooltips.forEach(t => t.remove()); // закриваємо інші
+            existingTooltips.forEach(t => t.remove());
 
             const tooltip = document.createElement("div");
             tooltip.className = "custom-tooltip";
@@ -47,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const tooltipKey = `${wrapper.dataset.tooltipKey || "tooltip"}_${[...wrapper.parentNode.children].indexOf(wrapper)}`;
 
-            // Встановлюємо позицію: збережену або автоматичну
             requestAnimationFrame(() => {
                 const saved = loadPosition(tooltipKey);
                 if (saved) {
@@ -56,26 +53,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                     const iconRect = icon.getBoundingClientRect();
                     const tooltipRect = tooltip.getBoundingClientRect();
-
                     let top = icon.offsetTop - tooltipRect.height - 10;
                     let left = icon.offsetLeft - tooltipRect.width + iconRect.width;
-
                     if (top < 0) top = icon.offsetTop + iconRect.height + 10;
                     if (left < 0) left = icon.offsetLeft + iconRect.width + 10;
-
                     tooltip.style.top = `${top}px`;
                     tooltip.style.left = `${left}px`;
                 }
             });
 
-            // Закриття
             tooltip.querySelector(".tooltip-close").addEventListener("click", (event) => {
                 event.stopPropagation();
                 tooltip.classList.add("closing");
                 setTimeout(() => tooltip.remove(), 300);
             });
 
-            // Початок drag
             const dragHandle = tooltip.querySelector(".tooltip-drag-handle");
             dragHandle.addEventListener("mousedown", (e) => {
                 e.preventDefault();
@@ -89,37 +81,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 isDragging = true;
             });
 
-            // Запам’ятовуємо ключ для збереження позиції
             tooltip.dataset.key = tooltipKey;
         }
     });
 
-    // Drag рух із відступами 5–8%
     document.addEventListener("mousemove", (e) => {
         if (draggedTooltip) {
             const tooltipRect = draggedTooltip.getBoundingClientRect();
-            const marginX = containerRect.width * 0.05; // 5% відступ
+            const marginX = containerRect.width * 0.05;
             const marginY = containerRect.height * 0.05;
 
             let newX = e.clientX - containerRect.left - offsetX;
             let newY = e.clientY - containerRect.top - offsetY;
 
-            // Обмеження з відступами
-            newX = Math.min(
-                Math.max(newX, marginX),
-                containerRect.width - tooltipRect.width - marginX
-            );
-            newY = Math.min(
-                Math.max(newY, marginY),
-                containerRect.height - tooltipRect.height - marginY
-            );
+            newX = Math.min(Math.max(newX, marginX), containerRect.width - tooltipRect.width - marginX);
+            newY = Math.min(Math.max(newY, marginY), containerRect.height - tooltipRect.height - marginY);
 
             draggedTooltip.style.left = `${newX}px`;
             draggedTooltip.style.top = `${newY}px`;
         }
     });
 
-    // Drag кінець
     document.addEventListener("mouseup", () => {
         if (draggedTooltip) {
             const x = parseInt(draggedTooltip.style.left);
@@ -131,7 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Закриття по ESC
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
             document.querySelectorAll(".custom-tooltip").forEach(t => {

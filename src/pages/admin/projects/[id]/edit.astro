@@ -1,0 +1,89 @@
+---
+import { supabase } from '@/lib/supabaseClient.js';
+
+const projectId = Astro.params.id;
+
+// Завантажуємо проект
+const { data: project, error: projectError } = await supabase
+  .from('projects')
+  .select('*')
+  .eq('id', projectId)
+  .single();
+
+// Завантажуємо блоки
+const { data: blocks, error: blocksError } = await supabase
+  .from('project_blocks')
+  .select('*')
+  .eq('project_id', projectId)
+  .order('position', { ascending: true });
+
+let error = '';
+let success = '';
+
+async function handleUpdate(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updatedData = {
+        title_en: formData.get('title_en'),
+        title_uk: formData.get('title_uk'),
+        description_en: formData.get('description_en'),
+        description_uk: formData.get('description_uk'),
+        thumbnail: formData.get('thumbnail'),
+        is_protected: formData.get('is_protected') === 'on',
+        password: formData.get('password'),
+        status: formData.get('status')
+    };
+
+    const { error: updateError } = await supabase
+        .from('projects')
+        .update(updatedData)
+        .eq('id', projectId);
+
+    if (updateError) {
+        error = updateError.message;
+    } else {
+        success = 'Project updated!';
+    }
+}
+---
+
+<html>
+  <body class="p-8">
+    <h1 class="text-2xl mb-4">Edit Project</h1>
+    {error && <p class="text-red-500">{error}</p>}
+    {success && <p class="text-green-500">{success}</p>}
+    <form on:submit="handleUpdate" class="flex flex-col gap-4 max-w-lg">
+      <input type="text" name="title_en" value={project.title_en} class="p-2 border rounded" />
+      <input type="text" name="title_uk" value={project.title_uk} class="p-2 border rounded" />
+      <textarea name="description_en" class="p-2 border rounded">{project.description_en}</textarea>
+      <textarea name="description_uk" class="p-2 border rounded">{project.description_uk}</textarea>
+      <input type="url" name="thumbnail" value={project.thumbnail} class="p-2 border rounded" />
+      <div class="flex items-center gap-2">
+        <input type="checkbox" name="is_protected" id="is_protected" checked={project.is_protected} />
+        <label for="is_protected">Password Protected?</label>
+      </div>
+      <input type="text" name="password" value={project.password} class="p-2 border rounded" />
+      <select name="status" class="p-2 border rounded">
+        <option value="draft" selected={project.status === 'draft'}>Draft</option>
+        <option value="published" selected={project.status === 'published'}>Published</option>
+      </select>
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded">Update</button>
+    </form>
+
+    <h2 class="text-xl mt-8 mb-4">Blocks</h2>
+    <div id="blocks" class="relative flex flex-col gap-4">
+      {blocks?.map(block => (
+        <div class="block-item p-4 border rounded bg-gray-100 relative" data-id={block.id}>
+          <div class="flex items-center justify-between mb-2">
+            <span class="block-drag-handle cursor-move">☰</span>
+            <span class="text-sm text-gray-500">{block.type}</span>
+          </div>
+          <textarea class="w-full p-2 border rounded">{block.content?.text || ''}</textarea>
+        </div>
+      ))}
+    </div>
+    <button class="bg-green-500 text-white px-4 py-2 mt-4 rounded">+ Add Block</button>
+
+    <script type="module" src="/js/drag-blocks.js"></script>
+  </body>
+</html>
