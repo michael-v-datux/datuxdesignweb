@@ -3,12 +3,12 @@ export const prerender = false;
 
 import { supabase } from '@/lib/supabaseClient';
 
-const { translations, lang, loadMore = false } = Astro.props;
+const { translations, lang, loadMore = true } = Astro.props;
 
 // Отримуємо опубліковані проекти
 const { data: projects, error } = await supabase
   .from("projects")
-  .select("slug, title_en, title_uk, category_en, category_uk, thumbnail_url, is_published")
+  .select("slug, title_en, title_uk, category_en, category_uk, is_published")
   .eq("is_published", true)
   .order("created_at", { ascending: false });
 
@@ -29,10 +29,7 @@ if (error) {
           <a href={`/${lang}/projects/${item.slug}`}
              class="group block w-full h-[300px] border border-neutral-200 rounded-xl px-6 text-center relative overflow-hidden transition-colors hover:bg-neutral-100 mx-auto flex items-center justify-center">
             <div class="relative flex flex-col items-center justify-center transition-all duration-300">
-              {item.thumbnail_url && (
-                <img src={item.thumbnail_url} alt={lang === 'en' ? item.title_en : item.title_uk} class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-50 transition-opacity duration-300" />
-              )}
-              <div class="relative z-10 text-lg font-medium text-neutral-800 mb-0 group-hover:mb-2 transition-all duration-300">
+              <div class="text-lg font-medium text-neutral-800 mb-0 group-hover:mb-2 transition-all duration-300">
                 <span class="block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {lang === 'en' ? item.category_en : item.category_uk}
                 </span>
