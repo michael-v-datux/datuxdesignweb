@@ -1,6 +1,8 @@
 ---
 import { supabase } from '@/lib/supabaseClient.js';
 
+export const prerender = false;
+
 const { data: projects, error } = await supabase
   .from('projects')
   .select('*')
