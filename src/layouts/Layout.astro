@@ -3,7 +3,8 @@ import { getTranslations } from '../utils/getTranslations';
 import Navbar from '../components/Navbar.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 
-const lang = Astro.params.lang;
+const lang = Astro.params?.lang || 'en';
+
 const translations = await getTranslations(lang);
 const currentPath = Astro.url.pathname;
 

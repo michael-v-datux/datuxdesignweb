@@ -1,19 +1,34 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('project-content');
   const loader = document.getElementById('project-loader');
+  const passwordFormContainer = document.getElementById('project-password-container');
   const section = document.getElementById('project-page');
 
   const slug = section.dataset.slug;
   const lang = section.dataset.lang;
 
   try {
-    const res = await fetch(`/api/projects/${slug}`, { method: 'POST', body: JSON.stringify({ key: '' }) });
-    if (!res.ok) throw new Error('Failed to load project');
+    const res = await fetch(`/api/projects/${slug}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: '' }) // спершу пробуємо без пароля
+    });
+
     const data = await res.json();
+
+    if (res.status === 401 && data.error === 'Unauthorized') {
+      // проект захищений — показуємо форму
+      loader.classList.add('hidden');
+      passwordFormContainer.classList.remove('hidden');
+      return;
+    }
+
+    if (!res.ok) throw new Error('Failed to load project');
 
     loader.classList.add('hidden');
     container.classList.remove('hidden');
 
+    // Рендер контенту
     container.innerHTML = `
       <header class="mb-12">
         <h1 class="text-4xl font-bold mb-4">${data.title}</h1>
