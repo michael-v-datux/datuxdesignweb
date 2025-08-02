@@ -8,6 +8,7 @@ if (!process.env.GA_ID) {
 }
 
 export default defineConfig({
+  output: "server",
   adapter: node({
     mode: 'standalone', // важливо для Render
   }),
