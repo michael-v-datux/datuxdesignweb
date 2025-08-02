@@ -2090,9 +2090,6 @@ video {
 .max-w-lg{
   max-width: 32rem;
 }
-.max-w-md{
-  max-width: 28rem;
-}
 .max-w-screen-xl{
   max-width: 1280px;
 }
@@ -2740,6 +2737,10 @@ video {
 .hover\:bg-neutral-100:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(245 245 245 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-neutral-200:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 229 229 / var(--tw-bg-opacity, 1));
 }
 .hover\:bg-secondary:hover{
   --tw-bg-opacity: 1;

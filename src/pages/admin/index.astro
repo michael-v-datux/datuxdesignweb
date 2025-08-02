@@ -11,7 +11,7 @@ const translations = await getTranslations(lang);
 const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
-    .eq("status", "published")
+    .eq("is_published", true)
     .order("created_at", { ascending: false })
     .limit(3);
 ---

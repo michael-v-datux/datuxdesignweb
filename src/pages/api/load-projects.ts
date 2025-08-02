@@ -9,7 +9,7 @@ export async function GET({ request }) {
     const { data, error } = await supabase
         .from("projects")
         .select("*")
-        .eq("status", "published")
+        .eq("is_published", true)
         .order("created_at", { ascending: false })
         .range(offset, offset + limit - 1);
 

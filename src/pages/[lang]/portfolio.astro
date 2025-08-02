@@ -4,14 +4,14 @@ import SelectedProjects from '@/components/SelectedProjects.astro';
 import { getTranslations } from '@/utils/getTranslations';
 import { supabase } from '@/lib/supabaseClient';
 
-const lang = Astro.params.lang;
+const lang = Astro.params?.lang || 'en';
 const translations = await getTranslations(lang);
 
 // Отримуємо опубліковані проєкти під час білді
 const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
-    .eq("status", "published")
+    .eq("is_published", true)
     .order("created_at", { ascending: false });
 
 if (error) {
