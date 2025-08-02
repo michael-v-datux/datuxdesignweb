@@ -1,7 +1,7 @@
 import { loadProject } from '/scripts/api.js';
 import { showToast } from '/scripts/toast.js';
 
-import { translations } from '/scripts/translations.js'; // зробимо один збірник
+import { translations } from '/scripts/translations.js';
 const lang = container.dataset.lang || 'en';
 
 document.addEventListener("DOMContentLoaded", () => {
