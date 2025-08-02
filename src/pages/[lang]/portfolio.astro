@@ -7,10 +7,11 @@ import { supabase } from '@/lib/supabaseClient';
 const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
 
-// Отримуємо проєкти під час білду
+// Отримуємо опубліковані проєкти під час білді
 const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
+    .eq("status", "published")
     .order("created_at", { ascending: false });
 
 if (error) {
