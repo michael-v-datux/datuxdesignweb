@@ -18,6 +18,7 @@ export async function POST({ params, request }) {
     }
 
     if (project.is_protected) {
+        console.log("DEBUG PASSWORD CHECK:", { key, hashInDB: project.password_hash }); // 👈 додали
         const match = await bcrypt.compare(key, project.password_hash);
         if (!match) {
             return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
