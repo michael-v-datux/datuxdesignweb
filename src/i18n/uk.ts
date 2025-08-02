@@ -66,6 +66,10 @@ export default {
       }
     ]
   },
+  projects: {
+      comingSoon: "Скоро буде...",
+      pageNotFound: "Сторінка не знайдена"
+  },
   selectedProjects: {
     title: "Вибрані проєкти",
     items: [
@@ -147,7 +151,8 @@ export default {
     checkboxError: "Ви повинні прийняти умови, щоб продовжити.",
     unlockButton: "Розблокувати",
     backButton: "Назад",
-    wrongPassword: "Невірний пароль. Спробуйте ще раз."
+    wrongPassword: "Невірний пароль. Спробуйте ще раз.",
+    accessGranted: "Доступ наданий"
   },
   cookies: {
     bannerText: "Цей сайт використовує файли cookie для аналізу трафіку та покращення вашого досвіду.",

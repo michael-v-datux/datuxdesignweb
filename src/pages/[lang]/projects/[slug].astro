@@ -8,7 +8,7 @@ import { supabase } from "../../../lib/supabaseClient";
 const { lang, slug } = Astro.params;
 const translations = await getTranslations(lang);
 
-// Отримуємо проект із Supabase
+// Отримуємо проект
 const { data: projectData, error } = await supabase
     .from("projects")
     .select("*")
@@ -19,22 +19,22 @@ if (error || !projectData) {
     throw new Error("Project not found");
 }
 
-// Парсимо секції (content_en)
-let sections = [];
-try {
-    sections = JSON.parse(projectData.content_en || "{}").sections || [];
-} catch (e) {
-    sections = [];
-}
+// Отримуємо блоки
+const { data: blocks } = await supabase
+    .from("project_blocks")
+    .select("*")
+    .eq("project_id", projectData.id)
+    .order("order", { ascending: true });
 
-// Готуємо проект у форматі, схожому на старий JSON
 const project = {
     title: projectData.title_en,
     subtitle: projectData.description_en,
     protected: projectData.is_protected,
     passwordHash: projectData.password_hash,
-    sections
+    blocks: blocks || []
 };
+
+const hasContent = project.blocks.length > 0;
 ---
 
 <Layout translations={translations}>
@@ -44,6 +44,7 @@ const project = {
 
     {project ? (
         project.protected ? (
+            <!-- Захищений проект -->
             <section
                 id="protected-container"
                 data-slug={slug}
@@ -95,7 +96,7 @@ const project = {
                         <svg class="mx-auto mb-3 w-12 h-12 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                         </svg>
-                        <p class="text-lg font-medium">Access granted</p>
+                        <p class="text-lg font-medium">{translations.protectedProjects.accessGranted}</p>
                     </div>
                 </div>
 
@@ -106,70 +107,46 @@ const project = {
                 <script type="module" src="/scripts/project-protected.js"></script>
             </section>
         ) : (
-            <!-- Контент проекту -->
-            <section class="container mx-auto py-12 px-6 max-w-screen-xl">
-                <header class="section-animate mb-12">
-                    <h1 class="text-4xl font-bold mb-4">{project.title}</h1>
-                    {project.subtitle && <p class="text-lg text-neutral-600">{project.subtitle}</p>}
-                </header>
+            hasContent ? (
+                <!-- Рендер блоків -->
+                <section class="container mx-auto py-12 px-6 max-w-screen-xl">
+                    <header class="section-animate mb-12">
+                        <h1 class="text-4xl font-bold mb-4">{project.title}</h1>
+                        {project.subtitle && <p class="text-lg text-neutral-600">{project.subtitle}</p>}
+                    </header>
 
-                {project.sections.map((section) => (
-                    <section class={`project-section section-animate ${section.layout}`}>
-                        {section.description && (
-                            <p class="section-description">{section.description}</p>
-                        )}
-
-                        {section.layout === "full" && section.images.map((img) => (
-                            <div class="screenshot-wrapper relative">
-                                <img src={img.src} alt={img.alt || "Screenshot"} />
-                                {img.tooltip && (
-                                    <button class="info-icon absolute bottom-3 right-3" data-tooltip={img.tooltip}>i</button>
-                                )}
-                            </div>
-                        ))}
-
-                        {section.layout === "side-by-side" && (
-                            <div class="side-by-side-grid">
-                                {section.images.map((img) => (
-                                    <div class="screenshot-wrapper relative">
-                                        <img src={img.src} alt={img.alt || "Screenshot"} />
-                                        {img.tooltip && (
-                                            <button class="info-icon absolute bottom-3 right-3" data-tooltip={img.tooltip}>i</button>
-                                        )}
-                                    </div>
-                                ))}
-                                {section.description && (
-                                    <div class="screenshot-description">{section.description}</div>
-                                )}
-                            </div>
-                        )}
-
-                        {section.layout === "gallery" && (
-                            <div class="screenshot-gallery">
-                                {section.images.map((img) => (
-                                    <div class="screenshot-wrapper relative">
-                                        <img src={img.src} alt={img.alt || "Screenshot"} />
-                                        {img.tooltip && (
-                                            <button class="info-icon absolute bottom-3 right-3" data-tooltip={img.tooltip}>i</button>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        {section.layout === "gallery" && section.description && (
-                            <p class="gallery-description">{section.description}</p>
-                        )}
-                    </section>
-                ))}
-            </section>
+                    {project.blocks.map((block) => (
+                        <section class={`grid gap-6 ${block.columns_count === 1 ? 'grid-cols-1' : block.columns_count === 2 ? 'grid-cols-2' : 'grid-cols-3'}`}>
+                            {block.data.columns.map((col) => (
+                                <div class="flex flex-col">
+                                    {col.image && (
+                                        <div class="relative">
+                                            <img src={col.image.url} class={`${block.columns_count === 1 ? 'h-[50vh] object-cover w-full' : 'h-auto w-full'}`} />
+                                            {col.image.tooltip && (
+                                                <div class="absolute bottom-2 left-2 bg-black/60 text-white p-2 text-sm rounded">
+                                                    {col.image.tooltip[lang]}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                    {col.text && col.text[lang] && (
+                                        <div class="mt-4 prose max-w-none" set:html={col.text[lang]} />
+                                    )}
+                                </div>
+                            ))}
+                        </section>
+                    ))}
+                </section>
+            ) : (
+                <!-- Заглушка -->
+                <section class="container mx-auto py-32 text-center">
+                    <h1 class="text-3xl font-semibold">{translations.projects.comingSoon}</h1>
+                </section>
+            )
         )
     ) : (
         <section class="text-center py-16">
             <h1 class="text-xl font-semibold">Project Not Found</h1>
         </section>
     )}
-
-    <script type="module" src="/scripts/section-animate.js"></script>
-    <script type="module" src="/scripts/tooltip.js"></script>
 </Layout>
