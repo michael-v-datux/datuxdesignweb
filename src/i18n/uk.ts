@@ -241,3 +241,9 @@ export default {
     lastUpdated: "Оновлено: 26 липня 2025 р."
   }
 };
+
+export const messages = {
+    wrongPassword: "Невірний пароль",
+    tooManyAttempts: "Забагато спроб. Спробуйте через {time}.",
+    retryNow: "Можете вводити пароль знову."
+};

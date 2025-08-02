@@ -243,3 +243,9 @@ export default {
       lastUpdated: "Last updated: July 26, 2025"
     }
   };
+
+export const messages = {
+    wrongPassword: "Wrong password",
+    tooManyAttempts: "Too many attempts. Try again in {time}.",
+    retryNow: "You can try again now."
+};
