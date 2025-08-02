@@ -1,6 +1,6 @@
 ---
 export const prerender = false;
-const { translations, lang } = Astro.props;
+const { translations, lang, projects } = Astro.props;
 ---
 
 <section id="selected-projects" class="selected-projects w-full py-12 px-6 md:px-10 lg:px-16">
@@ -25,5 +25,4 @@ const { translations, lang } = Astro.props;
       ))}
     </div>
   </div>
-  <script type="module" src="/scripts/features/fetch-projects.js"></script>
 </section>

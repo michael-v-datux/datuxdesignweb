@@ -1,11 +1,21 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import SelectedProjects from '@/components/SelectedProjects.astro';
-
 import { getTranslations } from '@/utils/getTranslations';
+import { supabase } from '@/lib/supabaseClient';
 
 const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
+
+// Отримуємо проєкти для SSR
+const { data: projects, error } = await supabase
+    .from("projects")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+if (error) {
+    console.error("Error fetching projects:", error);
+}
 
 export async function getStaticPaths() {
   return [
@@ -17,9 +27,8 @@ export async function getStaticPaths() {
 
 <Layout translations={translations}>
   <head>
-    <title>{translations.navigation.about}</title>
+    <title>{translations.navigation.portfolio}</title>
   </head>
-  <h1>{translations.navigation.about}</h1>
-  <p>{translations.about.description}</p>
-  <SelectedProjects translations={translations} lang={lang} />
+  <h1 class="sr-only">{translations.navigation.portfolio}</h1>
+  <SelectedProjects translations={translations} lang={lang} projects={projects} />
 </Layout>
