@@ -1,5 +1,5 @@
 // src/pages/api/projects/[slug].ts
-import { supabase } from "../../../../lib/supabaseClient";
+import { supabase } from '@/lib/supabaseClient';
 
 export const prerender = false;
 
