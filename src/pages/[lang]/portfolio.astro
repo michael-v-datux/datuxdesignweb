@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabaseClient';
 const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
 
-// Отримуємо проєкти для SSR
+// Отримуємо проєкти під час білду
 const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
