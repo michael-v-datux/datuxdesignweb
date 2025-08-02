@@ -1,20 +1,5 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import { getTranslations } from '@/utils/getTranslations';
-import { supabase } from '@/lib/supabaseClient.js';
-
-const lang = Astro.params.lang;
-const translations = await getTranslations(lang);
-
-// Отримуємо проекти з БД
-const { data: projects, error } = await supabase
-  .from("projects")
-  .select("slug, title_en, title_uk, category_en, category_uk")
-  .order("created_at", { ascending: true });
-
-if (error) {
-  console.error("Error loading projects:", error);
-}
+export const prerender = false;
 ---
 
 <section id="selected-projects" class="selected-projects w-full py-12 px-6 md:px-10 lg:px-16">
@@ -39,4 +24,5 @@ if (error) {
       ))}
     </div>
   </div>
+  <script type="module" src="/scripts/features/fetch-projects.js"></script>
 </section>
