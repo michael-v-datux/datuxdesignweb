@@ -1,12 +1,12 @@
 import { loadProject } from '/scripts/api.js';
 import { showToast } from '/scripts/toast.js';
-
 import { translations } from '/scripts/translations.js';
-const lang = container.dataset.lang || 'en';
 
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("protected-container");
     if (!container) return;
+
+    const lang = container.dataset.lang || 'en';
 
     const slug = container.dataset.slug;
     const lang = container.dataset.lang;
