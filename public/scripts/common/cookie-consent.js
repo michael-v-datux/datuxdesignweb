@@ -1,5 +1,5 @@
-import { enableAnalytics } from './analytics.js';
-import { showToast } from '/scripts/toast.js';
+import { enableAnalytics } from '/scripts/common/analytics.js';
+import { showToast } from '/scripts/common/toast.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const banner = document.getElementById("cookie-banner");

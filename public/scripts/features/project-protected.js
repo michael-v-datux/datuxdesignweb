@@ -1,6 +1,6 @@
-import { loadProject } from '/scripts/api.js';
-import { showToast } from '/scripts/toast.js';
-import { translations } from '/scripts/translations.js';
+import { loadProject } from '/scripts/common/api.js';
+import { showToast } from '/scripts/common/toast.js';
+import { translations } from '/scripts/common/translations.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("protected-container");

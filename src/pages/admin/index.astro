@@ -1,34 +1,14 @@
 ---
-import { supabase } from '@/lib/supabaseClient.js';
-import { useState } from 'react';
-
 export const prerender = false;
-
-let error = '';
 ---
-
 <html>
   <body class="p-8">
-    <h1 class="text-2xl mb-4">Admin Login</h1>
-    <form on:submit="handleLogin" class="flex flex-col gap-4 max-w-sm">
+    <h1 class="text-2xl mb-4">Login</h1>
+    <form id="login-form" class="flex flex-col gap-4 max-w-md">
       <input type="email" name="email" placeholder="Email" class="p-2 border rounded" required />
       <input type="password" name="password" placeholder="Password" class="p-2 border rounded" required />
       <button type="submit" class="bg-blue-500 text-white p-2 rounded">Login</button>
-      {error && <p class="text-red-500">{error}</p>}
     </form>
-
-    <script>
-      async function handleLogin(e) {
-        e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) {
-          alert(error.message);
-        } else {
-          window.location.href = '/admin/dashboard';
-        }
-      }
-    </script>
+    <script type="module" src="/scripts/admin/index.js"></script>
   </body>
 </html>
