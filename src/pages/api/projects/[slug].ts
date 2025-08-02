@@ -1,12 +1,11 @@
-// src/pages/api/projects/[slug].ts
 import { supabase } from '@/lib/supabaseClient';
+import bcrypt from 'bcryptjs';
 
 export const prerender = false;
 
-export async function GET({ params, request }) {
+export async function POST({ params, request }) {
     const { slug } = params;
-    const url = new URL(request.url);
-    const key = url.searchParams.get("key"); // пароль (hash)
+    const { key } = await request.json(); // тепер чекаємо JSON { key: "пароль" }
 
     const { data: project, error } = await supabase
         .from("projects")
@@ -18,11 +17,13 @@ export async function GET({ params, request }) {
         return new Response(JSON.stringify({ error: "Not found" }), { status: 404 });
     }
 
-    if (project.is_protected && key !== project.password_hash) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+    if (project.is_protected) {
+        const match = await bcrypt.compare(key, project.password_hash);
+        if (!match) {
+            return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+        }
     }
 
-    // Отримуємо блоки
     const { data: blocks } = await supabase
         .from("project_blocks")
         .select("*")
