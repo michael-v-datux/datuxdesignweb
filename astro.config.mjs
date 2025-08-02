@@ -10,8 +10,12 @@ if (!process.env.GA_ID) {
 export default defineConfig({
   output: "server",
   adapter: node({
-    mode: 'standalone', // важливо для Render
+    mode: 'standalone',
   }),
+  server: {
+    host: true, // слухати на 0.0.0.0
+    port: process.env.PORT ? parseInt(process.env.PORT) : 10000, // порт Render
+  },
   integrations: [react()],
   vite: {
     define: {
