@@ -1,9 +1,9 @@
 ---
 export const prerender = false;
 
-import Layout from "../../../layouts/Layout.astro";
-import { getTranslations } from "../../../utils/getTranslations";
-import { supabase } from "../../../lib/supabaseClient";
+iimport Layout from '@/layouts/Layout.astro';
+import { getTranslations } from '@/utils/getTranslations';
+import { supabase } from '@/lib/supabaseClient';
 
 const { lang, slug } = Astro.params;
 const translations = await getTranslations(lang);
