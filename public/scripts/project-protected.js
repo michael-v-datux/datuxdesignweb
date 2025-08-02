@@ -6,8 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const container = document.getElementById("protected-container");
     if (!container) return;
 
-    const lang = container.dataset.lang || 'en';
-
     const slug = container.dataset.slug;
     const lang = container.dataset.lang;
     const storageKey = `project_access_${slug}`;
