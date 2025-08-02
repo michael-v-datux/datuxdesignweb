@@ -80,7 +80,6 @@ export default {
       { title: "Strategy", category: "Danube Region", link: "/projects/danube-strategy" },
       { title: "Consultancy", category: "Agency", link: "/projects/agency-consultancy" }
     ]
-
   },
   availability: {
     title: "Let’s build great products together",

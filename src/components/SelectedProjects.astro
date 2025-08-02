@@ -1,16 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getTranslations } from '../utils/getTranslations';
-import SelectedProjects from '../../components/SelectedProjects.astro';
+import { supabase } from '../../lib/supabaseClient';
 
 const lang = Astro.params.lang;
 const translations = await getTranslations(lang);
 
-export async function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'uk' } },
-  ];
+// Отримуємо проекти з БД
+const { data: projects, error } = await supabase
+  .from("projects")
+  .select("slug, title_en, title_uk, category_en, category_uk")
+  .order("created_at", { ascending: true });
+
+if (error) {
+  console.error("Error loading projects:", error);
 }
 ---
 
@@ -20,16 +23,16 @@ export async function getStaticPaths() {
       {translations.selectedProjects.title}
     </h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
-      {translations.selectedProjects.items.map((item) => (
-        <a href={`/${lang}${item.link?.startsWith('/') ? item.link : `/${item.link}`}`}
+      {projects?.map((item) => (
+        <a href={`/${lang}/projects/${item.slug}`}
            class="group block w-full h-[300px] border border-neutral-200 rounded-xl px-6 text-center relative overflow-hidden transition-colors hover:bg-neutral-100 mx-auto flex items-center justify-center">
 
           <div class="relative flex flex-col items-center justify-center transition-all duration-300">
             <div class="text-lg font-medium text-neutral-800 mb-0 group-hover:mb-2 transition-all duration-300">
               <span class="block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {item.category}
+                {lang === 'en' ? item.category_en : item.category_uk}
               </span>
-              {item.title}
+              {lang === 'en' ? item.title_en : item.title_uk}
             </div>
           </div>
         </a>
