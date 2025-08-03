@@ -27,3 +27,17 @@
 .animate-pop {
     animation: pop 0.3s ease-out forwards;
 }
+
+// src/styles/components/_selected-projects.scss
+#selected-projects {
+    .project-card {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+
+        &.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    }
+}
