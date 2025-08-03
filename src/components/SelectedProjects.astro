@@ -34,13 +34,13 @@ const projects = projectsRaw?.map(p => ({
       <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
         {projects.map((item) => (
           <a href={`/${lang}/projects/${item.slug}`}
-             class="project-card group block w-full h-[300px] border border-neutral-200 rounded-xl px-6 text-center relative overflow-hidden transition-colors hover:bg-neutral-100 mx-auto flex flex-col items-center justify-center opacity-0 translate-y-4">
+             class="project-card group block w-full h-[300px] border border-neutral-200 rounded-xl px-6 text-center relative overflow-hidden transition-colors hover:bg-neutral-100 mx-auto flex flex-col items-center justify-center">
               <!-- Категорія: тільки на hover -->
-              <span class="block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm mb-1">
-                {item.category}
+              <span class="category block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm mb-1">
+                  {item.category}
               </span>
               <!-- Заголовок: завжди видно -->
-              <span class="text-lg font-medium text-neutral-800">{item.title}</span>
+              <span class="title text-lg font-medium text-neutral-800">{item.title}</span>
           </a>
         ))}
       </div>

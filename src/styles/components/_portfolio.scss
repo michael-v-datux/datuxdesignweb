@@ -39,5 +39,13 @@
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
+
+        .category {
+            transition: opacity 0.3s ease;
+        }
+
+        .title {
+            opacity: 1 !important; // завжди видимий
+        }
     }
 }
