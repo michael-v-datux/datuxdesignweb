@@ -1,42 +1,246 @@
 ---
-import AdminLayout from "../../../layouts/AdminLayout.astro";
-export const prerender = false;
+import AdminLayout from "../../../../layouts/AdminLayout.astro";
+import supabase from "../../../../lib/supabaseClient";
+
+let error = null;
+
+if (Astro.request.method === "POST") {
+  const formData = await Astro.request.formData();
+
+  const slug = (formData.get("slug") || "").toString().trim();
+  const title_en = (formData.get("title_en") || "").toString().trim();
+  const title_uk = (formData.get("title_uk") || "").toString().trim();
+  const description_en = (formData.get("description_en") || "").toString().trim();
+  const description_uk = (formData.get("description_uk") || "").toString().trim();
+  const content_en = (formData.get("content_en") || "").toString().trim();
+  const content_uk = (formData.get("content_uk") || "").toString().trim();
+  const thumbnail_url = (formData.get("thumbnail_url") || "").toString().trim();
+  const cover_url = (formData.get("cover_url") || "").toString().trim();
+  const category_en = (formData.get("category_en") || "").toString().trim();
+  const category_uk = (formData.get("category_uk") || "").toString().trim();
+  const status = (formData.get("status") || "draft").toString().trim();
+
+  const is_published =
+    formData.get("is_published") === "on" || formData.get("is_published") === "true";
+  const is_protected =
+    formData.get("is_protected") === "on" || formData.get("is_protected") === "true";
+
+  const password_hash = (formData.get("password_hash") || "").toString().trim() || null;
+
+  if (!slug || !title_en || !title_uk) {
+    error = "Slug, Title EN та Title UK є обов'язковими полями.";
+  } else {
+    const payload: Record<string, any> = {
+      slug,
+      title_en,
+      title_uk,
+      description_en: description_en || null,
+      description_uk: description_uk || null,
+      content_en: content_en || null,
+      content_uk: content_uk || null,
+      thumbnail_url: thumbnail_url || null,
+      cover_url: cover_url || null,
+      category_en: category_en || null,
+      category_uk: category_uk || null,
+      status: status || "draft",
+      is_published,
+      is_protected,
+      password_hash,
+    };
+
+    const { data, error: dbError } = await supabase
+      .from("projects")
+      .insert(payload)
+      .select("id, slug")
+      .single();
+
+    if (dbError) {
+      console.error("Create project error", dbError);
+      error = dbError.message;
+    } else if (data?.id) {
+      // ✅ Успішно створили — редіректимось в редагування + блоки
+      return Astro.redirect(`/admin/projects/${data.id}/edit`);
+    } else {
+      error = "Unknown error while creating project.";
+    }
+  }
+}
 ---
 
-<script>
-  if (!localStorage.getItem("admin")) {
-    window.location.href = "/admin";
-  }
-</script>
+<AdminLayout title="Create project" section="projects">
+  <section class="admin-table-card">
+    <div class="admin-table-card__header">
+      <h2>New project</h2>
+    </div>
 
-<AdminLayout title="New Project">
-  <h1 class="text-2xl mb-6 font-semibold">New Project</h1>
+    <div class="p-4">
+      {error && (
+        <div class="admin-alert admin-alert--error">
+          {error}
+        </div>
+      )}
 
-  <form id="new-project-form" class="flex flex-col gap-4 max-w-lg">
-    <input name="title_en" placeholder="Title EN" class="p-2 border rounded" />
+      <form class="admin-form" method="POST">
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Slug *</label>
+            <input
+              class="admin-input"
+              name="slug"
+              placeholder="search-engine"
+              required
+            />
+            <p class="admin-form__hint">
+              Використовується в URL: /portfolio/&lt;slug&gt;.
+            </p>
+          </div>
+          <div>
+            <label class="admin-form__label">Status</label>
+            <select name="status" class="admin-input">
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+            </select>
+          </div>
+        </div>
 
-    <input name="title_uk" placeholder="Title UK" class="p-2 border rounded" />
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Title (EN) *</label>
+            <input
+              class="admin-input"
+              name="title_en"
+              placeholder="Search Engine"
+              required
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Title (UK) *</label>
+            <input
+              class="admin-input"
+              name="title_uk"
+              placeholder="Пошуковий проєкт"
+              required
+            />
+          </div>
+        </div>
 
-    <textarea name="description_en" placeholder="Description EN" class="p-2 border rounded"></textarea>
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Category (EN)</label>
+            <input
+              class="admin-input"
+              name="category_en"
+              placeholder="Search"
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Category (UK)</label>
+            <input
+              class="admin-input"
+              name="category_uk"
+              placeholder="Пошук"
+            />
+          </div>
+        </div>
 
-    <textarea name="description_uk" placeholder="Description UK" class="p-2 border rounded"></textarea>
+        <div class="admin-form__field">
+          <label class="admin-form__label">Short Description (EN)</label>
+          <textarea
+            class="admin-input"
+            name="description_en"
+            rows="3"
+          ></textarea>
+        </div>
 
-    <input name="thumbnail_url" placeholder="Thumbnail URL" class="p-2 border rounded" />
+        <div class="admin-form__field">
+          <label class="admin-form__label">Short Description (UK)</label>
+          <textarea
+            class="admin-input"
+            name="description_uk"
+            rows="3"
+          ></textarea>
+        </div>
 
-    <label class="flex items-center gap-2">
-      <input type="checkbox" name="is_protected" />
-      Password Protected?
-    </label>
+        <div class="admin-form__field">
+          <label class="admin-form__label">Content (EN, optional)</label>
+          <textarea
+            class="admin-input"
+            name="content_en"
+            rows="4"
+          ></textarea>
+          <p class="admin-form__hint">
+            Можна залишити порожнім, якщо весь контент буде через блоки.
+          </p>
+        </div>
 
-    <input name="password" placeholder="Password" class="p-2 border rounded" />
+        <div class="admin-form__field">
+          <label class="admin-form__label">Content (UK, optional)</label>
+          <textarea
+            class="admin-input"
+            name="content_uk"
+            rows="4"
+          ></textarea>
+        </div>
 
-    <select name="status" class="p-2 border rounded">
-      <option value="draft">Draft</option>
-      <option value="published">Published</option>
-    </select>
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Thumbnail URL</label>
+            <input
+              class="admin-input"
+              name="thumbnail_url"
+              placeholder="https://..."
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Cover URL</label>
+            <input
+              class="admin-input"
+              name="cover_url"
+              placeholder="https://..."
+            />
+          </div>
+        </div>
 
-    <button class="bg-green-500 text-white p-2 rounded hover:bg-green-600">Create</button>
-  </form>
+        <div class="admin-form__field admin-form__field--inline">
+          <div class="flex items-center gap-2">
+            <input id="is_published" type="checkbox" name="is_published" />
+            <label class="admin-form__label" for="is_published">
+              Published
+            </label>
+          </div>
 
-  <script type="module" src="/scripts/admin/new.js"></script>
+          <div class="flex items-center gap-2">
+            <input id="is_protected" type="checkbox" name="is_protected" />
+            <label class="admin-form__label" for="is_protected">
+              Password protected
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-form__field">
+          <label class="admin-form__label">Password hash (optional)</label>
+          <input
+            class="admin-input"
+            name="password_hash"
+            placeholder="hash..."
+          />
+          <p class="admin-form__hint">
+            Тут очікується вже готовий hash. Пізніше можна буде додати UI
+            для введення пароля та автогенерації hash.
+          </p>
+        </div>
+
+        <div class="admin-form__footer">
+          <button type="submit" class="admin-btn admin-btn--primary">
+            Create project
+          </button>
+        </div>
+
+        <p class="admin-form__hint mt-4">
+          Після створення проєкту ви будете перенаправлені на сторінку редагування,
+          де можна налаштувати контентні блоки (текст, зображення, медіа, грід 1/2/3/4, full width).
+        </p>
+      </form>
+    </div>
+  </section>
 </AdminLayout>
