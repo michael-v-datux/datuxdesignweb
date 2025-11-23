@@ -3,24 +3,36 @@ export const prerender = false;
 ---
 <html>
   <body class="p-8">
+    <script>
+      if (!localStorage.getItem("admin")) {
+        window.location.href = "/admin";
+      }
+    </script>
+
     <h1 class="text-2xl mb-4">New Project</h1>
+
     <form id="new-project-form" class="flex flex-col gap-4 max-w-lg">
       <input type="text" name="title_en" placeholder="Title EN" class="p-2 border rounded" required />
       <input type="text" name="title_uk" placeholder="Title UK" class="p-2 border rounded" />
       <textarea name="description_en" placeholder="Description EN" class="p-2 border rounded"></textarea>
       <textarea name="description_uk" placeholder="Description UK" class="p-2 border rounded"></textarea>
       <input type="url" name="thumbnail" placeholder="Thumbnail URL" class="p-2 border rounded" />
+
       <div class="flex items-center gap-2">
         <input type="checkbox" name="is_protected" id="is_protected" />
         <label for="is_protected">Password Protected?</label>
       </div>
+
       <input type="text" name="password" placeholder="Password" class="p-2 border rounded" />
+
       <select name="status" class="p-2 border rounded">
         <option value="draft">Draft</option>
         <option value="published">Published</option>
       </select>
+
       <button type="submit" class="bg-green-500 text-white p-2 rounded">Create</button>
     </form>
+
     <script type="module" src="/scripts/admin/new.js"></script>
   </body>
 </html>
