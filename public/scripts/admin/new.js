@@ -1,26 +1,51 @@
-import { supabase } from '/src/lib/supabaseClient.js';
-import { showToast } from '/js/common/toast.js';
+import { showToast } from "/scripts/common/toast.js";
 
-const form = document.getElementById('new-project-form');
+const form = document.getElementById("new-project-form");
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const newProject = {
-    title_en: formData.get('title_en'),
-    title_uk: formData.get('title_uk'),
-    description_en: formData.get('description_en'),
-    description_uk: formData.get('description_uk'),
-    thumbnail: formData.get('thumbnail_url'),
-    is_protected: formData.get('is_protected') === 'on',
-    password: formData.get('password'),
-    status: formData.get('status')
-  };
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const { error } = await supabase.from('projects').insert([newProject]);
-  if (error) return showToast('Failed to create project', 'error');
+    const formData = new FormData(form);
+    const payload = {
+      title_en: formData.get("title_en") || null,
+      title_uk: formData.get("title_uk") || null,
+      description_en: formData.get("description_en") || null,
+      description_uk: formData.get("description_uk") || null,
 
-  showToast('Project created!');
-  form.reset();
-  window.location.href = '/admin/dashboard';
-});
+      // ВАЖЛИВО: назва поля як у БД
+      thumbnail_url: formData.get("thumbnail_url") || null,
+
+      is_protected: formData.get("is_protected") === "on",
+      password: formData.get("password") || null,
+      status: formData.get("status") || "draft",
+    };
+
+    try {
+      const res = await fetch("/api/admin-project", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.error(data);
+        showToast("Failed to create project", "error");
+        return;
+      }
+
+      showToast("Project created", "success");
+
+      // Якщо API повертає id — йдемо одразу на редагування
+      if (data && data.id) {
+        window.location.href = `/admin/projects/${data.id}/edit`;
+      } else {
+        window.location.href = "/admin/dashboard";
+      }
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to create project", "error");
+    }
+  });
+}
