@@ -1,0 +1,154 @@
+@use '../abstracts/variables' as *;
+@use './admin-variables' as *;
+
+// === БАЗОВИЙ ЛЕЙАУТ АДМІНКИ ===========================================
+
+body.admin-body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: $font-base;
+    color: $admin-text-main;
+    background:
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.08), transparent 55%),
+        $admin-bg;
+}
+
+// Оболонка, щоб адмінка була вузькою та читабельною
+.admin-shell {
+    max-width: 1220px;
+    margin: 32px auto 40px;
+    padding: 0 20px 40px;
+}
+
+// Шапка з заголовком та breadcrumbs
+.admin-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.admin-header__left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-header__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.admin-header__subtitle {
+    font-size: 0.9rem;
+    color: $admin-text-muted;
+    max-width: 560px;
+}
+
+.admin-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: $admin-text-soft;
+}
+
+.admin-breadcrumbs__item {
+    opacity: 0.9;
+}
+
+.admin-breadcrumbs__divider {
+    opacity: 0.6;
+}
+
+// Грід для сторінок типу Edit / Create (ліва форма + праві блоки)
+.admin-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.7fr);
+    gap: 18px;
+}
+
+@media (max-width: 1024px) {
+    .admin-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+// Карти у стилі glass/light, схожі на cookie-модалки
+.admin-card {
+    position: relative;
+    border-radius: $admin-radius-lg;
+    padding: 18px 18px 20px;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.96));
+    border: 1px solid $admin-border-soft;
+    box-shadow: $admin-shadow-soft;
+    backdrop-filter: blur($blur-glass);
+    -webkit-backdrop-filter: blur($blur-glass);
+}
+
+.admin-card--muted {
+    background:
+        radial-gradient(circle at top left, rgba(79, 70, 229, 0.06), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(96, 165, 250, 0.06), transparent 60%),
+        $admin-surface-muted;
+}
+
+.admin-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.admin-card__title {
+    font-size: 0.98rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $admin-text-main;
+}
+
+.admin-card__hint {
+    font-size: 0.8rem;
+    color: $admin-text-muted;
+}
+
+.admin-status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: $admin-radius-pill;
+    font-size: 0.75rem;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(255, 255, 255, 0.85);
+    color: $admin-text-main;
+}
+
+// Невеликі бейджі для мета-інфи
+.admin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: $admin-radius-pill;
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 0.74rem;
+    color: $admin-text-muted;
+}
+
+.admin-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: $admin-text-muted;
+}

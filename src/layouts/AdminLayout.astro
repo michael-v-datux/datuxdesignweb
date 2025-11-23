@@ -3,41 +3,46 @@ export const prerender = false;
 const title = Astro.props.title ?? "Admin";
 ---
 
-<html lang="en" class="bg-[#f7f7f7] text-slate-800">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>{title}</title>
+    <title>{title} | Admin | datux.design</title>
 
-    <!-- Tailwind + Global styles -->
+    <!-- Головний стильовий файл (містить і адмінку, і сайт) -->
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
 
-  <body class="min-h-screen flex flex-col">
-
+  <body class="admin-body">
     <!-- TOP NAV -->
-    <header class="w-full bg-white border-b border-slate-200 py-4 px-6 flex items-center justify-between sticky top-0 z-20">
-      <a href="/admin/dashboard" class="text-lg font-semibold">Admin Panel</a>
-      <nav class="flex items-center gap-6 text-sm">
-        <a href="/admin/dashboard" class="hover:text-black">Dashboard</a>
-        <a href="/admin/projects/new" class="hover:text-black">New Project</a>
-        <button
-          onclick="localStorage.removeItem('admin'); window.location.href='/admin';"
-          class="text-red-500 hover:text-red-600"
-        >
-          Logout
-        </button>
-      </nav>
+    <header class="admin-topnav">
+      <div class="admin-topnav__inner">
+        <a href="/admin/dashboard" class="admin-topnav__logo">
+          Admin Panel
+        </a>
+
+        <nav class="admin-topnav__nav">
+          <a href="/admin/dashboard" class="admin-topnav__link">Dashboard</a>
+          <a href="/admin/projects/new" class="admin-topnav__link">New Project</a>
+
+          <button
+            onclick="localStorage.removeItem('admin'); window.location.href='/admin';"
+            class="admin-topnav__logout"
+          >
+            Logout
+          </button>
+        </nav>
+      </div>
     </header>
 
     <!-- PAGE CONTENT -->
-    <main class="flex-1 p-6">
+    <main class="admin-shell">
       <slot />
     </main>
 
     <!-- FOOTER -->
-    <footer class="w-full py-4 text-center text-xs text-slate-400">
+    <footer class="admin-footer">
       Admin Panel · datux.design
     </footer>
   </body>
