@@ -1,44 +1,110 @@
 ---
-export const prerender = false;
-const title = Astro.props.title ?? "Admin";
+import Layout from "./Layout.astro";
+interface Props {
+    title?: string;
+    section?: string;
+}
+const { title = "Admin", section = "" } = Astro.props;
 ---
 
-<html lang="en" class="bg-[#f7f7f7] text-slate-800">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<Layout title={`Admin – ${title}`}>
+    <link rel="stylesheet" href="/styles/main.css">
 
-    <title>{title}</title>
+    <div class="admin-shell" data-admin>
+        <aside class="admin-sidebar">
+            <div class="admin-sidebar__brand">
+                <span class="admin-sidebar__logo">DA</span>
+                <span class="admin-sidebar__title">datux.admin</span>
+            </div>
 
-    <!-- Tailwind + Global styles -->
-    <link rel="stylesheet" href="/styles/main.css" />
-  </head>
+            <nav class="admin-sidebar__nav">
+                <a href="/admin"
+                   class:list={{
+                       'admin-sidebar__link': true,
+                       'admin-sidebar__link--active': section === 'dashboard'
+                   }}>
+                    <span class="admin-sidebar__link-dot"></span>
+                    Dashboard
+                </a>
 
-  <body class="min-h-screen flex flex-col">
+                <a href="/admin/projects"
+                   class:list={{
+                       'admin-sidebar__link': true,
+                       'admin-sidebar__link--active': section === 'projects'
+                   }}>
+                    <span class="admin-sidebar__link-dot"></span>
+                    Projects
+                </a>
+            </nav>
+        </aside>
 
-    <!-- TOP NAV -->
-    <header class="w-full bg-white border-b border-slate-200 py-4 px-6 flex items-center justify-between sticky top-0 z-20">
-      <a href="/admin/dashboard" class="text-lg font-semibold">Admin Panel</a>
-      <nav class="flex items-center gap-6 text-sm">
-        <a href="/admin/dashboard" class="hover:text-black">Dashboard</a>
-        <a href="/admin/projects/new" class="hover:text-black">New Project</a>
-        <button
-          onclick="localStorage.removeItem('admin'); window.location.href='/admin';"
-          class="text-red-500 hover:text-red-600"
-        >
-          Logout
-        </button>
-      </nav>
-    </header>
+        <div class="admin-main">
+            <header class="admin-header">
+                <div>
+                    <h1 class="admin-header__title">{title}</h1>
+                    <p class="admin-header__subtitle">Administration panel</p>
+                </div>
 
-    <!-- PAGE CONTENT -->
-    <main class="flex-1 p-6">
-      <slot />
-    </main>
+                <div class="admin-header__right">
+                    <button class="admin-btn admin-btn--primary" data-admin-modal-open="quick-create">
+                        + Quick create
+                    </button>
+                </div>
+            </header>
 
-    <!-- FOOTER -->
-    <footer class="w-full py-4 text-center text-xs text-slate-400">
-      Admin Panel · datux.design
-    </footer>
-  </body>
-</html>
+            <main class="admin-content">
+                <slot />
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="admin-modal" data-admin-modal="quick-create" aria-hidden="true">
+        <div class="admin-modal__backdrop" data-admin-modal-close></div>
+        <div class="admin-modal__dialog">
+            <div class="admin-modal__header">
+                <h3 class="admin-modal__title">Quick Create</h3>
+                <button class="admin-modal__close" data-admin-modal-close>×</button>
+            </div>
+
+            <form class="admin-form">
+                <div class="admin-form__field">
+                    <label class="admin-form__label">Project name</label>
+                    <input class="admin-input" />
+                </div>
+
+                <div class="admin-form__footer">
+                    <button class="admin-btn admin-btn--ghost" data-admin-modal-close>Cancel</button>
+                    <button class="admin-btn admin-btn--primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script is:inline>
+        document.querySelectorAll("[data-admin-modal-open]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const id = btn.dataset.adminModalOpen;
+                const modal = document.querySelector(`[data-admin-modal="${id}"]`);
+                modal.setAttribute("aria-hidden", "false");
+                document.body.classList.add("admin-modal-open");
+            });
+        });
+
+        document.addEventListener("click", e => {
+            const close = e.target.closest("[data-admin-modal-close]");
+            if (!close) return;
+            const modal = close.closest(".admin-modal");
+            modal.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("admin-modal-open");
+        });
+
+        document.addEventListener("keydown", e => {
+            if (e.key === "Escape") {
+                document.querySelectorAll(".admin-modal[aria-hidden='false']")
+                    .forEach(m => m.setAttribute("aria-hidden", "true"));
+                document.body.classList.remove("admin-modal-open");
+            }
+        });
+    </script>
+</Layout>

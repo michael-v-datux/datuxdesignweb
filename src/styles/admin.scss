@@ -1,0 +1,264 @@
+/**
+ * Admin Panel Styles (datux.design style)
+ * Variant A — SCSS with Tailwind tokens (@apply)
+ * Safe, isolated, flexible.
+ */
+
+/* ===========================
+   ROOT ADMIN WRAPPER
+=========================== */
+
+[data-admin] {
+    @apply font-base text-white;
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    gap: 24px;
+    min-height: calc(100vh - 80px);
+    margin-top: 24px;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+.admin-sidebar {
+    @apply bg-dark/90 backdrop-blur-heavy rounded-lg shadow-glass border border-white/10;
+    @apply p-5 flex flex-col gap-5 sticky top-[96px];
+}
+
+/* Brand */
+.admin-sidebar__brand {
+    @apply flex items-center gap-3 pb-3 border-b border-white/10;
+}
+
+.admin-sidebar__logo {
+    @apply w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold;
+    background: radial-gradient(circle at 0 0, #ffffff, #cccccc 40%, #111827 100%);
+    color: #0a0a0a;
+}
+
+.admin-sidebar__title {
+    @apply text-xs tracking-wide uppercase opacity-80;
+}
+
+/* Navigation */
+.admin-sidebar__nav {
+    @apply flex flex-col gap-1;
+}
+
+.admin-sidebar__link {
+    @apply flex items-center gap-2 px-3 py-2 rounded-md transition-base no-underline;
+    @apply text-white/70 hover:text-white;
+}
+
+.admin-sidebar__link:hover {
+    @apply bg-white/10;
+}
+
+.admin-sidebar__link--active {
+    @apply bg-white text-dark font-semibold;
+}
+
+.admin-sidebar__link-dot {
+    @apply w-2 h-2 rounded-full bg-slate-400;
+}
+
+.admin-sidebar__link--active .admin-sidebar__link-dot {
+    @apply bg-dark;
+}
+
+/* Footer */
+.admin-sidebar__footer {
+    @apply mt-auto flex items-center gap-2 text-xs opacity-60;
+}
+
+.admin-sidebar__status-dot {
+    @apply w-2 h-2 rounded-full bg-green-500;
+}
+
+/* ===========================
+   MAIN PANEL
+=========================== */
+
+.admin-main {
+    @apply flex flex-col gap-4;
+}
+
+/* HEADER */
+.admin-header {
+    @apply bg-dark/90 backdrop-blur-heavy shadow-glass border border-white/10;
+    @apply rounded-lg px-6 py-4 flex items-center justify-between;
+}
+
+.admin-header__title {
+    @apply text-xl uppercase tracking-wider;
+}
+
+.admin-header__subtitle {
+    @apply text-xs mt-1 opacity-70;
+}
+
+.admin-header__right {
+    @apply flex items-center gap-3;
+}
+
+/* CONTENT AREA */
+.admin-content {
+    @apply flex flex-col gap-6;
+}
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.admin-btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium cursor-pointer;
+    @apply transition-base border border-transparent;
+}
+
+.admin-btn--primary {
+    @apply bg-white text-dark shadow-glass hover:shadow-glass-hover;
+}
+
+.admin-btn--ghost {
+    @apply border-white/30 text-white/90 bg-dark/60 hover:bg-dark/80;
+}
+
+/* ===========================
+   FORM ELEMENTS
+=========================== */
+
+.admin-form {
+    @apply flex flex-col gap-4;
+}
+
+.admin-form__field {
+    @apply flex flex-col gap-2;
+}
+
+.admin-form__label {
+    @apply text-xs uppercase tracking-wider opacity-70;
+}
+
+.admin-form__hint {
+    @apply text-xs opacity-60;
+}
+
+.admin-input {
+    @apply w-full px-3 py-2 rounded-lg bg-dark/90 text-white border border-white/20;
+    @apply transition-base outline-none;
+}
+
+.admin-input:focus {
+    @apply border-white/40 shadow-light;
+}
+
+.admin-input--error {
+    @apply border-danger text-danger;
+}
+
+.admin-form__footer {
+    @apply flex justify-end gap-3 mt-4;
+}
+
+/* Grid-inline fields */
+.admin-form__field--inline {
+    @apply grid grid-cols-2 gap-4;
+
+    @media (max-width: 900px) {
+        @apply grid-cols-1;
+    }
+}
+
+/* ===========================
+   TABLES
+=========================== */
+
+.admin-table-card {
+    @apply bg-dark/90 backdrop-blur-heavy shadow-glass border border-white/10 rounded-lg overflow-hidden;
+}
+
+.admin-table-card__header {
+    @apply flex items-center justify-between px-4 py-3 border-b border-white/10;
+}
+
+.admin-table {
+    @apply w-full text-sm border-collapse;
+}
+
+.admin-table thead {
+    @apply bg-dark/80;
+}
+
+.admin-table th {
+    @apply py-2 px-3 uppercase text-[10px] tracking-wider opacity-70 border-b border-dark/80;
+}
+
+.admin-table td {
+    @apply py-2 px-3 border-b border-dark/80;
+}
+
+.admin-table tr:hover td {
+    @apply bg-dark/80;
+}
+
+.admin-table__tag {
+    @apply inline-flex items-center px-2 py-1 rounded-full text-xs bg-white/10;
+}
+
+/* ===========================
+   MODALS
+=========================== */
+
+.admin-modal-open {
+    overflow: hidden;
+}
+
+.admin-modal {
+    @apply fixed inset-0 hidden items-center justify-center z-50;
+}
+
+.admin-modal[aria-hidden="false"] {
+    @apply flex;
+}
+
+.admin-modal__backdrop {
+    @apply absolute inset-0 bg-black/70 backdrop-blur-heavy animate-fade-in;
+}
+
+.admin-modal__dialog {
+    @apply relative z-10 w-full max-w-lg rounded-lg bg-dark/95 border border-white/20 shadow-deep p-6;
+    animation: scale-in 0.25s ease forwards;
+}
+
+.admin-modal__header {
+    @apply flex items-center justify-between mb-4;
+}
+
+.admin-modal__title {
+    @apply text-lg tracking-wider uppercase;
+}
+
+.admin-modal__close {
+    @apply text-white/70 hover:text-white cursor-pointer text-xl leading-none;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 960px) {
+    [data-admin] {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        @apply static flex-row flex-wrap justify-between;
+    }
+
+    .admin-sidebar__nav {
+        @apply flex-row gap-3;
+    }
+}

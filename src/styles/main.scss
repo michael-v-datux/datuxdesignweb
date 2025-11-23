@@ -10,6 +10,7 @@
 @use './components/portfolio';
 @use './components/availability';
 @use './components/contacts';
+@import "./admin";
 
 @tailwind base;
 @tailwind components;
