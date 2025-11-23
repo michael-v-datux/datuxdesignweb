@@ -1,226 +1,41 @@
 ---
+import AdminLayout from "../../../../../layouts/AdminLayout.astro";
 export const prerender = false;
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Edit Project • datux.design Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-  </head>
-  <body class="min-h-screen bg-slate-950 text-slate-100">
-    <script>
-      if (!localStorage.getItem("admin")) {
-        window.location.href = "/admin";
-      }
-    </script>
+<script>
+  if (!localStorage.getItem("admin")) {
+    window.location.href = "/admin";
+  }
+</script>
 
-    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
-      <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
-        <a href="/" class="flex items-center gap-2">
-          <span class="h-8 w-8 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500"></span>
-          <span class="font-semibold tracking-tight text-slate-100">datux.design</span>
-          <span class="ml-2 text-[10px] uppercase tracking-[0.2em] text-emerald-400">
-            Admin
-          </span>
-        </a>
-        <nav class="flex gap-4 text-sm text-slate-400">
-          <a href="/admin/dashboard" class="hover:text-slate-100">Dashboard</a>
-          <a href="/admin/projects/new" class="hover:text-slate-100">New project</a>
-          <button
-            id="logout-btn"
-            class="text-slate-400 hover:text-red-400 text-sm"
-            type="button"
-          >
-            Logout
-          </button>
-        </nav>
-      </div>
-    </header>
+<AdminLayout title="Edit Project">
+  <h1 class="text-2xl mb-6 font-semibold">Edit Project</h1>
 
-    <nav aria-label="Breadcrumb" class="max-w-5xl mx-auto px-4 mt-6 text-xs text-slate-400">
-      <ol class="flex flex-wrap items-center gap-1">
-        <li>
-          <a href="/" class="hover:text-slate-200">Home</a>
-          <span class="mx-1 text-slate-500">/</span>
-        </li>
-        <li>
-          <a href="/admin/dashboard" class="hover:text-slate-200">Admin</a>
-          <span class="mx-1 text-slate-500">/</span>
-        </li>
-        <li>
-          <span class="text-slate-300">Projects</span>
-          <span class="mx-1 text-slate-500">/</span>
-        </li>
-        <li>
-          <span class="text-slate-100">Edit</span>
-        </li>
-      </ol>
-    </nav>
+  <form id="project-form" class="flex flex-col gap-4 max-w-lg">
+    <input id="title_en" name="title_en" class="p-2 border rounded" placeholder="Title EN" />
+    <input id="title_uk" name="title_uk" class="p-2 border rounded" placeholder="Title UK" />
 
-    <main class="max-w-5xl mx-auto px-4 pt-6 pb-16 space-y-8">
-      <section>
-        <div class="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <h1 class="text-2xl font-semibold tracking-tight">Edit project</h1>
-            <p class="mt-1 text-sm text-slate-400">
-              Update metadata and visibility. Content blocks can be managed below.
-            </p>
-          </div>
-          <a
-            href="/admin/dashboard"
-            class="text-sm text-slate-400 hover:text-slate-200"
-          >
-            ← Back to Dashboard
-          </a>
-        </div>
+    <textarea id="description_en" name="description_en" class="p-2 border rounded" placeholder="Description EN"></textarea>
+    <textarea id="description_uk" name="description_uk" class="p-2 border rounded" placeholder="Description UK"></textarea>
 
-        <form
-          id="project-form"
-          class="flex flex-col gap-4 max-w-2xl rounded-2xl border border-slate-800 bg-slate-900/60 p-6"
-        >
-          <div class="grid gap-4 sm:grid-cols-2">
-            <div class="space-y-1.5">
-              <label class="text-sm text-slate-200" for="title_en">Title (EN)</label>
-              <input
-                type="text"
-                name="title_en"
-                id="title_en"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-              />
-            </div>
-            <div class="space-y-1.5">
-              <label class="text-sm text-slate-200" for="title_uk">Title (UK)</label>
-              <input
-                type="text"
-                name="title_uk"
-                id="title_uk"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-              />
-            </div>
-          </div>
+    <input id="thumbnail_url" name="thumbnail_url" class="p-2 border rounded" placeholder="Thumbnail URL" />
 
-          <div class="grid gap-4 sm:grid-cols-2">
-            <div class="space-y-1.5">
-              <label class="text-sm text-slate-200" for="description_en">Description (EN)</label>
-              <textarea
-                name="description_en"
-                id="description_en"
-                rows="4"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-              ></textarea>
-            </div>
-            <div class="space-y-1.5">
-              <label class="text-sm text-slate-200" for="description_uk">Description (UK)</label>
-              <textarea
-                name="description_uk"
-                id="description_uk"
-                rows="4"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-              ></textarea>
-            </div>
-          </div>
+    <label class="flex items-center gap-2">
+      <input id="is_protected" name="is_protected" type="checkbox" />
+      Password Protected?
+    </label>
 
-          <div class="space-y-1.5">
-            <label class="text-sm text-slate-200" for="thumbnail">Thumbnail URL</label>
-            <input
-              type="url"
-              name="thumbnail_url"
-              id="thumbnail_url"
-              class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-            />
-          </div>
+    <input id="password" name="password" class="p-2 border rounded" placeholder="Password" />
 
-          <div class="grid gap-4 sm:grid-cols-[minmax(0,1.5fr),minmax(0,1fr)] items-start">
-            <div class="space-y-2 rounded-xl border border-slate-800 bg-slate-950/40 p-4">
-              <div class="flex items-center gap-2">
-                <input type="checkbox" name="is_protected" id="is_protected" class="h-4 w-4" />
-                <label for="is_protected" class="text-sm text-slate-200">
-                  Password protected project
-                </label>
-              </div>
-              <p class="text-xs text-slate-500">
-                If enabled, visitors will need a password to view the project page.
-              </p>
-              <input
-                type="text"
-                name="password"
-                id="password"
-                placeholder="Password (if protected)"
-                class="mt-2 w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-              />
-            </div>
+    <select id="status" name="status" class="p-2 border rounded">
+      <option value="draft">Draft</option>
+      <option value="published">Published</option>
+    </select>
 
-            <div class="space-y-1.5">
-              <label class="text-sm text-slate-200" for="status">Status</label>
-              <select
-                name="status"
-                id="status"
-                class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
-              >
-                <option value="draft">Draft</option>
-                <option value="published">Published</option>
-              </select>
-            </div>
-          </div>
+    <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Update</button>
+  </form>
 
-          <div class="flex items-center justify-between gap-4 pt-2">
-            <a
-              href="/admin/dashboard"
-              class="text-sm text-slate-400 hover:text-slate-200"
-            >
-              ← Back to Dashboard
-            </a>
-            <button
-              type="submit"
-              class="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-medium text-slate-950 shadow-lg shadow-emerald-500/30 hover:bg-emerald-400"
-            >
-              Save changes
-            </button>
-          </div>
-        </form>
-      </section>
-
-      <section>
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="text-xl font-semibold tracking-tight">Content blocks</h2>
-          <button
-            id="add-block"
-            type="button"
-            class="inline-flex items-center gap-2 rounded-lg bg-slate-800 px-3 py-1.5 text-xs font-medium text-slate-100 hover:bg-slate-700"
-          >
-            + Add block
-          </button>
-        </div>
-
-        <div
-          id="blocks"
-          class="relative flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/60 p-4"
-        >
-          <!-- блоки заповнюються через JS -->
-        </div>
-      </section>
-    </main>
-
-    <footer class="border-t border-slate-800 bg-slate-950/80">
-      <div class="max-w-5xl mx-auto px-4 py-4 text-xs text-slate-500 flex justify-between">
-        <span>© {new Date().getFullYear()} datux.design</span>
-        <span>Admin • Edit project</span>
-      </div>
-    </footer>
-
-    <script>
-      const logoutBtn = document.getElementById("logout-btn");
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
-          e.preventDefault();
-          localStorage.removeItem("admin");
-          window.location.href = "/admin";
-        });
-      }
-    </script>
-
-    <script type="module" src="/scripts/features/drag-blocks.js"></script>
-    <script type="module" src="/scripts/admin/edit.js"></script>
-  </body>
-</html>
+  <!-- ВАЖЛИВО: вилучено drag-blocks.js -->
+  <script type="module" src="/scripts/admin/edit.js"></script>
+</AdminLayout>

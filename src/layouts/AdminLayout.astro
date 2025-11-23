@@ -1,0 +1,44 @@
+---
+export const prerender = false;
+const title = Astro.props.title ?? "Admin";
+---
+
+<html lang="en" class="bg-[#f7f7f7] text-slate-800">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+
+    <!-- Tailwind + Global styles -->
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+
+  <body class="min-h-screen flex flex-col">
+
+    <!-- TOP NAV -->
+    <header class="w-full bg-white border-b border-slate-200 py-4 px-6 flex items-center justify-between sticky top-0 z-20">
+      <a href="/admin/dashboard" class="text-lg font-semibold">Admin Panel</a>
+      <nav class="flex items-center gap-6 text-sm">
+        <a href="/admin/dashboard" class="hover:text-black">Dashboard</a>
+        <a href="/admin/projects/new" class="hover:text-black">New Project</a>
+        <button
+          onclick="localStorage.removeItem('admin'); window.location.href='/admin';"
+          class="text-red-500 hover:text-red-600"
+        >
+          Logout
+        </button>
+      </nav>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="flex-1 p-6">
+      <slot />
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="w-full py-4 text-center text-xs text-slate-400">
+      Admin Panel · datux.design
+    </footer>
+  </body>
+</html>
