@@ -28,6 +28,175 @@ if (blocksError) {
 ---
 
 <AdminLayout title={`Edit: ${project?.slug ?? "Project"}`} section="projects">
+  <!-- SECTION 1: Project info form -->
+  <section class="admin-table-card">
+    <div class="admin-table-card__header">
+      <h2>Project info</h2>
+      <button
+        class="admin-btn admin-btn--primary"
+        type="button"
+        data-project-save
+      >
+        Save changes
+      </button>
+    </div>
+
+    <div class="p-4">
+      <form class="admin-form" data-project-form>
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Slug</label>
+            <input
+              class="admin-input"
+              name="slug"
+              value={project?.slug ?? ""}
+              placeholder="search-engine"
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Status</label>
+            <select name="status" class="admin-input">
+              <option
+                value="draft"
+                selected={project?.status === "draft" || !project?.status}
+              >
+                Draft
+              </option>
+              <option
+                value="published"
+                selected={project?.status === "published"}
+              >
+                Published
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Title (EN)</label>
+            <input
+              class="admin-input"
+              name="title_en"
+              value={project?.title_en ?? ""}
+              placeholder="Search Engine"
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Title (UK)</label>
+            <input
+              class="admin-input"
+              name="title_uk"
+              value={project?.title_uk ?? ""}
+              placeholder="Пошуковий проєкт"
+            />
+          </div>
+        </div>
+
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Category (EN)</label>
+            <input
+              class="admin-input"
+              name="category_en"
+              value={project?.category_en ?? ""}
+              placeholder="Search"
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Category (UK)</label>
+            <input
+              class="admin-input"
+              name="category_uk"
+              value={project?.category_uk ?? ""}
+              placeholder="Пошук"
+            />
+          </div>
+        </div>
+
+        <div class="admin-form__field">
+          <label class="admin-form__label">Description (EN)</label>
+          <textarea
+            class="admin-input"
+            name="description_en"
+            rows="3"
+          >{project?.description_en ?? ""}</textarea>
+        </div>
+
+        <div class="admin-form__field">
+          <label class="admin-form__label">Description (UK)</label>
+          <textarea
+            class="admin-input"
+            name="description_uk"
+            rows="3"
+          >{project?.description_uk ?? ""}</textarea>
+        </div>
+
+        <div class="admin-form__field admin-form__field--inline">
+          <div>
+            <label class="admin-form__label">Thumbnail URL</label>
+            <input
+              class="admin-input"
+              name="thumbnail_url"
+              value={project?.thumbnail_url ?? ""}
+              placeholder="https://..."
+            />
+          </div>
+          <div>
+            <label class="admin-form__label">Cover URL</label>
+            <input
+              class="admin-input"
+              name="cover_url"
+              value={project?.cover_url ?? ""}
+              placeholder="https://..."
+            />
+          </div>
+        </div>
+
+        <div class="admin-form__field admin-form__field--inline">
+          <div class="flex items-center gap-2">
+            <input
+              id="is_published"
+              type="checkbox"
+              name="is_published"
+              checked={project?.is_published ?? false}
+            />
+            <label class="admin-form__label" for="is_published">
+              Published
+            </label>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <input
+              id="is_protected"
+              type="checkbox"
+              name="is_protected"
+              checked={project?.is_protected ?? false}
+            />
+            <label class="admin-form__label" for="is_protected">
+              Password protected
+            </label>
+          </div>
+        </div>
+
+        <div class="admin-form__field">
+          <label class="admin-form__label">Password hash</label>
+          <input
+            class="admin-input"
+            name="password_hash"
+            value={project?.password_hash ?? ""}
+            placeholder="Optional (hash)"
+          />
+          <p class="admin-form__hint">
+            Тут поки що очікується готовий hash. Пізніше можна буде додати
+            окрему логіку для хешування.
+          </p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Blocks management -->
   <section class="admin-table-card">
     <div class="admin-table-card__header">
       <h2>Blocks</h2>
@@ -68,7 +237,6 @@ if (blocksError) {
                 : ""}
             </td>
             <td style="text-align:right;">
-              <!-- Тут потім додамо Edit-модалку -->
               <button
                 type="button"
                 class="admin-btn admin-btn--ghost"
@@ -123,7 +291,8 @@ if (blocksError) {
           <label class="admin-form__label">URL</label>
           <input name="url" class="admin-input" placeholder="https://..." />
           <p class="admin-form__hint">
-            For images / media: full URL (later замінимо на upload + storage).
+            For images / media: full URL (згодом замінимо на upload через
+            storage).
           </p>
         </div>
 
@@ -145,15 +314,61 @@ if (blocksError) {
 
   <script is:inline>
     (function () {
+      const projectId = "{id}";
+
+      // ===== PROJECT FORM SAVE =====
+      const projectForm = document.querySelector("[data-project-form]");
+      const projectSaveBtn = document.querySelector("[data-project-save]");
+
+      projectSaveBtn?.addEventListener("click", async () => {
+        if (!projectForm) return;
+        const formData = new FormData(projectForm);
+
+        const payload = {
+          slug: formData.get("slug") || null,
+          title_en: formData.get("title_en") || null,
+          title_uk: formData.get("title_uk") || null,
+          description_en: formData.get("description_en") || null,
+          description_uk: formData.get("description_uk") || null,
+          thumbnail_url: formData.get("thumbnail_url") || null,
+          cover_url: formData.get("cover_url") || null,
+          category_en: formData.get("category_en") || null,
+          category_uk: formData.get("category_uk") || null,
+          status: formData.get("status") || "draft",
+          is_published: projectForm.querySelector(
+            "input[name='is_published']"
+          )?.checked,
+          is_protected: projectForm.querySelector(
+            "input[name='is_protected']"
+          )?.checked,
+          password_hash: formData.get("password_hash") || null,
+        };
+
+        const res = await fetch(`/api/admin/projects/${projectId}`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          console.error("Project update failed", await res.text());
+          alert("Failed to save project");
+          return;
+        }
+
+        alert("Project saved");
+      });
+
+      // ===== BLOCKS: create / delete / drag&drop =====
       const table = document.querySelector("[data-blocks-table]");
       if (!table) return;
 
-      const projectId = table.dataset.projectId;
       const createForm = document.querySelector("[data-block-create-form]");
       const fieldText = createForm?.querySelector("[data-field-text]");
       const fieldUrl = createForm?.querySelector("[data-field-url]");
+      const tbody = table.querySelector("tbody");
 
-      // Переключення полів за type
+      // Toggle fields by type
       createForm
         ?.querySelector("select[name='type']")
         ?.addEventListener("change", (e) => {
@@ -177,10 +392,7 @@ if (blocksError) {
         const payload = { type, layout, data: {} };
 
         if (type === "text") {
-          // Поки що збережемо спрощено:
-          payload.data = {
-            text: form.text.value || "",
-          };
+          payload.data = { text: form.text.value || "" };
         } else if (type === "image") {
           payload.data = {
             url: form.url.value || "",
@@ -234,7 +446,6 @@ if (blocksError) {
 
       // Drag & drop reorder
       let dragSrcRow = null;
-      const tbody = table.querySelector("tbody");
 
       tbody
         .querySelectorAll("tr[draggable='true']")
@@ -270,7 +481,6 @@ if (blocksError) {
               tbody.insertBefore(dragSrcRow, targetRow);
             }
 
-            // новий порядок id
             const newOrder = Array.from(tbody.querySelectorAll("tr")).map(
               (r) => r.dataset.blockId
             );
@@ -287,7 +497,6 @@ if (blocksError) {
             if (!res.ok) {
               console.error("Reorder failed", await res.text());
             } else {
-              // оновлюємо колонку Pos
               Array.from(tbody.querySelectorAll("tr")).forEach((r, idx) => {
                 const posCell = r.querySelector("td:first-child");
                 if (posCell) posCell.textContent = String(idx);
