@@ -11,7 +11,7 @@ form.addEventListener('submit', async (e) => {
     title_uk: formData.get('title_uk'),
     description_en: formData.get('description_en'),
     description_uk: formData.get('description_uk'),
-    thumbnail: formData.get('thumbnail'),
+    thumbnail: formData.get('thumbnail_url'),
     is_protected: formData.get('is_protected') === 'on',
     password: formData.get('password'),
     status: formData.get('status')

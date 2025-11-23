@@ -8,9 +8,21 @@ export const POST: APIRoute = async ({ request }) => {
   const ADMIN_USER = import.meta.env.ADMIN_USER;
   const ADMIN_PASS = import.meta.env.ADMIN_PASS;
 
-  if (username === ADMIN_USER && password === ADMIN_PASS) {
-    return new Response("OK", { status: 200 });
+  if (!ADMIN_USER || !ADMIN_PASS) {
+    return new Response(JSON.stringify({ error: "Admin env vars missing" }), {
+      status: 500,
+    });
   }
 
-  return new Response("Unauthorized", { status: 401 });
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  return new Response(JSON.stringify({ error: "Invalid credentials" }), {
+    status: 401,
+    headers: { "Content-Type": "application/json" },
+  });
 };

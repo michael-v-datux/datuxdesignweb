@@ -1,75 +1,98 @@
-import { supabase } from '/src/lib/supabaseClient.js';
-import { showToast } from '/js/common/toast.js';
+import { showToast } from "/scripts/common/toast.js";
 
-const projectId = window.location.pathname.split('/').filter(Boolean).pop();
-const form = document.getElementById('project-form');
-const blocksContainer = document.getElementById('blocks');
-const addBlockBtn = document.getElementById('add-block');
+const form = document.getElementById("project-form");
+const blocksContainer = document.getElementById("blocks");
+const addBlockBtn = document.getElementById("add-block");
+
+function getProjectIdFromPath() {
+  const parts = window.location.pathname.split("/").filter(Boolean);
+  // /admin/projects/:id/edit
+  const idIndex = parts.indexOf("projects") + 1;
+  return parts[idIndex];
+}
+
+const projectId = getProjectIdFromPath();
 
 async function loadProject() {
-  const { data: project, error } = await supabase.from('projects').select('*').eq('id', projectId).single();
-  if (error) return showToast('Failed to load project', 'error');
+  try {
+    const res = await fetch(`/api/admin-project?id=${projectId}`);
+    const data = await res.json();
 
-  for (const key in project) {
-    const el = document.getElementById(key);
-    if (el) {
-      if (el.type === 'checkbox') el.checked = project[key];
-      else el.value = project[key] || '';
+    if (!res.ok) {
+      console.error(data);
+      showToast("Failed to load project", "error");
+      return;
     }
+
+    // Заповнюємо форму
+    document.getElementById("title_en").value = data.title_en || "";
+    document.getElementById("title_uk").value = data.title_uk || "";
+    document.getElementById("description_en").value = data.description_en || "";
+    document.getElementById("description_uk").value = data.description_uk || "";
+    document.getElementById("thumbnail_url").value = data.thumbnail_url || "";
+    document.getElementById("is_protected").checked = !!data.is_protected;
+    document.getElementById("password").value = data.password_hash || "";
+    document.getElementById("status").value = data.status || "draft";
+  } catch (err) {
+    console.error(err);
+    showToast("Failed to load project", "error");
   }
 }
 
-async function loadBlocks() {
-  const { data: blocks, error } = await supabase.from('project_blocks').select('*').eq('project_id', projectId).order('position');
-  if (error) return showToast('Failed to load blocks', 'error');
+// Поки що блоки залишаємо порожніми або підключимо пізніше через окремий API
+if (blocksContainer) {
+  const info = document.createElement("p");
+  info.className = "text-xs text-slate-400";
+  info.textContent =
+    "Block manager will be implemented here (drag & drop, block types, etc.).";
+  blocksContainer.appendChild(info);
+}
 
-  blocksContainer.innerHTML = '';
-  blocks.forEach(block => {
-    const div = document.createElement('div');
-    div.className = 'block-item p-4 border rounded bg-gray-100 relative';
-    div.dataset.id = block.id;
-    div.innerHTML = `
-      <div class="flex items-center justify-between mb-2">
-        <span class="block-drag-handle cursor-move">☰</span>
-        <span class="text-sm text-gray-500">${block.type}</span>
-      </div>
-      <textarea class="w-full p-2 border rounded block-textarea">${block.content?.text || ''}</textarea>
-      <button class="delete-block bg-red-500 text-white px-2 py-1 mt-2 rounded">Delete</button>
-    `;
-    div.querySelector('.delete-block').addEventListener('click', () => deleteBlock(block.id));
-    div.querySelector('.block-textarea').addEventListener('change', (e) => updateBlock(block.id, e.target.value));
-    blocksContainer.appendChild(div);
+if (form) {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const payload = {
+      id: projectId,
+      title_en: formData.get("title_en") || null,
+      title_uk: formData.get("title_uk") || null,
+      description_en: formData.get("description_en") || null,
+      description_uk: formData.get("description_uk") || null,
+      thumbnail: formData.get("thumbnail_url") || null,
+      is_protected: formData.get("is_protected") === "on",
+      password: formData.get("password") || null,
+      status: formData.get("status") || "draft",
+    };
+
+    try {
+      const res = await fetch("/api/admin-project", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.error(data);
+        showToast("Failed to update project", "error");
+        return;
+      }
+
+      showToast("Project updated", "success");
+    } catch (err) {
+      console.error(err);
+      showToast("Failed to update project", "error");
+    }
   });
 }
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const formData = new FormData(form);
-  const updatedData = Object.fromEntries(formData.entries());
-  updatedData.is_protected = formData.get('is_protected') === 'on';
-
-  const { error } = await supabase.from('projects').update(updatedData).eq('id', projectId);
-  if (error) return showToast('Update failed', 'error');
-  showToast('Project updated!');
-});
-
-async function addBlock() {
-  const { error } = await supabase.from('project_blocks').insert([{ project_id: projectId, type: 'text', content: { text: '' }, position: blocksContainer.children.length + 1 }]);
-  if (error) return showToast('Failed to add block', 'error');
-  loadBlocks();
+if (projectId) {
+  loadProject();
 }
 
-async function deleteBlock(blockId) {
-  const { error } = await supabase.from('project_blocks').delete().eq('id', blockId);
-  if (error) return showToast('Delete failed', 'error');
-  loadBlocks();
+if (addBlockBtn) {
+  addBlockBtn.addEventListener("click", () => {
+    showToast("Block manager is not implemented yet", "info");
+  });
 }
-
-async function updateBlock(blockId, text) {
-  await supabase.from('project_blocks').update({ content: { text } }).eq('id', blockId);
-}
-
-addBlockBtn.addEventListener('click', addBlock);
-
-loadProject();
-loadBlocks();

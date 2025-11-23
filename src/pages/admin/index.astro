@@ -1,40 +1,140 @@
 ---
 export const prerender = false;
 let error = "";
---- 
+---
 
-<html>
-  <body style="font-family: sans-serif; padding: 40px;">
-    <h1>Admin Login</h1>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Admin Login • datux.design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body class="min-h-screen bg-slate-950 text-slate-100">
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur">
+      <div class="max-w-5xl mx-auto flex items-center justify-between px-4 py-3">
+        <a href="/" class="flex items-center gap-2">
+          <span class="h-8 w-8 rounded-full bg-gradient-to-tr from-emerald-400 to-cyan-500"></span>
+          <span class="font-semibold tracking-tight text-slate-100">datux.design</span>
+          <span class="ml-2 text-[10px] uppercase tracking-[0.2em] text-emerald-400">
+            Admin
+          </span>
+        </a>
+        <nav class="flex gap-4 text-sm text-slate-400">
+          <a href="/" class="hover:text-slate-100 transition-colors">Public site</a>
+        </nav>
+      </div>
+    </header>
 
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username" required />
-      <br /><br />
-      <input type="password" id="password" placeholder="Password" required />
-      <br /><br />
-      <button type="submit">Login</button>
-    </form>
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb" class="max-w-5xl mx-auto px-4 mt-6 text-xs text-slate-400">
+      <ol class="flex flex-wrap items-center gap-1">
+        <li>
+          <a href="/" class="hover:text-slate-200">Home</a>
+          <span class="mx-1 text-slate-500">/</span>
+        </li>
+        <li>
+          <span class="text-slate-300">Admin</span>
+          <span class="mx-1 text-slate-500">/</span>
+        </li>
+        <li>
+          <span class="text-slate-100">Login</span>
+        </li>
+      </ol>
+    </nav>
 
-    <p id="error" style="color: red;"></p>
+    <!-- Login -->
+    <main class="max-w-5xl mx-auto px-4 pt-10 pb-16 flex justify-center">
+      <div class="w-full max-w-md">
+        <div class="mb-6">
+          <h1 class="text-2xl font-semibold tracking-tight">Admin login</h1>
+          <p class="mt-1 text-sm text-slate-400">
+            Enter your admin credentials to manage projects and content.
+          </p>
+        </div>
 
-    <script type="module">
-      document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        <form
+          id="login-form"
+          class="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-xl shadow-black/30"
+        >
+          <div class="space-y-1.5">
+            <label for="username" class="text-sm text-slate-200">Username</label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              required
+              class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
+            />
+          </div>
+
+          <div class="space-y-1.5">
+            <label for="password" class="text-sm text-slate-200">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              required
+              class="w-full rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm outline-none focus:border-emerald-400 focus:ring-1 focus:ring-emerald-500"
+            />
+          </div>
+
+          <p id="login-error" class="text-sm text-red-400 min-h-[1.25rem]"></p>
+
+          <button
+            type="submit"
+            class="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-medium text-slate-950 shadow-lg shadow-emerald-500/30 transition hover:bg-emerald-400"
+          >
+            <span>Login</span>
+            <span class="inline-block h-2 w-2 rounded-full bg-emerald-900/80"></span>
+          </button>
+        </form>
+
+        <p class="mt-4 text-xs text-slate-500">
+          Tip: credentials come from <code class="font-mono text-[10px]">ADMIN_USER</code> /
+          <code class="font-mono text-[10px]">ADMIN_PASS</code> in your environment.
+        </p>
+      </div>
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950/80">
+      <div class="max-w-5xl mx-auto px-4 py-4 text-xs text-slate-500 flex justify-between">
+        <span>© {new Date().getFullYear()} datux.design</span>
+        <span>Admin area</span>
+      </div>
+    </footer>
+
+    <script>
+      const form = document.getElementById("login-form");
+      const errorEl = document.getElementById("login-error");
+
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
+        errorEl.textContent = "";
 
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
+        const formData = new FormData(form);
+        const payload = {
+          username: formData.get("username"),
+          password: formData.get("password"),
+        };
 
-        const res = await fetch("/api/admin-login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password }),
-        });
+        try {
+          const res = await fetch("/api/admin-login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
 
-        if (res.ok) {
+          if (!res.ok) {
+            errorEl.textContent = "Invalid credentials. Please try again.";
+            return;
+          }
+
           localStorage.setItem("admin", "true");
           window.location.href = "/admin/dashboard";
-        } else {
-          document.getElementById("error").innerText = "Invalid credentials";
+        } catch (err) {
+          console.error(err);
+          errorEl.textContent = "Something went wrong. Please try again.";
         }
       });
     </script>
