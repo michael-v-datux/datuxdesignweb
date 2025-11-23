@@ -1,41 +1,300 @@
 ---
 import AdminLayout from "../../../../layouts/AdminLayout.astro";
-export const prerender = false;
+import supabase from "../../../../lib/supabaseClient";
+
+const { id } = Astro.params;
+
+// Проект
+const { data: project, error: projectError } = await supabase
+  .from("projects")
+  .select("*")
+  .eq("id", id)
+  .maybeSingle();
+
+if (projectError) {
+  console.error(projectError);
+}
+
+// Блоки
+const { data: blocks, error: blocksError } = await supabase
+  .from("projects_blocks")
+  .select("*")
+  .eq("project_id", id)
+  .order("order", { ascending: true });
+
+if (blocksError) {
+  console.error(blocksError);
+}
 ---
 
-<script>
-  if (!localStorage.getItem("admin")) {
-    window.location.href = "/admin";
-  }
-</script>
+<AdminLayout title={`Edit: ${project?.slug ?? "Project"}`} section="projects">
+  <section class="admin-table-card">
+    <div class="admin-table-card__header">
+      <h2>Blocks</h2>
+      <button
+        class="admin-btn admin-btn--primary"
+        type="button"
+        data-admin-modal-open="add-block"
+      >
+        + Add block
+      </button>
+    </div>
 
-<AdminLayout title="Edit Project">
-  <h1 class="text-2xl mb-6 font-semibold">Edit Project</h1>
+    <table class="admin-table" data-blocks-table data-project-id={id}>
+      <thead>
+        <tr>
+          <th>Pos</th>
+          <th>Type</th>
+          <th>Layout</th>
+          <th>Preview</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {blocks?.map((b, index) => (
+          <tr data-block-id={b.id} draggable="true">
+            <td>{b.order ?? index}</td>
+            <td>{b.type ?? "text"}</td>
+            <td>{b.layout ?? "1/1"}</td>
+            <td>
+              {b.data?.text
+                ? String(b.data.text).slice(0, 60) +
+                  (String(b.data.text).length > 60 ? "…" : "")
+                : b.data?.columns?.[0]?.text?.en
+                ? String(b.data.columns[0].text.en).slice(0, 60) +
+                  (String(b.data.columns[0].text.en).length > 60 ? "…" : "")
+                : b.data?.url
+                ? `Media: ${String(b.data.url).split("/").slice(-1)[0]}`
+                : ""}
+            </td>
+            <td style="text-align:right;">
+              <!-- Тут потім додамо Edit-модалку -->
+              <button
+                type="button"
+                class="admin-btn admin-btn--ghost"
+                data-block-delete
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
 
-  <form id="project-form" class="flex flex-col gap-4 max-w-lg">
-    <input id="title_en" name="title_en" class="p-2 border rounded" placeholder="Title EN" />
-    <input id="title_uk" name="title_uk" class="p-2 border rounded" placeholder="Title UK" />
+  <!-- Modal: Add block -->
+  <div class="admin-modal" data-admin-modal="add-block" aria-hidden="true">
+    <div class="admin-modal__backdrop" data-admin-modal-close></div>
+    <div class="admin-modal__dialog">
+      <div class="admin-modal__header">
+        <h3 class="admin-modal__title">Add block</h3>
+        <button class="admin-modal__close" data-admin-modal-close>×</button>
+      </div>
 
-    <textarea id="description_en" name="description_en" class="p-2 border rounded" placeholder="Description EN"></textarea>
-    <textarea id="description_uk" name="description_uk" class="p-2 border rounded" placeholder="Description UK"></textarea>
+      <form class="admin-form" data-block-create-form>
+        <div class="admin-form__field">
+          <label class="admin-form__label">Type</label>
+          <select name="type" class="admin-input" required>
+            <option value="text">Text</option>
+            <option value="image">Image</option>
+            <option value="media">Media</option>
+          </select>
+        </div>
 
-    <input id="thumbnail_url" name="thumbnail_url" class="p-2 border rounded" placeholder="Thumbnail URL" />
+        <div class="admin-form__field">
+          <label class="admin-form__label">Layout</label>
+          <select name="layout" class="admin-input" required>
+            <option value="1/1">1/1 (default)</option>
+            <option value="1/2">1/2</option>
+            <option value="1/3">1/3</option>
+            <option value="1/4">1/4</option>
+            <option value="full">Full width</option>
+          </select>
+        </div>
 
-    <label class="flex items-center gap-2">
-      <input id="is_protected" name="is_protected" type="checkbox" />
-      Password Protected?
-    </label>
+        <div class="admin-form__field" data-field-text>
+          <label class="admin-form__label">Text</label>
+          <textarea name="text" class="admin-input" rows="4"></textarea>
+          <p class="admin-form__hint">Markdown or plain text.</p>
+        </div>
 
-    <input id="password" name="password" class="p-2 border rounded" placeholder="Password" />
+        <div class="admin-form__field hidden" data-field-url>
+          <label class="admin-form__label">URL</label>
+          <input name="url" class="admin-input" placeholder="https://..." />
+          <p class="admin-form__hint">
+            For images / media: full URL (later замінимо на upload + storage).
+          </p>
+        </div>
 
-    <select id="status" name="status" class="p-2 border rounded">
-      <option value="draft">Draft</option>
-      <option value="published">Published</option>
-    </select>
+        <div class="admin-form__footer">
+          <button
+            type="button"
+            class="admin-btn admin-btn--ghost"
+            data-admin-modal-close
+          >
+            Cancel
+          </button>
+          <button type="submit" class="admin-btn admin-btn--primary">
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-    <button class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Update</button>
-  </form>
+  <script is:inline>
+    (function () {
+      const table = document.querySelector("[data-blocks-table]");
+      if (!table) return;
 
-  <!-- ВАЖЛИВО: вилучено drag-blocks.js -->
-  <script type="module" src="/scripts/admin/edit.js"></script>
+      const projectId = table.dataset.projectId;
+      const createForm = document.querySelector("[data-block-create-form]");
+      const fieldText = createForm?.querySelector("[data-field-text]");
+      const fieldUrl = createForm?.querySelector("[data-field-url]");
+
+      // Переключення полів за type
+      createForm
+        ?.querySelector("select[name='type']")
+        ?.addEventListener("change", (e) => {
+          const value = e.target.value;
+          if (value === "text") {
+            fieldText?.classList.remove("hidden");
+            fieldUrl?.classList.add("hidden");
+          } else {
+            fieldText?.classList.add("hidden");
+            fieldUrl?.classList.remove("hidden");
+          }
+        });
+
+      // Create block
+      createForm?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const type = form.type.value;
+        const layout = form.layout.value || "1/1";
+
+        const payload = { type, layout, data: {} };
+
+        if (type === "text") {
+          // Поки що збережемо спрощено:
+          payload.data = {
+            text: form.text.value || "",
+          };
+        } else if (type === "image") {
+          payload.data = {
+            url: form.url.value || "",
+            mediaType: "image",
+          };
+        } else if (type === "media") {
+          payload.data = {
+            url: form.url.value || "",
+            mediaType: "video",
+            autoplay: true,
+            loop: true,
+            muted: true,
+          };
+        }
+
+        const res = await fetch(`/api/admin/projects/${projectId}/blocks`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          console.error("Create block failed", await res.text());
+          return;
+        }
+
+        location.reload();
+      });
+
+      // Delete block
+      table.addEventListener("click", async (e) => {
+        const btn = e.target.closest("[data-block-delete]");
+        if (!btn) return;
+        const row = btn.closest("tr");
+        const blockId = row?.dataset.blockId;
+        if (!blockId) return;
+
+        if (!confirm("Delete this block?")) return;
+
+        const res = await fetch(`/api/admin/projects/${projectId}/${blockId}`, {
+          method: "DELETE",
+        });
+
+        if (!res.ok) {
+          console.error("Delete block failed", await res.text());
+          return;
+        }
+
+        row?.remove();
+      });
+
+      // Drag & drop reorder
+      let dragSrcRow = null;
+      const tbody = table.querySelector("tbody");
+
+      tbody
+        .querySelectorAll("tr[draggable='true']")
+        .forEach((row) => {
+          row.addEventListener("dragstart", (e) => {
+            dragSrcRow = row;
+            e.dataTransfer.effectAllowed = "move";
+            row.classList.add("opacity-60");
+          });
+
+          row.addEventListener("dragend", () => {
+            dragSrcRow = null;
+            row.classList.remove("opacity-60");
+          });
+
+          row.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+          });
+
+          row.addEventListener("drop", async (e) => {
+            e.preventDefault();
+            const targetRow = row;
+            if (!dragSrcRow || dragSrcRow === targetRow) return;
+
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+            const srcIndex = rows.indexOf(dragSrcRow);
+            const targetIndex = rows.indexOf(targetRow);
+
+            if (srcIndex < targetIndex) {
+              tbody.insertBefore(dragSrcRow, targetRow.nextSibling);
+            } else {
+              tbody.insertBefore(dragSrcRow, targetRow);
+            }
+
+            // новий порядок id
+            const newOrder = Array.from(tbody.querySelectorAll("tr")).map(
+              (r) => r.dataset.blockId
+            );
+
+            const res = await fetch(
+              `/api/admin/projects/${projectId}/reorder`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ order: newOrder }),
+              }
+            );
+
+            if (!res.ok) {
+              console.error("Reorder failed", await res.text());
+            } else {
+              // оновлюємо колонку Pos
+              Array.from(tbody.querySelectorAll("tr")).forEach((r, idx) => {
+                const posCell = r.querySelector("td:first-child");
+                if (posCell) posCell.textContent = String(idx);
+              });
+            }
+          });
+        });
+    })();
+  </script>
 </AdminLayout>
