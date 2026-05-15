@@ -1,0 +1,17 @@
+---
+import ProjectBlock from './ProjectBlock.astro';
+import type { ProjectBlock as ProjectBlockType } from '@/lib/projects/types';
+
+interface Props {
+  blocks: ProjectBlockType[];
+  lang: string;
+}
+
+const { blocks, lang } = Astro.props;
+---
+
+<div class="project-blocks">
+  {blocks.map((block) => (
+    <ProjectBlock block={block} lang={lang} />
+  ))}
+</div>

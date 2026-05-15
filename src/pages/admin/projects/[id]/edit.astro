@@ -1,6 +1,7 @@
 ---
 import AdminLayout from "../../../../layouts/AdminLayout.astro";
 import supabase from "../../../../lib/supabaseClient";
+import { normalizeBlock, blockText } from "../../../../lib/projects/blocks";
 
 const { id } = Astro.params;
 
@@ -16,11 +17,15 @@ if (projectError) {
 }
 
 // Блоки
-const { data: blocks, error: blocksError } = await supabase
+const { data: blocksRaw, error: blocksError } = await supabase
   .from("projects_blocks")
   .select("*")
   .eq("project_id", id)
-  .order("order", { ascending: true });
+  .order("position", { ascending: true });
+
+const blocks = (blocksRaw ?? []).map((row) =>
+  normalizeBlock(row as Record<string, unknown>)
+);
 
 if (blocksError) {
   console.error(blocksError);
@@ -220,22 +225,21 @@ if (blocksError) {
         </tr>
       </thead>
       <tbody>
-        {blocks?.map((b, index) => (
+        {blocks?.map((b) => {
+          const preview =
+            b.type === "text"
+              ? blockText(b.content, "en")
+              : b.content?.url
+                ? `Media: ${String(b.content.url).split("/").slice(-1)[0]}`
+                : "";
+          const short =
+            preview.length > 60 ? preview.slice(0, 60) + "…" : preview;
+          return (
           <tr data-block-id={b.id} draggable="true">
-            <td>{b.order ?? index}</td>
-            <td>{b.type ?? "text"}</td>
-            <td>{b.layout ?? "1/1"}</td>
-            <td>
-              {b.data?.text
-                ? String(b.data.text).slice(0, 60) +
-                  (String(b.data.text).length > 60 ? "…" : "")
-                : b.data?.columns?.[0]?.text?.en
-                ? String(b.data.columns[0].text.en).slice(0, 60) +
-                  (String(b.data.columns[0].text.en).length > 60 ? "…" : "")
-                : b.data?.url
-                ? `Media: ${String(b.data.url).split("/").slice(-1)[0]}`
-                : ""}
-            </td>
+            <td>{b.position}</td>
+            <td>{b.type}</td>
+            <td>{b.layout}</td>
+            <td>{short}</td>
             <td style="text-align:right;">
               <button
                 type="button"
@@ -246,7 +250,8 @@ if (blocksError) {
               </button>
             </td>
           </tr>
-        ))}
+          );
+        })}
       </tbody>
     </table>
   </section>
@@ -389,17 +394,17 @@ if (blocksError) {
         const type = form.type.value;
         const layout = form.layout.value || "1/1";
 
-        const payload = { type, layout, data: {} };
+        let content = {};
 
         if (type === "text") {
-          payload.data = { text: form.text.value || "" };
+          content = { text: form.text.value || "" };
         } else if (type === "image") {
-          payload.data = {
+          content = {
             url: form.url.value || "",
             mediaType: "image",
           };
         } else if (type === "media") {
-          payload.data = {
+          content = {
             url: form.url.value || "",
             mediaType: "video",
             autoplay: true,
@@ -407,6 +412,8 @@ if (blocksError) {
             muted: true,
           };
         }
+
+        const payload = { type, layout, content };
 
         const res = await fetch(`/api/admin/projects/${projectId}/blocks`, {
           method: "POST",

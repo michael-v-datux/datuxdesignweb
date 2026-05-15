@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             id: el.dataset.id,
             position: index + 1
         }));
-        await supabase.from('project_blocks').upsert(items);
+        await supabase.from('projects_blocks').upsert(items);
     }
 
     container.addEventListener("mousedown", (e) => {

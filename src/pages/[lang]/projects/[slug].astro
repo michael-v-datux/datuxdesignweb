@@ -4,6 +4,8 @@ export const prerender = false;
 import Layout from '@/layouts/Layout.astro';
 import { getTranslations } from '@/utils/getTranslations';
 import { supabase } from '@/lib/supabaseClient';
+import { resolveProjectBlocks } from '@/lib/projects/blocks';
+import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
 import bcrypt from 'bcryptjs';
 
 const { lang, slug } = Astro.params;
@@ -12,161 +14,167 @@ const translations = await getTranslations(lang);
 const cookieName = `unlocked_project_${slug}`;
 const cookies = Astro.cookies;
 
-// Отримуємо проєкт
 const { data: projectData, error } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("slug", slug)
-    .single();
+  .from('projects')
+  .select('*')
+  .eq('slug', slug)
+  .eq('is_published', true)
+  .single();
 
 if (error || !projectData) {
-    throw new Error("Project not found");
+  throw new Error('Project not found');
 }
 
-let sections = [];
-try {
-    sections = JSON.parse(projectData[`content_${lang}`] || projectData.content_en || "{}").sections || [];
-} catch (e) {
-    console.error("Error parsing project content:", e);
-}
+const blocks = await resolveProjectBlocks(
+  String(projectData.id),
+  lang ?? 'en',
+  projectData.content_en,
+  projectData.content_uk
+);
 
 const project = {
-    title: projectData[`title_${lang}`] || projectData.title_en,
-    subtitle: projectData[`description_${lang}`] || projectData.description_en,
-    cover: projectData.cover_url,
-    isProtected: projectData.is_protected,
-    passwordHash: projectData.password_hash,
-    sections
+  title: projectData[`title_${lang}`] || projectData.title_en,
+  subtitle: projectData[`description_${lang}`] || projectData.description_en,
+  cover: projectData.cover_url,
+  isProtected: projectData.is_protected,
+  passwordHash: projectData.password_hash,
 };
 
-// Стан розблокування
-let unlocked = cookies.get(cookieName) === "true";
-let errorMsg = "";
+let unlocked = cookies.get(cookieName)?.value === 'true';
+let errorMsg = '';
 let showSuccessModal = false;
 
-if (!unlocked && Astro.request.method === "POST") {
-    const form = await Astro.request.formData();
-    const password = form.get("password")?.toString() || "";
-    if (await bcrypt.compare(password, project.passwordHash)) {
-        unlocked = true;
-        cookies.set(cookieName, "true", { path: "/", httpOnly: true, maxAge: 60 * 60 * 24 * 30 }); // 30 днів
-        showSuccessModal = true;
-    } else {
-        errorMsg = translations.protectedProjects.wrongPassword;
-    }
+if (!unlocked && Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const password = form.get('password')?.toString() || '';
+  if (project.passwordHash && (await bcrypt.compare(password, project.passwordHash))) {
+    unlocked = true;
+    cookies.set(cookieName, 'true', {
+      path: '/',
+      httpOnly: true,
+      maxAge: 60 * 60 * 24 * 30,
+    });
+    showSuccessModal = true;
+  } else {
+    errorMsg = translations.protectedProjects.wrongPassword;
+  }
 }
 ---
 
 <Layout translations={translations}>
-    <head>
-        <title>{project.title}</title>
-    </head>
+  <head>
+    <title>{project.title}</title>
+  </head>
 
-    <section id="project-page" class="container mx-auto py-12 px-6 max-w-screen-xl">
-        {project.isProtected && !unlocked ? (
-            <!-- Форма доступу -->
-            <div id="project-password-container">
-                <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
-                    <h1 class="text-2xl font-semibold mb-4">{translations.protectedProjects.title}</h1>
-                    <p class="mb-10">{translations.protectedProjects.subtitle}</p>
+  <section id="project-page" class="container mx-auto py-12 px-6 max-w-screen-xl">
+    {project.isProtected && !unlocked ? (
+      <div id="project-password-container">
+        <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
+          <h1 class="text-2xl font-semibold mb-4">{translations.protectedProjects.title}</h1>
+          <p class="mb-10">{translations.protectedProjects.subtitle}</p>
 
-                    <div class="relative w-full max-w-xs">
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder={translations.protectedProjects.passwordPlaceholder}
-                            class="border border-neutral-300 rounded px-4 py-2 w-full pr-10"
-                            required
-                        />
-                        <button
-                            type="button"
-                            id="toggle-password"
-                            class="absolute inset-y-0 right-0 px-3 flex items-center text-neutral-500 hover:text-neutral-700"
-                            tabindex="-1"
-                        >
-                            👁
-                        </button>
-                    </div>
+          <div class="relative w-full max-w-xs">
+            <input
+              type="password"
+              name="password"
+              placeholder={translations.protectedProjects.passwordPlaceholder}
+              class="border border-neutral-300 rounded px-4 py-2 w-full pr-10"
+              required
+            />
+            <button
+              type="button"
+              id="toggle-password"
+              class="absolute inset-y-0 right-0 px-3 flex items-center text-neutral-500 hover:text-neutral-700"
+              tabindex="-1"
+            >
+              👁
+            </button>
+          </div>
 
-                    <div id="terms-block" class="bg-neutral-100 p-4 rounded-xl text-left w-full max-w-xs">
-                        <p class="text-xs text-neutral-500 mb-3">{translations.protectedProjects.termsText}</p>
-                        <div class="flex flex-col items-start gap-1">
-                            <div class="flex items-center gap-2">
-                                <input type="checkbox" id="accept-terms" class="h-4 w-4" required>
-                                <label for="accept-terms" class="text-sm text-neutral-700">{translations.protectedProjects.checkboxLabel}</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-3">
-                        <button type="submit" class="btn-primary">{translations.protectedProjects.unlockButton}</button>
-                        <a href={`/${lang}/portfolio`} class="btn-secondary">{translations.protectedProjects.backButton}</a>
-                    </div>
-                    {errorMsg && <p class="text-red-500 text-sm">{errorMsg}</p>}
-                </form>
+          <div id="terms-block" class="bg-neutral-100 p-4 rounded-xl text-left w-full max-w-xs">
+            <p class="text-xs text-neutral-500 mb-3">{translations.protectedProjects.termsText}</p>
+            <div class="flex flex-col items-start gap-1">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" id="accept-terms" class="h-4 w-4" required />
+                <label for="accept-terms" class="text-sm text-neutral-700">
+                  {translations.protectedProjects.checkboxLabel}
+                </label>
+              </div>
             </div>
-        ) : (
-            <!-- Контент проекту -->
-            <>
-                <h1 class="text-3xl font-bold mb-4">{project.title}</h1>
-                {project.subtitle && <p class="text-lg text-gray-600 mb-8">{project.subtitle}</p>}
-                {project.cover && <img src={project.cover} alt={project.title} class="w-full rounded-lg mb-8" />}
+          </div>
 
-                {sections.length > 0 ? (
-                    sections.map((section, index) => (
-                        <div class={`project-section mb-12 layout-${section.layout}`} key={index}>
-                            {section.description && <p class="mb-4 text-lg">{section.description}</p>}
-                            {section.images && section.images.length > 0 && (
-                                <div class={`images-grid ${section.layout}`}>
-                                    {section.images.map((img, i) => (
-                                        <figure key={i} class="mb-4">
-                                            <img src={img.src} alt={img.alt || `Image ${i+1}`} class="rounded-lg" />
-                                            {img.tooltip && <figcaption class="text-sm text-gray-500">{img.tooltip}</figcaption>}
-                                        </figure>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))
-                ) : (
-                    <p>{lang === 'uk' ? 'Контент наразі недоступний.' : 'Content is not available yet.'}</p>
-                )}
+          <div class="flex gap-3">
+            <button type="submit" class="btn-primary">
+              {translations.protectedProjects.unlockButton}
+            </button>
+            <a href={`/${lang}/portfolio`} class="btn-secondary">
+              {translations.protectedProjects.backButton}
+            </a>
+          </div>
 
-                {showSuccessModal && (
-                    <div id="unlock-success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300 opacity-100">
-                        <div class="bg-white p-6 rounded-2xl shadow-xl text-center animate-pop">
-                            <svg class="mx-auto mb-3 w-12 h-12 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <p class="text-lg font-medium mb-4">{translations.protectedProjects.accessGranted}</p>
-                            <button id="close-modal" class="px-4 py-2 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition">
-                                OK
-                            </button>
-                        </div>
-                    </div>
-                )}
-
-                <script is:inline>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const modal = document.getElementById('unlock-success-modal');
-                        const closeBtn = document.getElementById('close-modal');
-                        if (modal) {
-                            const closeModal = () => {
-                                modal.classList.add('opacity-0');
-                                setTimeout(() => modal.remove(), 300);
-                            };
-                            // Автоматичне закриття через 2.5 сек
-                            setTimeout(closeModal, 2500);
-                            // Закриття по кліку на кнопку
-                            closeBtn?.addEventListener('click', closeModal);
-                            // Закриття по кліку поза блоком
-                            modal.addEventListener('click', (e) => {
-                                if (e.target === modal) closeModal();
-                            });
-                        }
-                    });
-                </script>
-            </>
+          {errorMsg && <p class="text-red-500 text-sm">{errorMsg}</p>}
+        </form>
+      </div>
+    ) : (
+      <>
+        <h1 class="text-3xl font-bold mb-4">{project.title}</h1>
+        {project.subtitle && <p class="text-lg text-gray-600 mb-8">{project.subtitle}</p>}
+        {project.cover && (
+          <img src={project.cover} alt={project.title} class="w-full rounded-lg mb-8" />
         )}
-    </section>
+
+        {blocks.length > 0 ? (
+          <ProjectBlocks blocks={blocks} lang={lang ?? 'en'} />
+        ) : (
+          <p>
+            {lang === 'uk' ? 'Контент наразі недоступний.' : 'Content is not available yet.'}
+          </p>
+        )}
+
+        {showSuccessModal && (
+          <div
+            id="unlock-success-modal"
+            class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 transition-opacity duration-300 opacity-100"
+          >
+            <div class="bg-white p-6 rounded-2xl shadow-xl text-center animate-pop">
+              <svg
+                class="mx-auto mb-3 w-12 h-12 text-green-500"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              <p class="text-lg font-medium mb-4">{translations.protectedProjects.accessGranted}</p>
+              <button
+                id="close-modal"
+                class="px-4 py-2 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        )}
+
+        <script is:inline>
+          document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('unlock-success-modal');
+            const closeBtn = document.getElementById('close-modal');
+            if (modal) {
+              const closeModal = () => {
+                modal.classList.add('opacity-0');
+                setTimeout(() => modal.remove(), 300);
+              };
+              setTimeout(closeModal, 2500);
+              closeBtn?.addEventListener('click', closeModal);
+              modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+              });
+            }
+          });
+        </script>
+      </>
+    )}
+  </section>
 </Layout>

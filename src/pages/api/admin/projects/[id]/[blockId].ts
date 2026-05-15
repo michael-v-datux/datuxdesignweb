@@ -19,6 +19,7 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   const update: Record<string, any> = {};
   if (payload.type) update.type = payload.type;
   if (payload.content !== undefined) update.content = payload.content;
+  else if (payload.data !== undefined) update.content = payload.data;
   if (typeof payload.position === 'number') update.position = payload.position;
   if (payload.layout) update.layout = payload.layout;
 

@@ -1,12 +1,12 @@
-import { createClient } from '@supabase/supabase-js';
-import bcrypt from 'bcrypt';
+import type { APIRoute } from 'astro';
+import bcrypt from 'bcryptjs';
+import { getServerSupabase } from '@/lib/supabaseServer';
 
-const supabase = createClient(
-  import.meta.env.SUPABASE_URL,
-  import.meta.env.SUPABASE_SERVICE_ROLE_KEY // використовуємо service_role (тільки на сервері!)
-);
+const supabase = getServerSupabase();
 
-export async function post({ request }) {
+export const prerender = false;
+
+export const POST: APIRoute = async ({ request }) => {
   try {
     const { slug, password } = await request.json();
 
@@ -36,6 +36,6 @@ export async function post({ request }) {
   }
 }
 
-export async function GET() {
-  return new Response("Method not allowed", { status: 405 });
-}
+export const GET: APIRoute = async () => {
+  return new Response('Method not allowed', { status: 405 });
+};

@@ -39,13 +39,13 @@ export const POST: APIRoute = async ({ request, params }) => {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400 });
   }
 
-  const { type, content, position, layout } = payload || {};
+  const { type, position, layout } = payload || {};
+  const content = payload?.content ?? payload?.data ?? {};
 
   if (!type) {
     return new Response(JSON.stringify({ error: 'Missing block type' }), { status: 400 });
   }
 
-  // default layout
   const finalLayout = layout || '1/1';
 
   // визначаємо наступну позицію, якщо не передана
