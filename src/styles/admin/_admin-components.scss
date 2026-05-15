@@ -349,3 +349,94 @@
     flex-direction: column;
     gap: 4px;
 }
+
+// === MODALS ==========================================================
+
+.admin-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity $admin-transition-fast, visibility $admin-transition-fast;
+}
+
+.admin-modal.is-open {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.admin-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(4px);
+}
+
+.admin-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 520px);
+    max-height: min(90vh, 720px);
+    overflow-y: auto;
+    border-radius: $admin-radius-lg;
+    background: #fff;
+    border: 1px solid $admin-border-strong;
+    box-shadow: $admin-shadow-strong;
+    padding: 18px 20px 20px;
+}
+
+.admin-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.admin-modal__title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: $admin-text-main;
+}
+
+.admin-modal__close {
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: $admin-text-soft;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: $admin-radius-sm;
+
+    &:hover {
+        color: $admin-text-main;
+        background: rgba(15, 23, 42, 0.06);
+    }
+}
+
+.admin-edit-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.admin-edit-toolbar__preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.hidden {
+    display: none !important;
+}
