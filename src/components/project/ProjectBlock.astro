@@ -1,0 +1,64 @@
+---
+import { blockText } from '@/lib/projects/blocks';
+import type { ProjectBlock } from '@/lib/projects/types';
+
+interface Props {
+  block: ProjectBlock;
+  lang: string;
+}
+
+const { block, lang } = Astro.props;
+const layoutClass = `project-block--layout-${String(block.layout).replace('/', '-')}`;
+const { content, type } = block;
+const text = blockText(content, lang);
+---
+
+<article
+  class:list={['project-block', `project-block--${type}`, layoutClass]}
+  data-block-id={block.id}
+  data-block-type={type}
+>
+  {type === 'text' && text && (
+    <div class="project-block__text">
+      <p class="text-lg leading-relaxed whitespace-pre-wrap">{text}</p>
+    </div>
+  )}
+
+  {type === 'text' && !text && (
+    <p class="project-block__empty text-neutral-400 text-sm">—</p>
+  )}
+
+  {type === 'image' && content.url && (
+    <figure class="project-block__media">
+      <img
+        src={content.url}
+        alt={content.alt || ''}
+        loading="lazy"
+        class="project-block__image"
+      />
+    </figure>
+  )}
+
+  {type === 'media' && content.url && (
+    <figure class="project-block__media">
+      {content.mediaType === 'video' ? (
+        <video
+          src={content.url}
+          class="project-block__video"
+          controls={!content.autoplay}
+          autoplay={content.autoplay}
+          loop={content.loop}
+          muted={content.muted ?? true}
+          playsinline
+        />
+      ) : (
+        <img
+          src={content.url}
+          alt={content.alt || ''}
+          loading="lazy"
+          class="project-block__image"
+        />
+      )}
+    </figure>
+  )}
+</article>

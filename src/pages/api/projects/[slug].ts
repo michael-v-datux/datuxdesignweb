@@ -1,36 +1,49 @@
+import type { APIRoute } from 'astro';
+import bcrypt from 'bcryptjs';
+import { supabase } from '@/lib/supabaseClient';
+import { fetchProjectBlocks, parseLegacySections } from '@/lib/projects/blocks';
+
 export const prerender = false;
 
-import fs from "fs";
-import path from "path";
+export const POST: APIRoute = async ({ params, request }) => {
+  const { slug } = params;
+  const { key } = await request.json();
 
-export async function getStaticPaths() {
-    const projectsDir = path.resolve("src/data/projects");
-    const files = fs.readdirSync(projectsDir)
-        .filter(f => f.endsWith(".json"))
-        .map(f => f.replace(".json", ""));
-    return files.map(slug => ({ params: { slug } }));
-}
+  const { data: project, error } = await supabase
+    .from('projects')
+    .select('*')
+    .eq('slug', slug)
+    .single();
 
-export async function GET({ params, request }) {
-    const { slug } = params;
-    const url = new URL(request.url, "http://localhost:4321");
-    const key = url.searchParams.get("key");
+  if (error || !project) {
+    return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 });
+  }
 
-    const projectPath = path.resolve("src/data/projects", `${slug}.json`);
-    if (!fs.existsSync(projectPath)) {
-        return new Response(JSON.stringify({ error: "Not found" }), { status: 404 });
+  if (project.is_protected) {
+    const match = await bcrypt.compare(key, project.password_hash);
+    if (!match) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
+  }
 
-    const project = JSON.parse(fs.readFileSync(projectPath, "utf-8"));
-    const sanitizedKey = key?.trim().toLowerCase();
-    const sanitizedHash = project.passwordHash.trim().toLowerCase();
+  const blocks = await fetchProjectBlocks(String(project.id));
+  const sections =
+    blocks.length > 0
+      ? []
+      : parseLegacySections(project.content_en).length
+        ? parseLegacySections(project.content_en)
+        : [];
 
-    if (project.protected && sanitizedKey !== sanitizedHash) {
-        return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
+  return new Response(
+    JSON.stringify({
+      title: project.title_en,
+      subtitle: project.description_en,
+      sections,
+      blocks,
+    }),
+    {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     }
-
-    return new Response(JSON.stringify(project), {
-        status: 200,
-        headers: { "Content-Type": "application/json" }
-    });
-}
+  );
+};

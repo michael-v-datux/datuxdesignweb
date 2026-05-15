@@ -66,6 +66,10 @@ export default {
       }
     ]
   },
+  projects: {
+      comingSoon: "Coming soon...",
+      pageNotFound: "Project Not Found"
+  },
   selectedProjects: {
     title: "Selected Projects",
     items: [
@@ -76,7 +80,6 @@ export default {
       { title: "Strategy", category: "Danube Region", link: "/projects/danube-strategy" },
       { title: "Consultancy", category: "Agency", link: "/projects/agency-consultancy" }
     ]
-
   },
   availability: {
     title: "Let’s build great products together",
@@ -150,7 +153,8 @@ export default {
     checkboxError: "You must accept the terms to proceed.",
     unlockButton: "Unlock",
     backButton: "Back",
-    wrongPassword: "Wrong password. Try again."
+    wrongPassword: "Wrong password. Try again.",
+    accessGranted: "Access granted"
   },
   cookies: {
     bannerText: "This site uses cookies to analyze traffic and improve your experience.",

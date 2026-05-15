@@ -1,9 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getTranslations } from '@/utils/getTranslations';
 
-import { getTranslations } from '../../utils/getTranslations';
-
-const lang = Astro.params.lang;
+const lang = Astro.params?.lang || 'en';
 const translations = await getTranslations(lang);
 
 export async function getStaticPaths() {

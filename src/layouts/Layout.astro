@@ -1,13 +1,14 @@
 ---
-import "../styles/main.scss";
-
 import { getTranslations } from '../utils/getTranslations';
 import Navbar from '../components/Navbar.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 
-const lang = Astro.params.lang;
+const lang = Astro.params?.lang || 'en';
+
 const translations = await getTranslations(lang);
 const currentPath = Astro.url.pathname;
+
+const GA_ID = import.meta.env.PUBLIC_GA_ID || "";
 
 const footerLinks = [
   { href: `/${lang}/privacy-policy`, label: lang === 'uk' ? 'Політика конфіденційності' : 'Privacy Policy' },
@@ -26,6 +27,8 @@ const footerLinks = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <script id="ga-config" data-ga-id={GA_ID}></script>
   </head>
   <body class="bg-white text-gray-800 font-base flex flex-col min-h-screen">
     <!-- Header -->
@@ -80,13 +83,16 @@ const footerLinks = [
       </p>
     </footer>
 
-    <script src="/src/scripts/cookie-consent.js" type="module" client:load></script>
-    <script src="/src/scripts/menu.js" type="module" client:load></script>
-    <script src="/src/scripts/nav-dot.js" type="module" client:load></script>
-    <script src="/src//scripts/ribbon.js" type="module" client:load></script>
-    <script src="/src/scripts/scroll-nav.js" type="module" client:load></script>
-    <script src="/src/scripts/contact-validation.js" type="module" client:load></script>
-    <script src="/src/scripts/email-service.js" type="module" client:load></script>
+    <!-- Публічні -->
+    <script src="/scripts/ui/menu.js" type="module" client:load></script>
+    <script src="/scripts/ui/nav-dot.js" type="module" client:load></script>
+    <script src="/scripts/ui/ribbon.js" type="module" client:load></script>
+    <script src="/scripts/ui/scroll-nav.js" type="module" client:load></script>
+    <script src="/scripts/features/contact-validation.js" type="module" client:load></script>
+    <script src="/scripts/common/email-service.js" type="module" client:load></script>
+
+    <!-- Модульні -->
+    <script src="/scripts/common/cookie-consent.js" type="module" client:load></script>
 
     <CookieBanner translations={translations} lang={lang} />
   </body>

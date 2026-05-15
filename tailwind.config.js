@@ -12,6 +12,20 @@ const colors = {
 
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,ts,tsx,vue,svelte,scss}"],
+  safelist: [
+    'bottom-6',
+    'left-1/2',
+    '-translate-x-1/2',
+    'px-6',
+    'py-3',
+    'rounded-lg',
+    'shadow-lg',
+    'text-sm',
+    'border',
+    'z-50',
+    'animate-fade-in',
+    'animate-fade-out'
+  ],
   darkMode: 'class',
   theme: {
     extend: {

@@ -1,0 +1,49 @@
+---
+export const prerender = false;
+const title = Astro.props.title ?? "Admin";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title} | Admin | datux.design</title>
+
+    <!-- Головний стильовий файл (містить і адмінку, і сайт) -->
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+
+  <body class="admin-body">
+    <!-- TOP NAV -->
+    <header class="admin-topnav">
+      <div class="admin-topnav__inner">
+        <a href="/admin/dashboard" class="admin-topnav__logo">
+          Admin Panel
+        </a>
+
+        <nav class="admin-topnav__nav">
+          <a href="/admin/dashboard" class="admin-topnav__link">Dashboard</a>
+          <a href="/admin/projects/new" class="admin-topnav__link">New Project</a>
+
+          <button
+            onclick="localStorage.removeItem('admin'); window.location.href='/admin';"
+            class="admin-topnav__logout"
+          >
+            Logout
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="admin-shell">
+      <slot />
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="admin-footer">
+      Admin Panel · datux.design
+    </footer>
+  </body>
+</html>

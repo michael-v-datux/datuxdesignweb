@@ -1,0 +1,18 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+export const prerender = false;
+---
+
+<script>
+  if (!localStorage.getItem("admin")) {
+    window.location.href = "/admin";
+  }
+</script>
+
+<AdminLayout title="Dashboard">
+  <h1 class="text-2xl mb-6 font-semibold">Projects</h1>
+
+  <div id="projects" class="flex flex-col gap-4"></div>
+
+  <script type="module" src="/scripts/admin/dashboard.js"></script>
+</AdminLayout>

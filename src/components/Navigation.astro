@@ -1,6 +1,6 @@
 ---
 const { translations } = Astro.props;
-const lang = Astro.params.lang;
+const lang = Astro.params?.lang || 'en';
 
 // Визначаємо альтернативну мову
 const altLang = lang === 'en' ? 'uk' : 'en';

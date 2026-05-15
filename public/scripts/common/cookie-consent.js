@@ -1,5 +1,5 @@
-import { initAnalytics } from './analytics.js';
-import { showToast } from './toast.js';
+import { enableAnalytics } from '/scripts/common/analytics.js';
+import { showToast } from '/scripts/common/toast.js';
 
 document.addEventListener("DOMContentLoaded", () => {
     const banner = document.getElementById("cookie-banner");
@@ -17,6 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.cookie = `${cookie.split("=")[0]}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
             }
         });
+
+        const gaScript = document.querySelector('script[src^="https://www.googletagmanager.com/gtag/js"]');
+        if (gaScript) gaScript.remove();
+
+        window.dataLayer = [];
+        window.gtagLoaded = false;
+        console.log("❌ [GA] Disabled and cookies removed");
     }
 
     function showBanner() {
@@ -32,27 +39,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { once: true });
     }
 
-
     const cookiesChoice = localStorage.getItem("cookiesAccepted");
 
-    if (cookiesChoice === null) {
-        setTimeout(() => {
-            showBanner();
-        }, 3000);
-    } else if (cookiesChoice === "true") {
-        initAnalytics();
+    if (cookiesChoice === "true") {
+        enableAnalytics();
+        console.log("ℹ️ [GA] Auto-enabled (previous consent)");
+    } else if (cookiesChoice === "false") {
+        console.log("ℹ️ [GA] Not loaded (previous decline)");
     }
 
     acceptBtn.addEventListener("click", () => {
         localStorage.setItem("cookiesAccepted", "true");
         showToast(acceptedText, "success");
-        hideBanner(() => initAnalytics());
+        console.log("👍 [Cookies] Accepted");
+        hideBanner(() => enableAnalytics());
     });
 
     declineBtn.addEventListener("click", () => {
         localStorage.setItem("cookiesAccepted", "false");
         deleteAnalyticsCookies();
         showToast(declinedText, "error");
+        console.log("👎 [Cookies] Declined");
         hideBanner(() => setTimeout(() => location.reload(), 4000));
     });
 
@@ -62,7 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const prevChoice = localStorage.getItem("cookiesAccepted");
             localStorage.removeItem("cookiesAccepted");
             localStorage.setItem("previousCookiesChoice", prevChoice);
+            console.log("↩️ [Cookies] Choice reset");
             location.reload();
         });
+    }
+
+    if (cookiesChoice === null) {
+        setTimeout(() => {
+            showBanner();
+        }, 3000);
     }
 });
