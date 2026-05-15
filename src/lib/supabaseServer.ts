@@ -24,3 +24,6 @@ export function getServerSupabase(): SupabaseClient {
   serverClient = createClient(url, key);
   return serverClient;
 }
+
+/** Server-only client; uses service role when set (bypasses RLS). For admin routes. */
+export const getAdminSupabase = getServerSupabase;

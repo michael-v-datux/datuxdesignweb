@@ -1,6 +1,8 @@
 ---
 import AdminLayout from "../../../../layouts/AdminLayout.astro";
-import supabase from "../../../../lib/supabaseClient";
+import { getAdminSupabase } from "../../../../lib/supabaseServer";
+
+const supabase = getAdminSupabase();
 import { normalizeBlock, blockText } from "../../../../lib/projects/blocks";
 
 const { id } = Astro.params;
