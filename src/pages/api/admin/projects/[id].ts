@@ -1,5 +1,5 @@
-// src/pages/api/admin/projects/[id].ts
 import type { APIRoute } from "astro";
+import bcrypt from "bcryptjs";
 import { getAdminSupabase } from "../../../../lib/supabaseServer";
 
 const supabase = getAdminSupabase();
@@ -35,7 +35,7 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     status,
     is_published,
     is_protected,
-    password_hash,
+    password,
   } = payload || {};
 
   const update: Record<string, any> = {};
@@ -52,7 +52,12 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   if (status !== undefined) update.status = status;
   if (is_published !== undefined) update.is_published = !!is_published;
   if (is_protected !== undefined) update.is_protected = !!is_protected;
-  if (password_hash !== undefined) update.password_hash = password_hash;
+
+  if (is_protected === false) {
+    update.password_hash = null;
+  } else if (typeof password === "string" && password.length > 0) {
+    update.password_hash = await bcrypt.hash(password, 10);
+  }
 
   if (Object.keys(update).length === 0) {
     return new Response(JSON.stringify({ error: "Nothing to update" }), {
