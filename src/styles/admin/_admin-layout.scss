@@ -61,6 +61,15 @@ body.admin-body {
     opacity: 0.9;
 }
 
+.admin-breadcrumbs__item--link {
+    color: $admin-primary;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
 .admin-breadcrumbs__divider {
     opacity: 0.6;
 }

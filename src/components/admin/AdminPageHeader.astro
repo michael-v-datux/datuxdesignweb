@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  breadcrumbs?: Array<{ label: string; href?: string }>;
+}
+
+const { title, subtitle, breadcrumbs = [] } = Astro.props;
+---
+
+<header class="admin-header">
+  <div class="admin-header__left">
+    {breadcrumbs.length > 0 && (
+      <nav class="admin-breadcrumbs" aria-label="Breadcrumb">
+        {breadcrumbs.map((crumb, i) => (
+          <>
+            {i > 0 && <span class="admin-breadcrumbs__divider">/</span>}
+            {crumb.href ? (
+              <a href={crumb.href} class="admin-breadcrumbs__item admin-breadcrumbs__item--link">
+                {crumb.label}
+              </a>
+            ) : (
+              <span class="admin-breadcrumbs__item">{crumb.label}</span>
+            )}
+          </>
+        ))}
+      </nav>
+    )}
+    <h1 class="admin-header__title">{title}</h1>
+    {subtitle && <p class="admin-header__subtitle">{subtitle}</p>}
+  </div>
+  {Astro.slots.has('actions') && (
+    <div class="admin-header__actions">
+      <slot name="actions" />
+    </div>
+  )}
+</header>

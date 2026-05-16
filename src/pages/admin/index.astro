@@ -3,56 +3,59 @@ import AdminLayout from "../../layouts/AdminLayout.astro";
 export const prerender = false;
 ---
 
-<AdminLayout title="Admin Login">
-  <div class="max-w-sm mx-auto mt-24 bg-white shadow rounded-lg p-6 border border-slate-200">
-    <h1 class="text-xl font-semibold mb-4 text-center">Admin Login</h1>
+<AdminLayout title="Sign in" hideNav={true}>
+  <article class="admin-login-card">
+    <div class="admin-login-card__brand">
+      <span class="admin-login-card__logo" aria-hidden="true">D</span>
+      <h1 class="admin-login-card__title">Admin sign in</h1>
+      <p class="admin-login-card__subtitle">
+        Manage portfolio projects and content blocks.
+      </p>
+    </div>
 
-    <form id="login-form" class="flex flex-col gap-4">
-      <div class="flex flex-col gap-1">
-        <label for="username" class="text-sm text-slate-700">Username</label>
+    <form id="login-form" class="admin-form">
+      <div class="admin-form__field">
+        <label for="username" class="admin-form__label">Username</label>
         <input
           id="username"
           type="text"
           name="username"
-          placeholder="Username"
+          class="admin-input"
+          placeholder="admin"
           autocomplete="username"
-          class="p-2 border rounded"
           required
         />
       </div>
 
-      <div class="flex flex-col gap-1">
-        <label for="password" class="text-sm text-slate-700">Password</label>
+      <div class="admin-form__field">
+        <label for="password" class="admin-form__label">Password</label>
         <input
           id="password"
           type="password"
           name="password"
-          placeholder="Password"
+          class="admin-input"
+          placeholder="••••••••"
           autocomplete="current-password"
-          class="p-2 border rounded"
           required
         />
       </div>
 
-      <label class="flex items-center gap-2 text-sm text-slate-600">
-        <input id="remember-username" type="checkbox" class="h-4 w-4" />
-        <span>Remember username</span>
+      <label class="admin-form__checkbox-row">
+        <input id="remember-username" type="checkbox" />
+        <span class="admin-form__label">Remember username</span>
       </label>
 
-      <p id="login-error" class="text-sm text-red-500 min-h-[1.25rem]"></p>
+      <p id="login-error" class="admin-login-card__error" role="alert"></p>
 
-      <button
-        type="submit"
-        class="bg-blue-500 hover:bg-blue-600 text-white p-2 rounded transition"
-      >
-        Login
+      <button type="submit" class="admin-btn admin-btn--primary" style="width: 100%;">
+        Sign in
       </button>
     </form>
 
-    <p class="mt-3 text-xs text-slate-500">
-      Credentials come from <code class="font-mono">ADMIN_USER</code> / <code class="font-mono">ADMIN_PASS</code>.
+    <p class="admin-form__hint" style="margin-top: 16px; text-align: center;">
+      Credentials from <code>ADMIN_USER</code> / <code>ADMIN_PASS</code> on the server.
     </p>
-  </div>
+  </article>
 
   <script>
     const form = document.getElementById("login-form");

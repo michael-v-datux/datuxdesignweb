@@ -352,7 +352,7 @@ function initReorder(projectId) {
       }
 
       [...tbody.querySelectorAll('tr')].forEach((r, idx) => {
-        const posCell = r.querySelector('td:first-child');
+        const posCell = r.querySelector('[data-block-position]');
         if (posCell) posCell.textContent = String(idx);
       });
     });

@@ -1,6 +1,8 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
+import AdminPageHeader from "../../../components/admin/AdminPageHeader.astro";
 import { getAdminSupabase } from "../../../lib/supabaseServer";
+import bcrypt from "bcryptjs";
 
 const supabase = getAdminSupabase();
 
@@ -14,8 +16,6 @@ if (Astro.request.method === "POST") {
   const title_uk = (formData.get("title_uk") || "").toString().trim();
   const description_en = (formData.get("description_en") || "").toString().trim();
   const description_uk = (formData.get("description_uk") || "").toString().trim();
-  const content_en = (formData.get("content_en") || "").toString().trim();
-  const content_uk = (formData.get("content_uk") || "").toString().trim();
   const thumbnail_url = (formData.get("thumbnail_url") || "").toString().trim();
   const cover_url = (formData.get("cover_url") || "").toString().trim();
   const category_en = (formData.get("category_en") || "").toString().trim();
@@ -27,7 +27,11 @@ if (Astro.request.method === "POST") {
   const is_protected =
     formData.get("is_protected") === "on" || formData.get("is_protected") === "true";
 
-  const password_hash = (formData.get("password_hash") || "").toString().trim() || null;
+  const password = (formData.get("password") || "").toString().trim();
+  let password_hash: string | null = null;
+  if (password) {
+    password_hash = await bcrypt.hash(password, 10);
+  }
 
   if (!slug || !title_en || !title_uk) {
     error = "Slug, Title EN та Title UK є обов'язковими полями.";
@@ -38,8 +42,6 @@ if (Astro.request.method === "POST") {
       title_uk,
       description_en: description_en || null,
       description_uk: description_uk || null,
-      content_en: content_en || null,
-      content_uk: content_uk || null,
       thumbnail_url: thumbnail_url || null,
       cover_url: cover_url || null,
       category_en: category_en || null,
@@ -69,13 +71,22 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<AdminLayout title="Create project" section="projects">
+<AdminLayout title="Create project" activeNav="new">
+  <AdminPageHeader
+    title="New project"
+    subtitle="Basic metadata first — blocks and uploads on the edit screen."
+    breadcrumbs={[
+      { label: "Projects", href: "/admin/dashboard" },
+      { label: "New" },
+    ]}
+  />
+
   <section class="admin-table-card">
     <div class="admin-table-card__header">
-      <h2>New project</h2>
+      <h2>Project details</h2>
     </div>
 
-    <div class="p-4">
+    <div class="admin-card__body">
       {error && (
         <div class="admin-alert admin-alert--error">
           {error}
@@ -163,26 +174,6 @@ if (Astro.request.method === "POST") {
           ></textarea>
         </div>
 
-        <div class="admin-form__field">
-          <label class="admin-form__label">Content (EN, optional)</label>
-          <textarea
-            class="admin-input"
-            name="content_en"
-            rows="4"
-          ></textarea>
-          <p class="admin-form__hint">
-            Можна залишити порожнім, якщо весь контент буде через блоки.
-          </p>
-        </div>
-
-        <div class="admin-form__field">
-          <label class="admin-form__label">Content (UK, optional)</label>
-          <textarea
-            class="admin-input"
-            name="content_uk"
-            rows="4"
-          ></textarea>
-        </div>
 
         <div class="admin-form__field admin-form__field--inline">
           <div>
@@ -192,6 +183,7 @@ if (Astro.request.method === "POST") {
               name="thumbnail_url"
               placeholder="https://..."
             />
+            <p class="admin-form__hint">Upload files after creation on the edit page.</p>
           </div>
           <div>
             <label class="admin-form__label">Cover URL</label>
@@ -204,31 +196,28 @@ if (Astro.request.method === "POST") {
         </div>
 
         <div class="admin-form__field admin-form__field--inline">
-          <div class="flex items-center gap-2">
+          <label class="admin-form__checkbox-row">
             <input id="is_published" type="checkbox" name="is_published" />
-            <label class="admin-form__label" for="is_published">
-              Published
-            </label>
-          </div>
+            <span class="admin-form__label">Published</span>
+          </label>
 
-          <div class="flex items-center gap-2">
+          <label class="admin-form__checkbox-row">
             <input id="is_protected" type="checkbox" name="is_protected" />
-            <label class="admin-form__label" for="is_protected">
-              Password protected
-            </label>
-          </div>
+            <span class="admin-form__label">Password protected</span>
+          </label>
         </div>
 
         <div class="admin-form__field">
-          <label class="admin-form__label">Password hash (optional)</label>
+          <label class="admin-form__label">Password (optional)</label>
           <input
             class="admin-input"
-            name="password_hash"
-            placeholder="hash..."
+            type="password"
+            name="password"
+            placeholder="Set if project is protected"
+            autocomplete="new-password"
           />
           <p class="admin-form__hint">
-            Тут очікується вже готовий hash. Пізніше можна буде додати UI
-            для введення пароля та автогенерації hash.
+            Зберігається як bcrypt hash. Залиште порожнім, якщо пароль не потрібен.
           </p>
         </div>
 
@@ -238,7 +227,7 @@ if (Astro.request.method === "POST") {
           </button>
         </div>
 
-        <p class="admin-form__hint mt-4">
+        <p class="admin-form__hint" style="margin-top: 16px;">
           Після створення проєкту ви будете перенаправлені на сторінку редагування,
           де можна налаштувати контентні блоки (текст, зображення, медіа, грід 1/2/3/4, full width).
         </p>

@@ -3,6 +3,13 @@ import { adminFetch } from "/scripts/admin/api.js";
 
 const projectsContainer = document.getElementById("projects");
 
+function statusPill(status) {
+  const s = (status || "draft").toLowerCase();
+  const cls =
+    s === "published" ? "admin-pill admin-pill--published" : "admin-pill admin-pill--draft";
+  return `<span class="${cls}">${s}</span>`;
+}
+
 async function loadProjects() {
   try {
     const res = await adminFetch("/api/admin-projects");
@@ -15,52 +22,52 @@ async function loadProjects() {
     projectsContainer.innerHTML = "";
 
     if (!data.length) {
-      const empty = document.createElement("p");
-      empty.className = "text-sm text-slate-400";
-      empty.textContent = "No projects yet. Create your first one!";
-      projectsContainer.appendChild(empty);
+      projectsContainer.innerHTML = `
+        <div class="admin-empty">
+          <p class="admin-empty__title">No projects yet</p>
+          <p class="admin-empty__text">
+            Create your first case study to show it on the public site.
+          </p>
+          <a href="/admin/projects/new" class="admin-btn admin-btn--primary">
+            Create project
+          </a>
+        </div>
+      `;
       return;
     }
 
     data.forEach((proj) => {
-      const div = document.createElement("div");
-      div.className =
-        "flex items-center justify-between gap-4 rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-3";
+      const row = document.createElement("article");
+      row.className = "admin-project-row";
 
       const title =
         proj.title_en || proj.title_uk || `Project #${proj.id || "?"}`;
-      const status = proj.status || "draft";
+      const slug = proj.slug ? `/${proj.slug}` : "";
 
-      div.innerHTML = `
-        <div>
-          <h3 class="font-medium text-slate-100">${title}</h3>
-          <p class="text-xs text-slate-400">
-            Status: <span class="uppercase">${status}</span>
+      row.innerHTML = `
+        <div class="admin-project-row__main">
+          <h3 class="admin-project-row__title">${escapeHtml(title)}</h3>
+          <div class="admin-project-row__meta">
+            ${statusPill(proj.status)}
+            ${slug ? `<span>${escapeHtml(slug)}</span>` : ""}
             ${
               proj.is_protected
-                ? ' • <span class="text-amber-400">Protected</span>'
+                ? '<span class="admin-badge">Protected</span>'
                 : ""
             }
-          </p>
+          </div>
         </div>
-        <div class="flex gap-2">
-          <a
-            href="/admin/projects/${proj.id}/edit"
-            class="rounded-md bg-slate-800 px-3 py-1.5 text-xs text-slate-100 hover:bg-slate-700"
-          >
+        <div class="admin-project-row__actions">
+          <a href="/admin/projects/${proj.id}/edit" class="admin-btn admin-btn--ghost admin-btn--sm">
             Edit
           </a>
-          <button
-            class="delete-btn rounded-md bg-red-500/90 px-3 py-1.5 text-xs text-white hover:bg-red-500"
-            type="button"
-          >
+          <button type="button" class="admin-btn admin-btn--danger admin-btn--sm delete-btn">
             Delete
           </button>
         </div>
       `;
 
-      const deleteBtn = div.querySelector(".delete-btn");
-      deleteBtn.addEventListener("click", async () => {
+      row.querySelector(".delete-btn")?.addEventListener("click", async () => {
         if (!confirm("Delete this project?")) return;
 
         const resp = await adminFetch("/api/admin-projects", {
@@ -78,12 +85,20 @@ async function loadProjects() {
         loadProjects();
       });
 
-      projectsContainer.appendChild(div);
+      projectsContainer.appendChild(row);
     });
   } catch (err) {
     console.error(err);
     showToast("Failed to load projects", "error");
   }
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 loadProjects();

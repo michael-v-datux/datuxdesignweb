@@ -1,12 +1,20 @@
 ---
 import AdminLayout from "../../layouts/AdminLayout.astro";
+import AdminPageHeader from "../../components/admin/AdminPageHeader.astro";
 export const prerender = false;
 ---
 
-<AdminLayout title="Dashboard">
-  <h1 class="text-2xl mb-6 font-semibold">Projects</h1>
+<AdminLayout title="Dashboard" activeNav="dashboard">
+  <AdminPageHeader
+    title="Projects"
+    subtitle="Create, edit, and publish portfolio case studies."
+  >
+    <a slot="actions" href="/admin/projects/new" class="admin-btn admin-btn--primary">
+      + New project
+    </a>
+  </AdminPageHeader>
 
-  <div id="projects" class="flex flex-col gap-4"></div>
+  <div id="projects" class="admin-project-list"></div>
 
   <script type="module" src="/scripts/admin/dashboard.js"></script>
 </AdminLayout>
