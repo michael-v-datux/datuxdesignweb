@@ -1,10 +1,11 @@
 import { showToast } from "/scripts/common/toast.js";
+import { adminFetch } from "/scripts/admin/api.js";
 
 const projectsContainer = document.getElementById("projects");
 
 async function loadProjects() {
   try {
-    const res = await fetch("/api/admin-projects");
+    const res = await adminFetch("/api/admin-projects");
     if (!res.ok) {
       showToast("Failed to load projects", "error");
       return;
@@ -62,7 +63,7 @@ async function loadProjects() {
       deleteBtn.addEventListener("click", async () => {
         if (!confirm("Delete this project?")) return;
 
-        const resp = await fetch("/api/admin-projects", {
+        const resp = await adminFetch("/api/admin-projects", {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: proj.id }),

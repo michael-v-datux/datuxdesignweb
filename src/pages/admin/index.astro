@@ -35,12 +35,8 @@ export const prerender = false;
       </div>
 
       <label class="flex items-center gap-2 text-sm text-slate-600">
-        <input
-          id="remember-password"
-          type="checkbox"
-          class="h-4 w-4"
-        />
-        <span>Remember password on this device</span>
+        <input id="remember-username" type="checkbox" class="h-4 w-4" />
+        <span>Remember username</span>
       </label>
 
       <p id="login-error" class="text-sm text-red-500 min-h-[1.25rem]"></p>
@@ -62,18 +58,14 @@ export const prerender = false;
     const form = document.getElementById("login-form");
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
-    const rememberCheckbox = document.getElementById("remember-password");
+    const rememberCheckbox = document.getElementById("remember-username");
     const errorEl = document.getElementById("login-error");
 
-    // Спробувати відновити логін/пароль із localStorage
     try {
       const saved = JSON.parse(localStorage.getItem("admin-login") || "null");
-      if (saved && saved.username) {
+      if (saved?.username) {
         usernameInput.value = saved.username;
-      }
-      if (saved && saved.rememberPassword && saved.password) {
         rememberCheckbox.checked = true;
-        passwordInput.value = saved.password;
       }
     } catch (e) {
       console.warn("Failed to parse admin-login from localStorage", e);
@@ -90,6 +82,7 @@ export const prerender = false;
         const res = await fetch("/api/admin-login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
           body: JSON.stringify({ username, password }),
         });
 
@@ -98,15 +91,11 @@ export const prerender = false;
           return;
         }
 
-        // Зберігаємо інформацію для автозаповнення
-        const toSave = { username };
         if (rememberCheckbox.checked) {
-          toSave.rememberPassword = true;
-          toSave.password = password;
+          localStorage.setItem("admin-login", JSON.stringify({ username }));
+        } else {
+          localStorage.removeItem("admin-login");
         }
-
-        localStorage.setItem("admin-login", JSON.stringify(toSave));
-        localStorage.setItem("admin", "true");
 
         window.location.href = "/admin/dashboard";
       } catch (err) {

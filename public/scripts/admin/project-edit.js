@@ -1,4 +1,5 @@
 import { showToast } from '/scripts/common/toast.js';
+import { adminFetch } from '/scripts/admin/api.js';
 
 function readState() {
   const el = document.getElementById('project-edit-state');
@@ -59,7 +60,7 @@ async function uploadToStorage(file, projectId) {
   const fd = new FormData();
   fd.append('file', file);
   fd.append('projectId', projectId);
-  const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+  const res = await adminFetch('/api/admin/upload', { method: 'POST', body: fd });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || 'Upload failed');
   return data.url;
@@ -193,7 +194,7 @@ function initProjectForm(projectId) {
 
     if (password) payload.password = password;
 
-    const res = await fetch(`/api/admin/projects/${projectId}`, {
+    const res = await adminFetch(`/api/admin/projects/${projectId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -229,7 +230,7 @@ function initBlockForms(projectId, blocksById) {
     const layout = form.layout.value || '1/1';
     const content = buildContentFromForm(form, type);
 
-    const res = await fetch(`/api/admin/projects/${projectId}/blocks`, {
+    const res = await adminFetch(`/api/admin/projects/${projectId}/blocks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type, layout, content }),
@@ -254,7 +255,7 @@ function initBlockForms(projectId, blocksById) {
     const layout = form.layout.value || '1/1';
     const content = buildContentFromForm(form, type);
 
-    const res = await fetch(`/api/admin/projects/${projectId}/${blockId}`, {
+    const res = await adminFetch(`/api/admin/projects/${projectId}/${blockId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ type, layout, content }),
@@ -290,7 +291,7 @@ function initBlockForms(projectId, blocksById) {
     if (!blockId) return;
     if (!confirm('Delete this block?')) return;
 
-    fetch(`/api/admin/projects/${projectId}/${blockId}`, { method: 'DELETE' }).then(
+    adminFetch(`/api/admin/projects/${projectId}/${blockId}`, { method: 'DELETE' }).then(
       async (res) => {
         if (!res.ok) {
           showToast('Failed to delete block', 'error');
@@ -339,7 +340,7 @@ function initReorder(projectId) {
       }
 
       const order = [...tbody.querySelectorAll('tr')].map((r) => r.dataset.blockId);
-      const res = await fetch(`/api/admin/projects/${projectId}/reorder`, {
+      const res = await adminFetch(`/api/admin/projects/${projectId}/reorder`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ order }),
