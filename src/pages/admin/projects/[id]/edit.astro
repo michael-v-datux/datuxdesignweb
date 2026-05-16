@@ -1,5 +1,6 @@
 ---
 import AdminLayout from "../../../../layouts/AdminLayout.astro";
+import AdminPageHeader from "../../../../components/admin/AdminPageHeader.astro";
 import BlockMediaFields from "../../../../components/admin/BlockMediaFields.astro";
 import { getAdminSupabase } from "../../../../lib/supabaseServer";
 import { normalizeBlock, blockText } from "../../../../lib/projects/blocks";
@@ -38,12 +39,28 @@ const editState = JSON.stringify({
   slug,
   blocks,
 }).replace(/</g, "\\u003c");
+
+const pillClass = (type: string) => {
+  if (type === "text") return "admin-pill admin-pill--text";
+  if (type === "image") return "admin-pill admin-pill--image";
+  if (type === "media") return "admin-pill admin-pill--media";
+  return "admin-pill";
+};
 ---
 
-<AdminLayout title={`Edit: ${project?.slug ?? "Project"}`} section="projects">
+<AdminLayout title={`Edit: ${project?.slug ?? "Project"}`} activeNav="dashboard">
+  <AdminPageHeader
+    title={project?.title_en || project?.title_uk || "Edit project"}
+    subtitle="Update metadata, media, and content blocks."
+    breadcrumbs={[
+      { label: "Projects", href: "/admin/dashboard" },
+      { label: project?.slug ?? "Edit" },
+    ]}
+  />
+
   <div class="admin-edit-toolbar">
-    <p class="text-sm text-slate-500">
-      {slug ? `/${slug}` : "Set a slug to preview"}
+    <p>
+      {slug ? `/${slug}` : "Set a slug to preview on the public site"}
     </p>
     {slug && (
       <div class="admin-edit-toolbar__preview">
@@ -79,7 +96,7 @@ const editState = JSON.stringify({
       </button>
     </div>
 
-    <div class="p-4">
+    <div class="admin-card__body">
       <form class="admin-form" data-project-form>
         <div class="admin-form__field admin-form__field--inline">
           <div>
@@ -175,7 +192,7 @@ const editState = JSON.stringify({
             <label class="admin-form__label">Thumbnail</label>
             <input
               type="file"
-              class="admin-input mb-2"
+              class="admin-input admin-file-input"
               data-project-upload
               data-target="thumbnail_url"
               accept="image/jpeg,image/png,image/gif,image/webp"
@@ -191,7 +208,7 @@ const editState = JSON.stringify({
             <label class="admin-form__label">Cover</label>
             <input
               type="file"
-              class="admin-input mb-2"
+              class="admin-input admin-file-input"
               data-project-upload
               data-target="cover_url"
               accept="image/jpeg,image/png,image/gif,image/webp"
@@ -206,29 +223,25 @@ const editState = JSON.stringify({
         </div>
 
         <div class="admin-form__field admin-form__field--inline">
-          <div class="flex items-center gap-2">
+          <label class="admin-form__checkbox-row">
             <input
               id="is_published"
               type="checkbox"
               name="is_published"
               checked={project?.is_published ?? false}
             />
-            <label class="admin-form__label" for="is_published">
-              Published
-            </label>
-          </div>
+            <span class="admin-form__label">Published</span>
+          </label>
 
-          <div class="flex items-center gap-2">
+          <label class="admin-form__checkbox-row">
             <input
               id="is_protected"
               type="checkbox"
               name="is_protected"
               checked={project?.is_protected ?? false}
             />
-            <label class="admin-form__label" for="is_protected">
-              Password protected
-            </label>
-          </div>
+            <span class="admin-form__label">Password protected</span>
+          </label>
         </div>
 
         <div class="admin-form__field">
@@ -264,7 +277,8 @@ const editState = JSON.stringify({
     <table class="admin-table" data-blocks-table data-project-id={id}>
       <thead>
         <tr>
-          <th>Pos</th>
+          <th class="admin-table__drag" aria-label="Reorder"></th>
+          <th>#</th>
           <th>Type</th>
           <th>Layout</th>
           <th>Preview</th>
@@ -283,10 +297,11 @@ const editState = JSON.stringify({
             preview.length > 60 ? preview.slice(0, 60) + "…" : preview;
           return (
           <tr data-block-id={b.id} draggable="true">
-            <td>{b.position}</td>
-            <td>{b.type}</td>
-            <td>{b.layout}</td>
-            <td>{short}</td>
+            <td class="admin-table__drag" aria-hidden="true">⋮⋮</td>
+            <td data-block-position>{b.position}</td>
+            <td><span class={pillClass(b.type)}>{b.type}</span></td>
+            <td><code>{b.layout}</code></td>
+            <td class="admin-table__preview">{short}</td>
             <td style="text-align:right;">
               <div class="admin-table__actions">
                 <button

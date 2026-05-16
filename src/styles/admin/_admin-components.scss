@@ -106,7 +106,8 @@
     margin-top: 14px;
 }
 
-.admin-button {
+.admin-button,
+.admin-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -128,42 +129,50 @@
     background: transparent;
 }
 
-.admin-button:active {
+.admin-button:active,
+.admin-btn:active {
     transform: translateY(1px) scale(0.99);
 }
 
-.admin-button--primary {
+.admin-button--primary,
+.admin-btn--primary {
     background: linear-gradient(135deg, $admin-primary, #6366f1);
     color: $color-white;
     box-shadow: 0 14px 28px rgba(79, 70, 229, 0.45);
 }
 
-.admin-button--primary:hover {
+.admin-button--primary:hover,
+.admin-btn--primary:hover {
     box-shadow: 0 18px 42px rgba(79, 70, 229, 0.6);
 }
 
-.admin-button--ghost {
+.admin-button--ghost,
+.admin-btn--ghost {
     background: rgba(255, 255, 255, 0.9);
     color: $admin-text-main;
     border-color: $admin-border-soft;
 }
 
-.admin-button--ghost:hover {
+.admin-button--ghost:hover,
+.admin-btn--ghost:hover {
     background: rgba(255, 255, 255, 1);
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
-.admin-button--danger {
+.admin-button--danger,
+.admin-btn--danger {
     background: linear-gradient(135deg, $admin-danger, #fb7185);
     color: #fef2f2;
     box-shadow: 0 14px 28px rgba(220, 38, 38, 0.5);
 }
 
-.admin-button--danger:hover {
+.admin-button--danger:hover,
+.admin-btn--danger:hover {
     box-shadow: 0 18px 40px rgba(220, 38, 38, 0.7);
 }
 
-.admin-button--sm {
+.admin-button--sm,
+.admin-btn--sm {
     padding: 5px 10px;
     font-size: 0.78rem;
 }
@@ -420,15 +429,6 @@
         color: $admin-text-main;
         background: rgba(15, 23, 42, 0.06);
     }
-}
-
-.admin-edit-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 16px;
 }
 
 .admin-edit-toolbar__preview {

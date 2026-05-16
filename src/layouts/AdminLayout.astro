@@ -1,53 +1,77 @@
 ---
 export const prerender = false;
-const title = Astro.props.title ?? "Admin";
+
+interface Props {
+  title?: string;
+  hideNav?: boolean;
+  activeNav?: "dashboard" | "new";
+}
+
+const { title = "Admin", hideNav = false, activeNav } = Astro.props;
+const bodyClass = hideNav ? "admin-body admin-body--login" : "admin-body";
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>{title} | Admin | datux.design</title>
-
-    <!-- Головний стильовий файл (містить і адмінку, і сайт) -->
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
 
-  <body class="admin-body">
-    <!-- TOP NAV -->
-    <header class="admin-topnav">
-      <div class="admin-topnav__inner">
-        <a href="/admin/dashboard" class="admin-topnav__logo">
-          Admin Panel
-        </a>
+  <body class={bodyClass}>
+    {!hideNav && (
+      <header class="admin-topnav">
+        <div class="admin-topnav__inner">
+          <a href="/admin/dashboard" class="admin-topnav__logo">
+            datux.design · Admin
+          </a>
 
-        <nav class="admin-topnav__nav">
-          <a href="/admin/dashboard" class="admin-topnav__link">Dashboard</a>
-          <a href="/admin/projects/new" class="admin-topnav__link">New Project</a>
+          <nav class="admin-topnav__nav">
+            <a
+              href="/admin/dashboard"
+              class:list={[
+                "admin-topnav__link",
+                activeNav === "dashboard" && "is-active",
+              ]}
+            >
+              Dashboard
+            </a>
+            <a
+              href="/admin/projects/new"
+              class:list={[
+                "admin-topnav__link",
+                activeNav === "new" && "is-active",
+              ]}
+            >
+              New project
+            </a>
+            <button type="button" id="admin-logout" class="admin-topnav__logout">
+              Logout
+            </button>
+          </nav>
+        </div>
+      </header>
+    )}
 
-          <button type="button" id="admin-logout" class="admin-topnav__logout">
-            Logout
-          </button>
-        </nav>
-      </div>
-    </header>
-
-    <!-- PAGE CONTENT -->
     <main class="admin-shell">
       <slot />
     </main>
 
-    <!-- FOOTER -->
-    <footer class="admin-footer">
-      Admin Panel · datux.design
-    </footer>
+    {!hideNav && (
+      <footer class="admin-footer">Admin Panel · datux.design</footer>
+    )}
 
-    <script>
-      document.getElementById('admin-logout')?.addEventListener('click', async () => {
-        await fetch('/api/admin-logout', { method: 'POST', credentials: 'same-origin' });
-        window.location.href = '/admin';
-      });
-    </script>
+    {!hideNav && (
+      <script>
+        document.getElementById("admin-logout")?.addEventListener("click", async () => {
+          await fetch("/api/admin-logout", {
+            method: "POST",
+            credentials: "same-origin",
+          });
+          window.location.href = "/admin";
+        });
+      </script>
+    )}
   </body>
 </html>
