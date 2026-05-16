@@ -1851,6 +1851,23 @@ body.admin-body {
   display: none !important;
 }
 
+.admin-media-preview {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px dashed rgba(148, 163, 184, 0.7);
+  background: rgba(249, 250, 251, 0.96);
+}
+
+.admin-media-preview__asset {
+  display: block;
+  max-width: 100%;
+  max-height: 160px;
+  border-radius: 6px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;

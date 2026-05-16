@@ -26,16 +26,88 @@ function closeAllModals() {
   document.querySelectorAll('[data-admin-modal]').forEach(closeModal);
 }
 
+const IMAGE_ACCEPT = 'image/jpeg,image/png,image/gif,image/webp,image/svg+xml';
+const MEDIA_ACCEPT = `${IMAGE_ACCEPT},video/mp4,video/webm`;
+
 function toggleBlockTypeFields(form, type) {
   const textFields = form.querySelectorAll('[data-field-text]');
   const urlFields = form.querySelector('[data-field-url]');
+  const fileInput = form.querySelector('[data-media-file]');
   if (type === 'text') {
     textFields.forEach((el) => el.classList.remove('hidden'));
     urlFields?.classList.add('hidden');
   } else {
     textFields.forEach((el) => el.classList.add('hidden'));
     urlFields?.classList.remove('hidden');
+    if (fileInput) {
+      fileInput.accept = type === 'image' ? IMAGE_ACCEPT : MEDIA_ACCEPT;
+    }
   }
+}
+
+function renderMediaPreview(previewEl, url, mimeHint = '') {
+  if (!previewEl || !url) return;
+  previewEl.classList.remove('hidden');
+  const isVideo =
+    mimeHint.startsWith('video/') || /\.(mp4|webm)(\?|$)/i.test(url);
+  previewEl.innerHTML = isVideo
+    ? `<video src="${url}" controls class="admin-media-preview__asset"></video>`
+    : `<img src="${url}" alt="" class="admin-media-preview__asset" />`;
+}
+
+async function uploadToStorage(file, projectId) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('projectId', projectId);
+  const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || 'Upload failed');
+  return data.url;
+}
+
+function initMediaUpload(projectId) {
+  document.querySelectorAll('[data-media-file]').forEach((input) => {
+    input.addEventListener('change', async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      const form = input.closest('form');
+      const urlInput = form?.querySelector('[name="url"]');
+      const preview = form?.querySelector('[data-media-preview]');
+
+      try {
+        showToast('Uploading…', 'info');
+        const url = await uploadToStorage(file, projectId);
+        if (urlInput) urlInput.value = url;
+        renderMediaPreview(preview, url, file.type);
+        showToast('File uploaded', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast(err.message || 'Upload failed', 'error');
+        input.value = '';
+      }
+    });
+  });
+
+  document.querySelectorAll('[data-project-upload]').forEach((input) => {
+    input.addEventListener('change', async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+      const targetName = input.getAttribute('data-target');
+      const target = document.querySelector(`[name="${targetName}"]`);
+      if (!target) return;
+
+      try {
+        showToast('Uploading…', 'info');
+        const url = await uploadToStorage(file, projectId);
+        target.value = url;
+        showToast('Image uploaded', 'success');
+      } catch (err) {
+        console.error(err);
+        showToast(err.message || 'Upload failed', 'error');
+        input.value = '';
+      }
+    });
+  });
 }
 
 function buildContentFromForm(form, type) {
@@ -70,6 +142,9 @@ function fillBlockForm(form, block) {
   if (form.url) form.url.value = content.url ?? '';
   if (form.alt) form.alt.value = content.alt ?? '';
   toggleBlockTypeFields(form, block.type);
+  const preview = form.querySelector('[data-media-preview]');
+  if (content.url) renderMediaPreview(preview, content.url);
+  else preview?.classList.add('hidden');
 }
 
 function initModals() {
@@ -296,6 +371,7 @@ function init() {
   initProjectForm(state.projectId);
   initBlockForms(state.projectId, blocksById);
   initReorder(state.projectId);
+  initMediaUpload(state.projectId);
 }
 
 init();
