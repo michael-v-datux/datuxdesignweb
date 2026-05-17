@@ -8,6 +8,10 @@ export type BlockAlign = 'left' | 'center' | 'right';
 
 export type BlockTextAlign = 'left' | 'center' | 'right' | 'justify';
 
+export type MediaBorderRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'custom';
+export type MediaObjectFit = 'cover' | 'contain';
+export type MediaShadow = 'none' | 'sm' | 'md' | 'lg';
+
 export interface BlockContent {
   align?: BlockAlign;
   textAlign?: BlockTextAlign;
@@ -20,6 +24,10 @@ export interface BlockContent {
   autoplay?: boolean;
   loop?: boolean;
   muted?: boolean;
+  borderRadius?: MediaBorderRadius;
+  borderRadiusCustom?: string;
+  objectFit?: MediaObjectFit;
+  shadow?: MediaShadow;
   columns?: Array<{ text?: { en?: string; uk?: string } }>;
 }
 
@@ -45,6 +53,7 @@ export interface ProjectRow {
   id: string;
   project_id: string;
   position: number;
+  full_width?: boolean;
   columns: ProjectColumn[];
 }
 

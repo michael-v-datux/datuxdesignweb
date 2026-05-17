@@ -34,7 +34,7 @@ const packedRows = groupBlocksIntoRows(blocks);
   {
     useExplicitLayout
       ? explicitRows.map((row) => (
-          <ProjectRow blocks={blocksForRow(row)} lang={lang} />
+          <ProjectRow blocks={blocksForRow(row)} lang={lang} fullWidth={row.full_width} />
         ))
       : packedRows.map((rowBlocks) => (
           <ProjectRow blocks={rowBlocks} lang={lang} />

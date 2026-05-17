@@ -87,6 +87,10 @@ function renderRow(row) {
       <div class="admin-layout-row__head">
         <span class="admin-layout-row__drag" draggable="true" aria-hidden="true" title="Drag to reorder row">⋮⋮</span>
         <span class="admin-layout-row__label">Row ${row.position + 1}</span>
+        <label class="admin-layout-row__full-width">
+          <input type="checkbox" data-row-full-width data-row-id="${escapeHtml(row.id)}" ${row.full_width ? 'checked' : ''} />
+          Full width
+        </label>
         <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-delete-row data-row-id="${escapeHtml(row.id)}">Delete row</button>
       </div>
       <div class="admin-layout-row__columns">${cols}</div>
@@ -346,6 +350,26 @@ export function initLayoutBuilder({
   });
 
   container.addEventListener('change', async (e) => {
+    const fullWidthToggle = e.target.closest('[data-row-full-width]');
+    if (fullWidthToggle) {
+      const rowId = fullWidthToggle.dataset.rowId;
+      const res = await adminFetch(`/api/admin/projects/${projectId}/layout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'set-row-full-width',
+          row_id: rowId,
+          full_width: fullWidthToggle.checked,
+        }),
+      });
+      if (!res.ok) {
+        showToast('Failed to update row', 'error');
+        return;
+      }
+      await refresh();
+      return;
+    }
+
     const spanSelect = e.target.closest('[data-column-span]');
     if (!spanSelect) return;
     const columnId = spanSelect.dataset.columnId;

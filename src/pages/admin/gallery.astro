@@ -1,0 +1,36 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+import AdminPageHeader from "../../components/admin/AdminPageHeader.astro";
+
+export const prerender = false;
+---
+
+<AdminLayout title="Gallery" activeNav="gallery">
+  <AdminPageHeader
+    title="Media gallery"
+    subtitle="All uploads from portfolio projects. Delete unused files or upload shared assets."
+  />
+
+  <section class="admin-table-card">
+    <div class="admin-table-card__header">
+      <h2>Files</h2>
+      <label class="admin-btn admin-btn--primary admin-btn--file">
+        + Upload
+        <input
+          type="file"
+          class="admin-gallery-upload-input"
+          data-gallery-page-upload
+          accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,video/mp4,video/webm"
+        />
+      </label>
+    </div>
+    <div class="admin-card__body">
+      <p class="admin-form__hint" style="margin-top:0;">
+        Uploads without a project go to the <code>_shared</code> folder. Project uploads appear under their project id.
+      </p>
+      <div class="admin-gallery-grid" data-gallery-page-grid></div>
+    </div>
+  </section>
+
+  <script type="module" src="/scripts/admin/gallery-page.js"></script>
+</AdminLayout>

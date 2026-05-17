@@ -39,6 +39,7 @@ function normalizeRow(
     id: String(row.id),
     project_id: String(row.project_id),
     position: typeof row.position === 'number' ? row.position : 0,
+    full_width: Boolean(row.full_width),
     columns,
   };
 }
@@ -88,6 +89,7 @@ function flatBlocksToLayout(projectId: string, blocks: ProjectBlock[]): ProjectL
       id: rowId,
       project_id: projectId,
       position: rowIndex,
+      full_width: false,
       columns,
     };
   });
@@ -105,6 +107,7 @@ async function persistLayout(
       id: row.id,
       project_id: projectId,
       position: row.position,
+      full_width: row.full_width ?? false,
     });
     if (rowErr) throw rowErr;
 
@@ -257,9 +260,24 @@ export async function createRow(
     id,
     project_id: projectId,
     position: pos,
+    full_width: false,
   });
   if (error) throw error;
-  return { id, project_id: projectId, position: pos, columns: [] };
+  return { id, project_id: projectId, position: pos, full_width: false, columns: [] };
+}
+
+export async function updateRowFullWidth(
+  supabase: SupabaseClient,
+  projectId: string,
+  rowId: string,
+  fullWidth: boolean
+): Promise<void> {
+  const { error } = await supabase
+    .from(ROWS_TABLE)
+    .update({ full_width: fullWidth, updated_at: new Date().toISOString() })
+    .eq('id', rowId)
+    .eq('project_id', projectId);
+  if (error) throw error;
 }
 
 export async function createColumn(

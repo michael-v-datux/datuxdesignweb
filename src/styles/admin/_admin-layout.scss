@@ -15,11 +15,23 @@ body.admin-body {
         $admin-bg;
 }
 
-// Оболонка, щоб адмінка була вузькою та читабельною
+// Admin content shell
 .admin-shell {
     max-width: 1220px;
     margin: 32px auto 40px;
     padding: 0 20px 40px;
+
+    &--wide {
+        max-width: none;
+        margin: 24px auto 0;
+        padding: 0 32px 120px;
+    }
+}
+
+.admin-topnav__inner--wide {
+    max-width: none;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 // Шапка з заголовком та breadcrumbs

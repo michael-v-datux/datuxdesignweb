@@ -399,6 +399,10 @@
     border: 1px solid $admin-border-strong;
     box-shadow: $admin-shadow-strong;
     padding: 18px 20px 20px;
+
+    &--wide {
+        width: min(100%, 920px);
+    }
 }
 
 .admin-modal__header {

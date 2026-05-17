@@ -1,0 +1,45 @@
+---
+/** Visual options for image / media blocks. */
+---
+
+<div class="admin-form__field admin-form__field--inline" data-field-media-style>
+  <div>
+    <label class="admin-form__label">Corner radius</label>
+    <select name="border_radius" class="admin-input">
+      <option value="none">None</option>
+      <option value="sm">Small</option>
+      <option value="md" selected>Medium</option>
+      <option value="lg">Large</option>
+      <option value="xl">Extra large</option>
+      <option value="full">Pill / circle</option>
+      <option value="custom">Custom…</option>
+    </select>
+  </div>
+  <div data-field-radius-custom class="hidden">
+    <label class="admin-form__label">Custom radius</label>
+    <input
+      name="border_radius_custom"
+      class="admin-input"
+      placeholder="e.g. 24px or 1.5rem"
+    />
+  </div>
+</div>
+
+<div class="admin-form__field admin-form__field--inline" data-field-media-style>
+  <div>
+    <label class="admin-form__label">Image fit</label>
+    <select name="object_fit" class="admin-input">
+      <option value="cover" selected>Cover (crop to fill)</option>
+      <option value="contain">Contain (letterbox)</option>
+    </select>
+  </div>
+  <div>
+    <label class="admin-form__label">Shadow</label>
+    <select name="shadow" class="admin-input">
+      <option value="none">None</option>
+      <option value="sm">Light</option>
+      <option value="md" selected>Medium</option>
+      <option value="lg">Strong</option>
+    </select>
+  </div>
+</div>

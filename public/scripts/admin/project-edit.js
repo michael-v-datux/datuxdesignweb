@@ -2,6 +2,7 @@ import { showToast } from '/scripts/common/toast.js';
 import { adminFetch } from '/scripts/admin/api.js';
 import { renderProjectPreview } from '/scripts/admin/project-preview.js';
 import { initLayoutBuilder } from '/scripts/admin/layout-builder.js';
+import { initMediaGallery } from '/scripts/admin/media-gallery.js';
 import {
   mountRichTextInForm,
   setRichTextValue,
@@ -42,19 +43,43 @@ function toggleBlockTypeFields(form, type) {
   const textFields = form.querySelectorAll('[data-field-text]');
   const textAlignFields = form.querySelectorAll('[data-field-text-align]');
   const urlFields = form.querySelector('[data-field-url]');
+  const mediaStyleFields = form.querySelectorAll('[data-field-media-style]');
   const fileInput = form.querySelector('[data-media-file]');
   if (type === 'text') {
     textFields.forEach((el) => el.classList.remove('hidden'));
     textAlignFields.forEach((el) => el.classList.remove('hidden'));
     urlFields?.classList.add('hidden');
+    mediaStyleFields.forEach((el) => el.classList.add('hidden'));
   } else {
     textFields.forEach((el) => el.classList.add('hidden'));
     textAlignFields.forEach((el) => el.classList.add('hidden'));
     urlFields?.classList.remove('hidden');
+    mediaStyleFields.forEach((el) => el.classList.remove('hidden'));
     if (fileInput) {
       fileInput.accept = type === 'image' ? IMAGE_ACCEPT : MEDIA_ACCEPT;
     }
   }
+  syncRadiusCustomVisibility(form);
+}
+
+function syncRadiusCustomVisibility(form) {
+  const select = form.querySelector('[name="border_radius"]');
+  const customWrap = form.querySelector('[data-field-radius-custom]');
+  if (!select || !customWrap) return;
+  customWrap.classList.toggle('hidden', select.value !== 'custom');
+}
+
+function mediaStyleFromForm(form) {
+  const borderRadius = form.querySelector('[name="border_radius"]')?.value || 'md';
+  const borderRadiusCustom = form.querySelector('[name="border_radius_custom"]')?.value?.trim() || '';
+  const objectFit = form.querySelector('[name="object_fit"]')?.value || 'cover';
+  const shadow = form.querySelector('[name="shadow"]')?.value || 'md';
+  return {
+    borderRadius,
+    borderRadiusCustom: borderRadius === 'custom' ? borderRadiusCustom : undefined,
+    objectFit,
+    shadow,
+  };
 }
 
 function renderMediaPreview(previewEl, url, mimeHint = '') {
@@ -137,21 +162,24 @@ function buildContentFromForm(form, type) {
     const text_uk = form.text_uk?.value?.trim() ?? '';
     return { text_en, text_uk, text: text_en || text_uk, align, textAlign };
   }
+  const mediaStyle = mediaStyleFromForm(form);
   if (type === 'image') {
     return {
-      url: form.url?.value?.trim() ?? '',
-      alt: form.alt?.value?.trim() ?? '',
+      url: form.querySelector('[name="url"]')?.value?.trim() ?? '',
+      alt: form.querySelector('[name="alt"]')?.value?.trim() ?? '',
       mediaType: 'image',
       align,
+      ...mediaStyle,
     };
   }
   return {
-    url: form.url?.value?.trim() ?? '',
+    url: form.querySelector('[name="url"]')?.value?.trim() ?? '',
     mediaType: 'video',
     autoplay: true,
     loop: true,
     muted: true,
     align,
+    ...mediaStyle,
   };
 }
 
@@ -172,8 +200,18 @@ function fillBlockForm(form, block) {
     setRichTextValue(form, 'text_uk', form.text_uk.value);
   }
   if (form.text && !form.text_en) form.text.value = content.text ?? '';
-  if (form.url) form.url.value = content.url ?? '';
-  if (form.alt) form.alt.value = content.alt ?? '';
+  const urlEl = form.querySelector('[name="url"]');
+  const altEl = form.querySelector('[name="alt"]');
+  if (urlEl) urlEl.value = content.url ?? '';
+  if (altEl) altEl.value = content.alt ?? '';
+  const radiusEl = form.querySelector('[name="border_radius"]');
+  if (radiusEl) radiusEl.value = content.borderRadius || 'md';
+  const radiusCustomEl = form.querySelector('[name="border_radius_custom"]');
+  if (radiusCustomEl) radiusCustomEl.value = content.borderRadiusCustom || '';
+  const fitEl = form.querySelector('[name="object_fit"]');
+  if (fitEl) fitEl.value = content.objectFit || 'cover';
+  const shadowEl = form.querySelector('[name="shadow"]');
+  if (shadowEl) shadowEl.value = content.shadow || 'md';
   toggleBlockTypeFields(form, block.type);
   const preview = form.querySelector('[data-media-preview]');
   if (content.url) renderMediaPreview(preview, content.url);
@@ -343,6 +381,9 @@ function initBlockForms(projectId, getBlocksById, layoutRefresh) {
   [createForm, editForm].forEach((form) => {
     form?.querySelector("select[name='type']")?.addEventListener('change', (e) => {
       toggleBlockTypeFields(form, e.target.value);
+    });
+    form?.querySelector('[name="border_radius"]')?.addEventListener('change', () => {
+      syncRadiusCustomVisibility(form);
     });
   });
 
@@ -613,6 +654,7 @@ function init() {
   initProjectForm(state.projectId);
   initBlockForms(state.projectId, () => blocksById, layoutRefresh);
   initMediaUpload(state.projectId);
+  initMediaGallery({ projectId: state.projectId });
   initFileInputLabels();
 }
 

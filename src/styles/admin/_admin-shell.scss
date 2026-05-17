@@ -16,7 +16,7 @@
 .admin-topnav__inner {
     max-width: 1220px;
     margin: 0 auto;
-    padding: 12px 20px;
+    padding: 12px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -89,9 +89,9 @@
 }
 
 .admin-footer {
-    max-width: 1220px;
+    max-width: none;
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 32px 32px;
     text-align: center;
     font-size: 0.78rem;
     color: $admin-text-soft;
@@ -973,22 +973,139 @@ input[type='file'].admin-file-input::file-selector-button {
     max-width: 88px;
 }
 
-.admin-edit-actions {
-    position: sticky;
-    bottom: 0;
-    z-index: 35;
-    display: flex;
-    justify-content: flex-end;
+.admin-layout-row__full-width {
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-    padding: 14px 0 8px;
-    background: linear-gradient(
-        to top,
-        $admin-bg 65%,
-        rgba(249, 250, 251, 0.92) 85%,
-        transparent
-    );
-    border-top: 1px solid rgba(229, 231, 235, 0.85);
+    gap: 6px;
+    font-size: 0.76rem;
+    color: $admin-text-muted;
+    cursor: pointer;
+    user-select: none;
+
+    input {
+        accent-color: $admin-primary;
+    }
+}
+
+.admin-media-actions {
+    margin: 8px 0;
+}
+
+.admin-gallery-modal__hint {
+    margin: 0 0 12px;
+    font-size: 0.82rem;
+    color: $admin-text-muted;
+}
+
+.admin-gallery-toolbar {
+    margin-bottom: 14px;
+}
+
+.admin-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+    max-height: min(60vh, 480px);
+    overflow-y: auto;
+}
+
+.admin-gallery-grid__empty,
+.admin-gallery-grid__loading {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 24px;
+    font-size: 0.86rem;
+    color: $admin-text-muted;
+}
+
+.admin-gallery-item {
+    border: 1px solid rgba(229, 231, 235, 0.95);
+    border-radius: $admin-radius-md;
+    overflow: hidden;
+    background: #fff;
+}
+
+.admin-gallery-item__select {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    aspect-ratio: 4 / 3;
+
+    &:hover {
+        opacity: 0.92;
+    }
+}
+
+.admin-gallery-item__asset {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.admin-gallery-item__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    padding: 6px 8px;
+}
+
+.admin-gallery-item__name {
+    font-size: 0.68rem;
+    color: $admin-text-muted;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+.admin-btn--file {
+    position: relative;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+    }
+}
+
+.admin-gallery-upload-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.admin-edit-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(229, 231, 235, 0.95);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 -8px 32px rgba(15, 23, 42, 0.08);
+
+    &__inner {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        padding: 14px 32px 14px 24px;
+    }
+}
+
+.admin-page--edit {
+    padding-bottom: 0;
 }
