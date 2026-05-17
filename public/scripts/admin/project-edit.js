@@ -472,7 +472,7 @@ function collectBlocksFromState(state, tbody) {
   return order.map((id, position) => ({ ...byId[id], position })).filter(Boolean);
 }
 
-function initLivePreview(state) {
+function initLivePreview(state, blocksById, onEditBlock) {
   const container = document.querySelector('[data-project-preview]');
   const projectForm = document.querySelector('[data-project-form]');
   const tbody = document.querySelector('[data-blocks-table] tbody');
@@ -488,6 +488,12 @@ function initLivePreview(state) {
       meta: collectMetaFromForm(projectForm),
     });
   };
+
+  container.addEventListener('click', (e) => {
+    const article = e.target.closest('[data-block-id]');
+    if (!article?.dataset.blockId || !onEditBlock) return;
+    onEditBlock(article.dataset.blockId);
+  });
 
   document.querySelectorAll('[data-preview-lang] button').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -524,7 +530,15 @@ function init() {
     blocksById[b.id] = b;
   }
 
-  const refreshPreview = initLivePreview(state);
+  const editForm = document.querySelector('[data-block-edit-form]');
+
+  const refreshPreview = initLivePreview(state, blocksById, (blockId) => {
+    const block = blocksById[blockId];
+    if (!block || !editForm) return;
+    editForm.block_id.value = blockId;
+    openModal('edit-block');
+    mountRichTextInForm(editForm).then(() => fillBlockForm(editForm, block));
+  });
 
   initAccordions(state.projectId);
   initCancel(state.projectId);
