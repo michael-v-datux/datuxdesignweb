@@ -233,17 +233,17 @@ export default {
         ]
       }
     },
-      lastUpdated: "Last updated: July 26, 2025"
-    },
-    terms: {
-      title: "Terms of Use",
-      content: [
-        "All content on this website, including text, images, and password-protected case studies, is the intellectual property of the author.",
-        "You may not copy, distribute, or reproduce any content without explicit written permission.",
-        "This website is provided for informational and portfolio purposes only. While we aim to ensure the accuracy of information, we do not guarantee its completeness or reliability.",
-        "We may update these Terms of Use at any time without prior notice. Continued use of the site means you accept the updated terms.",
-        "For any questions regarding these terms, please contact us at <a href='mailto:sayhi@datux.design' class='text-blue-600 hover:underline'>sayhi@datux.design</a>."
-      ],
-      lastUpdated: "Last updated: July 26, 2025"
-    }
-  };
+    lastUpdated: "Last updated: July 26, 2025"
+  },
+  terms: {
+    title: "Terms of Use",
+    content: [
+      "All content on this website, including text, images, and password-protected case studies, is the intellectual property of the author.",
+      "You may not copy, distribute, or reproduce any content without explicit written permission.",
+      "This website is provided for informational and portfolio purposes only. While we aim to ensure the accuracy of information, we do not guarantee its completeness or reliability.",
+      "We may update these Terms of Use at any time without prior notice. Continued use of the site means you accept the updated terms.",
+      "For any questions regarding these terms, please contact us at <a href='mailto:sayhi@datux.design' class='text-blue-600 hover:underline'>sayhi@datux.design</a>."
+    ],
+    lastUpdated: "Last updated: July 26, 2025"
+  }
+};
