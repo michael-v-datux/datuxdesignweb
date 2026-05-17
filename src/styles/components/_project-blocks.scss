@@ -8,7 +8,6 @@
 }
 
 .project-block {
-  margin: 0 auto;
   width: 100%;
 
   &--layout-1-1,
@@ -26,6 +25,37 @@
 
   &--layout-1-4 {
     max-width: min(100%, 24rem);
+  }
+
+  &--align-left {
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  &--align-center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &--align-right {
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  &__text--align-left {
+    text-align: left;
+  }
+
+  &__text--align-center {
+    text-align: center;
+  }
+
+  &__text--align-right {
+    text-align: right;
+  }
+
+  &__text--align-justify {
+    text-align: justify;
   }
 
   &__text p {

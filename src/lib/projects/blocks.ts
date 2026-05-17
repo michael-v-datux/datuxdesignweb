@@ -1,11 +1,28 @@
 import { supabase } from '@/lib/supabaseClient';
 import type {
+  BlockAlign,
   BlockContent,
   BlockLayout,
+  BlockTextAlign,
   BlockType,
   LegacySection,
   ProjectBlock,
 } from './types';
+
+const ALIGN_VALUES: BlockAlign[] = ['left', 'center', 'right'];
+const TEXT_ALIGN_VALUES: BlockTextAlign[] = ['left', 'center', 'right', 'justify'];
+
+export function blockAlign(content: BlockContent): BlockAlign {
+  const align = content.align;
+  return ALIGN_VALUES.includes(align as BlockAlign) ? (align as BlockAlign) : 'center';
+}
+
+export function blockTextAlign(content: BlockContent): BlockTextAlign {
+  const textAlign = content.textAlign;
+  return TEXT_ALIGN_VALUES.includes(textAlign as BlockTextAlign)
+    ? (textAlign as BlockTextAlign)
+    : 'left';
+}
 
 const BLOCKS_TABLE = 'projects_blocks';
 

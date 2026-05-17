@@ -1,5 +1,5 @@
 ---
-import { blockText } from '@/lib/projects/blocks';
+import { blockAlign, blockText, blockTextAlign } from '@/lib/projects/blocks';
 import type { ProjectBlock } from '@/lib/projects/types';
 
 interface Props {
@@ -11,15 +11,18 @@ const { block, lang } = Astro.props;
 const layoutClass = `project-block--layout-${String(block.layout).replace('/', '-')}`;
 const { content, type } = block;
 const text = blockText(content, lang);
+const alignClass = `project-block--align-${blockAlign(content)}`;
+const textAlignClass =
+  type === 'text' ? `project-block__text--align-${blockTextAlign(content)}` : '';
 ---
 
 <article
-  class:list={['project-block', `project-block--${type}`, layoutClass]}
+  class:list={['project-block', `project-block--${type}`, layoutClass, alignClass]}
   data-block-id={block.id}
   data-block-type={type}
 >
   {type === 'text' && text && (
-    <div class="project-block__text">
+    <div class:list={['project-block__text', textAlignClass]}>
       {/<[a-z][\s\S]*>/i.test(text) ? (
         <div class="project-block__html text-lg leading-relaxed" set:html={text} />
       ) : (

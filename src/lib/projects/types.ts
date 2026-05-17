@@ -4,7 +4,13 @@ export type BlockType = 'text' | 'image' | 'media';
 
 export type BlockLayout = '1/1' | '1/2' | '1/3' | '1/4' | 'full';
 
+export type BlockAlign = 'left' | 'center' | 'right';
+
+export type BlockTextAlign = 'left' | 'center' | 'right' | 'justify';
+
 export interface BlockContent {
+  align?: BlockAlign;
+  textAlign?: BlockTextAlign;
   text?: string;
   text_en?: string;
   text_uk?: string;

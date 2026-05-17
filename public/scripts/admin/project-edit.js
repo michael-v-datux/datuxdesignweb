@@ -39,13 +39,16 @@ const MEDIA_ACCEPT = `${IMAGE_ACCEPT},video/mp4,video/webm`;
 
 function toggleBlockTypeFields(form, type) {
   const textFields = form.querySelectorAll('[data-field-text]');
+  const textAlignFields = form.querySelectorAll('[data-field-text-align]');
   const urlFields = form.querySelector('[data-field-url]');
   const fileInput = form.querySelector('[data-media-file]');
   if (type === 'text') {
     textFields.forEach((el) => el.classList.remove('hidden'));
+    textAlignFields.forEach((el) => el.classList.remove('hidden'));
     urlFields?.classList.add('hidden');
   } else {
     textFields.forEach((el) => el.classList.add('hidden'));
+    textAlignFields.forEach((el) => el.classList.add('hidden'));
     urlFields?.classList.remove('hidden');
     if (fileInput) {
       fileInput.accept = type === 'image' ? IMAGE_ACCEPT : MEDIA_ACCEPT;
@@ -119,18 +122,26 @@ function initMediaUpload(projectId) {
   });
 }
 
+function layoutFieldsFromForm(form) {
+  const align = form.align?.value || 'center';
+  const textAlign = form.text_align?.value || 'left';
+  return { align, textAlign };
+}
+
 function buildContentFromForm(form, type) {
   syncRichTextFromForm(form);
+  const { align, textAlign } = layoutFieldsFromForm(form);
   if (type === 'text') {
     const text_en = form.text_en?.value?.trim() ?? form.text?.value?.trim() ?? '';
     const text_uk = form.text_uk?.value?.trim() ?? '';
-    return { text_en, text_uk, text: text_en || text_uk };
+    return { text_en, text_uk, text: text_en || text_uk, align, textAlign };
   }
   if (type === 'image') {
     return {
       url: form.url?.value?.trim() ?? '',
       alt: form.alt?.value?.trim() ?? '',
       mediaType: 'image',
+      align,
     };
   }
   return {
@@ -139,6 +150,7 @@ function buildContentFromForm(form, type) {
     autoplay: true,
     loop: true,
     muted: true,
+    align,
   };
 }
 
@@ -146,6 +158,8 @@ function fillBlockForm(form, block) {
   const content = block.content || {};
   form.type.value = block.type;
   form.layout.value = block.layout || '1/1';
+  if (form.align) form.align.value = content.align || 'center';
+  if (form.text_align) form.text_align.value = content.textAlign || 'left';
   if (form.text_en) {
     form.text_en.value = content.text_en ?? content.text ?? '';
     setRichTextValue(form, 'text_en', form.text_en.value);
@@ -191,11 +205,63 @@ function initModals() {
   });
 }
 
+function serializeProjectForm(form) {
+  if (!form) return '';
+  return Array.from(new FormData(form).entries())
+    .map(([k, v]) => `${k}=${v}`)
+    .join('&');
+}
+
+function initAccordions(projectId) {
+  const key = `admin-accordions:${projectId}`;
+  const defaults = { metadata: true, blocks: true };
+
+  let saved = defaults;
+  try {
+    saved = { ...defaults, ...JSON.parse(localStorage.getItem(key) || '{}') };
+  } catch {
+    /* ignore */
+  }
+
+  document.querySelectorAll('[data-admin-accordion]').forEach((el) => {
+    const id = el.getAttribute('data-admin-accordion');
+    if (!id) return;
+    if (typeof saved[id] === 'boolean') el.open = saved[id];
+
+    el.addEventListener('toggle', () => {
+      let state = defaults;
+      try {
+        state = { ...defaults, ...JSON.parse(localStorage.getItem(key) || '{}') };
+      } catch {
+        /* ignore */
+      }
+      state[id] = el.open;
+      localStorage.setItem(key, JSON.stringify(state));
+    });
+  });
+}
+
+function initCancel(projectId) {
+  const link = document.querySelector('[data-project-cancel]');
+  const form = document.querySelector('[data-project-form]');
+  if (!link || !form) return;
+
+  const initial = serializeProjectForm(form);
+
+  link.addEventListener('click', (e) => {
+    if (serializeProjectForm(form) !== initial) {
+      if (!confirm('Discard unsaved changes and leave this page?')) {
+        e.preventDefault();
+      }
+    }
+  });
+}
+
 function initProjectForm(projectId) {
   const projectForm = document.querySelector('[data-project-form]');
-  const projectSaveBtn = document.querySelector('[data-project-save]');
+  const projectSaveBtns = document.querySelectorAll('[data-project-save]');
 
-  projectSaveBtn?.addEventListener('click', async () => {
+  const saveHandler = async () => {
     if (!projectForm) return;
     const formData = new FormData(projectForm);
     const password = formData.get('password')?.toString() ?? '';
@@ -233,7 +299,9 @@ function initProjectForm(projectId) {
       const pwdInput = projectForm.querySelector("input[name='password']");
       if (pwdInput) pwdInput.value = '';
     }
-  });
+  };
+
+  projectSaveBtns.forEach((btn) => btn.addEventListener('click', saveHandler));
 }
 
 function initBlockForms(projectId, blocksById) {
@@ -458,6 +526,8 @@ function init() {
 
   const refreshPreview = initLivePreview(state);
 
+  initAccordions(state.projectId);
+  initCancel(state.projectId);
   initModals();
   initProjectForm(state.projectId);
   initBlockForms(state.projectId, blocksById);
