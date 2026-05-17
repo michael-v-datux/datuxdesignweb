@@ -4,8 +4,12 @@ export default {
     description: "Experienced UX/UI & Product Designer specializing in intuitive, scalable, and user-focused B2B digital solutions. Based in Kyiv, open to global collaboration.",
   },
   redirect: {
-    initial: "Setting up your language…",
-    final: "Almost done…",
+    messages: [
+      "Convincing pixels to behave…",
+      "Bribing the grid into alignment…",
+      "Explaining Figma to the server…",
+      "Almost presentable…",
+    ],
   },
   navigation: {
     home: "Hello",

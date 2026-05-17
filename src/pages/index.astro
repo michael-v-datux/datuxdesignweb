@@ -2,53 +2,24 @@
 import { getTranslations } from "@/utils/getTranslations";
 import "../styles/main.scss";
 
-const supportedLanguages = ['en', 'uk'];
 const defaultLang = 'en';
-const lang = defaultLang; 
+const lang = defaultLang;
 const translations = await getTranslations(lang);
+const redirectConfig = JSON.stringify({
+  messages: translations.redirect.messages,
+  defaultLang,
+}).replace(/</g, "\\u003c");
 ---
 
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <title>{translations.redirect.initial}</title>
+    <title>datux.design</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-          const redirectScreen = document.getElementById('redirect-screen');
-          const bar = document.querySelector('.loader-fill');
-          bar.style.width = '0%';
-          requestAnimationFrame(() => { 
-              bar.style.width = '100%'; 
-          });
-
-          // Додаємо .loaded через requestAnimationFrame після відмальовки початкового стану
-          requestAnimationFrame(() => {
-              redirectScreen.classList.add('loaded');
-          });
-
-          setTimeout(() => {
-              document.getElementById('redirect-text').innerText =
-                  document.getElementById('redirect-text').dataset.final;
-          }, 1500);
-
-          setTimeout(() => {
-              sessionStorage.setItem('justRedirected', 'true');
-              window.location.href = `/${lang}/`;
-          }, 600);
-
-          setTimeout(() => {
-              redirectScreen.style.transition = 'opacity 0.6s ease';
-              redirectScreen.style.opacity = '0';
-              setTimeout(() => { 
-                  window.location.href = `/${localStorage.getItem('preferredLanguage') || 'en'}/`; 
-              }, 600);
-          }, 4000);
-      });
-
-    </script>
+    <script id="redirect-config" type="application/json" set:html={redirectConfig} />
+    <script src="/scripts/redirect-splash.js" defer></script>
   </head>
   <body>
     <div id="redirect-screen">
@@ -63,13 +34,10 @@ const translations = await getTranslations(lang);
           <path d="M48.4122 6.6228V8.33554H43.8063V22.9401H41.7001V8.33554H37.0942V6.6228L48.4122 6.6228Z" fill="white"/>
           <path d="M32.6479 19.1673H25.4729L24.1073 22.94H21.8391L27.88 6.92358L30.2639 6.92358L36.2817 22.94H34.0134L32.6479 19.1673ZM32.0461 17.524L29.0604 9.28438L26.0747 17.524H32.0461Z" fill="white"/>
           <path d="M20.2467 14.7699C20.2467 16.4209 19.915 17.8636 19.2515 19.098C18.588 20.317 17.6082 21.2659 16.3121 21.9449C15.0314 22.6084 13.4884 22.9401 11.683 22.9401H6.49854L6.49854 6.6228L11.683 6.6228C13.4884 6.6228 15.0314 6.95455 16.3121 7.61804C17.6082 8.26611 18.588 9.20734 19.2515 10.4417C19.915 11.6607 20.2467 13.1034 20.2467 14.7699ZM11.521 21.0422C13.6504 21.0422 15.2782 20.4944 16.4046 19.3989C17.531 18.3034 18.0942 16.7604 18.0942 14.7699C18.0942 12.7794 17.531 11.2364 16.4046 10.1409C15.2937 9.0299 13.6658 8.47441 11.521 8.47441L8.60474 8.47441L8.60474 21.0422H11.521Z" fill="white"/>
-          <!-- інші path -->
         </svg>
       </div>
 
-      <h1 id="redirect-text" class="!mb-4" data-final={translations.redirect.final}>
-        {translations.redirect.initial}
-      </h1>
+      <h1 id="redirect-text" class="!mb-4">{translations.redirect.messages[0]}</h1>
 
       <div class="loader-bar">
         <div class="loader-fill"></div>
