@@ -3,6 +3,7 @@ import { getAdminSupabase } from '@/lib/supabaseServer';
 import {
   createColumn,
   createRow,
+  deleteColumn,
   deleteRow,
   fetchProjectLayout,
   reorderLayout,
@@ -51,7 +52,11 @@ export const POST: APIRoute = async ({ params, request }) => {
     const action = body.action as string;
 
     if (action === 'reorder') {
-      await reorderLayout(supabase, projectId, body as { rows: Array<{ id: string; columns: string[] }> });
+      const rows = body.rows;
+      if (!Array.isArray(rows)) return json({ error: 'rows array required' }, 400);
+      await reorderLayout(supabase, projectId, {
+        rows: rows as Array<{ id: string; columns: Array<string | { id: string; blocks?: string[] }> }>,
+      });
       const layout = await fetchProjectLayout(supabase, projectId);
       return json(layout);
     }
@@ -86,6 +91,15 @@ export const POST: APIRoute = async ({ params, request }) => {
       const span = asSpan(body.span);
       if (!columnId) return json({ error: 'column_id required' }, 400);
       await updateColumnSpan(supabase, columnId, span);
+      const layout = await fetchProjectLayout(supabase, projectId);
+      return json(layout);
+    }
+
+    if (action === 'delete-column') {
+      const rowId = String(body.row_id || '');
+      const columnId = String(body.column_id || '');
+      if (!rowId || !columnId) return json({ error: 'row_id and column_id required' }, 400);
+      await deleteColumn(supabase, rowId, columnId);
       const layout = await fetchProjectLayout(supabase, projectId);
       return json(layout);
     }

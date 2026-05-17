@@ -1,4 +1,4 @@
-import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
+import { groupBlocksIntoRows, layoutFraction } from '/scripts/lib/project-rows.js';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -11,6 +11,13 @@ function escapeHtml(str) {
 function layoutClass(layout) {
   const key = String(layout || '1/1').replace('/', '-');
   return `project-block--layout-${key}`;
+}
+
+function columnFlexStyle(span) {
+  const f = layoutFraction(span);
+  if (f >= 1 - 0.001) return 'flex: 1 1 100%; max-width: 100%;';
+  const pct = (f * 100).toFixed(3);
+  return `flex: 1 1 calc(${pct}% - 0.625rem); max-width: calc(${pct}% - 0.625rem);`;
 }
 
 function alignClass(content) {
@@ -62,35 +69,67 @@ function renderMediaBlock(block) {
   return `<figure class="project-block__media"><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
 }
 
-function renderBlockArticle(block, lang, layoutSpan) {
+function renderBlockArticle(block, lang, layoutSpan, interactive) {
   const content = block.content || {};
   const span = layoutSpan || block.layout || '1/1';
   const inner =
     block.type === 'text' ? renderTextBlock(content, lang) : renderMediaBlock(block);
-  return `<article class="project-block project-block--${block.type} ${layoutClass(span)} ${alignClass(content)} admin-preview__block" data-block-id="${escapeHtml(block.id)}" title="Click to edit">${inner}</article>`;
+  const dragAttr = interactive ? ' draggable="true"' : '';
+  return `<article class="project-block project-block--${block.type} ${layoutClass(span)} ${alignClass(content)} admin-preview__block" data-block-id="${escapeHtml(block.id)}"${dragAttr} title="Click to edit">${inner}</article>`;
 }
 
-function renderPackedRowsHtml(blocks, lang) {
-  const rows = groupBlocksIntoRows(blocks);
+function previewAddBtn(label, attrs) {
+  const attrStr = Object.entries(attrs)
+    .map(([k, v]) => `data-${k}="${escapeHtml(v)}"`)
+    .join(' ');
+  return `<button type="button" class="admin-preview-add" ${attrStr}>${escapeHtml(label)}</button>`;
+}
+
+function renderPreviewColumn(col, rowId, lang, interactive) {
+  const blocks = col.blocks
+    .map((b) => renderBlockArticle(b, lang, col.span, interactive))
+    .join('');
+  const addBlock = interactive
+    ? previewAddBtn('+ Block', { 'preview-add-block': '', 'column-id': col.id })
+    : '';
+  const dropClass = interactive ? ' admin-preview-col__body--droppable' : '';
+  return `
+    <div class="admin-preview-col" data-column-id="${escapeHtml(col.id)}" data-row-id="${escapeHtml(rowId)}" style="${columnFlexStyle(col.span)}">
+      <div class="admin-preview-col__body${dropClass}" data-preview-column-body>${blocks || '<p class="admin-preview-col__empty">Empty</p>'}</div>
+      ${addBlock}
+    </div>
+  `;
+}
+
+function renderExplicitLayoutHtml(layout, lang, interactive) {
+  const rows = layout?.rows ?? [];
   return rows
-    .map((rowBlocks) => {
-      const rowClass = rowBlocks.length === 1 ? 'project-row project-row--single' : 'project-row';
-      const cells = rowBlocks.map((b) => renderBlockArticle(b, lang)).join('');
-      return `<div class="${rowClass}">${cells}</div>`;
+    .map((row) => {
+      const rowClass =
+        row.columns.length <= 1 ? 'project-row project-row--single' : 'project-row';
+      const cols = row.columns
+        .map((col) => renderPreviewColumn(col, row.id, lang, interactive))
+        .join('');
+      const addCol = interactive
+        ? previewAddBtn('+ Column', { 'preview-add-column': '', 'row-id': row.id })
+        : '';
+      return `
+        <div class="${rowClass} admin-preview-row" data-row-id="${escapeHtml(row.id)}">
+          ${cols}
+          ${interactive ? `<div class="admin-preview-row__actions">${addCol}</div>` : ''}
+        </div>
+      `;
     })
     .join('');
 }
 
-function renderExplicitLayoutHtml(layout, lang) {
-  const rows = layout?.rows ?? [];
+function renderPackedRowsHtml(blocks, lang, interactive) {
+  const rows = groupBlocksIntoRows(blocks);
   return rows
-    .map((row) => {
-      const blocks = row.columns.flatMap((col) =>
-        col.blocks.map((block) => ({ block, span: col.span }))
-      );
-      const rowClass = blocks.length <= 1 ? 'project-row project-row--single' : 'project-row';
-      const cells = blocks
-        .map(({ block, span }) => renderBlockArticle(block, lang, span))
+    .map((rowBlocks) => {
+      const rowClass = rowBlocks.length === 1 ? 'project-row project-row--single' : 'project-row';
+      const cells = rowBlocks
+        .map((b) => renderBlockArticle(b, lang, b.layout, interactive))
         .join('');
       return `<div class="${rowClass}">${cells}</div>`;
     })
@@ -112,7 +151,7 @@ function flattenLayout(layout) {
 
 export function renderProjectPreview(
   container,
-  { blocks = [], layout = null, lang = 'en', meta = {} } = {}
+  { blocks = [], layout = null, lang = 'en', meta = {}, interactive = false } = {}
 ) {
   if (!container) return;
 
@@ -133,14 +172,25 @@ export function renderProjectPreview(
 
   const useLayout = Boolean(layout?.rows?.length);
   const flatBlocks = useLayout ? flattenLayout(layout) : blocks;
-  const body =
-    flatBlocks.length === 0
-      ? '<p class="admin-preview__empty">Add rows and blocks to see them here.</p>'
-      : useLayout
-        ? renderExplicitLayoutHtml(layout, lang)
-        : renderPackedRowsHtml(blocks, lang);
 
-  container.innerHTML = `${header}<div class="project-blocks">${body}</div>`;
+  let body;
+  if (flatBlocks.length === 0) {
+    const addRow = interactive
+      ? `<p class="admin-preview__empty">No content yet. ${previewAddBtn('+ Add row', { 'preview-add-row': '' })}</p>`
+      : '<p class="admin-preview__empty">Add rows and blocks to see them here.</p>';
+    body = addRow;
+  } else if (useLayout) {
+    body = renderExplicitLayoutHtml(layout, lang, interactive);
+  } else {
+    body = renderPackedRowsHtml(blocks, lang, interactive);
+  }
+
+  const footer = interactive
+    ? `<div class="admin-preview-footer">${previewAddBtn('+ Add row', { 'preview-add-row': '' })}</div>`
+    : '';
+
+  container.innerHTML = `${header}<div class="project-blocks admin-preview-blocks${interactive ? ' admin-preview-blocks--interactive' : ''}">${body}</div>${footer}`;
+  container.classList.toggle('admin-preview--interactive', interactive);
 }
 
 export { flattenLayout };

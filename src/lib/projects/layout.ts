@@ -291,27 +291,58 @@ export async function createColumn(
   return { id, row_id: rowId, position: pos, span, blocks: [] };
 }
 
-/** Reorder rows and columns; payload: { rows: [{ id, columns: [columnId, ...] }] } */
+type ReorderColumnPayload =
+  | string
+  | { id: string; blocks?: string[] };
+
+type ReorderRowPayload = {
+  id: string;
+  columns: ReorderColumnPayload[];
+};
+
+function normalizeReorderColumn(col: ReorderColumnPayload): { id: string; blocks: string[] } {
+  if (typeof col === 'string') return { id: col, blocks: [] };
+  return { id: col.id, blocks: col.blocks ?? [] };
+}
+
+/** Reorder rows, columns, and optionally blocks within columns. */
 export async function reorderLayout(
   supabase: SupabaseClient,
   projectId: string,
-  payload: { rows: Array<{ id: string; columns: string[] }> }
+  payload: { rows: ReorderRowPayload[] }
 ): Promise<void> {
+  const now = new Date().toISOString();
+
   for (let rowIndex = 0; rowIndex < payload.rows.length; rowIndex++) {
     const row = payload.rows[rowIndex];
     await supabase
       .from(ROWS_TABLE)
-      .update({ position: rowIndex, updated_at: new Date().toISOString() })
+      .update({ position: rowIndex, updated_at: now })
       .eq('id', row.id)
       .eq('project_id', projectId);
 
-    for (let colIndex = 0; colIndex < row.columns.length; colIndex++) {
-      const colId = row.columns[colIndex];
+    const columns = row.columns.map(normalizeReorderColumn);
+
+    for (let colIndex = 0; colIndex < columns.length; colIndex++) {
+      const { id: colId, blocks: blockIds } = columns[colIndex];
       await supabase
         .from(COLUMNS_TABLE)
-        .update({ position: colIndex, updated_at: new Date().toISOString() })
+        .update({ position: colIndex, updated_at: now })
         .eq('id', colId)
         .eq('row_id', row.id);
+
+      for (let blockIndex = 0; blockIndex < blockIds.length; blockIndex++) {
+        const blockId = blockIds[blockIndex];
+        await supabase
+          .from(BLOCKS_TABLE)
+          .update({
+            column_id: colId,
+            position: blockIndex,
+            updated_at: now,
+          })
+          .eq('id', blockId)
+          .eq('project_id', projectId);
+      }
     }
   }
 }
