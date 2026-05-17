@@ -1,5 +1,12 @@
 import { showToast } from '/scripts/common/toast.js';
 import { adminFetch } from '/scripts/admin/api.js';
+import { renderProjectPreview } from '/scripts/admin/project-preview.js';
+import {
+  mountRichTextInForm,
+  setRichTextValue,
+  syncRichTextFromForm,
+  destroyRichTextInForm,
+} from '/scripts/admin/rich-text.js';
 
 function readState() {
   const el = document.getElementById('project-edit-state');
@@ -101,6 +108,7 @@ function initMediaUpload(projectId) {
         showToast('Uploading…', 'info');
         const url = await uploadToStorage(file, projectId);
         target.value = url;
+        target.dispatchEvent(new Event('input', { bubbles: true }));
         showToast('Image uploaded', 'success');
       } catch (err) {
         console.error(err);
@@ -112,6 +120,7 @@ function initMediaUpload(projectId) {
 }
 
 function buildContentFromForm(form, type) {
+  syncRichTextFromForm(form);
   if (type === 'text') {
     const text_en = form.text_en?.value?.trim() ?? form.text?.value?.trim() ?? '';
     const text_uk = form.text_uk?.value?.trim() ?? '';
@@ -137,8 +146,14 @@ function fillBlockForm(form, block) {
   const content = block.content || {};
   form.type.value = block.type;
   form.layout.value = block.layout || '1/1';
-  if (form.text_en) form.text_en.value = content.text_en ?? content.text ?? '';
-  if (form.text_uk) form.text_uk.value = content.text_uk ?? '';
+  if (form.text_en) {
+    form.text_en.value = content.text_en ?? content.text ?? '';
+    setRichTextValue(form, 'text_en', form.text_en.value);
+  }
+  if (form.text_uk) {
+    form.text_uk.value = content.text_uk ?? '';
+    setRichTextValue(form, 'text_uk', form.text_uk.value);
+  }
   if (form.text && !form.text_en) form.text.value = content.text ?? '';
   if (form.url) form.url.value = content.url ?? '';
   if (form.alt) form.alt.value = content.alt ?? '';
@@ -150,16 +165,24 @@ function fillBlockForm(form, block) {
 
 function initModals() {
   document.querySelectorAll('[data-admin-modal-open]').forEach((btn) => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', async () => {
       const name = btn.getAttribute('data-admin-modal-open');
-      if (name) openModal(name);
+      if (!name) return;
+      openModal(name);
+      const modal = document.querySelector(`[data-admin-modal="${name}"]`);
+      const form = modal?.querySelector('form');
+      if (form) await mountRichTextInForm(form);
     });
   });
 
   document.querySelectorAll('[data-admin-modal-close]').forEach((el) => {
     el.addEventListener('click', () => {
       const modal = el.closest('[data-admin-modal]');
-      if (modal) closeModal(modal);
+      if (modal) {
+        const form = modal.querySelector('form');
+        if (form) destroyRichTextInForm(form);
+        closeModal(modal);
+      }
     });
   });
 
@@ -278,8 +301,8 @@ function initBlockForms(projectId, blocksById) {
       const block = blocksById[blockId];
       if (!block || !editForm) return;
       editForm.block_id.value = blockId;
-      fillBlockForm(editForm, block);
       openModal('edit-block');
+      mountRichTextInForm(editForm).then(() => fillBlockForm(editForm, block));
       return;
     }
 
@@ -304,7 +327,7 @@ function initBlockForms(projectId, blocksById) {
   });
 }
 
-function initReorder(projectId) {
+function initReorder(projectId, onOrderChange) {
   const table = document.querySelector('[data-blocks-table]');
   const tbody = table?.querySelector('tbody');
   if (!tbody) return;
@@ -355,6 +378,71 @@ function initReorder(projectId) {
         const posCell = r.querySelector('[data-block-position]');
         if (posCell) posCell.textContent = String(idx);
       });
+      onOrderChange?.();
+    });
+  });
+}
+
+function collectMetaFromForm(form) {
+  if (!form) return {};
+  const fd = new FormData(form);
+  return {
+    title_en: fd.get('title_en')?.toString() ?? '',
+    title_uk: fd.get('title_uk')?.toString() ?? '',
+    description_en: fd.get('description_en')?.toString() ?? '',
+    description_uk: fd.get('description_uk')?.toString() ?? '',
+    category_en: fd.get('category_en')?.toString() ?? '',
+    category_uk: fd.get('category_uk')?.toString() ?? '',
+    thumbnail_url: fd.get('thumbnail_url')?.toString() ?? '',
+  };
+}
+
+function collectBlocksFromState(state, tbody) {
+  if (!tbody) return state.blocks ?? [];
+  const order = [...tbody.querySelectorAll('tr[data-block-id]')].map((r) => r.dataset.blockId);
+  const byId = Object.fromEntries((state.blocks ?? []).map((b) => [b.id, b]));
+  return order.map((id, position) => ({ ...byId[id], position })).filter(Boolean);
+}
+
+function initLivePreview(state) {
+  const container = document.querySelector('[data-project-preview]');
+  const projectForm = document.querySelector('[data-project-form]');
+  const tbody = document.querySelector('[data-blocks-table] tbody');
+  if (!container) return;
+
+  let previewLang = 'en';
+
+  const refresh = () => {
+    const blocks = collectBlocksFromState(state, tbody);
+    renderProjectPreview(container, {
+      blocks,
+      lang: previewLang,
+      meta: collectMetaFromForm(projectForm),
+    });
+  };
+
+  document.querySelectorAll('[data-preview-lang] button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      previewLang = btn.dataset.lang || 'en';
+      document
+        .querySelectorAll('[data-preview-lang] button')
+        .forEach((b) => b.classList.toggle('is-active', b === btn));
+      refresh();
+    });
+  });
+
+  projectForm?.addEventListener('input', refresh);
+  refresh();
+  return refresh;
+}
+
+function initFileInputLabels() {
+  document.querySelectorAll('input[type="file"]').forEach((input) => {
+    const label = input.closest('.admin-form__field')?.querySelector('[data-file-label]');
+    if (!label) return;
+    input.addEventListener('change', () => {
+      const name = input.files?.[0]?.name;
+      label.textContent = name || 'No file chosen';
     });
   });
 }
@@ -368,11 +456,14 @@ function init() {
     blocksById[b.id] = b;
   }
 
+  const refreshPreview = initLivePreview(state);
+
   initModals();
   initProjectForm(state.projectId);
   initBlockForms(state.projectId, blocksById);
-  initReorder(state.projectId);
+  initReorder(state.projectId, refreshPreview);
   initMediaUpload(state.projectId);
+  initFileInputLabels();
 }
 
 init();

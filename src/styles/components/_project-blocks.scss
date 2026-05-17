@@ -32,6 +32,25 @@
     color: #444;
   }
 
+  &__html {
+    color: #444;
+
+    :global(p) {
+      margin: 0 0 0.75rem;
+    }
+
+    :global(h2),
+    :global(h3) {
+      margin: 0 0 0.5rem;
+      font-weight: 600;
+    }
+
+    :global(a) {
+      color: #4f46e5;
+      text-decoration: underline;
+    }
+  }
+
   &__media {
     margin: 0;
     border-radius: 1rem;

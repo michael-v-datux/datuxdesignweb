@@ -1,19 +1,15 @@
 const stickyNavbar = document.getElementById("sticky-navbar");
 const regularNavbar = document.getElementById("navbar");
 
-const isRegularNavbarOutOfView = () => {
-  const rect = regularNavbar.getBoundingClientRect();
-  return rect.bottom <= 0;
-};
+if (stickyNavbar && regularNavbar) {
+  const updateSticky = () => {
+    const rect = regularNavbar.getBoundingClientRect();
+    const showSticky = rect.bottom <= 0;
 
-const onScroll = () => {
-  if (isRegularNavbarOutOfView()) {
-    stickyNavbar.classList.remove("hidden");
-    stickyNavbar.classList.add("visible");
-  } else {
-    stickyNavbar.classList.remove("visible");
-    stickyNavbar.classList.add("hidden");
-  }
-};
+    stickyNavbar.classList.toggle("is-visible", showSticky);
+  };
 
-window.addEventListener("scroll", onScroll);
+  updateSticky();
+  window.addEventListener("scroll", updateSticky, { passive: true });
+  window.addEventListener("resize", updateSticky);
+}
