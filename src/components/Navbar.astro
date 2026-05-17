@@ -2,7 +2,10 @@
 // components/Navbar.astro
 const { translations, lang } = Astro.props;
 const altLang = lang === 'en' ? 'uk' : 'en';
-const altLangLink = Astro.url.pathname.replace(`/${lang}`, `/${altLang}`);
+const pathname = Astro.url.pathname;
+const altLangLink =
+  pathname.replace(new RegExp(`^/${lang}(?=/|$)`), `/${altLang}`) ||
+  `/${altLang}${pathname === '/' ? '' : pathname}`;
 ---
 
 <header id="navbar" class="bg-white dark:bg-neutral-900 z-50 transition-all duration-500 ease-in-out">
@@ -33,7 +36,7 @@ const altLangLink = Astro.url.pathname.replace(`/${lang}`, `/${altLang}`);
       </a>
 
       <!-- Перемикач мов -->
-      <a id="lang-switcher-mobile" href={altLangLink}>
+      <a id="lang-switcher-mobile" class="lang-switcher" href={altLangLink} data-alt-lang={altLang}>
         {lang === 'en' ? '🇺🇦 UKR' : '🇬🇧 ENG'}
       </a>
     </div>
@@ -69,7 +72,7 @@ const altLangLink = Astro.url.pathname.replace(`/${lang}`, `/${altLang}`);
 
       <!-- Перемикач мов -->
       <div>
-        <a id="lang-switcher-desktop" href={altLangLink}>
+        <a id="lang-switcher-desktop" class="lang-switcher" href={altLangLink} data-alt-lang={altLang}>
           {lang === 'en' ? '🇺🇦 UKR' : '🇬🇧 ENG'}
         </a>
       </div>
@@ -120,19 +123,24 @@ const altLangLink = Astro.url.pathname.replace(`/${lang}`, `/${altLang}`);
       <span class="nav-dot absolute bottom-0 left-0 w-2 h-2 bg-pink-500 rounded-full transition-all duration-300 pointer-events-none"></span>
     </nav>
     <div>
-      <a id="lang-switcher-sticky" href={altLangLink}>
+      <a id="lang-switcher-sticky" class="lang-switcher" href={altLangLink} data-alt-lang={altLang}>
         {lang === 'en' ? '🇺🇦 UKR' : '🇬🇧 ENG'}
       </a>
     </div>
   </div>
 </div>
 
-<!-- Клієнтський скрипт -->
-<script type="module">
-  document.querySelectorAll('#lang-switcher-mobile, #lang-switcher-desktop, #lang-switcher-sticky')
-    .forEach(link => link.addEventListener('click', (e) => {
-      e.preventDefault();
-      localStorage.setItem('preferredLanguage', '{altLang}');
-      window.location.href = '{altLangLink}';
-    }));
+<script>
+  document.querySelectorAll('.lang-switcher[data-alt-lang]').forEach((link) => {
+    link.addEventListener('click', () => {
+      const nextLang = link.getAttribute('data-alt-lang');
+      if (nextLang) {
+        try {
+          localStorage.setItem('preferredLanguage', nextLang);
+        } catch {
+          /* ignore */
+        }
+      }
+    });
+  });
 </script>
