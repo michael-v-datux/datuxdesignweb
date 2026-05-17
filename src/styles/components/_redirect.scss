@@ -71,7 +71,7 @@
         width: 0%;
         background: $text-black;
         border-radius: $radius-sm;
-        transition: width 3s linear;
+        transition: width 4.4s linear;
     }
 }
 
@@ -82,7 +82,7 @@
     background: $color-white;
     pointer-events: none;
     opacity: 1;
-    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 2.4s cubic-bezier(0.4, 0, 0.2, 1);
 
     &.is-revealing {
         opacity: 0;

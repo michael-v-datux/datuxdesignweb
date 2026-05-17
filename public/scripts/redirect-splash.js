@@ -17,9 +17,9 @@
 
   if (!redirectScreen || !textEl || !bar) return;
 
-  const MIN_SHOW_MS = 3400;
-  const MESSAGE_INTERVAL_MS = 850;
-  const FADE_MS = 900;
+  const MESSAGE_INTERVAL_MS = 1100;
+  const MIN_SHOW_MS = MESSAGE_INTERVAL_MS * messages.length;
+  const EXIT_FADE_MS = 500;
 
   let msgIndex = 0;
   textEl.textContent = messages[0];
@@ -55,6 +55,6 @@
     }
     setTimeout(() => {
       window.location.href = `/${targetLang}/`;
-    }, FADE_MS);
+    }, EXIT_FADE_MS);
   }, MIN_SHOW_MS);
 })();
