@@ -636,6 +636,22 @@ input[type='file'].admin-file-input::file-selector-button {
     font-size: 0.86rem;
 }
 
+.admin-preview__block {
+    cursor: pointer;
+    border-radius: $admin-radius-md;
+    transition: box-shadow $admin-transition-fast, outline-color $admin-transition-fast;
+
+    &:hover {
+        outline: 2px solid rgba(79, 70, 229, 0.35);
+        outline-offset: 4px;
+        box-shadow: 0 8px 24px rgba(79, 70, 229, 0.12);
+    }
+}
+
+.admin-edit-preview-panel__body .project-blocks {
+    width: 100%;
+}
+
 .admin-accordion {
     border-radius: $admin-radius-lg;
     border: 1px solid $admin-border-soft;

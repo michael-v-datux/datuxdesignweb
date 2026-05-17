@@ -1,3 +1,5 @@
+import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
+
 function escapeHtml(str) {
   return String(str ?? '')
     .replace(/&/g, '&amp;')
@@ -60,6 +62,24 @@ function renderMediaBlock(block) {
   return `<figure class="project-block__media"><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
 }
 
+function renderBlockArticle(block, lang) {
+  const content = block.content || {};
+  const inner =
+    block.type === 'text' ? renderTextBlock(content, lang) : renderMediaBlock(block);
+  return `<article class="project-block project-block--${block.type} ${layoutClass(block.layout)} ${alignClass(content)} admin-preview__block" data-block-id="${escapeHtml(block.id)}" title="Click to edit">${inner}</article>`;
+}
+
+function renderRowsHtml(blocks, lang) {
+  const rows = groupBlocksIntoRows(blocks);
+  return rows
+    .map((rowBlocks) => {
+      const rowClass = rowBlocks.length === 1 ? 'project-row project-row--single' : 'project-row';
+      const cells = rowBlocks.map((b) => renderBlockArticle(b, lang)).join('');
+      return `<div class="${rowClass}">${cells}</div>`;
+    })
+    .join('');
+}
+
 export function renderProjectPreview(container, { blocks = [], lang = 'en', meta = {} } = {}) {
   if (!container) return;
 
@@ -81,16 +101,7 @@ export function renderProjectPreview(container, { blocks = [], lang = 'en', meta
   const body =
     blocks.length === 0
       ? '<p class="admin-preview__empty">Add blocks to see them here.</p>'
-      : blocks
-          .map((block) => {
-            const content = block.content || {};
-            const inner =
-              block.type === 'text'
-                ? renderTextBlock(content, lang)
-                : renderMediaBlock(block);
-            return `<article class="project-block project-block--${block.type} ${layoutClass(block.layout)} ${alignClass(content)}" data-block-id="${escapeHtml(block.id)}">${inner}</article>`;
-          })
-          .join('');
+      : renderRowsHtml(blocks, lang);
 
   container.innerHTML = `${header}<div class="project-blocks">${body}</div>`;
 }

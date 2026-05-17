@@ -1,5 +1,6 @@
 ---
-import ProjectBlock from './ProjectBlock.astro';
+import ProjectRow from './ProjectRow.astro';
+import { groupBlocksIntoRows } from '@/lib/projects/rows';
 import type { ProjectBlock as ProjectBlockType } from '@/lib/projects/types';
 
 interface Props {
@@ -8,10 +9,11 @@ interface Props {
 }
 
 const { blocks, lang } = Astro.props;
+const rows = groupBlocksIntoRows(blocks);
 ---
 
 <div class="project-blocks">
-  {blocks.map((block) => (
-    <ProjectBlock block={block} lang={lang} />
+  {rows.map((rowBlocks) => (
+    <ProjectRow blocks={rowBlocks} lang={lang} />
   ))}
 </div>
