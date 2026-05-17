@@ -31,7 +31,7 @@ module.exports = {
     extend: {
       colors,
       fontFamily: {
-        base: ['Lexend', 'Plus Jakarta Sans', 'sans-serif'],
+        base: ['Lexend', 'Geologica', 'sans-serif'],
         secondary: ['Playfair-Display', 'serif'],
       },
       borderRadius: {

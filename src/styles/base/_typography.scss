@@ -2,11 +2,6 @@ body {
   @apply font-base text-base bg-white text-primary leading-relaxed;
 }
 
-/* Cyrillic fallback (Plus Jakarta Sans) reads lighter than Lexend at 400 */
-html:lang(uk) body {
-  font-weight: 500;
-}
-
 h1, h2, h3, h4, h5, h6 {
   @apply font-bold text-black;
 }
