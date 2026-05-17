@@ -66,12 +66,17 @@
 body{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-  font-family: Manrope, sans-serif;
+  font-family: Lexend, Plus Jakarta Sans, sans-serif;
   font-size: 1rem;
   line-height: 1.5rem;
   line-height: 1.625;
   --tw-text-opacity: 1;
   color: rgb(79 70 229 / var(--tw-text-opacity, 1));
+}
+
+/* Cyrillic fallback (Plus Jakarta Sans) reads lighter than Lexend at 400 */
+html:lang(uk) body {
+  font-weight: 500;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -448,7 +453,7 @@ header#navbar {
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   color: #ffffff;
-  font-family: "Manrope", sans-serif;
+  font-family: "Lexend", "Plus Jakarta Sans", sans-serif;
   font-size: 15px;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.15);
   animation: tooltipIn 0.3s ease forwards;
@@ -539,7 +544,7 @@ header#navbar {
   justify-content: center;
   align-items: center;
   background: #ffffff;
-  font-family: "Manrope", sans-serif;
+  font-family: "Lexend", "Plus Jakarta Sans", sans-serif;
   color: #333333;
   opacity: 0;
   transform: scale(1.02);
@@ -1429,7 +1434,7 @@ body.admin-body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: "Manrope", sans-serif;
+  font-family: "Lexend", "Plus Jakarta Sans", sans-serif;
   color: #111827;
   background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 55%), radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.08), transparent 55%), #f3f4f6;
 }
@@ -4288,7 +4293,7 @@ video {
   text-align: center;
 }
 .font-base{
-  font-family: Manrope, sans-serif;
+  font-family: Lexend, Plus Jakarta Sans, sans-serif;
 }
 .font-secondary{
   font-family: Playfair-Display, serif;
