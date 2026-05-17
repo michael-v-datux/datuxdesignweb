@@ -5,6 +5,7 @@ import Layout from '@/layouts/Layout.astro';
 import { getTranslations } from '@/utils/getTranslations';
 import { supabase } from '@/lib/supabaseClient';
 import { resolveProjectBlocks } from '@/lib/projects/blocks';
+import { fetchProjectLayoutReadonly } from '@/lib/projects/layout';
 import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
 import bcrypt from 'bcryptjs';
 
@@ -25,8 +26,16 @@ if (error || !projectData) {
   throw new Error('Project not found');
 }
 
+const projectId = String(projectData.id);
+let layout = null;
+try {
+  layout = await fetchProjectLayoutReadonly(supabase, projectId);
+} catch {
+  layout = null;
+}
+
 const blocks = await resolveProjectBlocks(
-  String(projectData.id),
+  projectId,
   lang ?? 'en',
   projectData.content_en,
   projectData.content_uk
@@ -123,8 +132,8 @@ if (!unlocked && Astro.request.method === 'POST') {
           <img src={project.cover} alt={project.title} class="w-full rounded-lg mb-8" />
         )}
 
-        {blocks.length > 0 ? (
-          <ProjectBlocks blocks={blocks} lang={lang ?? 'en'} />
+        {blocks.length > 0 || (layout?.rows?.length ?? 0) > 0 ? (
+          <ProjectBlocks blocks={blocks} layout={layout} lang={lang ?? 'en'} />
         ) : (
           <p>
             {lang === 'uk' ? 'Контент наразі недоступний.' : 'Content is not available yet.'}

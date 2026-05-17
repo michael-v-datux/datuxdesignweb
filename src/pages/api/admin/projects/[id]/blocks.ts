@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getAdminSupabase } from '../../../../../lib/supabaseServer';
+import { createColumn, createRow } from '../../../../../lib/projects/layout';
+import type { BlockLayout } from '../../../../../lib/projects/types';
 
 const supabase = getAdminSupabase();
 
@@ -48,23 +50,24 @@ export const POST: APIRoute = async ({ request, params }) => {
     return new Response(JSON.stringify({ error: 'Missing block type' }), { status: 400 });
   }
 
-  const finalLayout = layout || '1/1';
+  const span = (layout || '1/1') as BlockLayout;
+  let columnId = payload?.column_id ? String(payload.column_id) : null;
 
-  // визначаємо наступну позицію, якщо не передана
+  if (!columnId) {
+    const row = await createRow(supabase, projectId);
+    const column = await createColumn(supabase, row.id, span);
+    columnId = column.id;
+  }
+
   let finalPosition = position;
   if (typeof finalPosition !== 'number') {
-    const { data: maxRow, error: maxError } = await supabase
+    const { data: maxRow } = await supabase
       .from('projects_blocks')
       .select('position')
-      .eq('project_id', projectId)
+      .eq('column_id', columnId)
       .order('position', { ascending: false })
       .limit(1)
       .maybeSingle();
-
-    if (maxError) {
-      console.error('Error fetching max position', maxError);
-    }
-
     finalPosition = maxRow?.position != null ? maxRow.position + 1 : 0;
   }
 
@@ -75,7 +78,8 @@ export const POST: APIRoute = async ({ request, params }) => {
       type,
       content: content ?? {},
       position: finalPosition,
-      layout: finalLayout,
+      layout: '1/1',
+      column_id: columnId,
     })
     .select('*')
     .single();
