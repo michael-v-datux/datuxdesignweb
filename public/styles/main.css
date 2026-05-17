@@ -564,6 +564,24 @@ header#navbar {
   margin: 0 0 20px 0;
   font-size: 1.1rem;
   font-weight: 400;
+  min-height: 1.5em;
+  text-align: center;
+  max-width: 280px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#redirect-screen h1.is-changing {
+  opacity: 0;
+  transform: translateY(6px);
+}
+#redirect-screen.is-exiting {
+  pointer-events: none;
+}
+#redirect-screen.is-exiting .logo-wrapper,
+#redirect-screen.is-exiting h1,
+#redirect-screen.is-exiting .loader-bar {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 #redirect-screen .loader-bar {
   width: 220px;
@@ -580,11 +598,19 @@ header#navbar {
   transition: width 3s linear;
 }
 
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-  }
+.page-enter-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #ffffff;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.page-enter-veil.is-revealing {
+  opacity: 0;
+}
+
 @keyframes moveGradient {
   0% {
     background-position: 0% 50%;

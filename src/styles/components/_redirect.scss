@@ -35,6 +35,27 @@
         margin: 0 0 20px 0;
         font-size: 1.1rem;
         font-weight: 400;
+        min-height: 1.5em;
+        text-align: center;
+        max-width: 280px;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+
+        &.is-changing {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+    }
+
+    &.is-exiting {
+        pointer-events: none;
+
+        .logo-wrapper,
+        h1,
+        .loader-bar {
+            opacity: 0;
+            transform: translateY(-8px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
     }
 
     .loader-bar {
@@ -54,7 +75,20 @@
     }
 }
 
-@keyframes fadeOut { to { opacity: 0; } }
+.page-enter-veil {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: $color-white;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.is-revealing {
+        opacity: 0;
+    }
+}
+
 @keyframes moveGradient {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
