@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import { supabase } from '@/lib/supabaseClient';
+import { projectCardCategory, projectCardTitle } from '@/lib/projects/card-labels';
 
 const { translations, lang, loadMore = true } = Astro.props;
 
@@ -17,11 +18,14 @@ if (error) {
   console.error("Error fetching projects:", error);
 }
 
-const projects = projectsRaw?.map(p => ({
-  slug: p.slug,
-  title: lang === "en" ? p.title_en : p.title_uk,
-  category: lang === "en" ? p.category_en : p.category_uk
-})) || [];
+const projects =
+  projectsRaw
+    ?.map((p) => ({
+      slug: p.slug,
+      title: projectCardTitle(p),
+      category: projectCardCategory(p),
+    }))
+    .filter((p) => p.title) || [];
 ---
 
 <section id="selected-projects" class="selected-projects w-full py-12 px-6 md:px-10 lg:px-16">
@@ -36,9 +40,11 @@ const projects = projectsRaw?.map(p => ({
           <a href={`/${lang}/projects/${item.slug}`}
              class="project-card group block w-full h-[300px] border border-neutral-200 rounded-xl px-6 text-center relative overflow-hidden transition-colors hover:bg-neutral-100 mx-auto flex flex-col items-center justify-center">
               <!-- Категорія: тільки на hover -->
-              <span class="category block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm mb-1">
+              {item.category && (
+                <span class="category block text-neutral-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm mb-1">
                   {item.category}
-              </span>
+                </span>
+              )}
               <!-- Заголовок: завжди видно -->
               <span class="title text-lg font-medium text-neutral-800">{item.title}</span>
           </a>
@@ -49,8 +55,15 @@ const projects = projectsRaw?.map(p => ({
     )}
 
     {loadMore && (
-      <button id="load-more" class="mt-8 px-6 py-2 border rounded-lg bg-neutral-100 hover:bg-neutral-200 transition">
-        {translations.selectedProjects.loadMore || 'Load more'}
+      <button
+        id="load-more"
+        type="button"
+        class="mt-8 px-6 py-2 border rounded-lg bg-neutral-100 hover:bg-neutral-200 transition"
+        data-label-load-more={translations.selectedProjects.loadMore}
+        data-label-loading={translations.selectedProjects.loading}
+        data-label-error={translations.selectedProjects.loadError}
+      >
+        {translations.selectedProjects.loadMore}
       </button>
     )}
   </div>

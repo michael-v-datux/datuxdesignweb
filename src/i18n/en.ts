@@ -76,6 +76,9 @@ export default {
   },
   selectedProjects: {
     title: "Selected Projects",
+    loadMore: "Load more",
+    loading: "Loading…",
+    loadError: "Could not load",
     items: [
       { title: "Management Solutions", category: "Master Data", link: "/projects/master-data-management-solutions" },
       { title: "System", category: "Design", link: "/projects/design-system" },
