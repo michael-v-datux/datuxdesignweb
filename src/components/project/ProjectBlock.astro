@@ -1,5 +1,6 @@
 ---
 import { blockAlign, blockText, blockTextAlign } from '@/lib/projects/blocks';
+import { mediaStyleClasses, mediaStyleInline } from '@/lib/projects/media-styles';
 import type { ProjectBlock } from '@/lib/projects/types';
 
 interface Props {
@@ -14,6 +15,8 @@ const text = blockText(content, lang);
 const alignClass = `project-block--align-${blockAlign(content)}`;
 const textAlignClass =
   type === 'text' ? `project-block__text--align-${blockTextAlign(content)}` : '';
+const mediaClasses = type !== 'text' ? mediaStyleClasses(content) : [];
+const mediaInlineStyle = type !== 'text' ? mediaStyleInline(content) : '';
 ---
 
 <article
@@ -36,7 +39,7 @@ const textAlignClass =
   )}
 
   {type === 'image' && content.url && (
-    <figure class="project-block__media">
+    <figure class:list={['project-block__media', ...mediaClasses]} style={mediaInlineStyle || undefined}>
       <img
         src={content.url}
         alt={content.alt || ''}
@@ -47,7 +50,7 @@ const textAlignClass =
   )}
 
   {type === 'media' && content.url && (
-    <figure class="project-block__media">
+    <figure class:list={['project-block__media', ...mediaClasses]} style={mediaInlineStyle || undefined}>
       {content.mediaType === 'video' ? (
         <video
           src={content.url}

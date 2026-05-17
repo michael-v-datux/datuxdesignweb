@@ -8,6 +8,7 @@ import {
   fetchProjectLayout,
   reorderLayout,
   updateColumnSpan,
+  updateRowFullWidth,
 } from '@/lib/projects/layout';
 import type { BlockLayout } from '@/lib/projects/types';
 
@@ -91,6 +92,14 @@ export const POST: APIRoute = async ({ params, request }) => {
       const span = asSpan(body.span);
       if (!columnId) return json({ error: 'column_id required' }, 400);
       await updateColumnSpan(supabase, columnId, span);
+      const layout = await fetchProjectLayout(supabase, projectId);
+      return json(layout);
+    }
+
+    if (action === 'set-row-full-width') {
+      const rowId = String(body.row_id || '');
+      if (!rowId) return json({ error: 'row_id required' }, 400);
+      await updateRowFullWidth(supabase, projectId, rowId, Boolean(body.full_width));
       const layout = await fetchProjectLayout(supabase, projectId);
       return json(layout);
     }

@@ -2,6 +2,7 @@
 import AdminLayout from "../../../../layouts/AdminLayout.astro";
 import AdminPageHeader from "../../../../components/admin/AdminPageHeader.astro";
 import BlockMediaFields from "../../../../components/admin/BlockMediaFields.astro";
+import BlockMediaStyleFields from "../../../../components/admin/BlockMediaStyleFields.astro";
 import BlockLayoutFields from "../../../../components/admin/BlockLayoutFields.astro";
 import { getAdminSupabase } from "../../../../lib/supabaseServer";
 import { fetchProjectLayout } from "../../../../lib/projects/layout";
@@ -46,6 +47,7 @@ const editState = JSON.stringify({
     ]}
   />
 
+  <div class="admin-page--edit">
   <div class="admin-edit-toolbar">
     <p>
       {slug ? `/${slug}` : "Set a slug to preview on the public site"}
@@ -291,12 +293,35 @@ const editState = JSON.stringify({
   </div>
 
   <div class="admin-edit-actions">
-    <a href="/admin/dashboard" class="admin-btn admin-btn--ghost" data-project-cancel>
-      Cancel
-    </a>
-    <button type="button" class="admin-btn admin-btn--primary" data-project-save>
-      Save changes
-    </button>
+    <div class="admin-edit-actions__inner">
+      <a href="/admin/dashboard" class="admin-btn admin-btn--ghost" data-project-cancel>
+        Cancel
+      </a>
+      {slug ? (
+        <a
+          href={`/en/projects/${slug}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="admin-btn admin-btn--ghost"
+          data-project-preview-live
+        >
+          Preview ↗
+        </a>
+      ) : (
+        <button
+          type="button"
+          class="admin-btn admin-btn--ghost"
+          disabled
+          title="Set a project slug to preview"
+        >
+          Preview
+        </button>
+      )}
+      <button type="button" class="admin-btn admin-btn--primary" data-project-save>
+        Save changes
+      </button>
+    </div>
+  </div>
   </div>
 
   <div class="admin-modal" data-admin-modal="add-block" aria-hidden="true">
@@ -326,6 +351,7 @@ const editState = JSON.stringify({
           <textarea name="text_uk" class="admin-input" rows="3" data-rich-text></textarea>
         </div>
         <BlockMediaFields />
+        <BlockMediaStyleFields />
         <div class="admin-form__footer">
           <button
             type="button"
@@ -369,6 +395,7 @@ const editState = JSON.stringify({
           <textarea name="text_uk" class="admin-input" rows="3" data-rich-text></textarea>
         </div>
         <BlockMediaFields />
+        <BlockMediaStyleFields />
         <div class="admin-form__footer">
           <button type="button" class="admin-btn admin-btn--ghost" data-admin-modal-close>
             Cancel
@@ -376,6 +403,26 @@ const editState = JSON.stringify({
           <button type="submit" class="admin-btn admin-btn--primary">Save block</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <div class="admin-modal admin-modal--wide" data-admin-modal="media-gallery" aria-hidden="true">
+    <div class="admin-modal__backdrop" data-admin-modal-close></div>
+    <div class="admin-modal__dialog admin-modal__dialog--wide">
+      <div class="admin-modal__header">
+        <h3 class="admin-modal__title">Media gallery</h3>
+        <button class="admin-modal__close" data-admin-modal-close type="button">×</button>
+      </div>
+      <p class="admin-gallery-modal__hint">Project files and shared uploads. Select a file or delete unused media.</p>
+      <div class="admin-gallery-toolbar">
+        <input
+          type="file"
+          class="admin-input admin-gallery-upload"
+          data-gallery-upload
+          accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,video/mp4,video/webm"
+        />
+      </div>
+      <div class="admin-gallery-grid" data-gallery-grid></div>
     </div>
   </div>
 

@@ -5,13 +5,14 @@ import type { ProjectBlock as ProjectBlockType } from '@/lib/projects/types';
 interface Props {
   blocks: ProjectBlockType[];
   lang: string;
+  fullWidth?: boolean;
 }
 
-const { blocks, lang } = Astro.props;
+const { blocks, lang, fullWidth = false } = Astro.props;
 const isSingle = blocks.length === 1;
 ---
 
-<div class:list={['project-row', isSingle && 'project-row--single']}>
+<div class:list={['project-row', isSingle && 'project-row--single', fullWidth && 'project-row--full-width']}>
   {blocks.map((block) => (
     <ProjectBlock block={block} lang={lang} />
   ))}

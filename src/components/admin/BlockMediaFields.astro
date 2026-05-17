@@ -1,5 +1,5 @@
 ---
-/** Image / video URL + Supabase Storage upload (used in block modals). */
+/** Image / video URL + upload + gallery picker (used in block modals). */
 ---
 
 <div class="admin-form__field hidden" data-field-url>
@@ -10,11 +10,16 @@
     data-media-file
     accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,video/mp4,video/webm"
   />
+  <div class="admin-media-actions">
+    <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-open-media-gallery>
+      Choose from gallery
+    </button>
+  </div>
   <div class="admin-media-preview hidden" data-media-preview></div>
 
   <label class="admin-form__label mt-2">URL</label>
   <input name="url" class="admin-input" placeholder="https://..." />
   <label class="admin-form__label mt-2">Alt text</label>
   <input name="alt" class="admin-input" placeholder="Description" />
-  <p class="admin-form__hint">Upload a file or paste an external URL.</p>
+  <p class="admin-form__hint">Upload, pick from gallery, or paste an external URL.</p>
 </div>

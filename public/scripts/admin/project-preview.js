@@ -57,16 +57,42 @@ function renderTextBlock(content, lang) {
   return `<div class="project-block__text ${ta}"><p class="text-lg leading-relaxed whitespace-pre-wrap">${escapeHtml(raw)}</p></div>`;
 }
 
+function mediaFigureClasses(content) {
+  const classes = ['project-block__media'];
+  const radius = content.borderRadius || 'md';
+  if (radius && radius !== 'md' && radius !== 'custom') {
+    classes.push(`project-block__media--radius-${radius}`);
+  }
+  if (content.objectFit === 'contain') classes.push('project-block__media--fit-contain');
+  const shadow = content.shadow || 'md';
+  if (shadow && shadow !== 'md') classes.push(`project-block__media--shadow-${shadow}`);
+  return classes.join(' ');
+}
+
+function mediaFigureStyle(content) {
+  if (content.borderRadius === 'custom' && content.borderRadiusCustom) {
+    const v = String(content.borderRadiusCustom).trim();
+    if (/^\d+(\.\d+)?(px|rem|%)$/.test(v) || /^\d+(\.\d+)?$/.test(v)) {
+      const radius = /^\d/.test(v) && !/[a-z%]$/i.test(v) ? `${v}px` : v;
+      return `border-radius: ${radius};`;
+    }
+  }
+  return '';
+}
+
 function renderMediaBlock(block) {
   const { content, type } = block;
   if (!content?.url) {
     return '<p class="project-block__empty text-neutral-400 text-sm">No media URL</p>';
   }
   const alt = escapeHtml(content.alt || '');
+  const figClass = mediaFigureClasses(content);
+  const figStyle = mediaFigureStyle(content);
+  const styleAttr = figStyle ? ` style="${figStyle}"` : '';
   if (type === 'media' || content.mediaType === 'video') {
-    return `<figure class="project-block__media"><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></figure>`;
+    return `<figure class="${figClass}"${styleAttr}><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></figure>`;
   }
-  return `<figure class="project-block__media"><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
+  return `<figure class="${figClass}"${styleAttr}><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
 }
 
 function renderBlockArticle(block, lang, layoutSpan, interactive) {
@@ -105,8 +131,9 @@ function renderExplicitLayoutHtml(layout, lang, interactive) {
   const rows = layout?.rows ?? [];
   return rows
     .map((row) => {
-      const rowClass =
+      let rowClass =
         row.columns.length <= 1 ? 'project-row project-row--single' : 'project-row';
+      if (row.full_width) rowClass += ' project-row--full-width';
       const cols = row.columns
         .map((col) => renderPreviewColumn(col, row.id, lang, interactive))
         .join('');

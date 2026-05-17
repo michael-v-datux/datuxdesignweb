@@ -4,11 +4,14 @@ export const prerender = false;
 interface Props {
   title?: string;
   hideNav?: boolean;
-  activeNav?: "dashboard" | "new";
+  activeNav?: "dashboard" | "gallery" | "new";
+  wide?: boolean;
 }
 
-const { title = "Admin", hideNav = false, activeNav } = Astro.props;
+const { title = "Admin", hideNav = false, activeNav, wide = true } = Astro.props;
 const bodyClass = hideNav ? "admin-body admin-body--login" : "admin-body";
+const shellClass = wide ? "admin-shell admin-shell--wide" : "admin-shell";
+const topnavInnerClass = wide ? "admin-topnav__inner admin-topnav__inner--wide" : "admin-topnav__inner";
 ---
 
 <html lang="en">
@@ -22,7 +25,7 @@ const bodyClass = hideNav ? "admin-body admin-body--login" : "admin-body";
   <body class={bodyClass}>
     {!hideNav && (
       <header class="admin-topnav">
-        <div class="admin-topnav__inner">
+        <div class={topnavInnerClass}>
           <a href="/admin/dashboard" class="admin-topnav__logo">
             datux.design · Admin
           </a>
@@ -43,7 +46,16 @@ const bodyClass = hideNav ? "admin-body admin-body--login" : "admin-body";
                 activeNav === "dashboard" && "is-active",
               ]}
             >
-              Dashboard
+              Projects
+            </a>
+            <a
+              href="/admin/gallery"
+              class:list={[
+                "admin-topnav__link",
+                activeNav === "gallery" && "is-active",
+              ]}
+            >
+              Gallery
             </a>
             <a
               href="/admin/projects/new"
@@ -62,7 +74,7 @@ const bodyClass = hideNav ? "admin-body admin-body--login" : "admin-body";
       </header>
     )}
 
-    <main class="admin-shell">
+    <main class={shellClass}>
       <slot />
     </main>
 
