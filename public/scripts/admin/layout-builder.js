@@ -21,6 +21,19 @@ function blockPreview(block) {
   return block.type;
 }
 
+function columnSpanClass(span) {
+  const key = String(span || '1/1').replace('/', '-');
+  return `admin-layout-column--span-${key}`;
+}
+
+function blockAlignClass(block) {
+  const align = block.content?.align;
+  if (align === 'left' || align === 'right' || align === 'center') {
+    return `admin-layout-block--align-${align}`;
+  }
+  return 'admin-layout-block--align-center';
+}
+
 export function buildReorderPayload(container) {
   if (!container) return { action: 'reorder', rows: [] };
   const rows = [...container.querySelectorAll('.admin-layout-row')].map((rowEl) => ({
@@ -40,7 +53,7 @@ function renderColumn(col, rowId) {
       : col.blocks
           .map(
             (b) => `
-        <div class="admin-layout-block" data-block-id="${escapeHtml(b.id)}" draggable="true">
+        <div class="admin-layout-block ${blockAlignClass(b)}" data-block-id="${escapeHtml(b.id)}" draggable="true">
           <span class="admin-layout-block__drag" aria-hidden="true">⋮</span>
           <span class="admin-pill admin-pill--${escapeHtml(b.type)}">${escapeHtml(b.type)}</span>
           <span class="admin-layout-block__preview">${escapeHtml(blockPreview(b))}</span>
@@ -53,7 +66,7 @@ function renderColumn(col, rowId) {
           .join('');
 
   return `
-    <div class="admin-layout-column" data-column-id="${escapeHtml(col.id)}" data-row-id="${escapeHtml(rowId)}">
+    <div class="admin-layout-column ${columnSpanClass(col.span)}" data-column-id="${escapeHtml(col.id)}" data-row-id="${escapeHtml(rowId)}" data-column-span="${escapeHtml(col.span)}">
       <div class="admin-layout-column__head">
         <span class="admin-layout-column__span">${escapeHtml(col.span)}</span>
         <select class="admin-input admin-input--sm" data-column-span data-column-id="${escapeHtml(col.id)}">
