@@ -31,7 +31,7 @@ module.exports = {
     extend: {
       colors,
       fontFamily: {
-        base: ['Manrope', 'sans-serif'],
+        base: ['Lexend', 'Plus Jakarta Sans', 'sans-serif'],
         secondary: ['Playfair-Display', 'serif'],
       },
       borderRadius: {
