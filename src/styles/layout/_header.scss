@@ -1,4 +1,8 @@
-header {
+header#navbar {
+	position: relative;
+	z-index: 50;
+	opacity: 1;
+	transform: none;
 	border-bottom: 1px solid #EBEBEB;
 }
 
@@ -36,14 +40,8 @@ header {
 	}
 }
 
-.sticky-navbar.visible {
+.sticky-navbar.is-visible {
 	transform: translateY(0);
 	opacity: 1;
 	pointer-events: auto;
-}
-
-.sticky-navbar.hidden {
-	transform: translateY(-100%);
-	opacity: 0;
-	pointer-events: none;
 }

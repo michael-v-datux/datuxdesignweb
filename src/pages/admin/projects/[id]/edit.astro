@@ -84,9 +84,14 @@ const pillClass = (type: string) => {
     )}
   </div>
 
-  <section class="admin-table-card">
+  <div class="admin-edit-layout">
+    <div class="admin-edit-main admin-section-gap">
+  <details class="admin-accordion" open>
+    <summary>Project metadata</summary>
+    <div class="admin-accordion__body">
+  <section class="admin-table-card" style="margin-bottom:0;">
     <div class="admin-table-card__header">
-      <h2>Project info</h2>
+      <h2>Details</h2>
       <button
         class="admin-btn admin-btn--primary"
         type="button"
@@ -197,6 +202,7 @@ const pillClass = (type: string) => {
               data-target="thumbnail_url"
               accept="image/jpeg,image/png,image/gif,image/webp"
             />
+            <span class="admin-file-control__name" data-file-label>No file chosen</span>
             <input
               class="admin-input"
               name="thumbnail_url"
@@ -213,6 +219,7 @@ const pillClass = (type: string) => {
               data-target="cover_url"
               accept="image/jpeg,image/png,image/gif,image/webp"
             />
+            <span class="admin-file-control__name" data-file-label>No file chosen</span>
             <input
               class="admin-input"
               name="cover_url"
@@ -261,10 +268,15 @@ const pillClass = (type: string) => {
       </form>
     </div>
   </section>
+    </div>
+  </details>
 
-  <section class="admin-table-card">
+  <details class="admin-accordion" open>
+    <summary>Content blocks</summary>
+    <div class="admin-accordion__body">
+  <section class="admin-table-card" style="margin-bottom:0;">
     <div class="admin-table-card__header">
-      <h2>Blocks</h2>
+      <h2>Block list</h2>
       <button
         class="admin-btn admin-btn--primary"
         type="button"
@@ -326,6 +338,31 @@ const pillClass = (type: string) => {
       </tbody>
     </table>
   </section>
+    </div>
+  </details>
+    </div>
+
+    <aside class="admin-edit-preview-panel">
+      <div class="admin-edit-preview-panel__header">
+        <h3>Live preview</h3>
+        <div class="admin-preview-lang" data-preview-lang>
+          <button type="button" data-lang="en" class="is-active">EN</button>
+          <button type="button" data-lang="uk">UK</button>
+        </div>
+      </div>
+      <div class="admin-edit-preview-panel__body">
+        <div id="project-live-preview" data-project-preview></div>
+        <button
+          type="button"
+          class="admin-btn admin-btn--primary"
+          style="width:100%; margin-top:14px;"
+          data-admin-modal-open="add-block"
+        >
+          + Add block
+        </button>
+      </div>
+    </aside>
+  </div>
 
   <div class="admin-modal" data-admin-modal="add-block" aria-hidden="true">
     <div class="admin-modal__backdrop" data-admin-modal-close></div>
@@ -355,11 +392,11 @@ const pillClass = (type: string) => {
         </div>
         <div class="admin-form__field" data-field-text>
           <label class="admin-form__label">Text (EN)</label>
-          <textarea name="text_en" class="admin-input" rows="3"></textarea>
+          <textarea name="text_en" class="admin-input" rows="3" data-rich-text></textarea>
         </div>
         <div class="admin-form__field" data-field-text>
           <label class="admin-form__label">Text (UK)</label>
-          <textarea name="text_uk" class="admin-input" rows="3"></textarea>
+          <textarea name="text_uk" class="admin-input" rows="3" data-rich-text></textarea>
         </div>
         <BlockMediaFields />
         <div class="admin-form__footer">
@@ -407,11 +444,11 @@ const pillClass = (type: string) => {
         </div>
         <div class="admin-form__field" data-field-text>
           <label class="admin-form__label">Text (EN)</label>
-          <textarea name="text_en" class="admin-input" rows="3"></textarea>
+          <textarea name="text_en" class="admin-input" rows="3" data-rich-text></textarea>
         </div>
         <div class="admin-form__field" data-field-text>
           <label class="admin-form__label">Text (UK)</label>
-          <textarea name="text_uk" class="admin-input" rows="3"></textarea>
+          <textarea name="text_uk" class="admin-input" rows="3" data-rich-text></textarea>
         </div>
         <BlockMediaFields />
         <div class="admin-form__footer">

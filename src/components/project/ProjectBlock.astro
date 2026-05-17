@@ -20,7 +20,11 @@ const text = blockText(content, lang);
 >
   {type === 'text' && text && (
     <div class="project-block__text">
-      <p class="text-lg leading-relaxed whitespace-pre-wrap">{text}</p>
+      {/<[a-z][\s\S]*>/i.test(text) ? (
+        <div class="project-block__html text-lg leading-relaxed" set:html={text} />
+      ) : (
+        <p class="text-lg leading-relaxed whitespace-pre-wrap">{text}</p>
+      )}
     </div>
   )}
 
