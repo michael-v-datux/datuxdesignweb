@@ -9,7 +9,7 @@
 
   if (!pending) return;
 
-  const veil = document.createElement('motion');
+  const veil = document.createElement('div');
   veil.id = 'page-enter-veil';
   veil.className = 'page-enter-veil';
   veil.setAttribute('aria-hidden', 'true');
@@ -23,5 +23,5 @@
 
   const cleanup = () => veil.remove();
   veil.addEventListener('transitionend', cleanup, { once: true });
-  setTimeout(cleanup, 1200);
+  setTimeout(cleanup, 2600);
 })();
