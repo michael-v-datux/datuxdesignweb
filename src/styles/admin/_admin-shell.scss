@@ -648,6 +648,76 @@ input[type='file'].admin-file-input::file-selector-button {
     }
 }
 
+.admin-preview--interactive .project-row {
+    position: relative;
+}
+
+.admin-preview-row {
+    flex-wrap: wrap;
+}
+
+.admin-preview-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.admin-preview-col__body--droppable {
+    min-height: 48px;
+}
+
+.admin-preview-col__empty {
+    margin: 0;
+    font-size: 0.75rem;
+    color: $admin-text-soft;
+    text-align: center;
+    padding: 12px;
+}
+
+.admin-preview-row__actions,
+.admin-preview-footer {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+    width: 100%;
+}
+
+.admin-preview-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: $admin-radius-pill;
+    border: 1px dashed rgba(79, 70, 229, 0.45);
+    background: rgba(79, 70, 229, 0.06);
+    color: $admin-primary;
+    font-size: 0.72rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+        background-color $admin-transition-fast,
+        border-color $admin-transition-fast;
+
+    &:hover {
+        background: rgba(79, 70, 229, 0.12);
+        border-color: rgba(79, 70, 229, 0.65);
+    }
+}
+
+.admin-preview-blocks--interactive {
+    .admin-preview-add {
+        opacity: 0.85;
+    }
+
+    .project-row:hover .admin-preview-add,
+    .admin-preview-col:hover .admin-preview-add,
+    .admin-preview-footer .admin-preview-add {
+        opacity: 1;
+    }
+}
+
 .admin-edit-preview-panel__body .project-blocks {
     width: 100%;
 }
@@ -805,6 +875,30 @@ input[type='file'].admin-file-input::file-selector-button {
     border-radius: $admin-radius-md;
     background: #fff;
     border: 1px solid rgba(229, 231, 235, 0.9);
+    cursor: grab;
+
+    &.is-dragging {
+        opacity: 0.55;
+    }
+}
+
+.admin-layout-block__drag {
+    color: $admin-text-soft;
+    cursor: grab;
+    user-select: none;
+    font-size: 0.85rem;
+}
+
+.admin-layout-column__body.is-drop-target,
+.admin-layout-row.is-drop-target,
+.admin-preview-col__body--droppable.is-drop-target {
+    outline: 2px dashed rgba(79, 70, 229, 0.45);
+    outline-offset: 2px;
+    background: rgba(79, 70, 229, 0.04);
+}
+
+.admin-layout-row.is-dragging {
+    opacity: 0.65;
 }
 
 .admin-layout-block__preview {

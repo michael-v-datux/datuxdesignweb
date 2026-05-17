@@ -471,7 +471,7 @@ function collectBlocksFromState(state, tbody) {
   return order.map((id, position) => ({ ...byId[id], position })).filter(Boolean);
 }
 
-function initLivePreview(state, getBlocksById, onEditBlock) {
+function initLivePreview(state, getBlocksById, onEditBlock, previewActions = {}) {
   const container = document.querySelector('[data-project-preview]');
   const projectForm = document.querySelector('[data-project-form]');
   if (!container) return;
@@ -483,12 +483,34 @@ function initLivePreview(state, getBlocksById, onEditBlock) {
       layout: state.layout,
       lang: previewLang,
       meta: collectMetaFromForm(projectForm),
+      interactive: true,
     });
   };
 
   container.addEventListener('click', (e) => {
+    if (e.target.closest('.admin-preview-add')) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    if (e.target.closest('[data-preview-add-row]')) {
+      previewActions.onAddRow?.();
+      return;
+    }
+    if (e.target.closest('[data-preview-add-column]')) {
+      const rowId = e.target.closest('[data-preview-add-column]')?.dataset.rowId;
+      if (rowId) previewActions.onAddColumn?.(rowId);
+      return;
+    }
+    if (e.target.closest('[data-preview-add-block]')) {
+      const columnId = e.target.closest('[data-preview-add-block]')?.dataset.columnId;
+      if (columnId) previewActions.onAddBlock?.(columnId);
+      return;
+    }
+
     const article = e.target.closest('[data-block-id]');
     if (!article?.dataset.blockId || !onEditBlock) return;
+    if (e.target.closest('.admin-preview-add')) return;
     onEditBlock(article.dataset.blockId);
   });
 
@@ -543,10 +565,6 @@ function init() {
     syncBlocksById();
   };
 
-  const refreshPreview = initLivePreview(state, () => blocksById, (blockId) => {
-    openEditBlock(blockId, () => blocksById);
-  });
-
   const layoutBuilderEl = document.querySelector('[data-layout-builder]');
 
   const layoutRefresh = async () => {
@@ -563,7 +581,41 @@ function init() {
     refreshPreview?.();
   };
 
-  initLayoutBuilder({
+  let layoutBuilderApi = null;
+
+  const previewActions = {
+    onAddRow: async () => {
+      if (layoutBuilderApi?.addRow) {
+        await layoutBuilderApi.addRow();
+        return;
+      }
+      const res = await adminFetch(`/api/admin/projects/${state.projectId}/layout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'add-row', span: '1/1' }),
+      });
+      if (res.ok) await layoutRefresh();
+    },
+    onAddColumn: async (rowId) => {
+      const res = await adminFetch(`/api/admin/projects/${state.projectId}/layout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'add-column', row_id: rowId, span: '1/2' }),
+      });
+      if (!res.ok) showToast('Failed to add column', 'error');
+      else await layoutRefresh();
+    },
+    onAddBlock: (columnId) => openAddBlockForColumn(columnId),
+  };
+
+  const refreshPreview = initLivePreview(
+    state,
+    () => blocksById,
+    (blockId) => openEditBlock(blockId, () => blocksById),
+    previewActions
+  );
+
+  layoutBuilderApi = initLayoutBuilder({
     projectId: state.projectId,
     container: layoutBuilderEl,
     getLayout,
