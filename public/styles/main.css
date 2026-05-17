@@ -66,7 +66,7 @@
 body{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
-  font-family: Lexend, sans-serif;
+  font-family: Manrope, sans-serif;
   font-size: 1rem;
   line-height: 1.5rem;
   line-height: 1.625;
@@ -448,7 +448,7 @@ header#navbar {
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 20px;
   color: #ffffff;
-  font-family: "Lexend", sans-serif;
+  font-family: "Manrope", sans-serif;
   font-size: 15px;
   box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.15);
   animation: tooltipIn 0.3s ease forwards;
@@ -539,7 +539,7 @@ header#navbar {
   justify-content: center;
   align-items: center;
   background: #ffffff;
-  font-family: "Lexend", sans-serif;
+  font-family: "Manrope", sans-serif;
   color: #333333;
   opacity: 0;
   transform: scale(1.02);
@@ -595,7 +595,7 @@ header#navbar {
   width: 0%;
   background: #333333;
   border-radius: 6px;
-  transition: width 3s linear;
+  transition: width 4.4s linear;
 }
 
 .page-enter-veil {
@@ -605,7 +605,7 @@ header#navbar {
   background: #ffffff;
   pointer-events: none;
   opacity: 1;
-  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 2.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .page-enter-veil.is-revealing {
   opacity: 0;
@@ -1429,7 +1429,7 @@ body.admin-body {
   min-height: 100vh;
   margin: 0;
   padding: 0;
-  font-family: "Lexend", sans-serif;
+  font-family: "Manrope", sans-serif;
   color: #111827;
   background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.08), transparent 55%), radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.08), transparent 55%), #f3f4f6;
 }
@@ -4288,7 +4288,7 @@ video {
   text-align: center;
 }
 .font-base{
-  font-family: Lexend, sans-serif;
+  font-family: Manrope, sans-serif;
 }
 .font-secondary{
   font-family: Playfair-Display, serif;

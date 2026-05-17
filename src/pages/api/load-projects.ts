@@ -1,5 +1,6 @@
 // /src/pages/api/load-projects.ts
 import { supabase } from '@/lib/supabaseClient';
+import { projectCardCategory, projectCardTitle } from '@/lib/projects/card-labels';
 
 export const prerender = false;
 
@@ -19,12 +20,14 @@ export async function GET({ url }) {
     return new Response(JSON.stringify({ error: error.message }), { status: 500 });
   }
 
-  const projects = data.map((p) => ({
-    slug: p.slug,
-    title: lang === "en" ? p.title_en : p.title_uk,
-    category: lang === "en" ? p.category_en : p.category_uk,
-    lang
-  }));
+  const projects = data
+    .map((p) => ({
+      slug: p.slug,
+      title: projectCardTitle(p),
+      category: projectCardCategory(p),
+      lang,
+    }))
+    .filter((p) => p.title);
 
   return new Response(JSON.stringify(projects), {
     headers: { "Content-Type": "application/json" },

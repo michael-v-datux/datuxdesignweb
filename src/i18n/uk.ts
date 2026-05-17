@@ -76,6 +76,9 @@ export default {
   },
   selectedProjects: {
     title: "Вибрані проєкти",
+    loadMore: "Завантажити ще",
+    loading: "Завантаження…",
+    loadError: "Не вдалося завантажити",
     items: [
       { title: "Management Solutions", category: "Master Data", link: "/projects/master-data-management-solutions" },
       { title: "System", category: "Design", link: "/projects/design-system" },
