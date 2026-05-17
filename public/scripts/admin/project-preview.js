@@ -62,14 +62,15 @@ function renderMediaBlock(block) {
   return `<figure class="project-block__media"><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
 }
 
-function renderBlockArticle(block, lang) {
+function renderBlockArticle(block, lang, layoutSpan) {
   const content = block.content || {};
+  const span = layoutSpan || block.layout || '1/1';
   const inner =
     block.type === 'text' ? renderTextBlock(content, lang) : renderMediaBlock(block);
-  return `<article class="project-block project-block--${block.type} ${layoutClass(block.layout)} ${alignClass(content)} admin-preview__block" data-block-id="${escapeHtml(block.id)}" title="Click to edit">${inner}</article>`;
+  return `<article class="project-block project-block--${block.type} ${layoutClass(span)} ${alignClass(content)} admin-preview__block" data-block-id="${escapeHtml(block.id)}" title="Click to edit">${inner}</article>`;
 }
 
-function renderRowsHtml(blocks, lang) {
+function renderPackedRowsHtml(blocks, lang) {
   const rows = groupBlocksIntoRows(blocks);
   return rows
     .map((rowBlocks) => {
@@ -80,7 +81,39 @@ function renderRowsHtml(blocks, lang) {
     .join('');
 }
 
-export function renderProjectPreview(container, { blocks = [], lang = 'en', meta = {} } = {}) {
+function renderExplicitLayoutHtml(layout, lang) {
+  const rows = layout?.rows ?? [];
+  return rows
+    .map((row) => {
+      const blocks = row.columns.flatMap((col) =>
+        col.blocks.map((block) => ({ block, span: col.span }))
+      );
+      const rowClass = blocks.length <= 1 ? 'project-row project-row--single' : 'project-row';
+      const cells = blocks
+        .map(({ block, span }) => renderBlockArticle(block, lang, span))
+        .join('');
+      return `<div class="${rowClass}">${cells}</div>`;
+    })
+    .join('');
+}
+
+function flattenLayout(layout) {
+  const blocks = [];
+  let position = 0;
+  for (const row of layout?.rows ?? []) {
+    for (const col of row.columns) {
+      for (const block of col.blocks) {
+        blocks.push({ ...block, layout: col.span, position: position++ });
+      }
+    }
+  }
+  return blocks;
+}
+
+export function renderProjectPreview(
+  container,
+  { blocks = [], layout = null, lang = 'en', meta = {} } = {}
+) {
   if (!container) return;
 
   const title = lang === 'uk' ? meta.title_uk || meta.title_en : meta.title_en || meta.title_uk;
@@ -98,10 +131,16 @@ export function renderProjectPreview(container, { blocks = [], lang = 'en', meta
     </header>
   `;
 
+  const useLayout = Boolean(layout?.rows?.length);
+  const flatBlocks = useLayout ? flattenLayout(layout) : blocks;
   const body =
-    blocks.length === 0
-      ? '<p class="admin-preview__empty">Add blocks to see them here.</p>'
-      : renderRowsHtml(blocks, lang);
+    flatBlocks.length === 0
+      ? '<p class="admin-preview__empty">Add rows and blocks to see them here.</p>'
+      : useLayout
+        ? renderExplicitLayoutHtml(layout, lang)
+        : renderPackedRowsHtml(blocks, lang);
 
   container.innerHTML = `${header}<div class="project-blocks">${body}</div>`;
 }
+
+export { flattenLayout };

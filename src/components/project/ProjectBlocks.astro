@@ -1,19 +1,43 @@
 ---
 import ProjectRow from './ProjectRow.astro';
 import { groupBlocksIntoRows } from '@/lib/projects/rows';
-import type { ProjectBlock as ProjectBlockType } from '@/lib/projects/types';
+import type {
+  ProjectBlock as ProjectBlockType,
+  ProjectLayout,
+} from '@/lib/projects/types';
 
 interface Props {
-  blocks: ProjectBlockType[];
+  blocks?: ProjectBlockType[];
+  layout?: ProjectLayout | null;
   lang: string;
 }
 
-const { blocks, lang } = Astro.props;
-const rows = groupBlocksIntoRows(blocks);
+const { blocks = [], layout, lang } = Astro.props;
+
+function blocksForRow(
+  row: ProjectLayout['rows'][number]
+): ProjectBlockType[] {
+  return row.columns.flatMap((col) =>
+    col.blocks.map((block) => ({
+      ...block,
+      layout: col.span,
+    }))
+  );
+}
+
+const useExplicitLayout = Boolean(layout?.rows?.length);
+const explicitRows = layout?.rows ?? [];
+const packedRows = groupBlocksIntoRows(blocks);
 ---
 
 <div class="project-blocks">
-  {rows.map((rowBlocks) => (
-    <ProjectRow blocks={rowBlocks} lang={lang} />
-  ))}
+  {
+    useExplicitLayout
+      ? explicitRows.map((row) => (
+          <ProjectRow blocks={blocksForRow(row)} lang={lang} />
+        ))
+      : packedRows.map((rowBlocks) => (
+          <ProjectRow blocks={rowBlocks} lang={lang} />
+        ))
+  }
 </div>

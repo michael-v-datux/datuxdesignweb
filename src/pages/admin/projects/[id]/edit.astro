@@ -4,7 +4,8 @@ import AdminPageHeader from "../../../../components/admin/AdminPageHeader.astro"
 import BlockMediaFields from "../../../../components/admin/BlockMediaFields.astro";
 import BlockLayoutFields from "../../../../components/admin/BlockLayoutFields.astro";
 import { getAdminSupabase } from "../../../../lib/supabaseServer";
-import { normalizeBlock, blockText } from "../../../../lib/projects/blocks";
+import { fetchProjectLayout } from "../../../../lib/projects/layout";
+import type { ProjectLayout } from "../../../../lib/projects/types";
 
 const supabase = getAdminSupabase();
 
@@ -20,33 +21,19 @@ if (projectError) {
   console.error(projectError);
 }
 
-const { data: blocksRaw, error: blocksError } = await supabase
-  .from("projects_blocks")
-  .select("*")
-  .eq("project_id", id)
-  .order("position", { ascending: true });
-
-const blocks = (blocksRaw ?? []).map((row) =>
-  normalizeBlock(row as Record<string, unknown>)
-);
-
-if (blocksError) {
-  console.error(blocksError);
+let layout: ProjectLayout = { rows: [] };
+try {
+  layout = await fetchProjectLayout(supabase, id!);
+} catch (layoutError) {
+  console.error(layoutError);
 }
 
 const slug = project?.slug ?? "";
 const editState = JSON.stringify({
   projectId: id,
   slug,
-  blocks,
+  layout,
 }).replace(/</g, "\\u003c");
-
-const pillClass = (type: string) => {
-  if (type === "text") return "admin-pill admin-pill--text";
-  if (type === "image") return "admin-pill admin-pill--image";
-  if (type === "media") return "admin-pill admin-pill--media";
-  return "admin-pill";
-};
 ---
 
 <AdminLayout title={`Edit: ${project?.slug ?? "Project"}`} activeNav="dashboard">
@@ -266,71 +253,23 @@ const pillClass = (type: string) => {
   </details>
 
   <details class="admin-accordion" data-admin-accordion="blocks" open>
-    <summary>Content blocks</summary>
+    <summary>Page builder</summary>
     <div class="admin-accordion__body">
   <section class="admin-table-card" style="margin-bottom:0;">
     <div class="admin-table-card__header">
-      <h2>Block list</h2>
+      <h2>Rows &amp; columns</h2>
       <button
         class="admin-btn admin-btn--primary"
         type="button"
-        data-admin-modal-open="add-block"
+        data-layout-add-row
       >
-        + Add block
+        + Add row
       </button>
     </div>
 
-    <table class="admin-table" data-blocks-table data-project-id={id}>
-      <thead>
-        <tr>
-          <th class="admin-table__drag" aria-label="Reorder"></th>
-          <th>#</th>
-          <th>Type</th>
-          <th>Layout</th>
-          <th>Preview</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {blocks?.map((b) => {
-          const preview =
-            b.type === "text"
-              ? blockText(b.content, "en")
-              : b.content?.url
-                ? `Media: ${String(b.content.url).split("/").slice(-1)[0]}`
-                : "";
-          const short =
-            preview.length > 60 ? preview.slice(0, 60) + "…" : preview;
-          return (
-          <tr data-block-id={b.id} draggable="true">
-            <td class="admin-table__drag" aria-hidden="true">⋮⋮</td>
-            <td data-block-position>{b.position}</td>
-            <td><span class={pillClass(b.type)}>{b.type}</span></td>
-            <td><code>{b.layout}</code></td>
-            <td class="admin-table__preview">{short}</td>
-            <td style="text-align:right;">
-              <div class="admin-table__actions">
-                <button
-                  type="button"
-                  class="admin-btn admin-btn--ghost"
-                  data-block-edit
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  class="admin-btn admin-btn--ghost"
-                  data-block-delete
-                >
-                  Delete
-                </button>
-              </div>
-            </td>
-          </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <div class="admin-card__body">
+      <div class="admin-layout-builder" data-layout-builder></div>
+    </div>
   </section>
     </div>
   </details>
@@ -350,9 +289,9 @@ const pillClass = (type: string) => {
           type="button"
           class="admin-btn admin-btn--primary"
           style="width:100%; margin-top:14px;"
-          data-admin-modal-open="add-block"
+          data-layout-add-row
         >
-          + Add block
+          + Add row
         </button>
       </div>
     </aside>
@@ -375,6 +314,7 @@ const pillClass = (type: string) => {
         <button class="admin-modal__close" data-admin-modal-close type="button">×</button>
       </div>
       <form class="admin-form" data-block-create-form>
+        <input type="hidden" name="column_id" value="" />
         <div class="admin-form__field">
           <label class="admin-form__label">Type</label>
           <select name="type" class="admin-input" required>
@@ -383,7 +323,7 @@ const pillClass = (type: string) => {
             <option value="media">Media</option>
           </select>
         </div>
-        <BlockLayoutFields />
+        <BlockLayoutFields showWidth={false} />
         <div class="admin-form__field" data-field-text>
           <label class="admin-form__label">Text (EN)</label>
           <textarea name="text_en" class="admin-input" rows="3" data-rich-text></textarea>
@@ -426,7 +366,7 @@ const pillClass = (type: string) => {
             <option value="media">Media</option>
           </select>
         </div>
-        <BlockLayoutFields />
+        <BlockLayoutFields showWidth={false} />
         <div class="admin-form__field" data-field-text>
           <label class="admin-form__label">Text (EN)</label>
           <textarea name="text_en" class="admin-input" rows="3" data-rich-text></textarea>

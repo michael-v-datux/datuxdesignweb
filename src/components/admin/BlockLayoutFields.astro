@@ -1,19 +1,29 @@
 ---
 /** Layout width + horizontal alignment (+ text alignment for text blocks). */
+interface Props {
+  showWidth?: boolean;
+}
+
+const { showWidth = true } = Astro.props;
 ---
 
-<div class="admin-form__field admin-form__field--inline">
-  <div>
-    <label class="admin-form__label">Width</label>
-    <select name="layout" class="admin-input" required>
-      <option value="1/1">1/1 (full column)</option>
-      <option value="1/2">1/2</option>
-      <option value="1/3">1/3</option>
-      <option value="1/4">1/4</option>
-      <option value="full">Full bleed</option>
-    </select>
-    <p class="admin-form__hint">How wide the block is within the row.</p>
+{showWidth && (
+  <div class="admin-form__field admin-form__field--inline">
+    <div>
+      <label class="admin-form__label">Width</label>
+      <select name="layout" class="admin-input" required>
+        <option value="1/1">1/1 (full column)</option>
+        <option value="1/2">1/2</option>
+        <option value="1/3">1/3</option>
+        <option value="1/4">1/4</option>
+        <option value="full">Full bleed</option>
+      </select>
+      <p class="admin-form__hint">How wide the block is within the row.</p>
+    </div>
   </div>
+)}
+
+<div class="admin-form__field admin-form__field--inline">
   <div>
     <label class="admin-form__label">Position in row</label>
     <select name="align" class="admin-input">

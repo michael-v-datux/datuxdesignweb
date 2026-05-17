@@ -2612,6 +2612,125 @@ input[type=file].admin-file-input::file-selector-button {
   background: rgba(220, 252, 231, 0.5);
 }
 
+.admin-layout-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-layout-builder__empty {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: #6b7280;
+  border: 1px dashed rgba(209, 213, 219, 0.95);
+  border-radius: 10px;
+}
+
+.admin-layout-row {
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 12px;
+}
+
+.admin-layout-row__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-layout-row__drag {
+  color: #9ca3af;
+  cursor: grab;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.admin-layout-row__label {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.admin-layout-row__columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.admin-layout-column {
+  flex: 1 1 180px;
+  min-width: 0;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 10px;
+  padding: 10px;
+  background: rgba(249, 250, 251, 0.65);
+}
+
+.admin-layout-column__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.admin-layout-column__span {
+  font-size: 0.72rem;
+  color: #9ca3af;
+}
+
+.admin-layout-column__empty {
+  margin: 0 0 8px;
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+.admin-layout-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+}
+
+.admin-layout-block__preview {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.78rem;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-layout-block__actions {
+  display: flex;
+  gap: 4px;
+}
+
+.admin-btn--sm {
+  padding: 4px 10px;
+  font-size: 0.76rem;
+}
+
+.admin-input--sm {
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  max-width: 88px;
+}
+
 .admin-edit-actions {
   position: sticky;
   bottom: 0;
@@ -3355,6 +3474,9 @@ video {
 .mt-8{
   margin-top: 2rem;
 }
+.\!block{
+  display: block !important;
+}
 .block{
   display: block;
 }
@@ -3363,9 +3485,6 @@ video {
 }
 .flex{
   display: flex;
-}
-.table{
-  display: table;
 }
 .grid{
   display: grid;

@@ -53,6 +53,7 @@ export function normalizeBlock(row: Record<string, unknown>): ProjectBlock {
     content: rawContent,
     position,
     layout: asLayout(row.layout),
+    column_id: row.column_id ? String(row.column_id) : null,
   };
 }
 
@@ -137,6 +138,14 @@ export async function resolveProjectBlocks(
   contentEn?: string | null,
   contentUk?: string | null
 ): Promise<ProjectBlock[]> {
+  try {
+    const { fetchProjectLayoutReadonly, flattenLayout } = await import('./layout');
+    const layout = await fetchProjectLayoutReadonly(supabase, projectId);
+    if (layout.rows.length > 0) return flattenLayout(layout);
+  } catch (err) {
+    console.warn('[resolveProjectBlocks] layout fallback', err);
+  }
+
   const fromDb = await fetchProjectBlocks(projectId);
   if (fromDb.length > 0) return fromDb;
 

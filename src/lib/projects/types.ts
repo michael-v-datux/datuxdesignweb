@@ -30,6 +30,27 @@ export interface ProjectBlock {
   content: BlockContent;
   position: number;
   layout: BlockLayout;
+  column_id?: string | null;
+}
+
+export interface ProjectColumn {
+  id: string;
+  row_id: string;
+  position: number;
+  span: BlockLayout;
+  blocks: ProjectBlock[];
+}
+
+export interface ProjectRow {
+  id: string;
+  project_id: string;
+  position: number;
+  columns: ProjectColumn[];
+}
+
+export interface ProjectLayout {
+  projectId: string;
+  rows: ProjectRow[];
 }
 
 export interface LegacySection {

@@ -1,6 +1,7 @@
 import { showToast } from '/scripts/common/toast.js';
 import { adminFetch } from '/scripts/admin/api.js';
 import { renderProjectPreview } from '/scripts/admin/project-preview.js';
+import { initLayoutBuilder } from '/scripts/admin/layout-builder.js';
 import {
   mountRichTextInForm,
   setRichTextValue,
@@ -304,7 +305,28 @@ function initProjectForm(projectId) {
   projectSaveBtns.forEach((btn) => btn.addEventListener('click', saveHandler));
 }
 
-function initBlockForms(projectId, blocksById) {
+function blocksByIdFromLayout(layout) {
+  const byId = {};
+  for (const row of layout?.rows ?? []) {
+    for (const col of row.columns) {
+      for (const block of col.blocks) {
+        byId[block.id] = { ...block, layout: col.span };
+      }
+    }
+  }
+  return byId;
+}
+
+function openAddBlockForColumn(columnId) {
+  const form = document.querySelector('[data-block-create-form]');
+  if (form?.column_id) form.column_id.value = columnId || '';
+  openModal('add-block');
+  const modal = document.querySelector('[data-admin-modal="add-block"]');
+  const modalForm = modal?.querySelector('form');
+  if (modalForm) mountRichTextInForm(modalForm);
+}
+
+function initBlockForms(projectId, getBlocksById, layoutRefresh) {
   const createForm = document.querySelector('[data-block-create-form]');
   const editForm = document.querySelector('[data-block-edit-form]');
 
@@ -321,10 +343,14 @@ function initBlockForms(projectId, blocksById) {
     const layout = form.layout.value || '1/1';
     const content = buildContentFromForm(form, type);
 
+    const columnId = form.column_id?.value?.trim();
+    const payload = { type, layout: '1/1', content };
+    if (columnId) payload.column_id = columnId;
+
     const res = await adminFetch(`/api/admin/projects/${projectId}/blocks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type, layout, content }),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
@@ -333,7 +359,11 @@ function initBlockForms(projectId, blocksById) {
     }
 
     showToast('Block created', 'success');
-    location.reload();
+    form.reset();
+    if (form.column_id) form.column_id.value = columnId;
+    destroyRichTextInForm(form);
+    closeAllModals();
+    await layoutRefresh?.();
   });
 
   editForm?.addEventListener('submit', async (e) => {
@@ -358,40 +388,9 @@ function initBlockForms(projectId, blocksById) {
     }
 
     showToast('Block updated', 'success');
-    location.reload();
-  });
-
-  document.querySelector('[data-blocks-table]')?.addEventListener('click', (e) => {
-    const editBtn = e.target.closest('[data-block-edit]');
-    if (editBtn) {
-      const row = editBtn.closest('tr');
-      const blockId = row?.dataset.blockId;
-      const block = blocksById[blockId];
-      if (!block || !editForm) return;
-      editForm.block_id.value = blockId;
-      openModal('edit-block');
-      mountRichTextInForm(editForm).then(() => fillBlockForm(editForm, block));
-      return;
-    }
-
-    const deleteBtn = e.target.closest('[data-block-delete]');
-    if (!deleteBtn) return;
-
-    const row = deleteBtn.closest('tr');
-    const blockId = row?.dataset.blockId;
-    if (!blockId) return;
-    if (!confirm('Delete this block?')) return;
-
-    adminFetch(`/api/admin/projects/${projectId}/${blockId}`, { method: 'DELETE' }).then(
-      async (res) => {
-        if (!res.ok) {
-          showToast('Failed to delete block', 'error');
-          return;
-        }
-        row.remove();
-        showToast('Block deleted', 'success');
-      }
-    );
+    destroyRichTextInForm(form);
+    closeAllModals();
+    await layoutRefresh?.();
   });
 }
 
@@ -472,18 +471,16 @@ function collectBlocksFromState(state, tbody) {
   return order.map((id, position) => ({ ...byId[id], position })).filter(Boolean);
 }
 
-function initLivePreview(state, blocksById, onEditBlock) {
+function initLivePreview(state, getBlocksById, onEditBlock) {
   const container = document.querySelector('[data-project-preview]');
   const projectForm = document.querySelector('[data-project-form]');
-  const tbody = document.querySelector('[data-blocks-table] tbody');
   if (!container) return;
 
   let previewLang = 'en';
 
   const refresh = () => {
-    const blocks = collectBlocksFromState(state, tbody);
     renderProjectPreview(container, {
-      blocks,
+      layout: state.layout,
       lang: previewLang,
       meta: collectMetaFromForm(projectForm),
     });
@@ -521,31 +518,78 @@ function initFileInputLabels() {
   });
 }
 
+function openEditBlock(blockId, getBlocksById) {
+  const editForm = document.querySelector('[data-block-edit-form]');
+  const block = getBlocksById()[blockId];
+  if (!block || !editForm) return;
+  editForm.block_id.value = blockId;
+  openModal('edit-block');
+  mountRichTextInForm(editForm).then(() => fillBlockForm(editForm, block));
+}
+
 function init() {
   const state = readState();
   if (!state?.projectId) return;
 
-  const blocksById = {};
-  for (const b of state.blocks ?? []) {
-    blocksById[b.id] = b;
-  }
+  state.layout = state.layout ?? { rows: [] };
+  let blocksById = blocksByIdFromLayout(state.layout);
+  const syncBlocksById = () => {
+    blocksById = blocksByIdFromLayout(state.layout);
+  };
 
-  const editForm = document.querySelector('[data-block-edit-form]');
+  const getLayout = () => state.layout;
+  const setLayout = (layout) => {
+    state.layout = layout;
+    syncBlocksById();
+  };
 
-  const refreshPreview = initLivePreview(state, blocksById, (blockId) => {
-    const block = blocksById[blockId];
-    if (!block || !editForm) return;
-    editForm.block_id.value = blockId;
-    openModal('edit-block');
-    mountRichTextInForm(editForm).then(() => fillBlockForm(editForm, block));
+  const refreshPreview = initLivePreview(state, () => blocksById, (blockId) => {
+    openEditBlock(blockId, () => blocksById);
+  });
+
+  const layoutBuilderEl = document.querySelector('[data-layout-builder]');
+
+  const layoutRefresh = async () => {
+    const res = await adminFetch(`/api/admin/projects/${state.projectId}/layout`);
+    if (!res.ok) {
+      showToast('Failed to refresh layout', 'error');
+      return;
+    }
+    setLayout(await res.json());
+    if (layoutBuilderEl) {
+      const { renderLayoutBuilder } = await import('/scripts/admin/layout-builder.js');
+      renderLayoutBuilder(layoutBuilderEl, state.layout);
+    }
+    refreshPreview?.();
+  };
+
+  initLayoutBuilder({
+    projectId: state.projectId,
+    container: layoutBuilderEl,
+    getLayout,
+    setLayout,
+    onEditBlock: (blockId) => openEditBlock(blockId, () => blocksById),
+    onBlockDelete: async (blockId) => {
+      if (!confirm('Delete this block?')) return;
+      const res = await adminFetch(`/api/admin/projects/${state.projectId}/${blockId}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) {
+        showToast('Failed to delete block', 'error');
+        return;
+      }
+      showToast('Block deleted', 'success');
+      await layoutRefresh();
+    },
+    onRefreshPreview: refreshPreview,
+    openAddBlockModal: openAddBlockForColumn,
   });
 
   initAccordions(state.projectId);
   initCancel(state.projectId);
   initModals();
   initProjectForm(state.projectId);
-  initBlockForms(state.projectId, blocksById);
-  initReorder(state.projectId, refreshPreview);
+  initBlockForms(state.projectId, () => blocksById, layoutRefresh);
   initMediaUpload(state.projectId);
   initFileInputLabels();
 }
