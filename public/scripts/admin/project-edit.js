@@ -157,8 +157,10 @@ function buildContentFromForm(form, type) {
 
 function fillBlockForm(form, block) {
   const content = block.content || {};
-  form.type.value = block.type;
-  form.layout.value = block.layout || '1/1';
+  const typeEl = form.querySelector('[name="type"]');
+  if (typeEl) typeEl.value = block.type;
+  const layoutEl = form.querySelector('[name="layout"]');
+  if (layoutEl) layoutEl.value = block.layout || '1/1';
   if (form.align) form.align.value = content.align || 'center';
   if (form.text_align) form.text_align.value = content.textAlign || 'left';
   if (form.text_en) {
@@ -242,19 +244,26 @@ function initAccordions(projectId) {
   });
 }
 
-function initCancel(projectId) {
+function initCancel(getDirtyState) {
   const link = document.querySelector('[data-project-cancel]');
-  const form = document.querySelector('[data-project-form]');
-  if (!link || !form) return;
-
-  const initial = serializeProjectForm(form);
+  if (!link || !getDirtyState) return;
 
   link.addEventListener('click', (e) => {
-    if (serializeProjectForm(form) !== initial) {
-      if (!confirm('Discard unsaved changes and leave this page?')) {
-        e.preventDefault();
-      }
+    const { formDirty, layoutDirty } = getDirtyState();
+    if (!formDirty && !layoutDirty) return;
+
+    let message;
+    if (formDirty && layoutDirty) {
+      message =
+        'Layout changes (rows, columns, blocks) are saved immediately when you edit them.\n\nUnsaved project details will be lost. Leave this page anyway?';
+    } else if (layoutDirty) {
+      message =
+        'You changed the page layout. Those changes are already saved.\n\nLeave this page?';
+    } else {
+      message = 'Discard unsaved project details and leave this page?';
     }
+
+    if (!confirm(message)) e.preventDefault();
   });
 }
 
@@ -319,7 +328,8 @@ function blocksByIdFromLayout(layout) {
 
 function openAddBlockForColumn(columnId) {
   const form = document.querySelector('[data-block-create-form]');
-  if (form?.column_id) form.column_id.value = columnId || '';
+  const columnInput = form?.querySelector('[name="column_id"]');
+  if (columnInput) columnInput.value = columnId || '';
   openModal('add-block');
   const modal = document.querySelector('[data-admin-modal="add-block"]');
   const modalForm = modal?.querySelector('form');
@@ -339,11 +349,11 @@ function initBlockForms(projectId, getBlocksById, layoutRefresh) {
   createForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
-    const type = form.type.value;
-    const layout = form.layout.value || '1/1';
+    const type = form.querySelector('[name="type"]')?.value;
+    if (!type) return;
     const content = buildContentFromForm(form, type);
 
-    const columnId = form.column_id?.value?.trim();
+    const columnId = form.querySelector('[name="column_id"]')?.value?.trim();
     const payload = { type, layout: '1/1', content };
     if (columnId) payload.column_id = columnId;
 
@@ -360,7 +370,8 @@ function initBlockForms(projectId, getBlocksById, layoutRefresh) {
 
     showToast('Block created', 'success');
     form.reset();
-    if (form.column_id) form.column_id.value = columnId;
+    const columnInput = form.querySelector('[name="column_id"]');
+    if (columnInput && columnId) columnInput.value = columnId;
     destroyRichTextInForm(form);
     closeAllModals();
     await layoutRefresh?.();
@@ -372,8 +383,9 @@ function initBlockForms(projectId, getBlocksById, layoutRefresh) {
     const blockId = form.block_id?.value;
     if (!blockId) return;
 
-    const type = form.type.value;
-    const layout = form.layout.value || '1/1';
+    const type = form.querySelector('[name="type"]')?.value;
+    if (!type) return;
+    const layout = form.querySelector('[name="layout"]')?.value || '1/1';
     const content = buildContentFromForm(form, type);
 
     const res = await adminFetch(`/api/admin/projects/${projectId}/${blockId}`, {
@@ -471,7 +483,7 @@ function collectBlocksFromState(state, tbody) {
   return order.map((id, position) => ({ ...byId[id], position })).filter(Boolean);
 }
 
-function initLivePreview(state, getBlocksById, onEditBlock, previewActions = {}) {
+function initLivePreview(state, onEditBlock) {
   const container = document.querySelector('[data-project-preview]');
   const projectForm = document.querySelector('[data-project-form]');
   if (!container) return;
@@ -483,34 +495,13 @@ function initLivePreview(state, getBlocksById, onEditBlock, previewActions = {})
       layout: state.layout,
       lang: previewLang,
       meta: collectMetaFromForm(projectForm),
-      interactive: true,
+      interactive: false,
     });
   };
 
   container.addEventListener('click', (e) => {
-    if (e.target.closest('.admin-preview-add')) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-
-    if (e.target.closest('[data-preview-add-row]')) {
-      previewActions.onAddRow?.();
-      return;
-    }
-    if (e.target.closest('[data-preview-add-column]')) {
-      const rowId = e.target.closest('[data-preview-add-column]')?.dataset.rowId;
-      if (rowId) previewActions.onAddColumn?.(rowId);
-      return;
-    }
-    if (e.target.closest('[data-preview-add-block]')) {
-      const columnId = e.target.closest('[data-preview-add-block]')?.dataset.columnId;
-      if (columnId) previewActions.onAddBlock?.(columnId);
-      return;
-    }
-
     const article = e.target.closest('[data-block-id]');
     if (!article?.dataset.blockId || !onEditBlock) return;
-    if (e.target.closest('.admin-preview-add')) return;
     onEditBlock(article.dataset.blockId);
   });
 
@@ -544,7 +535,8 @@ function openEditBlock(blockId, getBlocksById) {
   const editForm = document.querySelector('[data-block-edit-form]');
   const block = getBlocksById()[blockId];
   if (!block || !editForm) return;
-  editForm.block_id.value = blockId;
+  const blockIdInput = editForm.querySelector('[name="block_id"]');
+  if (blockIdInput) blockIdInput.value = blockId;
   openModal('edit-block');
   mountRichTextInForm(editForm).then(() => fillBlockForm(editForm, block));
 }
@@ -554,6 +546,10 @@ function init() {
   if (!state?.projectId) return;
 
   state.layout = state.layout ?? { rows: [] };
+  const initialLayoutJson = JSON.stringify(state.layout);
+  const projectForm = document.querySelector('[data-project-form]');
+  const initialFormSnapshot = projectForm ? serializeProjectForm(projectForm) : '';
+
   let blocksById = blocksByIdFromLayout(state.layout);
   const syncBlocksById = () => {
     blocksById = blocksByIdFromLayout(state.layout);
@@ -581,41 +577,11 @@ function init() {
     refreshPreview?.();
   };
 
-  let layoutBuilderApi = null;
-
-  const previewActions = {
-    onAddRow: async () => {
-      if (layoutBuilderApi?.addRow) {
-        await layoutBuilderApi.addRow();
-        return;
-      }
-      const res = await adminFetch(`/api/admin/projects/${state.projectId}/layout`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'add-row', span: '1/1' }),
-      });
-      if (res.ok) await layoutRefresh();
-    },
-    onAddColumn: async (rowId) => {
-      const res = await adminFetch(`/api/admin/projects/${state.projectId}/layout`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'add-column', row_id: rowId, span: '1/2' }),
-      });
-      if (!res.ok) showToast('Failed to add column', 'error');
-      else await layoutRefresh();
-    },
-    onAddBlock: (columnId) => openAddBlockForColumn(columnId),
-  };
-
-  const refreshPreview = initLivePreview(
-    state,
-    () => blocksById,
-    (blockId) => openEditBlock(blockId, () => blocksById),
-    previewActions
+  const refreshPreview = initLivePreview(state, (blockId) =>
+    openEditBlock(blockId, () => blocksById)
   );
 
-  layoutBuilderApi = initLayoutBuilder({
+  initLayoutBuilder({
     projectId: state.projectId,
     container: layoutBuilderEl,
     getLayout,
@@ -638,7 +604,11 @@ function init() {
   });
 
   initAccordions(state.projectId);
-  initCancel(state.projectId);
+  initCancel(() => ({
+    formDirty:
+      projectForm && serializeProjectForm(projectForm) !== initialFormSnapshot,
+    layoutDirty: JSON.stringify(state.layout) !== initialLayoutJson,
+  }));
   initModals();
   initProjectForm(state.projectId);
   initBlockForms(state.projectId, () => blocksById, layoutRefresh);
