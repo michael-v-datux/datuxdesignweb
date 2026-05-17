@@ -699,3 +699,23 @@ input[type='file'].admin-file-input::file-selector-button {
     color: #166534;
     background: rgba(220, 252, 231, 0.5);
 }
+
+.admin-edit-actions {
+    position: sticky;
+    bottom: 0;
+    z-index: 35;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    padding: 14px 0 8px;
+    background: linear-gradient(
+        to top,
+        $admin-bg 65%,
+        rgba(249, 250, 251, 0.92) 85%,
+        transparent
+    );
+    border-top: 1px solid rgba(229, 231, 235, 0.85);
+}

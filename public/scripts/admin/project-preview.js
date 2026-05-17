@@ -11,6 +11,23 @@ function layoutClass(layout) {
   return `project-block--layout-${key}`;
 }
 
+function alignClass(content) {
+  const align = content?.align;
+  if (align === 'left' || align === 'right' || align === 'center') {
+    return `project-block--align-${align}`;
+  }
+  return 'project-block--align-center';
+}
+
+function textAlignClass(content, type) {
+  if (type !== 'text') return '';
+  const ta = content?.textAlign;
+  if (ta === 'left' || ta === 'center' || ta === 'right' || ta === 'justify') {
+    return `project-block__text--align-${ta}`;
+  }
+  return 'project-block__text--align-left';
+}
+
 function blockText(content, lang) {
   if (lang === 'uk' && content.text_uk) return content.text_uk;
   if (lang === 'en' && content.text_en) return content.text_en;
@@ -23,14 +40,15 @@ function isHtml(str) {
 
 function renderTextBlock(content, lang) {
   const raw = blockText(content, lang);
+  const ta = textAlignClass(content, 'text');
   if (!raw) return '<p class="project-block__empty text-neutral-400 text-sm">—</p>';
   if (isHtml(raw)) {
-    return `<div class="project-block__text project-block__text--html">${raw}</div>`;
+    return `<div class="project-block__text project-block__text--html ${ta}">${raw}</div>`;
   }
-  return `<div class="project-block__text"><p class="text-lg leading-relaxed whitespace-pre-wrap">${escapeHtml(raw)}</p></div>`;
+  return `<div class="project-block__text ${ta}"><p class="text-lg leading-relaxed whitespace-pre-wrap">${escapeHtml(raw)}</p></div>`;
 }
 
-function renderMediaBlock(block, lang) {
+function renderMediaBlock(block) {
   const { content, type } = block;
   if (!content?.url) {
     return '<p class="project-block__empty text-neutral-400 text-sm">No media URL</p>';
@@ -65,11 +83,12 @@ export function renderProjectPreview(container, { blocks = [], lang = 'en', meta
       ? '<p class="admin-preview__empty">Add blocks to see them here.</p>'
       : blocks
           .map((block) => {
+            const content = block.content || {};
             const inner =
               block.type === 'text'
-                ? renderTextBlock(block.content || {}, lang)
-                : renderMediaBlock(block, lang);
-            return `<article class="project-block project-block--${block.type} ${layoutClass(block.layout)}" data-block-id="${escapeHtml(block.id)}">${inner}</article>`;
+                ? renderTextBlock(content, lang)
+                : renderMediaBlock(block);
+            return `<article class="project-block project-block--${block.type} ${layoutClass(block.layout)} ${alignClass(content)}" data-block-id="${escapeHtml(block.id)}">${inner}</article>`;
           })
           .join('');
 
