@@ -1,0 +1,43 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getTranslations } from '@/utils/getTranslations';
+import { detectLang } from '@/lib/i18n/lang';
+
+Astro.response.status = 404;
+
+const lang = detectLang(Astro.request, Astro.url.pathname);
+const translations = await getTranslations(lang);
+const copy = translations.notFound;
+---
+
+<Layout
+  translations={translations}
+  {lang}
+  seo={{ title: copy.title, description: copy.description, noindex: true }}
+>
+  <section id="not-found" class="not-found">
+    <div class="not-found__card">
+      <div class="logo-wrapper not-found__logo">
+        <div class="animated-bg"></div>
+        <svg class="logo-svg relative z-10 w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+          <rect width="52" height="52" fill="url(#paint0_linear_137_3)"/>
+          <path d="M32.9766 44.2481L29.528 39.1562L26.5654 44.2481H22.029L27.2598 35.8233L21.8669 27.8845H26.5654L29.9214 32.8144L32.8146 27.8845H37.3279L32.1665 36.1242L37.6751 44.2481H32.9766Z" fill="white"/>
+          <path d="M10.7513 27.8845V37.3277C10.7513 38.4078 10.9905 39.2333 11.4688 39.8043C11.9626 40.3752 12.6724 40.6606 13.5982 40.6606C14.524 40.6606 15.226 40.3752 15.7044 39.8043C16.1981 39.2333 16.445 38.4078 16.445 37.3277V27.8845H20.4028V37.3277C20.4028 38.8707 20.1019 40.1746 19.5002 41.2392C18.8984 42.2885 18.0729 43.0831 17.0236 43.6232C15.9898 44.1478 14.8171 44.4101 13.5056 44.4101C12.194 44.4101 11.0368 44.1478 10.0338 43.6232C9.03087 43.0986 8.24393 42.3039 7.67302 41.2392C7.10211 40.1746 6.81665 38.8707 6.81665 37.3277V27.8845H10.7513Z" fill="white"/>
+        </svg>
+      </div>
+
+      <p class="not-found__code">{copy.code}</p>
+      <h1 class="not-found__heading">{copy.heading}</h1>
+      <p class="not-found__description">{copy.description}</p>
+
+      <div class="not-found__actions">
+        <a href={`/${lang}/#hello`} class="btn-primary not-found__cta">
+          {copy.backHome}
+        </a>
+        <a href={`/${lang}/#selected-projects`} class="btn-secondary not-found__cta">
+          {copy.viewPortfolio}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
