@@ -11,6 +11,14 @@ export default {
       "Almost presentable…",
     ],
   },
+  notFound: {
+    title: "Page not found",
+    code: "404",
+    heading: "Off the grid",
+    description: "This page doesn't exist. The link may be outdated, or the URL took a creative detour.",
+    backHome: "Back to Hello",
+    viewPortfolio: "View portfolio",
+  },
   navigation: {
     home: "Hello",
     about: "About me",

@@ -4,10 +4,15 @@ import {
   isProtectedAdminApi,
   isProtectedAdminPage,
 } from '@/lib/adminSession';
+import { isInvalidLocalePrefix } from '@/lib/i18n/lang';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
   const authed = isAdminAuthenticated(context.request);
+
+  if (isInvalidLocalePrefix(pathname)) {
+    return context.rewrite('/404');
+  }
 
   if (pathname === '/admin') {
     if (authed) {
