@@ -4,6 +4,8 @@ export type ProjectCardRow = {
   title_uk?: string | null;
   category_en?: string | null;
   category_uk?: string | null;
+  thumbnail_url?: string | null;
+  cover_url?: string | null;
 };
 
 export function projectCardTitle(row: ProjectCardRow): string {
@@ -12,4 +14,8 @@ export function projectCardTitle(row: ProjectCardRow): string {
 
 export function projectCardCategory(row: ProjectCardRow): string {
   return row.category_en?.trim() || row.category_uk?.trim() || "";
+}
+
+export function projectCardThumbnail(row: ProjectCardRow): string {
+  return row.thumbnail_url?.trim() || row.cover_url?.trim() || "";
 }

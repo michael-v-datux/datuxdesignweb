@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import bcrypt from "bcryptjs";
 import { getAdminSupabase } from "../../../../lib/supabaseServer";
+import { normalizePublishFields } from "../../../../lib/projects/publish-state";
 
 const supabase = getAdminSupabase();
 
@@ -49,8 +50,13 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   if (cover_url !== undefined) update.cover_url = cover_url;
   if (category_en !== undefined) update.category_en = category_en;
   if (category_uk !== undefined) update.category_uk = category_uk;
-  if (status !== undefined) update.status = status;
-  if (is_published !== undefined) update.is_published = !!is_published;
+
+  if (status !== undefined || is_published !== undefined) {
+    const normalized = normalizePublishFields({ status, is_published });
+    update.status = normalized.status;
+    update.is_published = normalized.is_published;
+  }
+
   if (is_protected !== undefined) update.is_protected = !!is_protected;
 
   if (is_protected === false) {

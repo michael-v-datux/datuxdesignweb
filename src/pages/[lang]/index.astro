@@ -12,7 +12,6 @@ import { getTranslations } from '@/utils/getTranslations';
 const lang = Astro.params?.lang || 'en';
 const translations = await getTranslations(lang);
 
-
 export async function getStaticPaths() {
   return [
     { params: { lang: 'en' } },
@@ -21,12 +20,11 @@ export async function getStaticPaths() {
 }
 ---
 
-<Layout translations={translations}>
+<Layout translations={translations} lang={lang}>
   <Hero translations={translations} />
   <About {translations} />
   <KeyStrengths translations={translations} />
   <SelectedProjects translations={translations} lang={lang} />
   <Availability translations={translations} />
   <Contact translations={translations} />
-</Layout>
 </Layout>

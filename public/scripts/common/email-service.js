@@ -35,6 +35,12 @@ document.addEventListener("DOMContentLoaded", () => {
       validation.resetValidationState();
     };
 
+    const labelErrorFailed =
+      form.dataset.errorFailed || 'Failed to send the form. Please try again.';
+    const labelErrorNetwork =
+      form.dataset.errorNetwork || 'Network error. Please check your connection and try again.';
+    const labelEmailCopied = form.dataset.emailCopied || 'Email copied!';
+
     const errorBox = document.createElement("div");
     errorBox.id = "form-error";
     errorBox.className =
@@ -49,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const showError = (message) => {
       errorBox.querySelector("span").textContent =
-        message || "Something went wrong. Please try again later.";
+        message || labelErrorFailed;
       errorBox.classList.remove("hidden", "opacity-0");
       errorBox.classList.add("opacity-100");
     };
@@ -81,9 +87,9 @@ document.addEventListener("DOMContentLoaded", () => {
           headers: { Accept: "application/json" },
         });
         if (response.ok) showModal();
-        else showError("Failed to send the form. Please try again.");
+        else showError(labelErrorFailed);
       } catch {
-        showError("Network error. Please check your connection and try again.");
+        showError(labelErrorNetwork);
       }
     });
   }
@@ -145,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
       copyBtn.addEventListener("click", (e) => {
         e.stopPropagation();
         navigator.clipboard.writeText("michael.v@datux.design");
-        showNotification("Email copied!");
+        showNotification(labelEmailCopied);
         closeTooltip();
       });
     }

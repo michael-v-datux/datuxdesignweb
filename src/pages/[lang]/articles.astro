@@ -14,15 +14,24 @@ const translations = await getTranslations(lang);
 const pageTitle = translations.navigation.articles || 'Articles';
 ---
 
-<Layout lang={lang} translations={translations}>
+<Layout
+  {translations}
+  {lang}
+  seo={{
+    title: pageTitle,
+    description:
+      lang === 'en'
+        ? 'Articles, case studies, and design insights from datux.design.'
+        : 'Статті, кейси та інсайти з datux.design.',
+    noindex: true,
+  }}
+>
     <main class="container mx-auto px-6 py-16">
         <h1 class="text-3xl font-bold mb-6">
             {pageTitle}
         </h1>
         <p class="text-gray-600 dark:text-gray-300">
-            {lang === 'en'
-                ? 'This page will contain articles, case studies, and insights soon.'
-                : 'Ця сторінка незабаром міститиме статті, кейси та інсайти.'}
+            {translations.articles.placeholder}
         </p>
     </main>
 </Layout>

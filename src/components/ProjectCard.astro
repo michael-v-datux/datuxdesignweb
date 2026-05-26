@@ -1,0 +1,43 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  category?: string;
+  thumbnail?: string;
+  lang: string;
+}
+
+const { slug, title, category = "", thumbnail = "", lang } = Astro.props;
+const hasImage = Boolean(thumbnail);
+---
+
+<a
+  href={`/${lang}/projects/${slug}`}
+  class:list={[
+    "project-card group block w-full h-[300px] border border-neutral-200 rounded-xl relative overflow-hidden mx-auto",
+    hasImage ? "project-card--image" : "project-card--text",
+  ]}
+>
+  {
+    hasImage ? (
+      <>
+        <img
+          src={thumbnail}
+          alt=""
+          class="project-card__img"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="project-card__overlay">
+          {category && <span class="category">{category}</span>}
+          <span class="title">{title}</span>
+        </div>
+      </>
+    ) : (
+      <div class="project-card__body">
+        {category && <span class="category">{category}</span>}
+        <span class="title">{title}</span>
+      </div>
+    )
+  }
+</a>

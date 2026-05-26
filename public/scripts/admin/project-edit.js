@@ -305,14 +305,32 @@ function initCancel(getDirtyState) {
   });
 }
 
+function syncPublishFields(form) {
+  const statusSelect = form.querySelector("select[name='status']");
+  const publishCheckbox = form.querySelector("input[name='is_published']");
+  if (!statusSelect || !publishCheckbox) return;
+
+  statusSelect.addEventListener('change', () => {
+    publishCheckbox.checked = statusSelect.value === 'published';
+  });
+
+  publishCheckbox.addEventListener('change', () => {
+    statusSelect.value = publishCheckbox.checked ? 'published' : 'draft';
+  });
+}
+
 function initProjectForm(projectId) {
   const projectForm = document.querySelector('[data-project-form]');
   const projectSaveBtns = document.querySelectorAll('[data-project-save]');
+
+  if (projectForm) syncPublishFields(projectForm);
 
   const saveHandler = async () => {
     if (!projectForm) return;
     const formData = new FormData(projectForm);
     const password = formData.get('password')?.toString() ?? '';
+    const status = formData.get('status')?.toString() || 'draft';
+    const isPublished = status === 'published';
 
     const payload = {
       slug: formData.get('slug') || null,
@@ -324,8 +342,8 @@ function initProjectForm(projectId) {
       cover_url: formData.get('cover_url') || null,
       category_en: formData.get('category_en') || null,
       category_uk: formData.get('category_uk') || null,
-      status: formData.get('status') || 'draft',
-      is_published: projectForm.querySelector("input[name='is_published']")?.checked,
+      status,
+      is_published: isPublished,
       is_protected: projectForm.querySelector("input[name='is_protected']")?.checked,
     };
 
