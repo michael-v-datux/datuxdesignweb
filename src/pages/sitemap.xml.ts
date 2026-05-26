@@ -5,7 +5,7 @@ export const prerender = false;
 
 const LANGS = ["en", "uk"] as const;
 
-const STATIC_ROUTES = ["", "portfolio", "articles", "privacy-policy", "cookie-policy", "terms"];
+const STATIC_ROUTES = ["", "portfolio", "privacy-policy", "cookie-policy", "terms"];
 
 function xmlEscape(value: string): string {
   return value
@@ -74,6 +74,7 @@ export async function GET({ url }: { url: URL }) {
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${entries.join("\n")}
 </urlset>`;
