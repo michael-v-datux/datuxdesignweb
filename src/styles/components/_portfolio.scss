@@ -28,24 +28,135 @@
     animation: pop 0.3s ease-out forwards;
 }
 
-// src/styles/components/_selected-projects.scss
+// Selected Projects
 #selected-projects {
     .project-card {
         opacity: 0;
         transform: translateY(16px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
 
         &.visible {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
 
+        &--text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: #f5f5f5;
+            }
+        }
+
+        &--image {
+            border-color: transparent;
+
+            &:hover {
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+                .project-card__img {
+                    transform: scale(1.04);
+                }
+
+                .project-card__overlay {
+                    background: linear-gradient(
+                        to top,
+                        rgba(0, 0, 0, 0.78) 0%,
+                        rgba(0, 0, 0, 0.35) 45%,
+                        rgba(0, 0, 0, 0.08) 100%
+                    );
+                }
+
+                .category {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        }
+
+        &__img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        &__overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0.25rem;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            background: linear-gradient(
+                to top,
+                rgba(0, 0, 0, 0.72) 0%,
+                rgba(0, 0, 0, 0.28) 42%,
+                transparent 100%
+            );
+            transition: background 0.35s ease;
+        }
+
+        &__body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            width: 100%;
+            height: 100%;
+        }
+
         .category {
-            transition: opacity 0.3s ease;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        &--text .category {
+            color: #262626;
+            opacity: 0;
+        }
+
+        &--text:hover .category {
+            opacity: 1;
+        }
+
+        &--image .category {
+            color: rgba(255, 255, 255, 0.92);
+            opacity: 0;
+            transform: translateY(4px);
         }
 
         .title {
-            opacity: 1 !important; // завжди видимий
+            font-size: 1.125rem;
+            line-height: 1.5rem;
+            font-weight: 500;
+        }
+
+        &--text .title {
+            color: #262626;
+        }
+
+        &--image .title {
+            color: #fff;
         }
     }
 }

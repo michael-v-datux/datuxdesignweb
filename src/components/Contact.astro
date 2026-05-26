@@ -12,7 +12,16 @@ const { translations } = Astro.props;
     <!-- Contact Form Column -->
     <div class="bg-gradient-to-br from-[#fbe6e6] via-[#e6f1ff] to-[#fef9e7] p-6 rounded-2xl relative" id="form-wrapper">
       <h3 class="text-xl font-semibold mb-4">{translations.contact.formTitle}</h3>
-      <form id="contact-form" class="flex flex-col gap-4" action="https://formspree.io/f/xeozqggl" method="POST" novalidate>
+      <form
+        id="contact-form"
+        class="flex flex-col gap-4"
+        action="https://formspree.io/f/xeozqggl"
+        method="POST"
+        novalidate
+        data-error-failed={translations.contact.submitErrors.failed}
+        data-error-network={translations.contact.submitErrors.network}
+        data-email-copied={translations.contact.emailCopied}
+      >
         <!-- Honeypot -->
         <div style="display:none;">
             <label for="website">Website</label>

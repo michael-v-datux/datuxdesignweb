@@ -12,7 +12,11 @@ const translations = await getTranslations(lang);
 const policy = translations.cookiesPolicy;
 ---
 
-<Layout {translations} {lang}>
+<Layout
+  {translations}
+  {lang}
+  seo={{ title: policy.title, description: policy.intro }}
+>
     <section class="container mx-auto px-6 py-12">
         <h1 class="text-4xl font-semibold mb-6">{policy.title}</h1>
         <p class="mb-6">{policy.intro}</p>
@@ -20,7 +24,7 @@ const policy = translations.cookiesPolicy;
             {Object.values(policy.sections).map(section => (
                 <div>
                     <h2 class="text-2xl font-semibold mb-3">{section.title}</h2>
-                    {section.content.map(p => <p class="mb-3" set:html={p}>{p}</p>)}
+                    {section.content.map((p) => <p class="mb-3" set:html={p} />)}
                 </div>
             ))}
         </div>

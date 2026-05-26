@@ -1,13 +1,13 @@
 import type { APIRoute } from "astro";
+import bcrypt from "bcryptjs";
 import { getAdminSupabase } from "../../lib/supabaseServer";
+import { normalizePublishFields } from "../../lib/projects/publish-state";
 
 const supabase = getAdminSupabase();
 
 export const prerender = false;
 
-// ===========================
-//    GET ONE PROJECT
-// ===========================
+/** @deprecated Prefer server-side create in admin/projects/new.astro */
 export const GET: APIRoute = async ({ url }) => {
   const id = url.searchParams.get("id");
 
@@ -34,30 +34,35 @@ export const GET: APIRoute = async ({ url }) => {
   });
 };
 
-// ===========================
-//    CREATE PROJECT (POST)
-// ===========================
+async function hashPasswordIfNeeded(
+  isProtected: boolean,
+  password: unknown
+): Promise<string | null | undefined> {
+  if (!isProtected) return null;
+  if (typeof password !== "string" || password.length === 0) return undefined;
+  return bcrypt.hash(password, 10);
+}
+
+/** @deprecated Prefer POST /api/admin/projects or server form in new.astro */
 export const POST: APIRoute = async ({ request }) => {
   const body = await request.json();
+  const { status, is_published } = normalizePublishFields({
+    status: body.status,
+    is_published: body.is_published,
+  });
 
-  const status = body.status ?? "draft";
+  const isProtected = !!body.is_protected;
+  const passwordHash = await hashPasswordIfNeeded(isProtected, body.password);
 
-  const payload = {
+  const payload: Record<string, unknown> = {
     title_en: body.title_en ?? null,
     title_uk: body.title_uk ?? null,
     description_en: body.description_en ?? null,
     description_uk: body.description_uk ?? null,
-
-    // FIXED ↓
     thumbnail_url: body.thumbnail_url ?? null,
-
-    is_protected: !!body.is_protected,
-    password_hash: body.password || null,
-
+    is_protected: isProtected,
     status,
-    is_published: status === "published",
-
-    // Do NOT touch these fields yet:
+    is_published,
     content_en: null,
     content_uk: null,
     cover_url: null,
@@ -65,6 +70,10 @@ export const POST: APIRoute = async ({ request }) => {
     category_uk: null,
     slug: body.slug ?? null,
   };
+
+  if (passwordHash !== undefined) {
+    payload.password_hash = passwordHash;
+  }
 
   const { data, error } = await supabase
     .from("projects")
@@ -84,9 +93,7 @@ export const POST: APIRoute = async ({ request }) => {
   });
 };
 
-// ===========================
-//    UPDATE PROJECT (PUT)
-// ===========================
+/** @deprecated Prefer PATCH /api/admin/projects/[id] */
 export const PUT: APIRoute = async ({ request }) => {
   const body = await request.json();
 
@@ -96,23 +103,30 @@ export const PUT: APIRoute = async ({ request }) => {
     });
   }
 
-  const status = body.status ?? "draft";
+  const { status, is_published } = normalizePublishFields({
+    status: body.status,
+    is_published: body.is_published,
+  });
 
-  const payload = {
+  const isProtected = !!body.is_protected;
+  const passwordHash = await hashPasswordIfNeeded(isProtected, body.password);
+
+  const payload: Record<string, unknown> = {
     title_en: body.title_en ?? null,
     title_uk: body.title_uk ?? null,
     description_en: body.description_en ?? null,
     description_uk: body.description_uk ?? null,
-
-    // FIXED ↓
     thumbnail_url: body.thumbnail_url ?? null,
-
-    is_protected: !!body.is_protected,
-    password_hash: body.password || null,
-
+    is_protected: isProtected,
     status,
-    is_published: status === "published",
+    is_published,
   };
+
+  if (passwordHash !== undefined) {
+    payload.password_hash = passwordHash;
+  } else if (!isProtected) {
+    payload.password_hash = null;
+  }
 
   const { data, error } = await supabase
     .from("projects")

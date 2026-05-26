@@ -2,18 +2,47 @@
 import { getTranslations } from '../utils/getTranslations';
 import Navbar from '../components/Navbar.astro';
 import CookieBanner from '../components/CookieBanner.astro';
+import type { SeoMeta } from '../utils/seo';
+import {
+  getLangPath,
+  getSiteUrl,
+  resolveAbsoluteUrl,
+  resolveSeo,
+  SITE_NAME,
+} from '../utils/seo';
 
-const lang = Astro.params?.lang || 'en';
+interface Props {
+  translations?: Awaited<ReturnType<typeof getTranslations>>;
+  lang?: string;
+  seo?: SeoMeta;
+}
 
-const translations = await getTranslations(lang);
+const { translations: translationsProp, lang: langProp, seo = {} } = Astro.props;
+
+const lang = langProp || Astro.params?.lang || 'en';
+const translations = translationsProp ?? (await getTranslations(lang));
 const currentPath = Astro.url.pathname;
+
+const siteUrl = getSiteUrl(Astro.url.origin);
+const canonicalUrl = resolveAbsoluteUrl(siteUrl, currentPath);
+const enPath = getLangPath(currentPath, 'en');
+const ukPath = getLangPath(currentPath, 'uk');
+const enUrl = resolveAbsoluteUrl(siteUrl, enPath);
+const ukUrl = resolveAbsoluteUrl(siteUrl, ukPath);
+
+const { title, description } = resolveSeo(translations.seo, seo);
+const ogType = seo.type || 'website';
+const ogImage = seo.image
+  ? resolveAbsoluteUrl(siteUrl, seo.image)
+  : resolveAbsoluteUrl(siteUrl, '/logo/logo.svg');
+const robots = seo.noindex ? 'noindex, nofollow' : 'index, follow';
 
 const GA_ID = import.meta.env.PUBLIC_GA_ID || "";
 
 const footerLinks = [
-  { href: `/${lang}/privacy-policy`, label: lang === 'uk' ? 'Політика конфіденційності' : 'Privacy Policy' },
-  { href: `/${lang}/cookie-policy`, label: lang === 'uk' ? 'Політика cookie' : 'Cookie Policy' },
-  { href: `/${lang}/terms`, label: lang === 'uk' ? 'Умови використання' : 'Terms of Use' },
+  { href: `/${lang}/privacy-policy`, label: translations.footer.privacyPolicy },
+  { href: `/${lang}/cookie-policy`, label: translations.footer.cookiePolicy },
+  { href: `/${lang}/terms`, label: translations.footer.terms },
 ];
 ---
 
@@ -21,8 +50,28 @@ const footerLinks = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{translations.seo.title}</title>
-    <meta name="description" content={translations.seo.description} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="uk" href={ukUrl} />
+    <link rel="alternate" hreflang="x-default" href={enUrl} />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={lang === 'uk' ? 'uk_UA' : 'en_US'} />
+    <meta property="og:locale:alternate" content={lang === 'uk' ? 'en_US' : 'uk_UA'} />
+    <meta property="og:image" content={ogImage} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&family=Lexend:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -32,29 +81,22 @@ const footerLinks = [
   </head>
   <body class="bg-white text-gray-800 font-base flex flex-col min-h-screen">
     <script is:inline src="/scripts/page-enter-reveal.js"></script>
-    <!-- Header -->
     <Navbar {translations} {lang} />
     
-    <!-- Main content -->
     <main class="flex-1">
       <slot />
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-100 text-gray-600 text-sm">
       <div class="container mx-auto flex flex-col md:flex-row justify-between items-start gap-y-2 px-6 py-4">
-        
-        <!-- Ліва секція -->
         <div class="w-full md:w-1/5 text-center md:text-left">
           © {new Date().getFullYear()} datux.design
         </div>
 
-        <!-- Центральна секція -->
         <div class="w-full md:w-3/5 text-center">
           {translations.footer.copyright}
         </div>
 
-        <!-- Права секція -->
         <div class="w-full md:w-1/5 text-center md:text-right flex justify-center md:justify-end items-center gap-1 mb-4 md:mb-0 mt-4 md:mt-0">
           {translations.footer.madeWith}
           <a href="https://astro.build/" target="_blank">
@@ -84,14 +126,11 @@ const footerLinks = [
       </p>
     </footer>
 
-    <!-- Публічні -->
     <script src="/scripts/ui/menu.js" type="module" client:load></script>
     <script src="/scripts/ui/nav-dot.js" type="module" client:load></script>
     <script src="/scripts/ui/ribbon.js" type="module" client:load></script>
     <script src="/scripts/ui/scroll-nav.js" type="module" client:load></script>
     <script src="/scripts/common/email-service.js" type="module" client:load></script>
-
-    <!-- Модульні -->
     <script src="/scripts/common/cookie-consent.js" type="module" client:load></script>
 
     <CookieBanner translations={translations} lang={lang} />

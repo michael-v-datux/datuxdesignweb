@@ -72,7 +72,11 @@ export default {
   },
   projects: {
       comingSoon: "Coming soon...",
-      pageNotFound: "Project Not Found"
+      pageNotFound: "Project Not Found",
+      notFoundDescription: "This project does not exist or is no longer published."
+  },
+  articles: {
+    placeholder: "This page will contain articles, case studies, and insights soon."
   },
   selectedProjects: {
     title: "Selected Projects",
@@ -137,11 +141,19 @@ export default {
       message: "Your message has been sent successfully! 🚀",
       subMessage: "Thank you for reaching out! I'll reply shortly",
       ok: "OK"
-    }
+    },
+    submitErrors: {
+      failed: "Failed to send the form. Please try again.",
+      network: "Network error. Please check your connection and try again."
+    },
+    emailCopied: "Email copied!"
   },
   footer: {
     copyright: "All content, including password-protected case studies, is the author's intellectual property and may not be copied, shared, or reproduced in any form without explicit permission.",
     madeWith: "Made with",
+    privacyPolicy: "Privacy Policy",
+    cookiePolicy: "Cookie Policy",
+    terms: "Terms of Use",
   },
   about: {
     title: "Designing for complexity, clarity, and people",

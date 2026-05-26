@@ -12,10 +12,14 @@ const translations = await getTranslations(lang);
 const terms = translations.terms;
 ---
 
-<Layout {translations} {lang}>
+<Layout
+  {translations}
+  {lang}
+  seo={{ title: terms.title, description: terms.content[0] }}
+>
     <section class="container mx-auto px-6 py-12">
         <h1 class="text-4xl font-semibold mb-6">{terms.title}</h1>
-        {terms.content.map(p => <p class="mb-3" set:html={p}>{p}</p>)}
+        {terms.content.map((p) => <p class="mb-3" set:html={p} />)}
         <p class="mt-12 text-sm text-neutral-500">{terms.lastUpdated}</p>
     </section>
 </Layout>
