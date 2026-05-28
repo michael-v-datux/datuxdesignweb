@@ -24,7 +24,8 @@ module.exports = {
     'border',
     'z-50',
     'animate-fade-in',
-    'animate-fade-out'
+    'animate-fade-out',
+    'max-[880px]:hidden',
   ],
   darkMode: 'class',
   theme: {
