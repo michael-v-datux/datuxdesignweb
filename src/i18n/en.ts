@@ -35,7 +35,13 @@ export default {
       precision: "precision"
     },
     subtitleLine1: "Hi there, I’m Michael Vyhivskyi — a UX/UI & Product Designer",
-    subtitleLine2: "with 6+ years of experience crafting intuitive, scalable interfaces."
+    subtitleLine2: "with 6+ years of experience crafting intuitive, scalable interfaces.",
+    orbEasterEgg: {
+      ariaLabel: "Hidden orb message",
+      tag: "scan",
+      line1: "Scanning for design, briefs & vibes…",
+      line2: "Blip confirmed: curious visitor.",
+    },
   },
   keyStrengths: {
     title: "Designing for Impact",

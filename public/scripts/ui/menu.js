@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.getElementById('menu-toggle');
+    const menuToggles = document.querySelectorAll('.js-menu-toggle');
     const mobileMenuWrapper = document.getElementById('mobile-menu-wrapper');
     const mobileMenu = document.getElementById('mobile-menu');
     const backdrop = document.getElementById('menu-backdrop');
-    const menuLines = menuToggle.querySelectorAll('span');
     const body = document.body;
+
+    if (!menuToggles.length || !mobileMenuWrapper || !mobileMenu || !backdrop) return;
 
     const scrollToTopLinks = document.querySelectorAll('#scroll-to-top');
 
@@ -27,39 +28,48 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    const setTogglesOpen = (open) => {
+        menuToggles.forEach((toggle) => {
+            toggle.classList.toggle('is-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+    };
+
     const openMenu = () => {
+        setTogglesOpen(true);
         mobileMenuWrapper.classList.remove('hidden');
         requestAnimationFrame(() => {
             mobileMenu.classList.add('open');
         });
         body.classList.add('overflow-hidden');
-
-        menuLines[0].classList.add('rotate-45', 'translate-y-2');
-        menuLines[1].classList.add('opacity-0');
-        menuLines[2].classList.add('-rotate-45', '-translate-y-2');
     };
 
     const closeMenu = () => {
+        setTogglesOpen(false);
         mobileMenu.classList.remove('open');
         setTimeout(() => mobileMenuWrapper.classList.add('hidden'), 300);
         body.classList.remove('overflow-hidden');
-
-        menuLines[0].classList.remove('rotate-45', 'translate-y-2');
-        menuLines[1].classList.remove('opacity-0');
-        menuLines[2].classList.remove('-rotate-45', '-translate-y-2');
     };
 
-    menuToggle.addEventListener('click', () => {
+    const toggleMenu = () => {
         const isOpen = mobileMenu.classList.contains('open');
         isOpen ? closeMenu() : openMenu();
+    };
+
+    menuToggles.forEach((toggle) => {
+        toggle.addEventListener('click', toggleMenu);
+        toggle.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            toggleMenu();
+        });
     });
 
     backdrop.addEventListener('click', closeMenu);
     mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
-    // Закриваємо при кліку по пустій області меню
     mobileMenu.addEventListener('click', (e) => {
-        if (e.target === mobileMenu) { // клік не по лінку чи вкладеному елементу
+        if (e.target === mobileMenu) {
             closeMenu();
         }
     });

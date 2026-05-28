@@ -1,44 +1,278 @@
 @use '../abstracts' as *;
 
 .hero {
-    @apply bg-white dark:bg-neutral-900;
-    background-image: url('/images/hero-bg.png');
-    background-position: 105% 50%;
-    background-size: auto;
-    background-repeat: no-repeat;
+  @apply bg-white dark:bg-neutral-900;
+  position: relative;
+  overflow: hidden;
+
+  &__visual {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    width: min(61vw, 610px);
+    aspect-ratio: 1;
+    right: -4%;
+    top: 50%;
+    transform: translateY(-50%);
+    perspective: 960px;
 
     @media (min-width: 1280px) and (max-width: 1580px) {
-        background-size: auto;
-        background-position: 140% 50%;
+      right: -10%;
     }
 
     @media (max-width: 1279px) {
-        background-position: 200% 50%;
+      right: -18%;
+      width: min(68vw, 540px);
     }
 
     @media (max-width: 880px) {
-        background: none;
+      display: none;
+    }
+  }
+
+  &__canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__orb {
+    --orb-x: 0px;
+    --orb-y: 0px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 19%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: translate(calc(-50% + var(--orb-x)), calc(-50% + var(--orb-y)));
+    transition: transform 0.35s ease-out;
+    z-index: 1;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus-visible {
+      outline: 2px solid rgba(165, 198, 235, 0.85);
+      outline-offset: 6px;
+      border-radius: 50%;
     }
 
-    @media (max-width: 639px) {
-        background: none;
+    &.is-flipped {
+      filter: drop-shadow(0 10px 28px rgba(165, 198, 235, 0.28));
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      cursor: default;
+    }
+  }
+
+  &__orb-flipper {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    transform-style: preserve-3d;
+    will-change: transform;
+
+    .hero__orb.is-flipped & {
+      transform: rotateY(180deg) scale(1.16);
+    }
+
+    .hero__orb.is-animating-in & {
+      animation: heroOrbReveal 0.92s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .hero__orb.is-animating-out & {
+      animation: heroOrbHide 0.95s cubic-bezier(0.55, 0.06, 0.24, 1) forwards;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: opacity 0.25s ease;
+
+      .hero__orb.is-flipped & {
+        transform: none;
+      }
+    }
+  }
+
+  &__orb-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    backface-visibility: hidden;
+    overflow: hidden;
+  }
+
+  &__orb-face--front {
+    transform: rotateY(0deg) translateZ(1px);
+  }
+
+  &__orb-face--back {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45em;
+    padding: 18%;
+    text-align: center;
+    transform: rotateY(180deg) translateZ(1px);
+    background:
+      radial-gradient(circle at 28% 22%, rgba(165, 198, 235, 0.14), transparent 52%),
+      radial-gradient(circle at 72% 78%, rgba(255, 226, 106, 0.1), transparent 48%),
+      #151b26;
+    color: #f3f4f6;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero__orb.is-flipped & {
+        opacity: 1;
+      }
+
+      .hero__orb:not(.is-flipped) & {
+        opacity: 0;
+      }
+    }
+  }
+
+  &__orb-inner {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 90deg at 50% 50%,
+      rgba(217, 85, 101, 0.96) 0deg,
+      rgba(165, 198, 235, 0.78) 126deg,
+      rgba(255, 226, 106, 1) 360deg
+    );
+    animation: heroOrbSpin 32s linear infinite;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+
+    .hero__orb.is-flipped &,
+    .hero__orb.is-animating-in & {
+      animation-play-state: paused;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__orb-back-tag {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.3rem, 0.85vw, 0.38rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(165, 198, 235, 0.72);
+    margin-bottom: 0.15em;
+  }
+
+  &__orb-back-line {
+    font-family: font-secondary;
+    font-size: clamp(0.4rem, 1.22vw, 0.52rem);
+    font-style: italic;
+    line-height: 1.35;
+    color: rgba(243, 244, 246, 0.92);
+
+    &--muted {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-style: normal;
+      font-size: clamp(0.34rem, 0.98vw, 0.44rem);
+      letter-spacing: 0.02em;
+      color: rgba(243, 244, 246, 0.58);
+    }
+  }
+
+  :global(.dark) &__orb-back-tag {
+    color: rgba(79, 70, 229, 0.55);
+  }
+
+  :global(.dark) &__orb-face--back {
+    background:
+      radial-gradient(circle at 28% 22%, rgba(165, 198, 235, 0.22), transparent 52%),
+      radial-gradient(circle at 72% 78%, rgba(255, 226, 106, 0.14), transparent 48%),
+      #eef1f6;
+    color: #1f2937;
+    box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.06);
+  }
+
+  :global(.dark) &__orb-back-line {
+    color: rgba(31, 41, 55, 0.88);
+  }
+
+  :global(.dark) &__orb-back-line--muted {
+    color: rgba(31, 41, 55, 0.58);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .text-pink-g {
-    font-family: font-secondary;
-    background: linear-gradient(29.94deg, #FF0000 -41.57%, #9DD6FF 73.54%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+  font-family: font-secondary;
+  background: linear-gradient(29.94deg, #ff0000 -41.57%, #9dd6ff 73.54%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
 .text-sky-g {
-    font-family: font-secondary;
-    background: linear-gradient(90.08deg, #A5C6EB 29.29%, #FFEDA6 91.43%, #FFE16A 98.05%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
+  font-family: font-secondary;
+  background: linear-gradient(90.08deg, #a5c6eb 29.29%, #ffeda6 91.43%, #ffe16a 98.05%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+@keyframes heroOrbSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heroOrbReveal {
+  0% {
+    transform: rotateY(0deg) rotateX(10deg) scale(1);
+  }
+
+  38% {
+    transform: rotateY(94deg) rotateX(14deg) scale(1.14);
+  }
+
+  62% {
+    transform: rotateY(166deg) rotateX(6deg) scale(1.14);
+  }
+
+  100% {
+    transform: rotateY(180deg) rotateX(0deg) scale(1.16);
+  }
+}
+
+@keyframes heroOrbHide {
+  0% {
+    transform: rotateY(180deg) rotateX(0deg) scale(1.16);
+  }
+
+  42% {
+    transform: rotateY(88deg) rotateX(10deg) scale(1.1);
+  }
+
+  100% {
+    transform: rotateY(0deg) rotateX(0deg) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__orb-inner {
+    animation: none !important;
+  }
 }

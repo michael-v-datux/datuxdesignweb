@@ -111,19 +111,21 @@ const footerLinks = [
         </div>
       </div>
 
-      <p class="flex items-center justify-center gap-6 text-sm mb-6 text-center md:text-left">
-          <button id="change-cookies" class="hover:underline hover:bg-transparent text-blue-600" type="button">
-              {translations.cookies.changeSettings}
-          </button>
+      <div class="footer-legal">
+        <button id="change-cookies" class="footer-legal__cookies" type="button">
+          {translations.cookies.changeSettings}
+        </button>
+        <nav class="footer-legal__nav" aria-label="Legal">
           {footerLinks.map(link => (
-              <a 
-                  href={link.href} 
-                  class={`hover:underline ${currentPath === link.href ? 'font-semibold text-blue-800' : 'text-blue-600'}`}
-              >
-                  {link.label}
-              </a>
+            <a
+              href={link.href}
+              class={`footer-legal__link ${currentPath === link.href ? 'is-active' : ''}`}
+            >
+              {link.label}
+            </a>
           ))}
-      </p>
+        </nav>
+      </div>
     </footer>
 
     <script src="/scripts/ui/menu.js" type="module" client:load></script>

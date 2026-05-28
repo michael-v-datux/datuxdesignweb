@@ -14,11 +14,18 @@ const altLangLink =
     <!-- Мобільний блок -->
     <div class="flex w-full items-center justify-between sm:hidden">
       <!-- Бургер -->
-      <button id="menu-toggle" class="relative w-8 h-8" aria-label="Toggle menu">
-        <span class="block absolute h-0.5 w-full bg-black dark:bg-white top-2 transition-all duration-300"></span>
-        <span class="block absolute h-0.5 w-full bg-black dark:bg-white top-4 transition-all duration-300"></span>
-        <span class="block absolute h-0.5 w-full bg-black dark:bg-white top-6 transition-all duration-300"></span>
-      </button>
+      <div
+        id="menu-toggle"
+        class="menu-toggle js-menu-toggle relative w-8 h-8 shrink-0"
+        role="button"
+        tabindex="0"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <span class="menu-toggle__line"></span>
+        <span class="menu-toggle__line"></span>
+        <span class="menu-toggle__line"></span>
+      </div>
 
       <!-- Лого -->
       <a href={`/${lang}/`} class="logo-wrapper block w-[42px] h-[42px] relative overflow-hidden">
@@ -80,7 +87,7 @@ const altLangLink =
   </div>
 
   <!-- Обгортка для меню -->
-  <div id="mobile-menu-wrapper" class="fixed inset-0 z-50 hidden">
+  <div id="mobile-menu-wrapper" class="mobile-menu-wrapper fixed inset-0 z-50 hidden">
       <!-- Бекдроп -->
       <div id="menu-backdrop" class="absolute inset-0"></div>
 
@@ -96,7 +103,37 @@ const altLangLink =
   </div>
 </header>
 
-<!-- Sticky Navbar тільки для десктопів -->
+<!-- Sticky bar — mobile (< sm) -->
+<div id="sticky-mobile-bar" class="sticky-mobile-bar sm:hidden" aria-hidden="true">
+  <div class="container mx-auto flex items-center justify-between py-3 px-6">
+    <div
+      class="menu-toggle js-menu-toggle relative w-8 h-8 shrink-0"
+      role="button"
+      tabindex="0"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+      <span class="menu-toggle__line"></span>
+    </div>
+
+    <a href={`/${lang}/`} class="logo-wrapper block w-[34px] h-[34px] relative overflow-hidden shrink-0">
+      <div class="animated-bg absolute inset-0 z-0"></div>
+      <svg class="logo-svg relative z-10 w-full h-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" fill="none" aria-hidden="true">
+        <rect width="52" height="52" fill="url(#paint0_linear_137_3)"/>
+        <path d="M32.9766 44.2481L29.528 39.1562L26.5654 44.2481H22.029L27.2598 35.8233L21.8669 27.8845H26.5654L29.9214 32.8144L32.8146 27.8845H37.3279L32.1665 36.1242L37.6751 44.2481H32.9766Z" fill="white"/>
+        <path d="M10.7513 27.8845V37.3277C10.7513 38.4078 10.9905 39.2333 11.4688 39.8043C11.9626 40.3752 12.6724 40.6606 13.5982 40.6606C14.524 40.6606 15.226 40.3752 15.7044 39.8043C16.1981 39.2333 16.445 38.4078 16.445 37.3277V27.8845H20.4028V37.3277C20.4028 38.8707 20.1019 40.1746 19.5002 41.2392C18.8984 42.2885 18.0729 43.0831 17.0236 43.6232C15.9898 44.1478 14.8171 44.4101 13.5056 44.4101C12.194 44.4101 11.0368 44.1478 10.0338 43.6232C9.03087 43.0986 8.24393 42.3039 7.67302 41.2392C7.10211 40.1746 6.81665 38.8707 6.81665 37.3277V27.8845H10.7513Z" fill="white"/>
+      </svg>
+    </a>
+
+    <a class="lang-switcher shrink-0" href={altLangLink} data-alt-lang={altLang}>
+      {lang === 'en' ? '🇺🇦 UKR' : '🇬🇧 ENG'}
+    </a>
+  </div>
+</div>
+
+<!-- Sticky bar — tablet / desktop (≥ sm) -->
 <div id="sticky-navbar" class="sticky-navbar hidden sm:flex" aria-hidden="true">
   <div class="container mx-auto flex justify-between items-start py-3 px-6">
     <div class="text-lg font-bold h-10 w-10">
