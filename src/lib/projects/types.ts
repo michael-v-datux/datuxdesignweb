@@ -27,6 +27,7 @@ export interface BlockContent {
   borderRadius?: MediaBorderRadius;
   borderRadiusCustom?: string;
   objectFit?: MediaObjectFit;
+  aspectRatio?: 'auto' | '16/9' | '4/3' | '1/1' | '3/4' | '9/16';
   shadow?: MediaShadow;
   columns?: Array<{ text?: { en?: string; uk?: string } }>;
 }

@@ -52,6 +52,9 @@ function renderTextBlock(content, lang) {
 
 function mediaFigureClasses(content) {
   const classes = ['project-block__media'];
+  if (['16/9', '4/3', '1/1', '3/4', '9/16'].includes(content.aspectRatio)) {
+    classes.push(`project-block__media--ratio-${content.aspectRatio.replace('/', '-')}`);
+  }
   const radius = content.borderRadius || 'md';
   if (radius && radius !== 'md' && radius !== 'custom') {
     classes.push(`project-block__media--radius-${radius}`);

@@ -176,6 +176,18 @@
       border-radius: 9999px;
     }
 
+    @each $name, $ratio in ('16-9': '16 / 9', '4-3': '4 / 3', '1-1': '1 / 1', '3-4': '3 / 4', '9-16': '9 / 16') {
+      &--ratio-#{$name} {
+        aspect-ratio: #{$ratio};
+        background: #f8f8fa;
+        .project-block__image,
+        .project-block__video {
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
     &--fit-contain {
       .project-block__image,
       .project-block__video {

@@ -73,11 +73,13 @@ function mediaStyleFromForm(form) {
   const borderRadius = form.querySelector('[name="border_radius"]')?.value || 'md';
   const borderRadiusCustom = form.querySelector('[name="border_radius_custom"]')?.value?.trim() || '';
   const objectFit = form.querySelector('[name="object_fit"]')?.value || 'cover';
+  const aspectRatio = form.querySelector('[name="aspect_ratio"]')?.value || 'auto';
   const shadow = form.querySelector('[name="shadow"]')?.value || 'md';
   return {
     borderRadius,
     borderRadiusCustom: borderRadius === 'custom' ? borderRadiusCustom : undefined,
     objectFit,
+    aspectRatio,
     shadow,
   };
 }
@@ -208,6 +210,8 @@ function fillBlockForm(form, block) {
   if (radiusEl) radiusEl.value = content.borderRadius || 'md';
   const radiusCustomEl = form.querySelector('[name="border_radius_custom"]');
   if (radiusCustomEl) radiusCustomEl.value = content.borderRadiusCustom || '';
+  const ratioEl = form.querySelector('[name="aspect_ratio"]');
+  if (ratioEl) ratioEl.value = content.aspectRatio || 'auto';
   const fitEl = form.querySelector('[name="object_fit"]');
   if (fitEl) fitEl.value = content.objectFit || 'cover';
   const shadowEl = form.querySelector('[name="shadow"]');

@@ -27,10 +27,21 @@
 
 <div class="admin-form__field admin-form__field--inline" data-field-media-style>
   <div>
+    <label class="admin-form__label">Frame proportions</label>
+    <select name="aspect_ratio" class="admin-input">
+      <option value="auto" selected>Original (no crop)</option>
+      <option value="16/9">Landscape · 16:9</option>
+      <option value="4/3">Landscape · 4:3</option>
+      <option value="1/1">Square · 1:1</option>
+      <option value="3/4">Portrait · 3:4</option>
+      <option value="9/16">Portrait · 9:16</option>
+    </select>
+  </div>
+  <div>
     <label class="admin-form__label">Image fit</label>
     <select name="object_fit" class="admin-input">
-      <option value="cover" selected>Cover (crop to fill)</option>
-      <option value="contain">Contain (letterbox)</option>
+      <option value="cover" selected>Cover (fill frame)</option>
+      <option value="contain">Contain (show full image)</option>
     </select>
   </div>
   <div>

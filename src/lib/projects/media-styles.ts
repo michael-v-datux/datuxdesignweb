@@ -23,6 +23,9 @@ function safeCustomRadius(value: string | undefined): string | null {
 
 export function mediaStyleClasses(content: BlockContent): string[] {
   const classes: string[] = [];
+  if (['16/9', '4/3', '1/1', '3/4', '9/16'].includes(content.aspectRatio || '')) {
+    classes.push(`project-block__media--ratio-${content.aspectRatio!.replace('/', '-')}`);
+  }
   const radius = RADIUS_VALUES.includes(content.borderRadius as MediaBorderRadius)
     ? content.borderRadius
     : 'md';
