@@ -16,7 +16,7 @@ export default {
     code: "404",
     heading: "Off the grid",
     description: "This page doesn't exist. The link may be outdated, or the URL took a creative detour.",
-    backHome: "Back to Hello",
+    backHome: "Back to Homepage",
     viewPortfolio: "View portfolio",
   },
   navigation: {

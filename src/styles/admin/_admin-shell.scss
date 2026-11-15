@@ -1109,3 +1109,11 @@ input[type='file'].admin-file-input::file-selector-button {
 .admin-page--edit {
     padding-bottom: 0;
 }
+
+/* Keep the miniature preview inside its panel, even for full-width public rows. */
+.admin-edit-preview-panel__body .project-row--full-width {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}

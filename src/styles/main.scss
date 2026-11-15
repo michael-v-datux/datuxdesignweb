@@ -12,6 +12,7 @@
 @use './components/availability';
 @use './components/contacts';
 @use './components/not-found';
+@use './components/admin-link';
 @use './admin/admin';
 
 @tailwind base;

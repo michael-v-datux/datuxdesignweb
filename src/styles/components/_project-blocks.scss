@@ -27,7 +27,8 @@
   }
 }
 
-.project-block {
+.project-block,
+.project-column {
   width: 100%;
   min-width: 0;
 
@@ -111,21 +112,42 @@
 
   &__html {
     color: #444;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    overflow-wrap: anywhere;
 
-    :global(p) {
-      margin: 0 0 0.75rem;
+    h2, h3 {
+      color: #222;
+      font-weight: 650;
+      line-height: 1.25;
+      letter-spacing: -0.025em;
+      margin: 2rem 0 1rem;
     }
-
-    :global(h2),
-    :global(h3) {
-      margin: 0 0 0.5rem;
-      font-weight: 600;
-    }
-
-    :global(a) {
-      color: #4f46e5;
-      text-decoration: underline;
-    }
+    h2 { font-size: clamp(1.75rem, 2.5vw, 2.5rem); }
+    h3 { font-size: clamp(1.375rem, 1.8vw, 1.75rem); }
+    p { margin: 0 0 1.25rem; }
+    strong, b { font-weight: 700; }
+    em, i { font-style: italic; }
+    u { text-decoration: underline; }
+    a { color: #4f46e5; text-decoration: underline; text-underline-offset: 0.2em; }
+    ul, ol { margin: 0 0 1.25rem; padding-left: 1.5em; }
+    ul { list-style: disc; }
+    ol { list-style: decimal; }
+    li { margin: 0.35rem 0; padding-left: 0.25em; }
+    // Quill 2 stores both list types inside ol, with data-list on each item.
+    ol:has(> li[data-list]) { list-style: none; counter-reset: item; }
+    li[data-list] { position: relative; list-style: none; }
+    li[data-list] > .ql-ui { display: none; }
+    li[data-list="ordered"] { counter-increment: item; }
+    li[data-list]::before { position: absolute; right: 100%; margin-right: 0.5em; }
+    li[data-list="ordered"]::before { content: counter(item) "."; }
+    li[data-list="bullet"]::before { content: "•"; }
+    .ql-align-center { text-align: center; }
+    .ql-align-right { text-align: right; }
+    .ql-align-justify { text-align: justify; }
+    blockquote { border-left: 3px solid #c4b5fd; padding-left: 1.25rem; margin: 1.5rem 0; }
+    > :first-child { margin-top: 0; }
+    > :last-child { margin-bottom: 0; }
   }
 
   &__media {
@@ -158,7 +180,6 @@
       .project-block__image,
       .project-block__video {
         object-fit: contain;
-        max-height: 70vh;
       }
     }
 
@@ -181,5 +202,23 @@
     width: 100%;
     height: auto;
     object-fit: cover;
+  }
+}
+
+.project-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.project-column > .project-block { flex: 0 0 auto; max-width: 100%; }
+
+// Stack every fractional layout on phones, including legacy packed rows.
+@media (max-width: 767px) {
+  .project-row { flex-direction: column; flex-wrap: nowrap; }
+  .project-row > .project-column,
+  .project-row > .project-block {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 100%;
   }
 }
