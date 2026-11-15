@@ -1,5 +1,5 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
-export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal', 'dialogue', 'system'];
+export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal', 'dialogue', 'system', 'workbench'];
 export function normalizeCaseTheme(value) { return CASE_THEMES.includes(value) ? value : 'classic'; }
 export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin', 'conversation', 'devices', 'system-index', 'system-foundations', 'system-detail', 'system-library', 'system-application'];
 export const MEDIA_FRAMES = ['none', 'browser', 'canvas', 'paper'];

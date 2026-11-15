@@ -14,7 +14,7 @@ const frame = normalizeMediaFrame(content.frame);
     {frame === 'browser' && <div class="case-browser-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>}
   {video ? (
     <div class:list={classes} {style}>
-      <video src={content.url} class="project-block__video" controls={!content.autoplay} autoplay={content.autoplay} loop={content.loop} muted={content.muted ?? true} playsinline />
+      <video src={content.url} poster={content.poster} width={content.width} height={content.height} preload="metadata" class="project-block__video" controls={!content.autoplay} autoplay={content.autoplay} loop={content.loop} muted={content.muted ?? true} playsinline />
     </div>
   ) : (
     <button type="button" class:list={[...classes, 'project-block__image-button']} {style} data-case-image data-image-src={content.url} data-image-caption={caption || content.alt || ''} aria-label={lang === 'uk' ? 'Збільшити зображення' : 'Enlarge image'}>

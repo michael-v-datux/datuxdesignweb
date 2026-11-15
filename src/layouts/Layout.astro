@@ -98,7 +98,7 @@ const footerLinks = [
         </div>
 
         <div class="w-full md:w-3/5 text-center">
-          {Astro.params.slug === 'design-system' ? (lang === 'uk' ? 'Приватний перегляд портфоліо. Права на продукти й пов’язані матеріали залишаються за відповідними власниками. Матеріали не призначені для подальшого поширення.' : 'Private portfolio review. Product and related material rights remain with their respective owners. Materials are not intended for redistribution.') : translations.footer.copyright}
+          {['design-system', 'master-data-management-solutions'].includes(Astro.params.slug || '') ? (lang === 'uk' ? 'Приватний перегляд портфоліо. Права на продукти й пов’язані матеріали залишаються за відповідними власниками. Матеріали не призначені для подальшого поширення.' : 'Private portfolio review. Product and related material rights remain with their respective owners. Materials are not intended for redistribution.') : translations.footer.copyright}
         </div>
 
         <div class="w-full md:w-1/5 text-center md:text-right flex justify-center md:justify-end items-center gap-1 mb-4 md:mb-0 mt-4 md:mt-0">

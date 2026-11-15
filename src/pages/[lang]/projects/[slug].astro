@@ -113,8 +113,8 @@ if (!notFound && projectData) {
         <div id="project-password-container">
           <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
             <h1 class="text-2xl font-semibold mb-4">{translations.protectedProjects.title}</h1>
-            <p class="mb-10">{slug === 'design-system' ? (lang === 'uk' ? 'Proximity Design System · приватний перегляд матеріалів' : 'Proximity Design System · private portfolio review') : translations.protectedProjects.subtitle}</p>
-            {slug === 'design-system' && <p class="case-private-note">{lang === 'uk' ? 'Цей кейс поширюється з обмеженим доступом, поки статус дозволу на публікацію матеріалів не уточнено. Будь ласка, не копіюйте, не публікуйте й не передавайте матеріали або пароль іншим.' : 'This case is shared with restricted access while publication permissions are being clarified. Please do not copy, publish or redistribute the materials or share the access password.'}</p>}
+            <p class="mb-10">{projectData?.private_materials ? (lang === 'uk' ? `${project.title} · приватний перегляд матеріалів` : `${project.title} · private portfolio review`) : translations.protectedProjects.subtitle}</p>
+            {projectData?.private_materials && <p class="case-private-note">{lang === 'uk' ? 'Цей кейс поширюється з обмеженим доступом, поки статус дозволу на публікацію матеріалів не уточнено. Будь ласка, не копіюйте, не публікуйте й не передавайте матеріали або пароль іншим.' : 'This case is shared with restricted access while publication permissions are being clarified. Please do not copy, publish or redistribute the materials or share the access password.'}</p>}
 
             <div class="relative w-full max-w-xs">
               <input
@@ -137,12 +137,12 @@ if (!notFound && projectData) {
             </div>
 
             <div id="terms-block" class="bg-neutral-100 p-4 rounded-xl text-left w-full max-w-xs">
-              <p class="text-xs text-neutral-500 mb-3">{slug === 'design-system' ? (lang === 'uk' ? 'Матеріали надані для приватного перегляду портфоліо. Права на продукти й пов’язані матеріали залишаються за відповідними власниками.' : 'Materials are provided for private portfolio review. Product and related material rights remain with their respective owners.') : translations.protectedProjects.termsText}</p>
+              <p class="text-xs text-neutral-500 mb-3">{projectData?.private_materials ? (lang === 'uk' ? 'Матеріали надані для приватного перегляду портфоліо. Права на продукти й пов’язані матеріали залишаються за відповідними власниками.' : 'Materials are provided for private portfolio review. Product and related material rights remain with their respective owners.') : translations.protectedProjects.termsText}</p>
               <div class="flex flex-col items-start gap-1">
                 <div class="flex items-center gap-2">
                   <input type="checkbox" id="accept-terms" class="h-4 w-4" required />
                   <label for="accept-terms" class="text-sm text-neutral-700">
-                    {slug === 'design-system' ? (lang === 'uk' ? 'Розумію приватний характер цих матеріалів.' : 'I understand these materials are shared privately.') : translations.protectedProjects.checkboxLabel}
+                    {projectData?.private_materials ? (lang === 'uk' ? 'Розумію приватний характер цих матеріалів.' : 'I understand these materials are shared privately.') : translations.protectedProjects.checkboxLabel}
                   </label>
                 </div>
               </div>
@@ -163,7 +163,7 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            {projectData?.case_theme === 'system' ? null : projectData?.case_theme === 'dialogue' ? (
+            {['system', 'workbench'].includes(projectData?.case_theme) ? null : projectData?.case_theme === 'dialogue' ? (
               <div class="case-hero__dialogue" aria-hidden="true"><span><i></i><i></i><i></i></span><span>↗</span></div>
             ) : projectData?.case_theme === 'journal' ? null : projectData?.case_theme === 'playful' ? (
               <div class="case-hero__quest" aria-hidden="true"><i></i><span></span><b>↗</b></div>
@@ -176,7 +176,7 @@ if (!notFound && projectData) {
               <span aria-hidden="true">←</span> {lang === 'uk' ? 'Усі проєкти' : 'All projects'}
             </a>
             <p class="case-hero__eyebrow">{projectData?.[`category_${lang}`] || projectData?.category_en || (lang === 'uk' ? 'Вибраний проєкт' : 'Selected work')}</p>
-            <h1 class="case-hero__title">{project.title}</h1>
+            <h1 class="case-hero__title">{project.title.endsWith('™') ? <>{project.title.slice(0, -1)}<sup>™</sup></> : project.title}</h1>
             {project.subtitle && <p class="case-hero__description">{project.subtitle}</p>}
             <div class="case-hero__rule" aria-hidden="true"></div>
           </header>
