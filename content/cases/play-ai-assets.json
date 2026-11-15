@@ -1,0 +1,58 @@
+{
+  "fileKey": "wgp3xCvU5o25DSu2aX3YRD",
+  "section": {
+    "id": "3:3421",
+    "name": "second itteration"
+  },
+  "assets": [
+    {
+      "file": "v2-desktop-chat.webp",
+      "nodeId": "3:4244",
+      "name": "Chat - Desktop"
+    },
+    {
+      "file": "v2-catalogue.webp",
+      "nodeId": "3:4837",
+      "name": "Card BG - Second"
+    },
+    {
+      "file": "v2-account-panels.webp",
+      "nodeId": "3:5034",
+      "name": "Desktop - pop-up"
+    },
+    {
+      "file": "v2-mobile-home.webp",
+      "nodeId": "3:3788",
+      "name": "Homepage V.2",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 824
+      }
+    },
+    {
+      "file": "v2-mobile-chat.webp",
+      "nodeId": "3:4098",
+      "name": "Chat - 16 messages alternate",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 746
+      }
+    },
+    {
+      "file": "v2-mobile-login.webp",
+      "nodeId": "3:5662",
+      "name": "Login",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 824
+      }
+    }
+  ],
+  "exportMethod": "Figma native PNG export; mobile content exported with temporary slices, removed after export. Lossless WebP encoding without resizing or retouching."
+}

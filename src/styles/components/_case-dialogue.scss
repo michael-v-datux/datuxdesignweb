@@ -31,7 +31,6 @@
   .case-section--margin > .project-row > .project-column:first-child { border-color: #ff99796b; }
   .case-section--states { padding: clamp(1.25rem, 4vw, 3rem); border: 1px solid #ffffff1c; border-radius: 1.5rem; background: linear-gradient(135deg, #191b2d, #10131f); }
   .case-section--states > .case-section__index { background: #ff9979; color: #171521; border-color: #ff9979; box-shadow: none; }
-  .case-section--devices .project-block__image { aspect-ratio: 430 / 932; }
   .case-states__tabs { gap: 0.75rem; }
   .case-states__tabs button { color: #d6d9ed; border-color: #ffffff38; background: transparent; border-radius: 999px; }
   .case-states__tabs button[aria-selected='true'] { background: var(--dialogue-coral); color: #171521; border-color: var(--dialogue-coral); }
@@ -89,3 +88,6 @@
 
 .case-theme--dialogue .case-section--conversation > .project-row > .project-column { background: #202740; border-color: #ffffff1a; }
 .case-theme--dialogue .case-section--conversation > .project-row > .project-column:nth-child(2) { background: #2a201f; border-color: #ff997933; }
+
+.case-theme--dialogue .case-section--showcase { padding: clamp(1.25rem, 4vw, 3rem); background: #191c2c; border: 1px solid #ffffff1c; border-radius: 1.5rem; }
+.case-theme--dialogue .case-section--showcase::before, .case-theme--dialogue .case-section--showcase::after { display: none; }

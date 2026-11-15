@@ -3417,9 +3417,6 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   border-color: #ff9979;
   box-shadow: none;
 }
-.case-theme--dialogue .case-section--devices .project-block__image {
-  aspect-ratio: 430/932;
-}
 .case-theme--dialogue .case-states__tabs {
   gap: 0.75rem;
 }
@@ -3647,6 +3644,17 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--dialogue .case-section--conversation > .project-row > .project-column:nth-child(2) {
   background: #2a201f;
   border-color: rgba(255, 153, 121, 0.2);
+}
+
+.case-theme--dialogue .case-section--showcase {
+  padding: clamp(1.25rem, 4vw, 3rem);
+  background: #191c2c;
+  border: 1px solid rgba(255, 255, 255, 0.1098039216);
+  border-radius: 1.5rem;
+}
+
+.case-theme--dialogue .case-section--showcase::before, .case-theme--dialogue .case-section--showcase::after {
+  display: none;
 }
 
 .hero{
