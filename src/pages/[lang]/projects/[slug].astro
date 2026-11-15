@@ -120,6 +120,8 @@ if (!notFound && projectData) {
               <input
                 type="password"
                 name="password"
+                autocomplete="current-password"
+                aria-label={translations.protectedProjects.passwordPlaceholder}
                 placeholder={translations.protectedProjects.passwordPlaceholder}
                 class="border border-neutral-300 rounded px-4 py-2 w-full pr-10"
                 required
@@ -135,12 +137,12 @@ if (!notFound && projectData) {
             </div>
 
             <div id="terms-block" class="bg-neutral-100 p-4 rounded-xl text-left w-full max-w-xs">
-              <p class="text-xs text-neutral-500 mb-3">{translations.protectedProjects.termsText}</p>
+              <p class="text-xs text-neutral-500 mb-3">{slug === 'design-system' ? (lang === 'uk' ? 'Матеріали надані для приватного перегляду портфоліо. Права на продукти й пов’язані матеріали залишаються за відповідними власниками.' : 'Materials are provided for private portfolio review. Product and related material rights remain with their respective owners.') : translations.protectedProjects.termsText}</p>
               <div class="flex flex-col items-start gap-1">
                 <div class="flex items-center gap-2">
                   <input type="checkbox" id="accept-terms" class="h-4 w-4" required />
                   <label for="accept-terms" class="text-sm text-neutral-700">
-                    {translations.protectedProjects.checkboxLabel}
+                    {slug === 'design-system' ? (lang === 'uk' ? 'Розумію приватний характер цих матеріалів.' : 'I understand these materials are shared privately.') : translations.protectedProjects.checkboxLabel}
                   </label>
                 </div>
               </div>
