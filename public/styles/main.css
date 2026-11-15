@@ -3561,7 +3561,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   color: #b6bacd;
 }
 
-.case-theme--dialogue.admin-preview {
+.case-theme--dialogue[data-project-preview] {
   background: #0e101b;
   padding: 1.25rem;
 }

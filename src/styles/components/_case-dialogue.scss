@@ -65,7 +65,7 @@
 .case-theme--dialogue .admin-preview__hero { padding: 1.5rem; background: linear-gradient(135deg, #242b48, #251d22); border: 1px solid #ffffff20; border-radius: 1rem; margin-bottom: 2rem; }
 .case-theme--dialogue .admin-preview__title { color: #f4f2fa; }
 .case-theme--dialogue .admin-preview__desc, .case-theme--dialogue .admin-preview__category, .case-theme--dialogue .admin-preview__states-hint { color: #b6bacd; }
-.case-theme--dialogue.admin-preview { background: #0e101b; padding: 1.25rem; }
+.case-theme--dialogue[data-project-preview] { background: #0e101b; padding: 1.25rem; }
 .admin-preview-blocks .case-section--conversation > .project-row, .admin-preview-blocks .case-section--devices > .project-row { grid-template-columns: 1fr; }
 .admin-preview-blocks .case-section--conversation > .project-row > .project-column:nth-child(2) { margin-top: 0; }
 .admin-preview-blocks .case-section--devices > .project-row > .project-column:nth-child(2) { padding-top: 0; }
