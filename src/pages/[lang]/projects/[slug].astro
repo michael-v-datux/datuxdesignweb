@@ -117,7 +117,7 @@ if (!notFound && projectData) {
       </a>
     </section>
   ) : (
-    <section id="project-page" class="case-study container mx-auto px-6 max-w-screen-xl">
+    <section id="project-page" class:list={["case-study container mx-auto px-6 max-w-screen-xl", projectData?.case_theme === "fluid" && "case-theme--fluid"]}>
       {project.isProtected && !unlocked ? (
         <div id="project-password-container">
           <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
@@ -169,7 +169,11 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            <div class="case-hero__art" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+            {projectData?.case_theme === 'fluid' ? (
+              <div class="case-hero__fluid" aria-hidden="true"><span></span><span></span><span></span><i></i><i></i></div>
+            ) : (
+              <div class="case-hero__art" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+            )}
             <a class="case-hero__back" href={`/${lang}/#selected-projects`}>
               <span aria-hidden="true">←</span> {lang === 'uk' ? 'Усі проєкти' : 'All projects'}
             </a>

@@ -1,4 +1,5 @@
 ---
+import CaseThemeField from "../../../../components/admin/CaseThemeField.astro";
 import AdminLayout from "../../../../layouts/AdminLayout.astro";
 import AdminPageHeader from "../../../../components/admin/AdminPageHeader.astro";
 import BlockMediaFields from "../../../../components/admin/BlockMediaFields.astro";
@@ -86,6 +87,8 @@ const editState = JSON.stringify({
 
     <div class="admin-card__body">
       <form class="admin-form" data-project-form>
+        <CaseThemeField value={project?.case_theme} />
+
         <div class="admin-form__field admin-form__field--inline">
           <div>
             <label class="admin-form__label">Slug</label>
@@ -427,6 +430,6 @@ const editState = JSON.stringify({
   </div>
 
   <script id="project-edit-state" type="application/json" set:html={editState} />
-  <script type="module" src="/scripts/admin/project-edit.js?v=20261115-art1"></script>
+  <script type="module" src="/scripts/admin/project-edit.js?v=20261115-fluid1"></script>
 </AdminLayout>
 

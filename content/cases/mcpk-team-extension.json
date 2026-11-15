@@ -1,0 +1,529 @@
+{
+  "source": "https://www.behance.net/gallery/83201643/Design-of-coworking-company-website",
+  "project": {
+    "id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+    "slug": "mcpk-team-extension",
+    "title_en": "MCPK. — Team Extension",
+    "title_uk": "MCPK. — Розширення IT-команд",
+    "description_en": "A one-page website redesign that brings clarity to team extension through fluid shapes, bold colour and illustration-led storytelling.",
+    "description_uk": "Редизайн односторінкового сайту про розширення IT-команд: зрозуміла структура, плавні форми, виразний колір та історія через ілюстрації.",
+    "category_en": "Website redesign · 2019",
+    "category_uk": "Редизайн сайту · 2019",
+    "case_theme": "fluid",
+    "thumbnail_url": "/images/projects/mcpk/01-hero.jpg",
+    "cover_url": null,
+    "is_protected": false,
+    "is_published": false,
+    "status": "draft"
+  },
+  "rows": [
+    {
+      "id": "7a9e4457-eb27-48f2-b4f5-8360701d28c4",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 0,
+      "full_width": false,
+      "presentation": {
+        "variant": "panorama",
+        "accent": "violet",
+        "label_en": "",
+        "label_uk": ""
+      }
+    },
+    {
+      "id": "b24fb5ea-c6bb-4628-a883-8eab699654f2",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 1,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "violet",
+        "label_en": "The brief",
+        "label_uk": "Задача"
+      }
+    },
+    {
+      "id": "5494f3c5-d7a1-4f99-9192-99ff6c3b6424",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 2,
+      "full_width": false,
+      "presentation": {
+        "variant": "brand",
+        "accent": "violet",
+        "label_en": "The design direction",
+        "label_uk": "Дизайн-напрям"
+      }
+    },
+    {
+      "id": "7a6c7ac3-9d5c-42c1-ae4a-006b5a2caf23",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 3,
+      "full_width": false,
+      "presentation": {
+        "variant": "flow",
+        "accent": "violet",
+        "label_en": "Making the service tangible",
+        "label_uk": "Пояснення сервісу"
+      }
+    },
+    {
+      "id": "50a5853f-f110-4f82-8970-617422616e05",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 4,
+      "full_width": false,
+      "presentation": {
+        "variant": "statement",
+        "accent": "violet",
+        "label_en": "Composition",
+        "label_uk": "Композиція"
+      }
+    },
+    {
+      "id": "98faa787-b321-4117-a65b-46ca09b1eadd",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 5,
+      "full_width": false,
+      "presentation": {
+        "variant": "panorama",
+        "accent": "violet",
+        "label_en": "The service offering",
+        "label_uk": "Пропозиція сервісу"
+      }
+    },
+    {
+      "id": "71c0e209-38f2-4d0d-ad91-343408e991cc",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 6,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "violet",
+        "label_en": "The value proposition",
+        "label_uk": "Цінність пропозиції"
+      }
+    },
+    {
+      "id": "e7358a64-1fe7-475e-a107-09b4510dd7ae",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 7,
+      "full_width": false,
+      "presentation": {
+        "variant": "gallery",
+        "accent": "violet",
+        "label_en": "Supporting the story",
+        "label_uk": "Доповнення історії"
+      }
+    },
+    {
+      "id": "1e901126-5a67-4ff9-b0c1-bc702ff8ea57",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 8,
+      "full_width": false,
+      "presentation": {
+        "variant": "flow",
+        "accent": "violet",
+        "label_en": "The final step",
+        "label_uk": "Завершальний крок"
+      }
+    },
+    {
+      "id": "8637dadb-5b08-440b-853f-9c7c0b78be11",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "position": 9,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "violet",
+        "label_en": "",
+        "label_uk": ""
+      }
+    }
+  ],
+  "columns": [
+    {
+      "id": "12380e09-01ca-4756-85f7-0d554cd2f358",
+      "row_id": "7a9e4457-eb27-48f2-b4f5-8360701d28c4",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "8f083af2-6d91-4f3e-9f3c-302ce3136731",
+      "row_id": "b24fb5ea-c6bb-4628-a883-8eab699654f2",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "6a4bedbb-fde3-42bb-bc13-9e22c7c4c82b",
+      "row_id": "b24fb5ea-c6bb-4628-a883-8eab699654f2",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "17f37989-d724-482e-aa85-91744c3b139f",
+      "row_id": "5494f3c5-d7a1-4f99-9192-99ff6c3b6424",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "af8d3459-99a8-4f69-94b2-9e01022aa6b0",
+      "row_id": "5494f3c5-d7a1-4f99-9192-99ff6c3b6424",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "6739cf73-ec63-4849-a4a3-e0f6137402e6",
+      "row_id": "7a6c7ac3-9d5c-42c1-ae4a-006b5a2caf23",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "c3922bfd-1beb-485d-ae38-4efa16915b6b",
+      "row_id": "7a6c7ac3-9d5c-42c1-ae4a-006b5a2caf23",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "dbace168-2c18-4ed4-aff3-861a9e402fe1",
+      "row_id": "50a5853f-f110-4f82-8970-617422616e05",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "7540b924-9887-4a17-bc65-6bcba00bf359",
+      "row_id": "98faa787-b321-4117-a65b-46ca09b1eadd",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "f3d11b3a-a030-486e-8f38-a2af080b4e5f",
+      "row_id": "71c0e209-38f2-4d0d-ad91-343408e991cc",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "bc532f1a-19f1-4b60-940f-0be28abfb53d",
+      "row_id": "71c0e209-38f2-4d0d-ad91-343408e991cc",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "b8504abb-9f03-47f8-b0ed-51bd3e338203",
+      "row_id": "e7358a64-1fe7-475e-a107-09b4510dd7ae",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "722f25f3-38ea-4ed2-a92e-47929176ccc4",
+      "row_id": "e7358a64-1fe7-475e-a107-09b4510dd7ae",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "29055ec1-8037-4c07-9f7c-bf8a1ff1d5e3",
+      "row_id": "1e901126-5a67-4ff9-b0c1-bc702ff8ea57",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "d1143c45-0b23-413f-b57b-c0df6c45e3a4",
+      "row_id": "1e901126-5a67-4ff9-b0c1-bc702ff8ea57",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "547e0bc1-e1e7-4f33-ae40-8b7381e611d6",
+      "row_id": "8637dadb-5b08-440b-853f-9c7c0b78be11",
+      "position": 0,
+      "span": "1/1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/01-hero.jpg",
+        "alt": "MCPK desktop hero with violet and pink waves and the team extension proposition",
+        "caption_en": "The opening screen · original desktop concept",
+        "caption_uk": "Перший екран · оригінальний десктопний концепт",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "692eb3f0-23a4-4507-86aa-d0144cebb61f",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "12380e09-01ca-4756-85f7-0d554cd2f358",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A clearer way to introduce team extension.</h2><p>MCPK presented a German-led service connecting companies with IT talent in Eastern Europe, alongside workspace and administrative support. The redesign needed to make that offer easier to understand on a single page.</p>",
+        "text_en": "<h2>A clearer way to introduce team extension.</h2><p>MCPK presented a German-led service connecting companies with IT talent in Eastern Europe, alongside workspace and administrative support. The redesign needed to make that offer easier to understand on a single page.</p>",
+        "text_uk": "<h2>Зрозуміло представити розширення IT-команд.</h2><p>MCPK представляв сервіс із німецьким управлінням, який поєднував компанії з IT-фахівцями зі Східної Європи та пропонував робочий простір і адміністративну підтримку. Редизайн мав зрозуміліше пояснити цю пропозицію на одній сторінці.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "018f07bf-0e03-41a3-b806-c2964cc50af8",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "8f083af2-6d91-4f3e-9f3c-302ce3136731",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>My contribution</h2><p>I reworked the page hierarchy, shortened the copy and developed the UI direction for a desktop website concept. Waves, gradients and the spirit of the earlier version remained; illustrations and concise explanations took a more prominent role.</p>",
+        "text_en": "<h2>My contribution</h2><p>I reworked the page hierarchy, shortened the copy and developed the UI direction for a desktop website concept. Waves, gradients and the spirit of the earlier version remained; illustrations and concise explanations took a more prominent role.</p>",
+        "text_uk": "<h2>Мій внесок</h2><p>Перепрацював ієрархію сторінки, скоротив тексти та розвинув UI-напрям десктопного концепту. Хвилі, градієнти й характер попередньої версії залишилися, а ілюстрації та короткі пояснення отримали більше уваги.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "c719bdd9-3bff-4c39-ac3c-74855a3f8191",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "6a4bedbb-fde3-42bb-bc13-9e22c7c4c82b",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/logo-white.svg",
+        "alt": "MCPK white wordmark",
+        "caption_en": "",
+        "caption_uk": "",
+        "frame": "none",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "53ab5ab9-49f0-459f-a920-1be7b752fa74",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "17f37989-d724-482e-aa85-91744c3b139f",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Less copy.<br>More character.</h2><p>The visual identity carries the first impression: deep violet, soft pink gradients and generous, flowing shapes. Shorter passages then give the offer room to breathe.</p>",
+        "text_en": "<h2>Less copy.<br>More character.</h2><p>The visual identity carries the first impression: deep violet, soft pink gradients and generous, flowing shapes. Shorter passages then give the offer room to breathe.</p>",
+        "text_uk": "<h2>Менше тексту.<br>Більше характеру.</h2><p>Перше враження створюють глибокий фіолетовий, ніжні рожеві градієнти й великі плавні форми. Коротші тексти дають пропозиції більше простору.</p>",
+        "textStyle": "lead",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "424bd995-2afe-4e19-89b4-e65bdb335a6a",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "af8d3459-99a8-4f69-94b2-9e01022aa6b0",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Show how the partnership works.</h2><p>A paired set of illustrated cards separates the client’s responsibilities from MCPK’s. The client defines requirements, chooses people and manages the project; MCPK handles candidate search, workspace and administration.</p><p>The result is a visual explanation of the service model, rather than another long introduction.</p>",
+        "text_en": "<h2>Show how the partnership works.</h2><p>A paired set of illustrated cards separates the client’s responsibilities from MCPK’s. The client defines requirements, chooses people and manages the project; MCPK handles candidate search, workspace and administration.</p><p>The result is a visual explanation of the service model, rather than another long introduction.</p>",
+        "text_uk": "<h2>Показати, як працює співпраця.</h2><p>Парні ілюстровані картки розділяють відповідальність клієнта й MCPK. Клієнт визначає вимоги, обирає людей та керує проєктом; MCPK бере на себе пошук кандидатів, робочий простір і адміністративні питання.</p><p>Так модель сервісу отримує наочне пояснення замість ще одного довгого вступу.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "ac15c5a5-7e75-4b75-8a49-674736c16614",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "6739cf73-ec63-4849-a4a3-e0f6137402e6",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/03-process.jpg",
+        "alt": "Six illustrated cards separating client responsibilities from MCPK responsibilities",
+        "caption_en": "Two sides of the partnership, explained together.",
+        "caption_uk": "Дві сторони співпраці в одному поясненні.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "c880b1a6-7ce5-4713-a386-c47a29980472",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "c3922bfd-1beb-485d-ae38-4efa16915b6b",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A service page with its own rhythm.</h2><p>Flowing colour fields introduce the brand. White space gives the details room. Black-and-white illustrations connect the two.</p>",
+        "text_en": "<h2>A service page with its own rhythm.</h2><p>Flowing colour fields introduce the brand. White space gives the details room. Black-and-white illustrations connect the two.</p>",
+        "text_uk": "<h2>Сторінка послуг із власним ритмом.</h2><p>Плавні кольорові площини представляють бренд. Білий простір дає місце деталям. Чорно-білі ілюстрації поєднують ці два настрої.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "a1ddbb6a-eccb-49a3-a770-6d2cf082dbb0",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "dbace168-2c18-4ed4-aff3-861a9e402fe1",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/05-services.jpg",
+        "alt": "MCPK services arranged as staggered cards alongside a large black and white illustration",
+        "caption_en": "Staggered service cards and an oversized illustration give the offer a distinct silhouette.",
+        "caption_uk": "Картки зі зміщенням і велика ілюстрація створюють виразну композицію блоку послуг.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "976c6004-ccb6-4c78-a9d8-8136767e3653",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "7540b924-9887-4a17-bc65-6bcba00bf359",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Make the reasons to choose visible.</h2><p>A separate benefits section groups the offer around choice, administrative support and pricing. Simple line icons and short descriptions make these points easy to scan before moving into the detailed services.</p>",
+        "text_en": "<h2>Make the reasons to choose visible.</h2><p>A separate benefits section groups the offer around choice, administrative support and pricing. Simple line icons and short descriptions make these points easy to scan before moving into the detailed services.</p>",
+        "text_uk": "<h2>Зробити аргументи вибору помітними.</h2><p>Окрема секція переваг групує пропозицію навколо вибору, адміністративної підтримки та ціни. Прості лінійні іконки й короткі описи допомагають швидко переглянути ці аргументи перед деталями послуг.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b0912ee3-6a4b-4ee5-94f5-d074658361b0",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "f3d11b3a-a030-486e-8f38-a2af080b4e5f",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/04-benefits.jpg",
+        "alt": "Three benefit columns with line icons and short descriptions",
+        "caption_en": "Original benefits layout; pricing claims are part of the concept copy.",
+        "caption_uk": "Оригінальний блок переваг; цінові твердження є частиною тексту концепту.",
+        "frame": "canvas",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "8e774abd-3102-4545-8af5-de56f66e417b",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "bc532f1a-19f1-4b60-940f-0be28abfb53d",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/02-about.jpg",
+        "alt": "About section with a video placeholder and a meeting call to action",
+        "caption_en": "A place for the company introduction and a meeting CTA. The video is shown as a design placeholder.",
+        "caption_uk": "Знайомство з компанією та заклик домовитися про зустріч. Відео показане як елемент макета.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "eb4c22f5-2c9c-4779-8c88-e3d351ee88c6",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "b8504abb-9f03-47f8-b0ed-51bd3e338203",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/06-clients.jpg",
+        "alt": "Sample logo carousel from the original MCPK concept",
+        "caption_en": "Sample logos from the original concept, not verified client relationships.",
+        "caption_uk": "Приклади логотипів з оригінального концепту, а не підтверджені клієнтські зв’язки.",
+        "frame": "canvas",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "f2842e58-81f7-43ba-bb7e-d6b8927ffa40",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "722f25f3-38ea-4ed2-a92e-47929176ccc4",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>From interest to conversation.</h2><p>The page ends with a dark contact section: a short project enquiry on one side, direct contact details on the other. Its diagonal division continues the expressive composition while giving the final action a quieter setting.</p>",
+        "text_en": "<h2>From interest to conversation.</h2><p>The page ends with a dark contact section: a short project enquiry on one side, direct contact details on the other. Its diagonal division continues the expressive composition while giving the final action a quieter setting.</p>",
+        "text_uk": "<h2>Від інтересу до розмови.</h2><p>Сторінку завершує темний контактний блок: короткий запит про проєкт з одного боку та прямі контакти з іншого. Діагональний поділ продовжує виразну композицію й водночас створює спокійніше тло для фінальної дії.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b16f2a0c-f72d-48a4-bd08-6a98e4e4090a",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "29055ec1-8037-4c07-9f7c-bf8a1ff1d5e3",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/mcpk/07-contact.jpg",
+        "alt": "Dark contact section with an enquiry form and a diagonal divider",
+        "caption_en": "The contact section and footer of the desktop concept.",
+        "caption_uk": "Контактний блок і футер десктопного концепту.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "4236ea00-abe5-4faf-be98-df36ce228f07",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "d1143c45-0b23-413f-b57b-c0df6c45e3a4",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>About this work</h2><p>A desktop website concept from 2019. The screens preserve the original design copy and sample content. This case presents the design work; no implementation, user-testing findings or measured business outcomes are claimed.</p>",
+        "text_en": "<h2>About this work</h2><p>A desktop website concept from 2019. The screens preserve the original design copy and sample content. This case presents the design work; no implementation, user-testing findings or measured business outcomes are claimed.</p>",
+        "text_uk": "<h2>Про цю роботу</h2><p>Десктопний концепт сайту 2019 року. На екранах збережено оригінальні тексти й демонстраційне наповнення. Кейс представляє дизайн; реалізація, результати користувацького тестування та виміряні бізнес-результати не заявляються.</p>",
+        "textStyle": "callout",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "2e4810a0-765d-4ca1-9188-224df3c7a9a0",
+      "project_id": "4a59d52e-06bc-483f-aaf7-c81675ffe5c5",
+      "column_id": "547e0bc1-e1e7-4f33-ae40-8b7381e611d6",
+      "position": 0,
+      "layout": "1/1"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+---
+const { value = 'classic' } = Astro.props;
+---
+<div class="admin-form__field">
+  <label class="admin-form__label" for="case-theme">Case visual theme</label>
+  <select class="admin-input" id="case-theme" name="case_theme">
+    <option value="classic" selected={value !== 'fluid'}>Classic · geometric / editorial</option>
+    <option value="fluid" selected={value === 'fluid'}>Fluid · waves / expressive typography</option>
+  </select>
+  <p class="admin-help">Sets the hero and visual language. Section compositions remain individually editable.</p>
+</div>

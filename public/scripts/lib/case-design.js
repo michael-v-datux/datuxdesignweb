@@ -1,5 +1,5 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
-export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast'];
+export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama'];
 export const SECTION_ACCENTS = ['violet', 'mint', 'rose', 'amber'];
 export function normalizePresentation(value) {
   const p = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
@@ -21,6 +21,9 @@ export function sectionLabel(row, lang) {
   return lang === 'uk' ? p.label_uk || p.label_en : p.label_en || p.label_uk;
 }
 export const SECTION_TEMPLATES = [
+  { id: 'flow', title: 'Flowing story', detail: 'Soft contours · image + narrative', accent: 'violet' },
+  { id: 'brand', title: 'Brand interlude', detail: 'Gradient stage · logo + statement', accent: 'rose' },
+  { id: 'panorama', title: 'Panoramic visual', detail: 'Edge-to-edge artwork · generous scale', accent: 'violet' },
   { id: 'editorial', title: 'Editorial split', detail: 'Numbered story · text + visual', accent: 'violet' },
   { id: 'showcase', title: 'Visual stage', detail: 'Framed design on a geometric canvas', accent: 'mint' },
   { id: 'statement', title: 'Design statement', detail: 'Large typography · one key decision', accent: 'rose' },
@@ -40,8 +43,11 @@ export function makeSectionTemplate(id) {
   if (id === 'statement') columns = [{ span: '1/1', blocks: [text(
     '<h2>One clear design decision.</h2><p>Explain the insight, the choice you made, and why it matters.</p>',
     '<h2>Одне чітке дизайн-рішення.</h2><p>Опишіть інсайт, прийняте рішення та чому воно важливе.</p>', 'lead')] }];
-  else if (id === 'showcase') columns = [{ span: '1/1', blocks: [image()] }];
+  else if (id === 'showcase' || id === 'panorama') columns = [{ span: '1/1', blocks: [image()] }];
   else if (id === 'gallery') columns = [{ span: '1/2', blocks: [image()] }, { span: '1/2', blocks: [image('canvas')] }];
+  else if (id === 'brand') columns = [{ span: '1/2', blocks: [image('none')] }, { span: '1/2', blocks: [text(
+    '<h2>Give the brand a moment.</h2><p>Add a transparent logo and explain its visual character.</p>',
+    '<h2>Дайте бренду простір.</h2><p>Додайте логотип із прозорим тлом і розкажіть про його візуальний характер.</p>')] }];
   else columns = [{ span: '1/2', blocks: [text(
     '<h2>Tell the story behind the design.</h2><p>Add the context, your reasoning, and the decision this visual illustrates.</p>',
     '<h2>Розкажіть історію дизайн-рішення.</h2><p>Додайте контекст, аргументацію та рішення, яке ілюструє зображення.</p>')] },

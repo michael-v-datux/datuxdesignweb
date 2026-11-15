@@ -40,6 +40,7 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   } = payload || {};
 
   const update: Record<string, any> = {};
+  if (payload.case_theme !== undefined) update.case_theme = payload.case_theme === "fluid" ? "fluid" : "classic";
 
   if (slug !== undefined) update.slug = slug;
   if (title_en !== undefined) update.title_en = title_en;
@@ -92,3 +93,4 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     headers: { "Content-Type": "application/json" },
   });
 };
+

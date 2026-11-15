@@ -1,5 +1,5 @@
 import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
-import { sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261115-art1';
+import { sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261115-fluid1';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -187,6 +187,7 @@ export function renderProjectPreview(
   { blocks = [], layout = null, lang = 'en', meta = {}, interactive = false } = {}
 ) {
   if (!container) return;
+  container.classList.toggle('case-theme--fluid', meta.case_theme === 'fluid');
 
   const title = lang === 'uk' ? meta.title_uk || meta.title_en : meta.title_en || meta.title_uk;
   const description =

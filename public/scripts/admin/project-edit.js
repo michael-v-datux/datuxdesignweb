@@ -1,7 +1,7 @@
 import { showToast } from '/scripts/common/toast.js';
 import { adminFetch } from '/scripts/admin/api.js';
-import { renderProjectPreview } from '/scripts/admin/project-preview.js?v=20261115-art1';
-import { initLayoutBuilder } from '/scripts/admin/layout-builder.js?v=20261115-art1';
+import { renderProjectPreview } from '/scripts/admin/project-preview.js?v=20261115-fluid1';
+import { initLayoutBuilder } from '/scripts/admin/layout-builder.js?v=20261115-fluid1';
 import { initMediaGallery } from '/scripts/admin/media-gallery.js';
 import {
   mountRichTextInForm,
@@ -378,6 +378,7 @@ function initProjectForm(projectId) {
       description_uk: formData.get('description_uk') || null,
       thumbnail_url: formData.get('thumbnail_url') || null,
       cover_url: formData.get('cover_url') || null,
+      case_theme: formData.get('case_theme') === 'fluid' ? 'fluid' : 'classic',
       category_en: formData.get('category_en') || null,
       category_uk: formData.get('category_uk') || null,
       status,
@@ -563,6 +564,7 @@ function collectMetaFromForm(form) {
   if (!form) return {};
   const fd = new FormData(form);
   return {
+    case_theme: fd.get('case_theme') === 'fluid' ? 'fluid' : 'classic',
     title_en: fd.get('title_en')?.toString() ?? '',
     title_uk: fd.get('title_uk')?.toString() ?? '',
     description_en: fd.get('description_en')?.toString() ?? '',
@@ -613,6 +615,7 @@ function initLivePreview(state, onEditBlock) {
   });
 
   projectForm?.addEventListener('input', refresh);
+  projectForm?.addEventListener('change', refresh);
   refresh();
   return refresh;
 }
@@ -668,7 +671,7 @@ function init() {
     }
     setLayout(await res.json());
     if (layoutBuilderEl) {
-      const { renderLayoutBuilder } = await import('/scripts/admin/layout-builder.js?v=20261115-art1');
+      const { renderLayoutBuilder } = await import('/scripts/admin/layout-builder.js?v=20261115-fluid1');
       renderLayoutBuilder(layoutBuilderEl, state.layout);
     }
     refreshPreview?.();
