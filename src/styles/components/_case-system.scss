@@ -114,3 +114,13 @@
 .case-theme--system .project-row--single .project-block--text-body { max-width: none; }
 .case-theme--system .project-block__html > p { max-width: 76ch; }
 @media (min-width:768px) { .case-theme--system .case-section--editorial > .project-row > .project-column:first-child { position: sticky; top: 7rem; } }
+.case-theme--system[data-project-preview] { background: #f6f7fa; padding: 1.25rem; }
+.case-theme--system .admin-preview__hero { padding: 1.5rem; background: #eaf0f8; border: 1px solid #cedaeb; border-radius: 1rem; }
+.case-theme--system .admin-preview-blocks .case-section--editorial > .project-row,
+.case-theme--system .admin-preview-blocks .case-section--system-library > .project-row,
+.case-theme--system .admin-preview-blocks .system-process,
+.case-theme--system .admin-preview-blocks .system-doc-grid,
+.case-theme--system .admin-preview-blocks .system-apps,
+.case-theme--system .admin-preview-blocks .system-type { grid-template-columns: 1fr; }
+.case-theme--system .admin-preview-blocks .system-meta { grid-template-columns: 1fr 1fr; }
+.case-theme--system .admin-preview-blocks .case-section--editorial > .project-row > .project-column:first-child { position: static; }

@@ -1,8 +1,8 @@
 import { showToast } from '/scripts/common/toast.js';
 import { adminFetch } from '/scripts/admin/api.js';
-import { normalizeCaseTheme } from '/scripts/lib/case-design.js?v=20261115-dialogue1';
-import { renderProjectPreview } from '/scripts/admin/project-preview.js?v=20261115-dialogue1';
-import { initLayoutBuilder } from '/scripts/admin/layout-builder.js?v=20261115-dialogue1';
+import { normalizeCaseTheme } from '/scripts/lib/case-design.js?v=20261115-system1';
+import { renderProjectPreview } from '/scripts/admin/project-preview.js?v=20261115-system1';
+import { initLayoutBuilder } from '/scripts/admin/layout-builder.js?v=20261115-system1';
 import { initMediaGallery } from '/scripts/admin/media-gallery.js';
 import {
   mountRichTextInForm,
@@ -672,7 +672,7 @@ function init() {
     }
     setLayout(await res.json());
     if (layoutBuilderEl) {
-      const { renderLayoutBuilder } = await import('/scripts/admin/layout-builder.js?v=20261115-dialogue1');
+      const { renderLayoutBuilder } = await import('/scripts/admin/layout-builder.js?v=20261115-system1');
       renderLayoutBuilder(layoutBuilderEl, state.layout);
     }
     refreshPreview?.();
