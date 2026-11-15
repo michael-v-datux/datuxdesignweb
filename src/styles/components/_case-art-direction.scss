@@ -85,7 +85,7 @@
 }
 /* A quiet geometric signature drawn from the portfolio's visual language. */
 .case-hero__art {
-  position: absolute; right: 0; top: 5rem; width: clamp(180px, 20vw, 300px); aspect-ratio: 1;
+  position: absolute; right: 3rem; top: 5rem; width: clamp(180px, 20vw, 300px); aspect-ratio: 1;
   pointer-events: none; z-index: 0;
   > span { position: absolute; mix-blend-mode: multiply; }
   > span:nth-child(1) { width: 62%; aspect-ratio: 1; background: linear-gradient(140deg, #d7cbf2, #a99acb); border-radius: 14%; left: 18%; top: 21%; transform: rotate(-13deg); box-shadow: 15px 25px 50px #69567a12; }
