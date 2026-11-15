@@ -1,0 +1,690 @@
+{
+  "source": "https://www.figma.com/design/wgp3xCvU5o25DSu2aX3YRD/EP.ai?node-id=0-1",
+  "project": {
+    "id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+    "slug": "eroplay-ai",
+    "title_en": "Play.AI",
+    "title_uk": "Play.AI",
+    "description_en": "Designing the space between choosing a story and becoming part of it. A conversational interface for an adult AI roleplay platform.",
+    "description_uk": "Від вибору історії до участі в ній. Дизайн розмовного інтерфейсу для платформи рольових діалогів зі ШІ для дорослих.",
+    "category_en": "AI Roleplay · Product design",
+    "category_uk": "Рольові діалоги зі ШІ · Продуктовий дизайн",
+    "case_theme": "dialogue",
+    "thumbnail_url": "/images/projects/playai/02-conversation.webp",
+    "cover_url": null
+  },
+  "rows": [
+    {
+      "id": "e99c23d7-b684-4018-b36e-d483d92fce5f",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 0,
+      "full_width": false,
+      "presentation": {
+        "variant": "panorama",
+        "accent": "rose",
+        "label_en": "",
+        "label_uk": ""
+      }
+    },
+    {
+      "id": "5622ccd6-940c-4300-8add-5501a8b4da04",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 1,
+      "full_width": false,
+      "presentation": {
+        "variant": "conversation",
+        "accent": "rose",
+        "label_en": "The design challenge",
+        "label_uk": "Дизайн-задача"
+      }
+    },
+    {
+      "id": "641b6539-b22b-4828-bdaa-2a557539660a",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 2,
+      "full_width": false,
+      "presentation": {
+        "variant": "margin",
+        "accent": "rose",
+        "label_en": "01 / Discover a scenario",
+        "label_uk": "01 / Знайти сценарій"
+      }
+    },
+    {
+      "id": "d3e55f4b-c0d1-4612-9229-e25c79bad55c",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 3,
+      "full_width": false,
+      "presentation": {
+        "variant": "statement",
+        "accent": "rose",
+        "label_en": "02 / The conversation",
+        "label_uk": "02 / Розмова"
+      }
+    },
+    {
+      "id": "0dd7f265-ad18-4306-8305-973eadf5c065",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 4,
+      "full_width": false,
+      "presentation": {
+        "variant": "states",
+        "accent": "rose",
+        "label_en": "A conversation, with context on demand",
+        "label_uk": "Розмова з контекстом за запитом"
+      }
+    },
+    {
+      "id": "43787894-c6fb-492b-a440-5ea88a6bb58c",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 5,
+      "full_width": false,
+      "presentation": {
+        "variant": "devices",
+        "accent": "rose",
+        "label_en": "03 / Small screen, same conversation",
+        "label_uk": "03 / Малий екран, та сама розмова"
+      }
+    },
+    {
+      "id": "232f5f88-2ea9-4e6b-aac0-788bb0c2ec6a",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 6,
+      "full_width": false,
+      "presentation": {
+        "variant": "gallery",
+        "accent": "rose",
+        "label_en": "04 / Continuing the experience",
+        "label_uk": "04 / Продовжити взаємодію"
+      }
+    },
+    {
+      "id": "c6e81816-f24d-422a-8475-9f546e205336",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 7,
+      "full_width": false,
+      "presentation": {
+        "variant": "margin",
+        "accent": "rose",
+        "label_en": "05 / Beyond the ideal state",
+        "label_uk": "05 / Поза ідеальним сценарієм"
+      }
+    },
+    {
+      "id": "cae64435-50bd-4b28-abd2-35cf09066453",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 8,
+      "full_width": false,
+      "presentation": {
+        "variant": "conversation",
+        "accent": "rose",
+        "label_en": "The visual language",
+        "label_uk": "Візуальна мова"
+      }
+    },
+    {
+      "id": "09bed3ba-d756-4c99-8e92-d8b8d4570099",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 9,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "rose",
+        "label_en": "",
+        "label_uk": ""
+      }
+    }
+  ],
+  "columns": [
+    {
+      "id": "1b7e11d9-2278-480b-880a-7b3cb1e22c6c",
+      "row_id": "e99c23d7-b684-4018-b36e-d483d92fce5f",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "92d15cd8-26a7-4fa7-a93b-fa466f093bd5",
+      "row_id": "5622ccd6-940c-4300-8add-5501a8b4da04",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "e329cba4-3dc8-422f-a2ed-a6a58af8140b",
+      "row_id": "5622ccd6-940c-4300-8add-5501a8b4da04",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "768347c0-54cb-49a3-8c2d-c1e7541067ad",
+      "row_id": "641b6539-b22b-4828-bdaa-2a557539660a",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "0f89cd10-a85e-4e44-a905-3d4d4013f679",
+      "row_id": "641b6539-b22b-4828-bdaa-2a557539660a",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "dadaa8d9-b779-4d10-8964-ea32bf35c0e6",
+      "row_id": "d3e55f4b-c0d1-4612-9229-e25c79bad55c",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "f173a9b2-573e-4f47-afa3-19e3e69ea1fc",
+      "row_id": "0dd7f265-ad18-4306-8305-973eadf5c065",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "c17a30ad-9771-4fbb-a177-a21a0af039e7",
+      "row_id": "0dd7f265-ad18-4306-8305-973eadf5c065",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "dfe621b3-b7c2-4051-9621-bf25107586b6",
+      "row_id": "43787894-c6fb-492b-a440-5ea88a6bb58c",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "5ff1bd0c-71fa-4a0b-9c2e-063eaf5fdd03",
+      "row_id": "43787894-c6fb-492b-a440-5ea88a6bb58c",
+      "position": 1,
+      "span": "1/3"
+    },
+    {
+      "id": "c0513873-99fd-4add-ac90-cfe496d30ba7",
+      "row_id": "43787894-c6fb-492b-a440-5ea88a6bb58c",
+      "position": 2,
+      "span": "1/3"
+    },
+    {
+      "id": "63467258-4a67-44cc-b3ad-29fb241602fe",
+      "row_id": "232f5f88-2ea9-4e6b-aac0-788bb0c2ec6a",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "dfc8c6a6-4871-4511-9ef9-b3bf8d5a1ee0",
+      "row_id": "232f5f88-2ea9-4e6b-aac0-788bb0c2ec6a",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "8632429d-f2fe-4680-9577-a5d4c00a31c2",
+      "row_id": "c6e81816-f24d-422a-8475-9f546e205336",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "cc5439c4-b19a-4e10-9ae2-65b9d5cdb69a",
+      "row_id": "c6e81816-f24d-422a-8475-9f546e205336",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "d3bcc177-2807-44f9-ad3e-fa26cd108be7",
+      "row_id": "cae64435-50bd-4b28-abd2-35cf09066453",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "86b4f905-b118-40c5-8e48-ed8a45e28608",
+      "row_id": "cae64435-50bd-4b28-abd2-35cf09066453",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "e0c15b91-5755-4ad2-87d9-3518ac3dab6d",
+      "row_id": "09bed3ba-d756-4c99-8e92-d8b8d4570099",
+      "position": 0,
+      "span": "1/1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/02-conversation.webp",
+        "alt": "Play.AI desktop chat with distinct dialogue bubbles, narrative text, reply aids and a message composer",
+        "caption_en": "Conversation view · desktop design exploration",
+        "caption_uk": "Екран розмови · десктопна дизайн-ітерація",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "ce92c1f1-49d7-4f3f-9d3d-074c2abd840c",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "1b7e11d9-2278-480b-880a-7b3cb1e22c6c",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>How do you enter a story?</h2><p>Play.AI is an adult AI roleplay product, shown in the source designs as EroPlay.ai. The interface connects a catalogue of scenarios with a conversation: choose a setting, meet a character and take the next turn.</p>",
+        "text_en": "<h2>How do you enter a story?</h2><p>Play.AI is an adult AI roleplay product, shown in the source designs as EroPlay.ai. The interface connects a catalogue of scenarios with a conversation: choose a setting, meet a character and take the next turn.</p>",
+        "text_uk": "<h2>Як увійти в історію?</h2><p>Play.AI — продукт для рольових діалогів зі ШІ для дорослих, представлений у вихідних макетах під назвою EroPlay.ai. Інтерфейс поєднує каталог сценаріїв із розмовою: обрати ситуацію, познайомитися з персонажем і зробити наступний хід.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "e530abb2-fc13-4685-a46c-679a61fe906c",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "92d15cd8-26a7-4fa7-a93b-fa466f093bd5",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Give each moment a clear place.</h2><p>The design separates browsing, story context, dialogue and the message composer. Supporting controls stay nearby: suggested replies, hints, scenario information and access prompts each have a defined place around the conversation.</p><h3>My contribution</h3><p>I designed the product interface and the presentation deck, working with an existing logo. The work covers desktop and mobile screens and the supporting states around the conversation.</p>",
+        "text_en": "<h2>Give each moment a clear place.</h2><p>The design separates browsing, story context, dialogue and the message composer. Supporting controls stay nearby: suggested replies, hints, scenario information and access prompts each have a defined place around the conversation.</p><h3>My contribution</h3><p>I designed the product interface and the presentation deck, working with an existing logo. The work covers desktop and mobile screens and the supporting states around the conversation.</p>",
+        "text_uk": "<h2>Дати кожному моменту своє місце.</h2><p>Дизайн розділяє перегляд сценаріїв, контекст історії, діалог і поле повідомлення. Допоміжні дії залишаються поруч: варіанти відповідей, підказки, інформація про сценарій і запрошення до входу мають визначене місце навколо розмови.</p><h3>Мій внесок</h3><p>Я працював над дизайном інтерфейсу продукту й презентації, використовуючи вже готовий логотип. Робота охоплювала десктопні й мобільні екрани та допоміжні стани навколо розмови.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b737e940-63bc-4cf2-9445-b7ddcb713a88",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "e329cba4-3dc8-422f-a2ed-a6a58af8140b",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A catalogue with a way in.</h2><p>A large opening visual introduces the product before the page switches to a repeatable card grid. Each scenario pairs an image with a title, a short description and a direct Play action.</p><p>Locked cards and a custom-roleplay option sit within the same catalogue structure. Their visual treatment distinguishes access conditions while preserving the browsing rhythm.</p>",
+        "text_en": "<h2>A catalogue with a way in.</h2><p>A large opening visual introduces the product before the page switches to a repeatable card grid. Each scenario pairs an image with a title, a short description and a direct Play action.</p><p>Locked cards and a custom-roleplay option sit within the same catalogue structure. Their visual treatment distinguishes access conditions while preserving the browsing rhythm.</p>",
+        "text_uk": "<h2>Каталог, із якого починається історія.</h2><p>Великий перший екран знайомить із продуктом, після чого сторінка переходить до сітки карток. Зображення, назва, короткий опис і кнопка Play дають кожному сценарію зрозумілу точку входу.</p><p>Закриті картки й можливість створити власний сценарій входять до тієї самої структури. Візуальне оформлення позначає умови доступу, зберігаючи спільний ритм перегляду.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b66d7065-9da2-4e40-9234-0bbf7e68ab10",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "768347c0-54cb-49a3-8c2d-c1e7541067ad",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/01-catalogue.webp",
+        "alt": "Full desktop catalogue design with a large introductory image, scenario cards and locked-content treatments",
+        "caption_en": "Catalogue exploration · original screen and sample content",
+        "caption_uk": "Дизайн каталогу · оригінальний екран і демонстраційний контент",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "d87dfaa4-490b-49f5-af2a-29b3dc84fbc7",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "0f89cd10-a85e-4e44-a905-3d4d4013f679",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>The story unfolds.<br><em>The interface stays close.</em></h2><p>Different treatments distinguish character dialogue, the user’s reply and narrative description. The composer anchors the next action, with reply suggestions and hints placed just above it.</p>",
+        "text_en": "<h2>The story unfolds.<br><em>The interface stays close.</em></h2><p>Different treatments distinguish character dialogue, the user’s reply and narrative description. The composer anchors the next action, with reply suggestions and hints placed just above it.</p>",
+        "text_uk": "<h2>Історія розгортається.<br><em>Інтерфейс залишається поруч.</em></h2><p>Окрема візуальна подача розрізняє репліки персонажа, відповідь користувача й опис подій. Поле повідомлення задає місце наступної дії, а варіанти відповіді та підказки розташовані безпосередньо над ним.</p>",
+        "textStyle": "lead",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "9226c780-c7c2-4845-86a8-7fbb16884abc",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "dadaa8d9-b779-4d10-8964-ea32bf35c0e6",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>In the conversation</h2><p>The reading area keeps messages and narrative together, with compact controls for supporting actions.</p>",
+        "text_en": "<h2>In the conversation</h2><p>The reading area keeps messages and narrative together, with compact controls for supporting actions.</p>",
+        "text_uk": "<h2>У розмові</h2><p>Репліки й опис подій зібрані в одному полі читання, а допоміжні дії доступні через компактні елементи керування.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "a0801bde-6e45-47cc-8bce-ebb0d4691831",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "f173a9b2-573e-4f47-afa3-19e3e69ea1fc",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/02-conversation.webp",
+        "alt": "Desktop conversation without the scenario information panel",
+        "caption_en": "Chat layout · desktop exploration",
+        "caption_uk": "Композиція чату · десктопна ітерація",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "8da7147a-640f-4dbf-9581-c26214039e00",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "f173a9b2-573e-4f47-afa3-19e3e69ea1fc",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Open the context</h2><p>A character panel adds a portrait and scenario description alongside the existing conversation. This version explores keeping the dialogue visible while the user checks the setting.</p>",
+        "text_en": "<h2>Open the context</h2><p>A character panel adds a portrait and scenario description alongside the existing conversation. This version explores keeping the dialogue visible while the user checks the setting.</p>",
+        "text_uk": "<h2>Відкрити контекст</h2><p>Панель персонажа додає портрет і опис сценарію поруч із наявною розмовою. У цьому варіанті діалог залишається видимим, поки людина уточнює контекст.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "7c36f9bf-2497-4766-bfbd-e670647ba67a",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "c17a30ad-9771-4fbb-a177-a21a0af039e7",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/03-context.webp",
+        "alt": "Desktop conversation with a character information panel at the right",
+        "caption_en": "Context panel · alternative state of the same desktop direction",
+        "caption_uk": "Контекстна панель · інший стан тієї самої десктопної версії",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "a147bfd4-675d-48b9-9461-59ca344d7689",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "c17a30ad-9771-4fbb-a177-a21a0af039e7",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Read and reply</h2><p>The mobile exploration stacks story context, messages and the composer into a single column.</p>",
+        "text_en": "<h2>Read and reply</h2><p>The mobile exploration stacks story context, messages and the composer into a single column.</p>",
+        "text_uk": "<h2>Читати й відповідати</h2><p>Мобільна ітерація вибудовує контекст, повідомлення й поле відповіді в одну колонку.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b6e52421-2e15-42df-bdaf-49b94ba71d7d",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "dfe621b3-b7c2-4051-9621-bf25107586b6",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/06-mobile-conversation.webp",
+        "alt": "Mobile chat exploration showing a conversation and bottom message composer",
+        "caption_en": "Mobile exploration · conversation",
+        "caption_uk": "Мобільна ітерація · розмова",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "1d6aa40e-64da-40e4-8e44-9873dd3fba74",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "dfe621b3-b7c2-4051-9621-bf25107586b6",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Know when to wait</h2><p>A typing indicator and disabled send control distinguish the waiting state from an available next turn.</p>",
+        "text_en": "<h2>Know when to wait</h2><p>A typing indicator and disabled send control distinguish the waiting state from an available next turn.</p>",
+        "text_uk": "<h2>Розуміти, коли чекати</h2><p>Індикатор набору й неактивна кнопка надсилання відрізняють очікування від готовності до наступної репліки.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "abbf0925-19b4-4733-800c-09359c0da4d7",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "5ff1bd0c-71fa-4a0b-9c2e-063eaf5fdd03",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/07-mobile-typing.webp",
+        "alt": "Mobile typing state with disabled controls",
+        "caption_en": "Mobile exploration · typing and disabled controls",
+        "caption_uk": "Мобільна ітерація · набір відповіді та неактивні дії",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "a9e86966-725e-49d8-b4ab-9a9f8e9c7641",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "5ff1bd0c-71fa-4a0b-9c2e-063eaf5fdd03",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Keep controls within reach</h2><p>The scenario toolbar groups reset, settings and information above the thread. This screen records a separate reset-control state.</p>",
+        "text_en": "<h2>Keep controls within reach</h2><p>The scenario toolbar groups reset, settings and information above the thread. This screen records a separate reset-control state.</p>",
+        "text_uk": "<h2>Тримати керування поруч</h2><p>Панель над діалогом об’єднує перезапуск, налаштування й інформацію. Цей екран показує окремий стан елемента перезапуску.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "99a1cf54-5ae4-4af7-b9bc-ecbbd78639f6",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "c0513873-99fd-4add-ac90-cfe496d30ba7",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/08-mobile-reset.webp",
+        "alt": "Mobile chat exploration with the reset control in an alternate state",
+        "caption_en": "Mobile exploration · reset-control state",
+        "caption_uk": "Мобільна ітерація · стан керування перезапуском",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "814bda80-d354-4099-976f-241a141d93fa",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "c0513873-99fd-4add-ac90-cfe496d30ba7",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>An explicit point to sign in.</h2><p>The continuation prompt sits over the conversation and offers two clear routes: sign in or create an account. The blurred thread keeps the interrupted activity visually present.</p>",
+        "text_en": "<h2>An explicit point to sign in.</h2><p>The continuation prompt sits over the conversation and offers two clear routes: sign in or create an account. The blurred thread keeps the interrupted activity visually present.</p>",
+        "text_uk": "<h2>Зрозумілий момент для входу.</h2><p>Запрошення продовжити розташоване поверх діалогу й пропонує два шляхи: увійти або створити акаунт. Розмитий фон зберігає візуальний зв’язок із розмовою.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "98e62869-1374-49a4-bea2-6701cd262905",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "63467258-4a67-44cc-b3ad-29fb241602fe",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/04-continue.webp",
+        "alt": "Continuation prompt over a blurred chat, with sign-in and sign-up actions",
+        "caption_en": "Continuation prompt · desktop exploration",
+        "caption_uk": "Запрошення продовжити · десктопна ітерація",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "606dea39-feae-4a81-8188-e4c182196831",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "63467258-4a67-44cc-b3ad-29fb241602fe",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A focused account screen.</h2><p>The sign-in screen moves to a single, centred form. Email, password, recovery and alternative sign-in methods share the same dark palette and coral action colour.</p>",
+        "text_en": "<h2>A focused account screen.</h2><p>The sign-in screen moves to a single, centred form. Email, password, recovery and alternative sign-in methods share the same dark palette and coral action colour.</p>",
+        "text_uk": "<h2>Зосереджений екран входу.</h2><p>Екран входу переходить до однієї форми по центру. Email, пароль, відновлення доступу й альтернативні способи входу об’єднані темною палітрою та кораловим кольором дії.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "5957f84a-7b92-4c89-8cc4-29de804c0395",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "dfc8c6a6-4871-4511-9ef9-b3bf8d5a1ee0",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/05-sign-in.webp",
+        "alt": "Desktop sign-in screen with email, password and alternative authentication methods",
+        "caption_en": "Account entry · original UI design",
+        "caption_uk": "Вхід до акаунта · оригінальний дизайн інтерфейсу",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "41e72f40-4ba9-480a-80b1-12ed04e0cd2c",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "dfc8c6a6-4871-4511-9ef9-b3bf8d5a1ee0",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Make the interruption visible.</h2><p>An earlier desktop iteration includes a failed-message state with a visible error marker and a Try again action near the affected reply.</p><p>It documents how the interface handles a break in the conversation, extending the design beyond its default screen.</p>",
+        "text_en": "<h2>Make the interruption visible.</h2><p>An earlier desktop iteration includes a failed-message state with a visible error marker and a Try again action near the affected reply.</p><p>It documents how the interface handles a break in the conversation, extending the design beyond its default screen.</p>",
+        "text_uk": "<h2>Зробити переривання помітним.</h2><p>Раніша десктопна ітерація містить стан помилки повідомлення: видиму позначку й дію Try again поруч із відповідною реплікою.</p><p>Це показує поведінку інтерфейсу, коли розмова переривається, і розширює дизайн за межі основного екрана.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "e92738f7-7bc9-48a0-a691-c847ee70bf09",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "8632429d-f2fe-4680-9577-a5d4c00a31c2",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/09-message-error.webp",
+        "alt": "Earlier navy desktop iteration showing a failed user message and a Try again action",
+        "caption_en": "Earlier desktop iteration · message error and retry",
+        "caption_uk": "Раніша десктопна ітерація · помилка повідомлення й повторна спроба",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "6b33efe6-4a72-4743-9896-0c783f54b038",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "cc5439c4-b19a-4e10-9ae2-65b9d5cdb69a",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Atmosphere around a clear structure.</h2><p>Dark surfaces, blue dialogue accents and coral actions form the recurring visual language. Rounded cards and soft gradients connect the catalogue, conversation and account screens.</p>",
+        "text_en": "<h2>Atmosphere around a clear structure.</h2><p>Dark surfaces, blue dialogue accents and coral actions form the recurring visual language. Rounded cards and soft gradients connect the catalogue, conversation and account screens.</p>",
+        "text_uk": "<h2>Атмосфера навколо чіткої структури.</h2><p>Темні поверхні, сині акценти діалогу й коралові дії формують спільну візуальну мову. Заокруглені картки та м’які градієнти пов’язують каталог, розмову й екрани акаунта.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b48c794d-2132-4f99-b021-96a061213515",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "d3bcc177-2807-44f9-ad3e-fa26cd108be7",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A product shown through its states.</h2><p>The design material brings together discovery, conversation, contextual help, account entry and feedback. The case presents these decisions across desktop and mobile explorations, including their differences.</p>",
+        "text_en": "<h2>A product shown through its states.</h2><p>The design material brings together discovery, conversation, contextual help, account entry and feedback. The case presents these decisions across desktop and mobile explorations, including their differences.</p>",
+        "text_uk": "<h2>Продукт через його стани.</h2><p>Дизайн-матеріали поєднують вибір сценарію, розмову, контекстну допомогу, вхід і зворотний зв’язок інтерфейсу. Кейс показує ці рішення в десктопних і мобільних ітераціях, зокрема відмінності між ними.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "e3850f3a-8128-45c1-ab1b-2907742aea05",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "86b4f905-b118-40c5-8e48-ed8a45e28608",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Scope and outcome</h2><p>Play.AI was a launched product. My contribution included interface design and the presentation deck; the logo was provided. The original screens shown here come from several Figma iterations, with mobile and earlier desktop versions labelled throughout the case.</p>",
+        "text_en": "<h2>Scope and outcome</h2><p>Play.AI was a launched product. My contribution included interface design and the presentation deck; the logo was provided. The original screens shown here come from several Figma iterations, with mobile and earlier desktop versions labelled throughout the case.</p>",
+        "text_uk": "<h2>Обсяг роботи й результат</h2><p>Play.AI був запущеним продуктом. Мій внесок охоплював дизайн інтерфейсу й презентації; логотип був готовий. Наведені оригінальні екрани походять із кількох Figma-ітерацій: мобільні та раніші десктопні версії позначені в підписах.</p>",
+        "textStyle": "callout",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "137a3595-a99e-4b5f-a66f-fa23cc875f79",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "e0c15b91-5755-4ad2-87d9-3518ac3dab6d",
+      "position": 0,
+      "layout": "1/1"
+    }
+  ]
+}

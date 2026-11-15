@@ -55,7 +55,7 @@ export interface ProjectColumn {
 }
 
 export interface SectionPresentation {
-  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast' | 'flow' | 'brand' | 'panorama' | 'mission' | 'ticket' | 'sequence' | 'states' | 'margin';
+  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast' | 'flow' | 'brand' | 'panorama' | 'mission' | 'ticket' | 'sequence' | 'states' | 'margin' | 'conversation' | 'devices';
   accent: 'violet' | 'mint' | 'rose' | 'amber';
   label_en: string;
   label_uk: string;

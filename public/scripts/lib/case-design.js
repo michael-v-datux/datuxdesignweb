@@ -1,7 +1,7 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
-export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal'];
+export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal', 'dialogue'];
 export function normalizeCaseTheme(value) { return CASE_THEMES.includes(value) ? value : 'classic'; }
-export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin'];
+export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin', 'conversation', 'devices'];
 export const MEDIA_FRAMES = ['none', 'browser', 'canvas', 'paper'];
 export function normalizeMediaFrame(value) { return MEDIA_FRAMES.includes(value) ? value : 'none'; }
 export const SECTION_ACCENTS = ['violet', 'mint', 'rose', 'amber'];
@@ -25,6 +25,8 @@ export function sectionLabel(row, lang) {
   return lang === 'uk' ? p.label_uk || p.label_en : p.label_en || p.label_uk;
 }
 export const SECTION_TEMPLATES = [
+  { id: 'conversation', title: 'Conversation notes', detail: 'Two offset cards · question and design response', accent: 'rose' },
+  { id: 'devices', title: 'Device gallery', detail: 'Three portrait screens · alternating rhythm', accent: 'violet' },
   { id: 'margin', title: 'Margin notes', detail: 'Sticky reading column · generous visual', accent: 'mint' },
   { id: 'mission', title: 'Mission chapter', detail: 'Numbered checkpoint · story + visual', accent: 'mint' },
   { id: 'ticket', title: 'Experience ticket', detail: 'Perforated card · text + image', accent: 'mint' },
@@ -49,8 +51,10 @@ export function makeSectionTemplate(id) {
     url: '', alt: '', frame, borderRadius: 'lg', shadow: 'none', objectFit: 'contain', aspectRatio: 'auto',
   } });
   let columns;
-  if (id === 'sequence') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / A clear step</h2><p>Explain this part of the journey.</p>`, `<h2>${n} / Зрозумілий крок</h2><p>Поясніть цю частину шляху.</p>`)] }));
+  if (id === 'devices') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / Screen detail</h2><p>Explain this interface state.</p>`, `<h2>${n} / Деталь екрана</h2><p>Поясніть цей стан інтерфейсу.</p>`), image('none')] }));
+  else if (id === 'sequence') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / A clear step</h2><p>Explain this part of the journey.</p>`, `<h2>${n} / Зрозумілий крок</h2><p>Поясніть цю частину шляху.</p>`)] }));
   else if (id === 'states') columns = [{ span: '1/2', blocks: [text('<h2>Choose a date</h2>', '<h2>Оберіть дату</h2>'), image('none')] }, { span: '1/2', blocks: [text('<h2>Review details</h2>', '<h2>Перегляньте деталі</h2>'), image('none')] }];
+  else if (id === 'conversation') columns = [{ span: '1/2', blocks: [text('<h2>The design challenge</h2><p>Describe the context and the question to solve.</p>', '<h2>Дизайн-задача</h2><p>Опишіть контекст і питання, яке потрібно вирішити.</p>')] }, { span: '1/2', blocks: [text('<h2>The design response</h2><p>Explain the decision and its purpose.</p>', '<h2>Дизайн-рішення</h2><p>Поясніть рішення та його мету.</p>')] }];
   else if (id === 'statement') columns = [{ span: '1/1', blocks: [text(
     '<h2>One clear design decision.</h2><p>Explain the insight, the choice you made, and why it matters.</p>',
     '<h2>Одне чітке дизайн-рішення.</h2><p>Опишіть інсайт, прийняте рішення та чому воно важливе.</p>', 'lead')] }];
