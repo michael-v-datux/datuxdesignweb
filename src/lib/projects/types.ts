@@ -16,6 +16,7 @@ export interface BlockContent {
   align?: BlockAlign;
   textAlign?: BlockTextAlign;
   textStyle?: 'body' | 'lead' | 'callout';
+  frame?: 'none' | 'browser' | 'canvas';
   caption_en?: string;
   caption_uk?: string;
   text?: string;
@@ -53,11 +54,19 @@ export interface ProjectColumn {
   blocks: ProjectBlock[];
 }
 
+export interface SectionPresentation {
+  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast';
+  accent: 'violet' | 'mint' | 'rose' | 'amber';
+  label_en: string;
+  label_uk: string;
+}
+
 export interface ProjectRow {
   id: string;
   project_id: string;
   position: number;
   full_width?: boolean;
+  presentation?: SectionPresentation;
   columns: ProjectColumn[];
 }
 

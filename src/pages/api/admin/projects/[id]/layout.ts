@@ -11,6 +11,7 @@ import {
   updateRowFullWidth,
 } from '@/lib/projects/layout';
 import type { BlockLayout } from '@/lib/projects/types';
+import { applySectionAction } from '@/lib/projects/section-actions';
 
 export const prerender = false;
 
@@ -51,6 +52,10 @@ export const POST: APIRoute = async ({ params, request }) => {
 
   try {
     const action = body.action as string;
+
+    if (['add-template', 'update-presentation', 'duplicate-block'].includes(action)) {
+      return json(await applySectionAction(supabase, projectId, body));
+    }
 
     if (action === 'reorder') {
       const rows = body.rows;
@@ -131,3 +136,4 @@ function json(data: unknown, status = 200) {
     headers: { 'Content-Type': 'application/json' },
   });
 }
+

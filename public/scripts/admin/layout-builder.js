@@ -1,5 +1,6 @@
 import { adminFetch } from '/scripts/admin/api.js';
 import { showToast } from '/scripts/common/toast.js';
+import { SECTION_TEMPLATES, SECTION_VARIANTS, SECTION_ACCENTS, normalizePresentation } from '/scripts/lib/case-design.js';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -59,6 +60,7 @@ function renderColumn(col, rowId) {
           <span class="admin-layout-block__preview">${escapeHtml(blockPreview(b))}</span>
           <div class="admin-layout-block__actions">
             <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-block-edit data-block-id="${escapeHtml(b.id)}">Edit</button>
+            <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-block-duplicate data-block-id="${escapeHtml(b.id)}">Duplicate</button>
             <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-block-delete data-block-id="${escapeHtml(b.id)}">Delete</button>
           </div>
         </div>`
@@ -82,6 +84,7 @@ function renderColumn(col, rowId) {
 
 function renderRow(row) {
   const cols = row.columns.map((c) => renderColumn(c, row.id)).join('');
+  const presentation = normalizePresentation(row.presentation);
   return `
     <div class="admin-layout-row" data-row-id="${escapeHtml(row.id)}">
       <div class="admin-layout-row__head">
@@ -93,22 +96,35 @@ function renderRow(row) {
         </label>
         <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-delete-row data-row-id="${escapeHtml(row.id)}">Delete row</button>
       </div>
+      <details class="admin-section-design" data-section-design="${escapeHtml(row.id)}">
+        <summary>Art direction · ${escapeHtml(presentation.variant)}</summary>
+        <div class="admin-section-design__fields">
+          <label>Composition<select class="admin-input" data-section-variant>${SECTION_VARIANTS.map(v => `<option value="${v}" ${presentation.variant === v ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+          <label>Accent<select class="admin-input" data-section-accent>${SECTION_ACCENTS.map(v => `<option value="${v}" ${presentation.accent === v ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+          <label>Section label (EN)<input class="admin-input" data-section-label-en maxlength="100" value="${escapeHtml(presentation.label_en)}" placeholder="Optional · e.g. The approach" /></label>
+          <label>Section label (UK)<input class="admin-input" data-section-label-uk maxlength="100" value="${escapeHtml(presentation.label_uk)}" placeholder="Необов’язково · наприклад, Підхід" /></label>
+        </div>
+      </details>
       <div class="admin-layout-row__columns">${cols}</div>
       <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-add-column data-row-id="${escapeHtml(row.id)}">+ Column</button>
     </div>
   `;
 }
 
+function templateLibrary() {
+  return `<div class="admin-section-library"><div class="admin-section-library__heading"><strong>Section templates</strong><span>Start with a composition. Every block stays editable.</span></div><div class="admin-section-library__grid">${SECTION_TEMPLATES.map(t => `
+    <button type="button" class="admin-section-template" data-section-template="${t.id}">
+      <span class="admin-section-template__thumb admin-section-template__thumb--${t.id}" aria-hidden="true"><i></i><i></i><i></i></span>
+      <strong>${t.title}</strong><small>${t.detail}</small>
+    </button>`).join('')}</div></div>`;
+}
+
 export function renderLayoutBuilder(container, layout) {
   if (!container) return;
+  const open = new Set([...container.querySelectorAll('[data-section-design][open]')].map(el => el.dataset.sectionDesign));
   const rows = layout?.rows ?? [];
-  if (!rows.length) {
-    container.innerHTML = `
-      <p class="admin-layout-builder__empty">No rows yet. Add a row to start building your case study layout.</p>
-    `;
-    return;
-  }
-  container.innerHTML = rows.map(renderRow).join('');
+  container.innerHTML = templateLibrary() + (rows.length ? rows.map(renderRow).join('') : '<p class="admin-layout-builder__empty">Choose a template above, or add an empty row.</p>');
+  container.querySelectorAll('[data-section-design]').forEach(el => { el.open = open.has(el.dataset.sectionDesign); });
 }
 
 export function initLayoutDragDrop(container, { onReorder }) {
@@ -255,6 +271,22 @@ export function initLayoutBuilder({
     return true;
   };
 
+  async function mutateSection(payload, button) {
+    if (button) button.disabled = true;
+    try {
+      const res = await adminFetch(`/api/admin/projects/${projectId}/layout`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Could not update section');
+      setLayout(result);
+      renderLayoutBuilder(container, result);
+      onRefreshPreview?.();
+      showToast(payload.action === 'duplicate-block' ? 'Block duplicated' : payload.action === 'add-template' ? 'Section added · replace the placeholder content' : 'Art direction saved', 'success');
+    } catch (error) { showToast(error.message || 'Could not update section', 'error'); }
+    finally { if (button) button.disabled = false; }
+  }
+
   initLayoutDragDrop(container, { onReorder: postReorder });
 
   const addRowHandler = async () => {
@@ -276,6 +308,10 @@ export function initLayoutBuilder({
   });
 
   container.addEventListener('click', async (e) => {
+    const template = e.target.closest('[data-section-template]');
+    if (template) { await mutateSection({ action: 'add-template', template_id: template.dataset.sectionTemplate }, template); return; }
+    const duplicate = e.target.closest('[data-block-duplicate]');
+    if (duplicate) { await mutateSection({ action: 'duplicate-block', block_id: duplicate.dataset.blockId }, duplicate); return; }
     const addCol = e.target.closest('[data-add-column]');
     if (addCol) {
       const rowId = addCol.dataset.rowId;
@@ -350,6 +386,17 @@ export function initLayoutBuilder({
   });
 
   container.addEventListener('change', async (e) => {
+    const design = e.target.closest('[data-section-design]');
+    if (design) {
+      const row = design.closest('[data-row-id]');
+      await mutateSection({ action: 'update-presentation', row_id: row.dataset.rowId, presentation: {
+        variant: design.querySelector('[data-section-variant]').value,
+        accent: design.querySelector('[data-section-accent]').value,
+        label_en: design.querySelector('[data-section-label-en]').value,
+        label_uk: design.querySelector('[data-section-label-uk]').value,
+      } });
+      return;
+    }
     const fullWidthToggle = e.target.closest('[data-row-full-width]');
     if (fullWidthToggle) {
       const rowId = fullWidthToggle.dataset.rowId;
@@ -389,3 +436,4 @@ export function initLayoutBuilder({
   renderLayoutBuilder(container, getLayout());
   return { refresh, addRow: addRowHandler };
 }
+

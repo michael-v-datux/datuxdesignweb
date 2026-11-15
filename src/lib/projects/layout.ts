@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { normalizeBlock } from './blocks';
+import { normalizePresentation } from '../../../public/scripts/lib/case-design.js';
 import { groupBlocksIntoRows, layoutFraction } from './rows';
 import type {
   BlockLayout,
@@ -40,6 +41,7 @@ function normalizeRow(
     project_id: String(row.project_id),
     position: typeof row.position === 'number' ? row.position : 0,
     full_width: Boolean(row.full_width),
+    presentation: normalizePresentation(row.presentation),
     columns,
   };
 }
@@ -408,3 +410,4 @@ export function layoutColumnWidth(span: BlockLayout): string {
   if (fraction >= 1) return '100%';
   return `${(fraction * 100).toFixed(3)}%`;
 }
+

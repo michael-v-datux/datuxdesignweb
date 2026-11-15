@@ -1,4 +1,5 @@
 import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
+import { sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -79,18 +80,20 @@ function mediaFigureStyle(content) {
 function renderMediaBlock(block, lang) {
   const { content, type } = block;
   if (!content?.url) {
-    return '<p class="project-block__empty text-neutral-400 text-sm">No media URL</p>';
+    return '<div class="case-media-placeholder">Add an image in the editor</div>';
   }
   const alt = escapeHtml(content.alt || '');
   const figClass = mediaFigureClasses(content);
   const figStyle = mediaFigureStyle(content);
   const styleAttr = figStyle ? ` style="${figStyle}"` : '';
   const rawCaption = lang === 'uk' ? content.caption_uk || content.caption_en : content.caption_en || content.caption_uk;
+  const frame = ['none', 'browser', 'canvas'].includes(content.frame) ? content.frame : 'none';
+  const shellStart = `<div class="case-media-shell case-media-shell--${frame}">${frame === 'browser' ? '<div class="case-browser-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>' : ''}`;
   const caption = rawCaption ? `<figcaption class="project-block__caption">${escapeHtml(rawCaption)}</figcaption>` : '';
   if (type === 'media' && content.mediaType === 'video') {
-    return `<figure class="project-block__figure"><div class="${figClass}"${styleAttr}><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></div>${caption}</figure>`;
+    return `<figure class="project-block__figure">${shellStart}<div class="${figClass}"${styleAttr}><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></div></div>${caption}</figure>`;
   }
-  return `<figure class="project-block__figure"><div class="${figClass}"${styleAttr}><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></div>${caption}</figure>`;
+  return `<figure class="project-block__figure">${shellStart}<div class="${figClass}"${styleAttr}><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></div></div>${caption}</figure>`;
 }
 
 function renderBlockArticle(block, lang, layoutSpan, interactive) {
@@ -132,7 +135,7 @@ function renderExplicitLayoutHtml(layout, lang, interactive) {
     .map((row) => {
       let rowClass =
         row.columns.length <= 1 ? 'project-row project-row--single' : 'project-row';
-      if (row.full_width) rowClass += ' project-row--full-width';
+
       const cols = row.columns
         .map((col) => renderPreviewColumn(col, row.id, lang, interactive))
         .join('');
@@ -140,10 +143,14 @@ function renderExplicitLayoutHtml(layout, lang, interactive) {
         ? previewAddBtn('+ Column', { 'preview-add-column': '', 'row-id': row.id })
         : '';
       return `
-        <div class="${rowClass} admin-preview-row" data-row-id="${escapeHtml(row.id)}">
+        <section class="${sectionClasses(row)}">
+          <span class="case-section__index" aria-hidden="true">${sectionNumber(row, rows)}</span>
+          ${sectionLabel(row, lang) ? `<p class="case-section__label">${escapeHtml(sectionLabel(row, lang))}</p>` : ''}
+          <div class="${rowClass} admin-preview-row" data-row-id="${escapeHtml(row.id)}">
           ${cols}
           ${interactive ? `<div class="admin-preview-row__actions">${addCol}</div>` : ''}
-        </div>
+          </div>
+        </section>
       `;
     })
     .join('');

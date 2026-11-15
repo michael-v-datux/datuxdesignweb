@@ -37,6 +37,9 @@ const textStyle = ['body', 'lead', 'callout'].includes(content.textStyle || '') 
     <p class="project-block__empty text-neutral-400 text-sm">—</p>
   )}
 
+  {type !== 'text' && !content.url && (
+    <div class="case-media-placeholder">{lang === 'uk' ? 'Додайте зображення в редакторі' : 'Add an image in the editor'}</div>
+  )}
   {type !== 'text' && content.url && (
     <ProjectMedia {content} video={type === 'media' && content.mediaType === 'video'} {lang} />
   )}
