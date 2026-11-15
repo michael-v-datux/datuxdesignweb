@@ -57,8 +57,8 @@ export function normalizeBlock(row: Record<string, unknown>): ProjectBlock {
   };
 }
 
-export async function fetchProjectBlocks(projectId: string): Promise<ProjectBlock[]> {
-  const { data, error } = await supabase
+export async function fetchProjectBlocks(projectId: string, client = supabase): Promise<ProjectBlock[]> {
+  const { data, error } = await client
     .from(BLOCKS_TABLE)
     .select('*')
     .eq('project_id', projectId)

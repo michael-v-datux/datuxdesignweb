@@ -26,6 +26,8 @@ export interface BlockContent {
   alt?: string;
   width?: number;
   height?: number;
+  motion?: boolean;
+  poster?: string;
   mediaType?: 'image' | 'video';
   autoplay?: boolean;
   loop?: boolean;

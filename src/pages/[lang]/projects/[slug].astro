@@ -4,13 +4,15 @@ export const prerender = false;
 import { normalizeCaseTheme } from '../../../../public/scripts/lib/case-design.js';
 import Layout from '@/layouts/Layout.astro';
 import { getTranslations } from '@/utils/getTranslations';
-import { supabase } from '@/lib/supabaseClient';
+import { getServerSupabase } from '@/lib/supabaseServer';
+import { projectCookieName, projectCookieOptions, issueProjectToken, verifyProjectToken, projectPasswordHash, matchesProjectPassword } from '@/lib/projects/access';
+const supabase = getServerSupabase();
 import { resolveProjectBlocks } from '@/lib/projects/blocks';
 import { fetchProjectLayoutReadonly } from '@/lib/projects/layout';
 import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
 import ProjectLightbox from '@/components/project/ProjectLightbox.astro';
 import { projectCardThumbnail } from '@/lib/projects/card-labels';
-import bcrypt from 'bcryptjs';
+
 
 const { lang, slug } = Astro.params;
 const translations = await getTranslations(lang);
@@ -43,48 +45,35 @@ let errorMsg = '';
 let showSuccessModal = false;
 
 if (!notFound && projectData) {
-  const cookieName = `unlocked_project_${slug}`;
-  const cookies = Astro.cookies;
-  const projectId = String(projectData.id);
-
-  try {
-    layout = await fetchProjectLayoutReadonly(supabase, projectId);
-  } catch {
-    layout = null;
-  }
-
-  blocks = await resolveProjectBlocks(
-    projectId,
-    lang ?? 'en',
-    projectData.content_en,
-    projectData.content_uk
-  );
-
+  const cookieName = projectCookieName(slug!);
   project = {
     title: projectData[`title_${lang}`] || projectData.title_en,
     subtitle: projectData[`description_${lang}`] || projectData.description_en,
     cover: projectData.cover_url,
     isProtected: projectData.is_protected,
-    passwordHash: projectData.password_hash,
+    passwordHash: projectData.is_protected ? await projectPasswordHash(projectData) : '',
   };
-
   seoImage = projectCardThumbnail(projectData) || project.cover || undefined;
-  unlocked = cookies.get(cookieName)?.value === 'true';
-
-  if (!unlocked && Astro.request.method === 'POST') {
-    const form = await Astro.request.formData();
-    const password = form.get('password')?.toString() || '';
-    if (project.passwordHash && (await bcrypt.compare(password, project.passwordHash))) {
-      unlocked = true;
-      cookies.set(cookieName, 'true', {
-        path: '/',
-        httpOnly: true,
-        maxAge: 60 * 60 * 24 * 30,
-      });
-      showSuccessModal = true;
-    } else {
-      errorMsg = translations.protectedProjects.wrongPassword;
+  if (project.isProtected) {
+    Astro.response.headers.set('Cache-Control', 'private, no-store');
+    Astro.response.headers.set('Vary', 'Cookie');
+    Astro.response.headers.set('X-Robots-Tag', 'noindex, noarchive');
+    unlocked = verifyProjectToken(Astro.cookies.get(cookieName)?.value, slug!, project.passwordHash);
+    if (!unlocked && Astro.request.method === 'POST') {
+      const form = await Astro.request.formData();
+      if (await matchesProjectPassword(form.get('password'), project.passwordHash)) {
+        unlocked = true;
+        Astro.cookies.set(cookieName, issueProjectToken(slug!, project.passwordHash), projectCookieOptions);
+        showSuccessModal = true;
+      } else {
+        errorMsg = translations.protectedProjects.wrongPassword;
+      }
     }
+  }
+  // Fetch private content only after the visitor has passed the access check.
+  if (!project.isProtected || unlocked) {
+    try { layout = await fetchProjectLayoutReadonly(supabase, String(projectData.id)); } catch { layout = null; }
+    blocks = await resolveProjectBlocks(String(projectData.id), lang ?? 'en', projectData.content_en, projectData.content_uk);
   }
 }
 ---
@@ -100,9 +89,10 @@ if (!notFound && projectData) {
           noindex: true,
         }
       : {
+          noindex: project.isProtected,
           title: project.title,
           description: project.subtitle || translations.seo.description,
-          image: seoImage,
+          image: project.isProtected ? undefined : seoImage,
           type: 'article',
         }
   }
@@ -123,7 +113,8 @@ if (!notFound && projectData) {
         <div id="project-password-container">
           <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
             <h1 class="text-2xl font-semibold mb-4">{translations.protectedProjects.title}</h1>
-            <p class="mb-10">{translations.protectedProjects.subtitle}</p>
+            <p class="mb-10">{slug === 'design-system' ? (lang === 'uk' ? 'Proximity Design System · приватний перегляд матеріалів' : 'Proximity Design System · private portfolio review') : translations.protectedProjects.subtitle}</p>
+            {slug === 'design-system' && <p class="case-private-note">{lang === 'uk' ? 'Цей кейс поширюється з обмеженим доступом, поки статус дозволу на публікацію матеріалів не уточнено. Будь ласка, не копіюйте, не публікуйте й не передавайте матеріали або пароль іншим.' : 'This case is shared with restricted access while publication permissions are being clarified. Please do not copy, publish or redistribute the materials or share the access password.'}</p>}
 
             <div class="relative w-full max-w-xs">
               <input
@@ -170,7 +161,7 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            {projectData?.case_theme === 'dialogue' ? (
+            {projectData?.case_theme === 'system' ? null : projectData?.case_theme === 'dialogue' ? (
               <div class="case-hero__dialogue" aria-hidden="true"><span><i></i><i></i><i></i></span><span>↗</span></div>
             ) : projectData?.case_theme === 'journal' ? null : projectData?.case_theme === 'playful' ? (
               <div class="case-hero__quest" aria-hidden="true"><i></i><span></span><b>↗</b></div>
@@ -251,5 +242,6 @@ if (!notFound && projectData) {
   )}
   <ProjectLightbox lang={lang ?? 'en'} />
   <script type="module" src="/scripts/case-states.js?v=20261115-quest1"></script>
+  <script type="module" src="/scripts/case-system.js?v=20261115-system1"></script>
 </Layout>
 

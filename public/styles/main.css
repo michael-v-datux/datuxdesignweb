@@ -3759,16 +3759,561 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   grid-template-columns: 1fr;
 }
 
+/* An editorial specification: measured grids, generous specimens, compact notes. */
+.case-study.case-theme--system {
+  max-width: none;
+  width: 100%;
+  padding-inline: 0;
+  background: #f6f7fa;
+  color: #202630;
+}
+
+.case-theme--system {
+  --system-blue: #0345a1;
+  --section-ink: #202630;
+  --section-accent: #0345a1;
+  --section-soft: #e8eef8;
+}
+.case-theme--system > .project-blocks {
+  max-width: 1248px;
+  padding-inline: 2rem;
+  margin-inline: auto;
+}
+.case-theme--system .case-hero {
+  max-width: none;
+  padding: 4rem max(2rem, (100% - 1184px) / 2) 4rem;
+  margin-bottom: 0;
+  background: linear-gradient(90deg, rgba(3, 69, 161, 0.0352941176) 1px, transparent 1px), linear-gradient(rgba(3, 69, 161, 0.0352941176) 1px, transparent 1px), #eef2f8;
+  background-size: 48px 48px;
+}
+.case-theme--system .case-hero__back {
+  margin-bottom: 4rem;
+  color: #52627a;
+}
+.case-theme--system .case-hero__eyebrow {
+  font: 0.7rem ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  color: var(--system-blue);
+}
+.case-theme--system .case-hero__title {
+  max-width: none;
+  font-size: clamp(3.4rem, 10vw, 9rem);
+  line-height: 1;
+  letter-spacing: -0.075em;
+  color: #182a46;
+}
+.case-theme--system .case-hero__description {
+  max-width: 54ch;
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  color: #4e5f77;
+  line-height: 1.7;
+}
+.case-theme--system .case-hero__rule {
+  width: 100%;
+  height: 1px;
+  background: #a7b8d1;
+}
+.case-theme--system .case-section {
+  --section-ink: #202630;
+  --section-accent: #0345a1;
+  --section-soft: #e8eef8;
+  margin-bottom: clamp(4rem, 7vw, 7rem);
+}
+.case-theme--system .case-section__label {
+  font: 0.65rem/1.5 ui-monospace, monospace;
+  letter-spacing: 0.12em;
+  color: #4c6383;
+}
+.case-theme--system .case-section__label::before {
+  background: #0345a1;
+  width: 6px;
+  height: 6px;
+  border-radius: 0;
+}
+.case-theme--system .case-section__index {
+  display: none;
+}
+.case-theme--system .project-row {
+  margin-bottom: 0;
+}
+.case-theme--system .project-block__html {
+  color: #596474;
+  font-size: 1rem;
+  line-height: 1.85;
+}
+.case-theme--system .project-block__html h2 {
+  color: #1c2b43;
+  font-size: clamp(1.8rem, 3.3vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  max-width: 24ch;
+}
+.case-theme--system .project-block__html h3 {
+  color: #213451;
+  font-size: 1.05rem;
+}
+.case-theme--system .project-block__html a {
+  color: #0345a1;
+}
+.case-theme--system .project-block__html strong {
+  color: #24354e;
+  font-weight: 550;
+}
+.case-theme--system .project-block__caption {
+  color: #67758a;
+  font: 0.7rem/1.7 ui-monospace, monospace;
+  margin-top: 1rem;
+}
+.case-theme--system .project-block__media {
+  background: white;
+  border: 1px solid #d9e0eb;
+  border-radius: 0.7rem;
+  box-shadow: none;
+}
+.case-theme--system .case-section--panorama {
+  margin-top: -1.5rem;
+}
+.case-theme--system .case-section--panorama .project-block__media {
+  border-radius: 1rem;
+  box-shadow: 0 25px 60px rgba(24, 51, 85, 0.0431372549);
+}
+.case-theme--system .case-section--editorial > .project-row, .case-theme--system .case-section--margin > .project-row {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+  gap: clamp(2rem, 5vw, 5rem);
+}
+.case-theme--system .case-section--editorial > .project-row > .project-column, .case-theme--system .case-section--margin > .project-row > .project-column {
+  width: 100%;
+  max-width: 100%;
+}
+.case-theme--system .case-section--margin > .project-row > .project-column:first-child {
+  border: 0;
+  padding: 0;
+}
+.case-theme--system .case-section--statement {
+  border-block: 1px solid #cfdae8;
+  padding: 3rem 0;
+}
+.case-theme--system .case-section--statement::after {
+  display: none;
+}
+.case-theme--system .case-section--statement h2 {
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  max-width: 25ch;
+}
+.case-theme--system .case-section--statement h2 em {
+  color: #0345a1;
+  font-style: normal;
+}
+.case-theme--system .case-section--system-index {
+  border-block: 1px solid #cbd6e7;
+  padding: 2rem 0;
+}
+.case-theme--system .system-meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.case-theme--system .system-meta > div {
+  border-left: 1px solid #cad5e5;
+  padding-left: 1rem;
+}
+.case-theme--system .system-meta dt {
+  font: 0.65rem ui-monospace, monospace;
+  text-transform: uppercase;
+  color: #6d7c91;
+  margin-bottom: 0.75rem;
+}
+.case-theme--system .system-meta dd {
+  font-size: 0.95rem;
+  color: #253b5d;
+  margin: 0;
+  line-height: 1.6;
+}
+.case-theme--system .system-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+.case-theme--system .system-jump a {
+  display: inline-block;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid #cad5e5;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.5019607843);
+}
+.case-theme--system [id^=system-] {
+  scroll-margin-top: 7rem;
+}
+.case-theme--system .case-section--system-foundations {
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background: #fff;
+  border: 1px solid #d9e1ed;
+  border-radius: 1rem;
+}
+.case-theme--system .system-swatches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.case-theme--system .system-swatch {
+  border: 1px solid #dce3ed;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+.case-theme--system .system-swatch > i {
+  display: block;
+  height: 6rem;
+  background: var(--swatch);
+}
+.case-theme--system .system-swatch > span {
+  display: block;
+  padding: 1rem;
+  font: 0.7rem/1.8 ui-monospace, monospace;
+}
+.case-theme--system .system-status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  font: 0.7rem ui-monospace, monospace;
+}
+.case-theme--system .system-status span {
+  padding: 0.7rem 1rem;
+  border-left: 4px solid var(--swatch);
+  background: #f6f7fa;
+}
+.case-theme--system .system-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  border-top: 1px solid #dce3ed;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  font-family: Arial, sans-serif;
+}
+.case-theme--system .system-type > div:first-child {
+  font-size: clamp(4rem, 9vw, 7rem);
+  color: #25334a;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+.case-theme--system .system-type p {
+  margin: 0.5rem 0;
+}
+.case-theme--system .system-source {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dce3ed;
+  font-size: 0.75rem;
+}
+.case-theme--system .system-source summary, .case-theme--system .system-library summary {
+  cursor: pointer;
+  color: #0345a1;
+  padding: 0.6rem 0;
+}
+.case-theme--system .system-source img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 1rem;
+  background: white;
+}
+.case-theme--system .case-section--system-detail {
+  background: #eaf0f8;
+  border: 1px solid #cad8ea;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 1rem;
+}
+.case-theme--system .system-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+.case-theme--system .system-controls button {
+  padding: 0.7rem 1rem;
+  border: 1px solid #b3c6df;
+  border-radius: 2rem;
+  background: white;
+  font: 0.75rem ui-monospace, monospace;
+  cursor: pointer;
+  color: #31527d;
+}
+.case-theme--system .system-controls button[aria-pressed=true] {
+  background: #183a6b;
+  border-color: #183a6b;
+  color: white;
+}
+.case-theme--system [data-specimen] {
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid #d4deec;
+  border-radius: 0.75rem;
+}
+.case-theme--system [data-specimen] button {
+  font: 14px Arial, sans-serif;
+  padding: 5px 15px;
+  min-width: 50px;
+  border: 1px solid var(--spec-primary);
+  border-radius: 3px;
+  color: var(--spec-primary);
+  background: white;
+  cursor: default;
+}
+.case-theme--system [data-specimen] .spec-filled {
+  color: white;
+  background: var(--spec-primary);
+}
+.case-theme--system [data-specimen] .spec-text {
+  border-color: transparent;
+}
+.case-theme--system [data-state=hover] [data-specimen] button:not(.spec-text) {
+  color: white;
+  background: var(--spec-hover);
+}
+.case-theme--system [data-state=hover] [data-specimen] .spec-text {
+  text-decoration: underline;
+}
+.case-theme--system [data-state=disabled] [data-specimen] button:not(.spec-text) {
+  color: white;
+  border-color: transparent;
+  background: #ddd;
+}
+.case-theme--system [data-state=disabled] [data-specimen] .spec-text {
+  color: #ddd;
+}
+.case-theme--system [data-specimen-description] {
+  min-height: 4em;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+}
+.case-theme--system .system-fine {
+  font: 0.7rem/1.7 ui-monospace, monospace;
+  color: #6c7c93;
+}
+.case-theme--system .case-section--system-library > .project-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.case-theme--system .case-section--system-library .project-column {
+  width: 100%;
+  max-width: 100%;
+  padding: 1.5rem;
+  border: 1px solid #d6deea;
+  background: #fff;
+  border-radius: 0.75rem;
+}
+.case-theme--system .system-library h3 {
+  margin-top: 0;
+}
+.case-theme--system .system-library ul {
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+.case-theme--system .system-library .system-count {
+  color: #9aaac0;
+  font: 0.7rem ui-monospace, monospace;
+}
+.case-theme--system .system-doc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.case-theme--system .system-doc-grid details {
+  padding: 1rem;
+  border: 1px solid #d8e1ed;
+  border-radius: 0.75rem;
+  background: white;
+}
+.case-theme--system .system-doc-grid summary {
+  color: #0345a1;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.case-theme--system .system-doc-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: white;
+  margin-top: 1rem;
+}
+.case-theme--system .system-doc-grid a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+}
+.case-theme--system .system-process {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.case-theme--system .system-process > div {
+  border-top: 2px solid #b2c7e4;
+  padding-top: 1.5rem;
+}
+.case-theme--system .system-process b {
+  font: 0.7rem ui-monospace, monospace;
+  color: #0345a1;
+}
+.case-theme--system .case-section--system-application {
+  background: #142a4d;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 1rem;
+}
+.case-theme--system .case-section--system-application .project-block__html {
+  color: #bbc9df;
+}
+.case-theme--system .case-section--system-application h2, .case-theme--system .case-section--system-application h3, .case-theme--system .case-section--system-application strong {
+  color: #f3f6fb;
+}
+.case-theme--system .case-section--system-application .case-section__label {
+  color: #a8c1e5;
+}
+.case-theme--system .case-section--system-application .case-section__label::before {
+  background: #b7cbed;
+}
+.case-theme--system .system-apps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.case-theme--system .system-apps > div {
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1450980392);
+  border-radius: 0.5rem;
+}
+.case-theme--system .system-apps > div:first-child {
+  grid-column: 1/-1;
+  background: rgba(255, 255, 255, 0.031372549);
+}
+.case-theme--system .system-apps a {
+  color: #c6dbff;
+  font-size: 0.8rem;
+}
+.case-theme--system .system-apps p {
+  font-size: 0.9rem;
+}
+.case-theme--system .system-notice {
+  padding: 1.25rem 1.5rem;
+  border-left: 3px solid #819ac0;
+  background: #eaf0f8;
+  font-size: 0.85rem;
+}
+.case-theme--system .case-motion-toggle {
+  display: block;
+  margin-top: 1rem;
+  margin-left: auto;
+  padding: 0.5rem 0.9rem;
+  font: 0.7rem ui-monospace, monospace;
+  border: 1px solid #c1cfe1;
+  border-radius: 2rem;
+  color: #365b8a;
+  cursor: pointer;
+  background: transparent;
+}
+.case-theme--system button:focus-visible, .case-theme--system summary:focus-visible, .case-theme--system a:focus-visible {
+  outline: 3px solid #5285cc;
+  outline-offset: 4px;
+}
+
+.case-private-note {
+  max-width: 32rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #596474;
+  padding: 1.25rem;
+  border: 1px solid #cdd8e7;
+  border-radius: 0.75rem;
+}
+
+.case-theme--system #project-password-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 5rem 1.25rem;
+}
+
+@media (max-width: 767px) {
+  .case-theme--system > .project-blocks {
+    padding-inline: 1.25rem;
+  }
+  .case-theme--system .case-hero {
+    padding: 2.5rem 1.25rem 3rem;
+  }
+  .case-theme--system .case-hero__back {
+    margin-bottom: 2.5rem;
+  }
+  .case-theme--system .system-meta {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .case-theme--system .case-section--editorial > .project-row, .case-theme--system .case-section--margin > .project-row, .case-theme--system .case-section--system-library > .project-row {
+    grid-template-columns: 1fr;
+  }
+  .case-theme--system .case-section--margin > .project-row > .project-column:first-child {
+    position: static;
+  }
+  .case-theme--system .system-process, .case-theme--system .system-doc-grid, .case-theme--system .system-apps {
+    grid-template-columns: 1fr;
+  }
+  .case-theme--system .system-type {
+    grid-template-columns: 1fr;
+  }
+  .case-theme--system .system-swatches {
+    gap: 0.5rem;
+  }
+  .case-theme--system .system-swatch > span {
+    padding: 0.6rem;
+    font-size: 0.6rem;
+    overflow-wrap: anywhere;
+  }
+  .case-theme--system .system-swatch > i {
+    height: 4rem;
+  }
+  .case-theme--system [data-specimen] {
+    gap: 1rem;
+    padding-inline: 0.75rem;
+  }
+}
+.case-theme--system .case-section--panorama .project-block__image {
+  max-height: 620px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.case-theme--system .project-row--single .project-block--text-body {
+  max-width: none;
+}
+
+.case-theme--system .project-block__html > p {
+  max-width: 76ch;
+}
+
+@media (min-width: 768px) {
+  .case-theme--system .case-section--editorial > .project-row > .project-column:first-child {
+    position: sticky;
+    top: 7rem;
+  }
+}
 .hero{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
-
 .hero:is(.dark *){
   --tw-bg-opacity: 1;
   background-color: rgb(23 23 23 / var(--tw-bg-opacity, 1));
 }
-
 .hero {
   position: relative;
   overflow: hidden;
@@ -7157,6 +7702,9 @@ video {
 }
 .inline-block{
   display: inline-block;
+}
+.inline{
+  display: inline;
 }
 .flex{
   display: flex;

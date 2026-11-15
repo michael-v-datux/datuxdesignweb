@@ -18,10 +18,11 @@ const frame = normalizeMediaFrame(content.frame);
     </div>
   ) : (
     <button type="button" class:list={[...classes, 'project-block__image-button']} {style} data-case-image data-image-src={content.url} data-image-caption={caption || content.alt || ''} aria-label={lang === 'uk' ? 'Збільшити зображення' : 'Enlarge image'}>
-      <img src={content.url} alt={content.alt || ''} width={content.width} height={content.height} loading="lazy" class="project-block__image" />
+      <img src={content.url} alt={content.alt || ''} width={content.width} height={content.height} loading="lazy" data-motion-src={content.motion ? content.url : undefined} data-motion-poster={content.motion ? content.poster : undefined} class="project-block__image" />
       <span class="case-image-hint" aria-hidden="true">↗</span>
     </button>
   )}
   </div>
+  {content.motion && <button type="button" class="case-motion-toggle" data-motion-toggle aria-pressed="false" data-play-label={lang === 'uk' ? 'Відтворити анімацію' : 'Play animation'} data-pause-label={lang === 'uk' ? 'Зупинити анімацію' : 'Pause animation'}>{lang === 'uk' ? 'Зупинити анімацію' : 'Pause animation'}</button>}
   {caption && <figcaption class="project-block__caption">{caption}</figcaption>}
 </figure>

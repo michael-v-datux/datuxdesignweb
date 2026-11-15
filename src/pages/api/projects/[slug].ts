@@ -1,18 +1,20 @@
 import type { APIRoute } from 'astro';
-import bcrypt from 'bcryptjs';
-import { supabase } from '@/lib/supabaseClient';
+import { matchesProjectPassword, projectPasswordHash, verifyProjectToken, requestProjectToken } from '@/lib/projects/access';
+import { getServerSupabase } from '@/lib/supabaseServer';
+const supabase = getServerSupabase();
 import { fetchProjectBlocks, parseLegacySections } from '@/lib/projects/blocks';
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ params, request }) => {
   const { slug } = params;
-  const { key } = await request.json();
+  const { key } = await request.json().catch(() => ({}));
 
   const { data: project, error } = await supabase
     .from('projects')
     .select('*')
     .eq('slug', slug)
+    .eq('is_published', true)
     .single();
 
   if (error || !project) {
@@ -20,13 +22,14 @@ export const POST: APIRoute = async ({ params, request }) => {
   }
 
   if (project.is_protected) {
-    const match = await bcrypt.compare(key, project.password_hash);
+    const hash = await projectPasswordHash(project);
+    const match = verifyProjectToken(requestProjectToken(request, slug!), slug!, hash) || await matchesProjectPassword(key, hash);
     if (!match) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
     }
   }
 
-  const blocks = await fetchProjectBlocks(String(project.id));
+  const blocks = await fetchProjectBlocks(String(project.id), supabase);
   const sections =
     blocks.length > 0
       ? []
@@ -43,7 +46,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     }),
     {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Cache-Control': 'private, no-store', Vary: 'Cookie' },
     }
   );
 };
