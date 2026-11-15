@@ -9,8 +9,8 @@ export const GET: APIRoute = async ({ params, request }) => {
   const deny = (status = 401) => new Response('Private case material', { status, headers });
   if (!params.slug || !params.file || !/^[a-z0-9][a-z0-9-]*\.(webp|png|gif|mp4)$/.test(params.file)) return deny(404);
   const supabase = getServerSupabase();
-  const { data: project } = await supabase.from('projects').select('id,slug,is_published,is_protected,password_hash').eq('slug', params.slug).maybeSingle();
-  if (!project || !project.is_protected) return deny(404);
+  const { data: project } = await supabase.from('projects').select('id,slug,is_published,is_protected,password_hash,private_materials').eq('slug', params.slug).maybeSingle();
+  if (!project || (!project.is_protected && !project.private_materials)) return deny(404);
   const admin = isAdminAuthenticated(request);
   if (!project.is_published && !admin) return deny(404);
   const hash = await projectPasswordHash(project);

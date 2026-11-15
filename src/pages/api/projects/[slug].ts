@@ -21,7 +21,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     return new Response(JSON.stringify({ error: 'Not found' }), { status: 404 });
   }
 
-  if (project.is_protected) {
+  if (project.is_protected || project.private_materials) {
     const hash = await projectPasswordHash(project);
     const match = verifyProjectToken(requestProjectToken(request, slug!), slug!, hash) || await matchesProjectPassword(key, hash);
     if (!match) {

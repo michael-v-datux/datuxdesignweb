@@ -73,6 +73,16 @@ export const PATCH: APIRoute = async ({ params, request }) => {
     });
   }
 
+  const { data: accessMeta } = await supabase.from('projects').select('private_materials').eq('id', id).single();
+  if (accessMeta?.private_materials) {
+    if (update.is_protected === false) return new Response(JSON.stringify({ error: 'Private materials require password protection.' }), { status: 400 });
+    if (typeof update.password_hash === 'string' && update.password_hash) {
+      const { error: credentialError } = await supabase.from('project_credentials').upsert({ project_id: id, password_hash: update.password_hash });
+      if (credentialError) return new Response(JSON.stringify({ error: 'Could not save private case password.' }), { status: 500 });
+    }
+    update.password_hash = null;
+  }
+
   update.updated_at = new Date().toISOString();
 
   const { data, error } = await supabase

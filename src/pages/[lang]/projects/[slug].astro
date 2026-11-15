@@ -50,8 +50,8 @@ if (!notFound && projectData) {
     title: projectData[`title_${lang}`] || projectData.title_en,
     subtitle: projectData[`description_${lang}`] || projectData.description_en,
     cover: projectData.cover_url,
-    isProtected: projectData.is_protected,
-    passwordHash: projectData.is_protected ? await projectPasswordHash(projectData) : '',
+    isProtected: projectData.is_protected || projectData.private_materials,
+    passwordHash: (projectData.is_protected || projectData.private_materials) ? await projectPasswordHash(projectData) : '',
   };
   seoImage = projectCardThumbnail(projectData) || project.cover || undefined;
   if (project.isProtected) {

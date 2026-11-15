@@ -13,12 +13,12 @@ export const POST: APIRoute = async ({ request, cookies }) => {
     // Отримуємо проект із Supabase
     const { data: project, error } = await supabase
       .from('projects')
-      .select('id,slug,password_hash,is_protected')
+      .select('id,slug,password_hash,is_protected,private_materials')
       .eq('slug', slug)
       .eq('is_published', true)
       .single();
 
-    if (error || !project || !project.is_protected) {
+    if (error || !project || (!project.is_protected && !project.private_materials)) {
       return new Response(JSON.stringify({ success: false }), { status: 400 });
     }
 

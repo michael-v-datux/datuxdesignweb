@@ -128,6 +128,16 @@ export const PUT: APIRoute = async ({ request }) => {
     payload.password_hash = null;
   }
 
+  const { data: accessMeta } = await supabase.from('projects').select('private_materials').eq('id', body.id).single();
+  if (accessMeta?.private_materials) {
+    if (payload.is_protected === false) return new Response(JSON.stringify({ error: 'Private materials require password protection.' }), { status: 400 });
+    if (typeof payload.password_hash === 'string' && payload.password_hash) {
+      const { error: credentialError } = await supabase.from('project_credentials').upsert({ project_id: body.id, password_hash: payload.password_hash });
+      if (credentialError) return new Response(JSON.stringify({ error: 'Could not save private case password.' }), { status: 500 });
+    }
+    payload.password_hash = null;
+  }
+
   const { data, error } = await supabase
     .from("projects")
     .update(payload)
