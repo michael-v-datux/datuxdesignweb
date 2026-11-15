@@ -81,7 +81,7 @@ export function clearAdminSessionCookie(cookies: AstroCookies): void {
 
 export function isProtectedAdminApi(pathname: string): boolean {
   if (!pathname.startsWith('/api/admin')) return false;
-  return pathname !== '/api/admin-login' && pathname !== '/api/admin-logout';
+  return pathname !== '/api/admin-login' && pathname !== '/api/admin-logout' && pathname !== '/api/admin-session';
 }
 
 export function isProtectedAdminPage(pathname: string): boolean {
