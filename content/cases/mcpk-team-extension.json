@@ -13,8 +13,8 @@
     "thumbnail_url": "/images/projects/mcpk/01-hero.jpg",
     "cover_url": null,
     "is_protected": false,
-    "is_published": false,
-    "status": "draft"
+    "is_published": true,
+    "status": "published"
   },
   "rows": [
     {

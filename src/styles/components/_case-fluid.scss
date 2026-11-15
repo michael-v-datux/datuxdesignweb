@@ -86,3 +86,5 @@
   .case-section--brand .case-media-shell--none { max-width: 190px; margin-bottom: 1rem; }
   .case-section--brand > .project-row { gap: 2rem; }
 }
+/* Keep the first visual below the metadata in the compact editor preview. */
+.case-theme--fluid > .admin-preview-blocks > .case-section:first-child.case-section--panorama { margin-top: 0; }
