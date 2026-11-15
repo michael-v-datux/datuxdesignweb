@@ -1,11 +1,11 @@
-/** Progressive enhancement: without JS both design states remain visible. */
+/** Progressive enhancement: without JS all source screens remain visible. */
 export function initCaseStates(root = document) {
   root.querySelectorAll('[data-case-states]').forEach(section => {
     if (section.dataset.statesReady) return;
     const tabs = [...section.querySelectorAll('[data-state-select]')];
     const panels = [...section.querySelectorAll('[data-state-panel]')];
     const list = section.querySelector('[role="tablist"]');
-    if (tabs.length !== 2 || panels.length !== 2 || !list) return;
+    if (tabs.length < 2 || tabs.length !== panels.length || !list) return;
     const select = (active, focus = false) => {
       tabs.forEach((tab, index) => {
         tab.setAttribute('aria-selected', String(index === active));

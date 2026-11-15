@@ -1,6 +1,6 @@
 import { adminFetch } from '/scripts/admin/api.js';
 import { showToast } from '/scripts/common/toast.js';
-import { SECTION_TEMPLATES, SECTION_VARIANTS, SECTION_ACCENTS, normalizePresentation } from '/scripts/lib/case-design.js?v=20261115-workbench1';
+import { SECTION_TEMPLATES, SECTION_VARIANTS, SECTION_ACCENTS, normalizePresentation } from '/scripts/lib/case-design.js?v=20261115-explorer1';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -103,6 +103,9 @@ function renderRow(row) {
           <label>Accent<select class="admin-input" data-section-accent>${SECTION_ACCENTS.map(v => `<option value="${v}" ${presentation.accent === v ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
           <label>Section label (EN)<input class="admin-input" data-section-label-en maxlength="100" value="${escapeHtml(presentation.label_en)}" placeholder="Optional · e.g. The approach" /></label>
           <label>Section label (UK)<input class="admin-input" data-section-label-uk maxlength="100" value="${escapeHtml(presentation.label_uk)}" placeholder="Необов’язково · наприклад, Підхід" /></label>
+          <label>Chapter anchor<input class="admin-input" data-section-anchor maxlength="60" value="${escapeHtml(presentation.anchor)}" placeholder="e.g. chapter-compare" /></label>
+          <label>Navigation title (EN)<input class="admin-input" data-section-nav-en maxlength="40" value="${escapeHtml(presentation.nav_en)}" placeholder="Optional · adds a chapter link" /></label>
+          <label>Navigation title (UK)<input class="admin-input" data-section-nav-uk maxlength="40" value="${escapeHtml(presentation.nav_uk)}" placeholder="Назва розділу в навігації" /></label>
         </div>
       </details>
       <div class="admin-layout-row__columns">${cols}</div>
@@ -394,6 +397,9 @@ export function initLayoutBuilder({
         accent: design.querySelector('[data-section-accent]').value,
         label_en: design.querySelector('[data-section-label-en]').value,
         label_uk: design.querySelector('[data-section-label-uk]').value,
+        anchor: design.querySelector('[data-section-anchor]').value,
+        nav_en: design.querySelector('[data-section-nav-en]').value,
+        nav_uk: design.querySelector('[data-section-nav-uk]').value,
       } });
       return;
     }

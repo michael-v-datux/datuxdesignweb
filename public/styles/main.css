@@ -4783,14 +4783,379 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
     font-size: 15px;
   }
 }
+/* A persistent contents rail and a product atlas for a long, layered case. */
+.case-theme--workbench .case-reader {
+  position: sticky;
+  top: var(--reader-top, 0px);
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 16px max(24px, (100% - 1232px) / 2);
+  margin: 0 0 48px;
+  background: rgba(16, 32, 38, 0.9607843137);
+  border-block: 1px solid #436067;
+  -webkit-backdrop-filter: blur(18px);
+          backdrop-filter: blur(18px);
+}
+.case-theme--workbench .case-reader__label {
+  flex: 0 0 auto;
+  color: #84a4a9;
+  font: 10px ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.case-theme--workbench .case-reader__label b {
+  margin-left: 12px;
+  color: #b9f0e3;
+  font-weight: 400;
+}
+.case-theme--workbench .case-reader__links {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.case-theme--workbench .case-reader a {
+  padding: 8px;
+  color: #9db6ba;
+  white-space: nowrap;
+  font-size: 11px;
+  text-decoration: none;
+  border-radius: 3px;
+}
+.case-theme--workbench .case-reader a[aria-current] {
+  background: #7de3cf;
+  color: #163f39;
+}
+.case-theme--workbench .case-reader__progress {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #7de3cf;
+  transform: scaleX(var(--read-progress, 0));
+  transform-origin: left;
+}
+.case-theme--workbench .case-section[id] {
+  scroll-margin-top: 168px;
+}
+.case-theme--workbench .case-section--workbench-explorer {
+  position: relative;
+  border: 1px solid #4a656c;
+  background: linear-gradient(135deg, #20383d, #15262d);
+  border-radius: 10px;
+  padding: 32px;
+}
+.case-theme--workbench .case-section--workbench-explorer .case-section__label {
+  border: 0;
+  padding: 0;
+  margin-bottom: 24px;
+}
+.case-theme--workbench .case-section--workbench-explorer.is-enhanced {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 28px;
+}
+.case-theme--workbench .case-section--workbench-explorer.is-enhanced > .case-section__label {
+  grid-column: 1/-1;
+  margin-bottom: 0;
+}
+.case-theme--workbench .case-section--workbench-explorer .case-states__tabs {
+  flex-direction: column;
+  gap: 8px;
+  align-items: stretch;
+  margin: 0;
+}
+.case-theme--workbench .case-section--workbench-explorer .case-states__tabs button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  padding: 16px;
+  border: 1px solid #425e65;
+  border-radius: 5px;
+  background: #14282e;
+  color: #a4c0c4;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.case-theme--workbench .case-section--workbench-explorer .case-states__tabs button span {
+  font: 10px ui-monospace, monospace;
+  opacity: 0.7;
+}
+.case-theme--workbench .case-section--workbench-explorer .case-states__tabs button[aria-selected=true] {
+  background: #b8eedf;
+  color: #183e38;
+  border-color: #b8eedf;
+}
+.case-theme--workbench .case-section--workbench-explorer > .project-row {
+  display: block;
+  min-width: 0;
+}
+.case-theme--workbench .case-section--workbench-explorer .project-column {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 32px;
+}
+.case-theme--workbench .case-section--workbench-explorer.is-enhanced .project-column {
+  margin-bottom: 0;
+}
+.case-theme--workbench .case-section--workbench-explorer .project-column[hidden] {
+  display: none;
+}
+.case-theme--workbench .case-section--workbench-explorer h2 {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+.case-theme--workbench .case-section--workbench-explorer .project-block__html p {
+  font-size: 14px;
+}
+.case-theme--workbench .case-section--workbench-explorer .project-block__caption {
+  font-size: 10px;
+}
+.case-theme--workbench .case-section--workbench-explorer .project-block__image {
+  max-height: 460px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.case-theme--workbench .mdm-breadth {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.case-theme--workbench .mdm-breadth__title {
+  color: #d8f8ee;
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  line-height: 1.12;
+  letter-spacing: -0.05em;
+}
+.case-theme--workbench .mdm-breadth__scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 28px;
+}
+.case-theme--workbench .mdm-breadth__scope span {
+  padding: 9px 12px;
+  font: 11px ui-monospace, monospace;
+  border: 1px solid #3c5b62;
+  border-radius: 3px;
+  color: #9dc9c9;
+}
+.case-theme--workbench .mdm-evidence-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 32px;
+  font: 10px ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8bacae;
+}
+.case-theme--workbench .mdm-evidence-strip::before {
+  content: "";
+  height: 6px;
+  width: 6px;
+  background: #7de3cf;
+  border-radius: 50%;
+}
+.case-theme--workbench .mdm-evidence-strip span + span::before {
+  content: "/";
+  margin-right: 12px;
+  color: #48656b;
+}
+.case-theme--workbench .mdm-task {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 28px;
+  border-top: 1px solid #3e575e;
+  padding-top: 24px;
+  margin-top: 24px;
+}
+.case-theme--workbench .mdm-task > span {
+  font: 11px/1.5 ui-monospace, monospace;
+  color: #7de3cf;
+}
+.case-theme--workbench .mdm-task p {
+  margin-bottom: 0;
+}
+.case-theme--workbench .mdm-attribution {
+  font-size: 12px;
+  color: #8fa7ab;
+  line-height: 1.85;
+  margin-top: 24px;
+}
+.case-theme--workbench .mdm-attribution a {
+  color: #b5cec9;
+}
+.case-theme--workbench .mdm-wide-note {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+  gap: 48px;
+  align-items: start;
+}
+.case-theme--workbench .mdm-wide-note .mdm-private {
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .case-theme--workbench .case-section--states:not(.is-enhanced) > .project-row {
+    display: block;
+  }
+  .case-theme--workbench .case-section--states:not(.is-enhanced) .project-column {
+    width: 100%;
+    margin-bottom: 32px;
+  }
+}
+@media (max-width: 767px) {
+  .case-theme--workbench .case-reader {
+    top: var(--reader-top, 0px);
+    gap: 12px;
+    padding: 10px 12px;
+    margin-bottom: 32px;
+  }
+  .case-theme--workbench .case-reader__label {
+    font-size: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .case-theme--workbench .case-reader__label b {
+    margin: 0;
+  }
+  .case-theme--workbench .case-reader__label > span {
+    display: none;
+  }
+  .case-theme--workbench .case-reader a {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+  .case-theme--workbench .case-reader__links {
+    gap: 3px;
+  }
+  .case-theme--workbench .case-section--workbench-explorer {
+    padding: 22px 16px;
+  }
+  .case-theme--workbench .case-section--workbench-explorer.is-enhanced {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .case-theme--workbench .case-section--workbench-explorer .case-states__tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .case-theme--workbench .case-section--workbench-explorer .case-states__tabs button {
+    font-size: 11px;
+    padding: 12px 9px;
+    gap: 7px;
+    width: auto;
+  }
+  .case-theme--workbench .case-section--workbench-explorer .project-block__image {
+    max-height: none;
+  }
+  .case-theme--workbench .mdm-breadth, .case-theme--workbench .mdm-wide-note {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .case-theme--workbench .mdm-task {
+    grid-template-columns: 62px 1fr;
+    gap: 16px;
+  }
+}
+.admin-section-template__thumb--workbench-explorer {
+  background: #183238;
+}
+
+.case-theme--workbench[data-project-preview] {
+  background: #111c21;
+  padding: 16px;
+}
+
+.case-theme--workbench .admin-preview-blocks .case-section--workbench-explorer {
+  display: block;
+}
+
+.case-theme--workbench .admin-preview-blocks .case-section--workbench-explorer .project-column {
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .case-theme--workbench .case-section--editorial .project-column:first-child {
+    top: 175px;
+  }
+}
+.case-theme--workbench .case-section[data-chapter-index]:not(.case-section--workbench-explorer) {
+  position: relative;
+  isolation: isolate;
+  padding-top: 24px;
+}
+
+.case-theme--workbench .case-section[data-chapter-index]:not(.case-section--workbench-explorer)::before {
+  content: attr(data-chapter-index);
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  top: 0;
+  font: clamp(130px, 20vw, 240px)/1 ui-monospace, monospace;
+  letter-spacing: -0.1em;
+  color: rgba(125, 227, 207, 0.0392156863);
+  pointer-events: none;
+}
+
+.case-theme--workbench .case-section--workbench-explorer .case-image-hint {
+  background: #daf3eb;
+  color: #21443d;
+}
+
+.case-theme--workbench .admin-preview__hero {
+  padding: 24px;
+  background: #1a3138;
+  border: 1px solid #46636a;
+  border-radius: 8px;
+  color: #e7f5f1;
+}
+
+.case-theme--workbench .admin-preview__hero p, .case-theme--workbench .admin-preview__states-hint {
+  color: #a8c5c7;
+}
+
+.case-theme--workbench .admin-preview-blocks .case-section--editorial > .project-row {
+  grid-template-columns: 1fr;
+}
+
+.case-theme--workbench .admin-preview-blocks .case-section--editorial .project-column:first-child {
+  position: static;
+}
+
+.case-theme--workbench .admin-preview-blocks .mdm-breadth, .case-theme--workbench .admin-preview-blocks .mdm-chain, .case-theme--workbench .admin-preview-blocks .mdm-notes {
+  grid-template-columns: 1fr;
+}
+
+.case-theme--workbench .case-reader__links {
+  scrollbar-width: none;
+}
+
+.case-theme--workbench .case-reader__links::-webkit-scrollbar {
+  display: none;
+}
+
 .hero{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
+
 .hero:is(.dark *){
   --tw-bg-opacity: 1;
   background-color: rgb(23 23 23 / var(--tw-bg-opacity, 1));
 }
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -8191,6 +8556,9 @@ video {
 }
 .grid{
   display: grid;
+}
+.contents{
+  display: contents;
 }
 .hidden{
   display: none;

@@ -1,7 +1,7 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
 export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal', 'dialogue', 'system', 'workbench'];
 export function normalizeCaseTheme(value) { return CASE_THEMES.includes(value) ? value : 'classic'; }
-export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin', 'conversation', 'devices', 'system-index', 'system-foundations', 'system-detail', 'system-library', 'system-application'];
+export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin', 'conversation', 'devices', 'system-index', 'system-foundations', 'system-detail', 'system-library', 'system-application', 'workbench-explorer'];
 export const MEDIA_FRAMES = ['none', 'browser', 'canvas', 'paper'];
 export function normalizeMediaFrame(value) { return MEDIA_FRAMES.includes(value) ? value : 'none'; }
 export const SECTION_ACCENTS = ['violet', 'mint', 'rose', 'amber'];
@@ -12,6 +12,9 @@ export function normalizePresentation(value) {
     accent: SECTION_ACCENTS.includes(p.accent) ? p.accent : 'violet',
     label_en: typeof p.label_en === 'string' ? p.label_en.trim().slice(0, 100) : '',
     label_uk: typeof p.label_uk === 'string' ? p.label_uk.trim().slice(0, 100) : '',
+    anchor: typeof p.anchor === 'string' && /^[a-z][a-z0-9-]{0,59}$/.test(p.anchor.trim()) ? p.anchor.trim() : '',
+    nav_en: typeof p.nav_en === 'string' ? p.nav_en.trim().slice(0, 40) : '',
+    nav_uk: typeof p.nav_uk === 'string' ? p.nav_uk.trim().slice(0, 40) : '',
   };
 }
 export function sectionClasses(row) {
@@ -25,6 +28,7 @@ export function sectionLabel(row, lang) {
   return lang === 'uk' ? p.label_uk || p.label_en : p.label_en || p.label_uk;
 }
 export const SECTION_TEMPLATES = [
+  { id: 'workbench-explorer', title: 'Product explorer', detail: 'Three editable screens · keyboard-accessible tabs', accent: 'mint' },
   { id: 'conversation', title: 'Conversation notes', detail: 'Two offset cards · question and design response', accent: 'rose' },
   { id: 'devices', title: 'Device gallery', detail: 'Three portrait screens · alternating rhythm', accent: 'violet' },
   { id: 'margin', title: 'Margin notes', detail: 'Sticky reading column · generous visual', accent: 'mint' },
@@ -51,7 +55,8 @@ export function makeSectionTemplate(id) {
     url: '', alt: '', frame, borderRadius: 'lg', shadow: 'none', objectFit: 'contain', aspectRatio: 'auto',
   } });
   let columns;
-  if (id === 'devices') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / Screen detail</h2><p>Explain this interface state.</p>`, `<h2>${n} / Деталь екрана</h2><p>Поясніть цей стан інтерфейсу.</p>`), image('none')] }));
+  if (id === 'workbench-explorer') columns = ['01', '02', '03'].map(n => ({ span: '1/1', blocks: [text(`<h2>Work area ${n}</h2><p>Explain the task and the design decisions visible in this screen.</p>`, `<h2>Робоча область ${n}</h2><p>Поясніть задачу та дизайн-рішення, які показує цей екран.</p>`), image('none')] }));
+  else if (id === 'devices') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / Screen detail</h2><p>Explain this interface state.</p>`, `<h2>${n} / Деталь екрана</h2><p>Поясніть цей стан інтерфейсу.</p>`), image('none')] }));
   else if (id === 'sequence') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / A clear step</h2><p>Explain this part of the journey.</p>`, `<h2>${n} / Зрозумілий крок</h2><p>Поясніть цю частину шляху.</p>`)] }));
   else if (id === 'states') columns = [{ span: '1/2', blocks: [text('<h2>Choose a date</h2>', '<h2>Оберіть дату</h2>'), image('none')] }, { span: '1/2', blocks: [text('<h2>Review details</h2>', '<h2>Перегляньте деталі</h2>'), image('none')] }];
   else if (id === 'conversation') columns = [{ span: '1/2', blocks: [text('<h2>The design challenge</h2><p>Describe the context and the question to solve.</p>', '<h2>Дизайн-задача</h2><p>Опишіть контекст і питання, яке потрібно вирішити.</p>')] }, { span: '1/2', blocks: [text('<h2>The design response</h2><p>Explain the decision and its purpose.</p>', '<h2>Дизайн-рішення</h2><p>Поясніть рішення та його мету.</p>')] }];

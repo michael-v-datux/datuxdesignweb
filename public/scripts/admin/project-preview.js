@@ -1,5 +1,5 @@
 import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
-import { CASE_THEMES, normalizeMediaFrame, normalizeCaseTheme, sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261115-workbench1';
+import { CASE_THEMES, normalizeMediaFrame, normalizeCaseTheme, sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261115-explorer1';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -146,7 +146,7 @@ function renderExplicitLayoutHtml(layout, lang, interactive) {
         <section class="${sectionClasses(row)}">
           <span class="case-section__index" aria-hidden="true">${sectionNumber(row, rows)}</span>
           ${sectionLabel(row, lang) ? `<p class="case-section__label">${escapeHtml(sectionLabel(row, lang))}</p>` : ''}
-          ${row.presentation?.variant === 'states' && row.columns.length === 2 ? `<p class="admin-preview__states-hint">${lang === 'uk' ? 'На сайті ці два стани перемикаються вкладками. Тут обидва показані для редагування.' : 'The site displays these states as tabs. Both are shown here for editing.'}</p>` : ''}
+          ${['states','workbench-explorer'].includes(row.presentation?.variant) && row.columns.length >= 2 ? `<p class="admin-preview__states-hint">${lang === 'uk' ? 'На сайті екрани перемикаються вкладками. Тут усі показані для редагування.' : 'The site displays these screens as tabs. All are shown here for editing.'}</p>` : ''}
           <div class="${rowClass} admin-preview-row" data-row-id="${escapeHtml(row.id)}">
           ${cols}
           ${interactive ? `<div class="admin-preview-row__actions">${addCol}</div>` : ''}

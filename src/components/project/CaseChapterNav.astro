@@ -1,0 +1,16 @@
+---
+import { normalizePresentation } from '../../../public/scripts/lib/case-design.js';
+import type { ProjectLayout } from '@/lib/projects/types';
+interface Props { layout?: ProjectLayout | null; lang: string; }
+const { layout, lang } = Astro.props;
+const seen = new Set<string>();
+const chapters = (layout?.rows || []).map(row => normalizePresentation(row.presentation)).filter(p => {
+  if (!p.anchor || !(p.nav_en || p.nav_uk) || seen.has(p.anchor)) return false;
+  seen.add(p.anchor); return true;
+});
+---
+{chapters.length > 1 && <nav class="case-reader" data-case-reader aria-label={lang === 'uk' ? 'Розділи кейсу' : 'Case chapters'}>
+  <span class="case-reader__label">{lang === 'uk' ? 'У кейсі' : 'In this case'} <b data-case-reader-position>01</b><span aria-hidden="true">/{String(chapters.length).padStart(2, '0')}</span></span>
+  <div class="case-reader__links">{chapters.map(p => <a href={`#${p.anchor}`}>{lang === 'uk' ? p.nav_uk || p.nav_en : p.nav_en || p.nav_uk}</a>)}</div>
+  <span class="case-reader__progress" aria-hidden="true"></span>
+</nav>}

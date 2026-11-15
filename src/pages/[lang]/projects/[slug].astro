@@ -10,6 +10,7 @@ const supabase = getServerSupabase();
 import { resolveProjectBlocks } from '@/lib/projects/blocks';
 import { fetchProjectLayoutReadonly } from '@/lib/projects/layout';
 import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
+import CaseChapterNav from '@/components/project/CaseChapterNav.astro';
 import ProjectLightbox from '@/components/project/ProjectLightbox.astro';
 import { projectCardThumbnail } from '@/lib/projects/card-labels';
 
@@ -180,6 +181,7 @@ if (!notFound && projectData) {
             {project.subtitle && <p class="case-hero__description">{project.subtitle}</p>}
             <div class="case-hero__rule" aria-hidden="true"></div>
           </header>
+          <CaseChapterNav {layout} lang={lang ?? 'en'} />
           {project.cover && (
             <button type="button" class="case-cover" data-case-image data-image-src={project.cover} data-image-caption={project.title} aria-label={lang === 'uk' ? 'Збільшити обкладинку' : 'Enlarge cover'}>
               <img src={project.cover} alt={project.title} />
@@ -243,7 +245,8 @@ if (!notFound && projectData) {
     </section>
   )}
   <ProjectLightbox lang={lang ?? 'en'} />
-  <script type="module" src="/scripts/case-states.js?v=20261115-quest1"></script>
+  <script type="module" src="/scripts/case-states.js?v=20261115-explorer1"></script>
+  <script type="module" src="/scripts/case-reader.js?v=20261115-explorer1"></script>
   <script type="module" src="/scripts/case-system.js?v=20261115-system1"></script>
 </Layout>
 

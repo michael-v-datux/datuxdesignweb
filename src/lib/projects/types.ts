@@ -59,10 +59,13 @@ export interface ProjectColumn {
 }
 
 export interface SectionPresentation {
-  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast' | 'flow' | 'brand' | 'panorama' | 'mission' | 'ticket' | 'sequence' | 'states' | 'margin' | 'conversation' | 'devices';
+  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast' | 'flow' | 'brand' | 'panorama' | 'mission' | 'ticket' | 'sequence' | 'states' | 'margin' | 'conversation' | 'devices' | 'system-index' | 'system-foundations' | 'system-detail' | 'system-library' | 'system-application' | 'workbench-explorer';
   accent: 'violet' | 'mint' | 'rose' | 'amber';
   label_en: string;
   label_uk: string;
+  anchor?: string;
+  nav_en?: string;
+  nav_uk?: string;
 }
 
 export interface ProjectRow {
