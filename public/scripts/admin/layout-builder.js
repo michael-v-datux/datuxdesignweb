@@ -1,6 +1,6 @@
 import { adminFetch } from '/scripts/admin/api.js';
 import { showToast } from '/scripts/common/toast.js';
-import { SECTION_TEMPLATES, SECTION_VARIANTS, SECTION_ACCENTS, normalizePresentation } from '/scripts/lib/case-design.js';
+import { SECTION_TEMPLATES, SECTION_VARIANTS, SECTION_ACCENTS, normalizePresentation } from '/scripts/lib/case-design.js?v=20261115-art1';
 
 function escapeHtml(str) {
   return String(str ?? '')
