@@ -1,5 +1,5 @@
 import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
-import { normalizeCaseTheme, sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261115-quest1';
+import { CASE_THEMES, normalizeMediaFrame, normalizeCaseTheme, sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261115-journal1';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -87,7 +87,7 @@ function renderMediaBlock(block, lang) {
   const figStyle = mediaFigureStyle(content);
   const styleAttr = figStyle ? ` style="${figStyle}"` : '';
   const rawCaption = lang === 'uk' ? content.caption_uk || content.caption_en : content.caption_en || content.caption_uk;
-  const frame = ['none', 'browser', 'canvas'].includes(content.frame) ? content.frame : 'none';
+  const frame = normalizeMediaFrame(content.frame);
   const shellStart = `<div class="case-media-shell case-media-shell--${frame}">${frame === 'browser' ? '<div class="case-browser-bar" aria-hidden="true"><i></i><i></i><i></i><span></span></div>' : ''}`;
   const caption = rawCaption ? `<figcaption class="project-block__caption">${escapeHtml(rawCaption)}</figcaption>` : '';
   if (type === 'media' && content.mediaType === 'video') {
@@ -189,8 +189,7 @@ export function renderProjectPreview(
 ) {
   if (!container) return;
   const theme = normalizeCaseTheme(meta.case_theme);
-  container.classList.toggle('case-theme--fluid', theme === 'fluid');
-  container.classList.toggle('case-theme--playful', theme === 'playful');
+  CASE_THEMES.forEach(name => container.classList.toggle(`case-theme--${name}`, name === theme));
 
   const title = lang === 'uk' ? meta.title_uk || meta.title_en : meta.title_en || meta.title_uk;
   const description =

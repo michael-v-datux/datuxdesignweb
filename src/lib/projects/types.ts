@@ -16,7 +16,7 @@ export interface BlockContent {
   align?: BlockAlign;
   textAlign?: BlockTextAlign;
   textStyle?: 'body' | 'lead' | 'callout';
-  frame?: 'none' | 'browser' | 'canvas';
+  frame?: 'none' | 'browser' | 'canvas' | 'paper';
   caption_en?: string;
   caption_uk?: string;
   text?: string;
@@ -55,7 +55,7 @@ export interface ProjectColumn {
 }
 
 export interface SectionPresentation {
-  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast' | 'flow' | 'brand' | 'panorama' | 'mission' | 'ticket' | 'sequence' | 'states';
+  variant: 'plain' | 'editorial' | 'showcase' | 'statement' | 'gallery' | 'contrast' | 'flow' | 'brand' | 'panorama' | 'mission' | 'ticket' | 'sequence' | 'states' | 'margin';
   accent: 'violet' | 'mint' | 'rose' | 'amber';
   label_en: string;
   label_uk: string;

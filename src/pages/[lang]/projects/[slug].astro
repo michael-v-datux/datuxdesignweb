@@ -170,7 +170,7 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            {projectData?.case_theme === 'playful' ? (
+            {projectData?.case_theme === 'journal' ? null : projectData?.case_theme === 'playful' ? (
               <div class="case-hero__quest" aria-hidden="true"><i></i><span></span><b>↗</b></div>
             ) : projectData?.case_theme === 'fluid' ? (
               <div class="case-hero__fluid" aria-hidden="true"><span></span><span></span><span></span><i></i><i></i></div>

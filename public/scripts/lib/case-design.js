@@ -1,7 +1,9 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
-export const CASE_THEMES = ['classic', 'fluid', 'playful'];
+export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal'];
 export function normalizeCaseTheme(value) { return CASE_THEMES.includes(value) ? value : 'classic'; }
-export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states'];
+export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin'];
+export const MEDIA_FRAMES = ['none', 'browser', 'canvas', 'paper'];
+export function normalizeMediaFrame(value) { return MEDIA_FRAMES.includes(value) ? value : 'none'; }
 export const SECTION_ACCENTS = ['violet', 'mint', 'rose', 'amber'];
 export function normalizePresentation(value) {
   const p = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
@@ -23,6 +25,7 @@ export function sectionLabel(row, lang) {
   return lang === 'uk' ? p.label_uk || p.label_en : p.label_en || p.label_uk;
 }
 export const SECTION_TEMPLATES = [
+  { id: 'margin', title: 'Margin notes', detail: 'Sticky reading column · generous visual', accent: 'mint' },
   { id: 'mission', title: 'Mission chapter', detail: 'Numbered checkpoint · story + visual', accent: 'mint' },
   { id: 'ticket', title: 'Experience ticket', detail: 'Perforated card · text + image', accent: 'mint' },
   { id: 'sequence', title: 'Journey steps', detail: 'Three steps · a connected route', accent: 'mint' },
@@ -53,6 +56,9 @@ export function makeSectionTemplate(id) {
     '<h2>Одне чітке дизайн-рішення.</h2><p>Опишіть інсайт, прийняте рішення та чому воно важливе.</p>', 'lead')] }];
   else if (id === 'showcase' || id === 'panorama') columns = [{ span: '1/1', blocks: [image()] }];
   else if (id === 'gallery') columns = [{ span: '1/2', blocks: [image()] }, { span: '1/2', blocks: [image('canvas')] }];
+  else if (id === 'margin') columns = [{ span: '1/3', blocks: [text(
+    '<h2>Explain the decision.</h2><p>Keep a concise note beside the visual. On desktop, this column stays in view while reading.</p>',
+    '<h2>Поясніть рішення.</h2><p>Додайте коротку нотатку поруч із зображенням. На великому екрані ця колонка залишається в полі зору під час читання.</p>')] }, { span: '1/2', blocks: [image('paper')] }];
   else if (id === 'brand') columns = [{ span: '1/2', blocks: [image('none')] }, { span: '1/2', blocks: [text(
     '<h2>Give the brand a moment.</h2><p>Add a transparent logo and explain its visual character.</p>',
     '<h2>Дайте бренду простір.</h2><p>Додайте логотип із прозорим тлом і розкажіть про його візуальний характер.</p>')] }];

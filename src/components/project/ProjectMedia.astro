@@ -1,4 +1,5 @@
 ---
+import { normalizeMediaFrame } from '../../../public/scripts/lib/case-design.js';
 import type { BlockContent } from '@/lib/projects/types';
 import { mediaStyleClasses, mediaStyleInline } from '@/lib/projects/media-styles';
 interface Props { content: BlockContent; video?: boolean; lang: string; }
@@ -6,7 +7,7 @@ const { content, video = false, lang } = Astro.props;
 const caption = lang === 'uk' ? content.caption_uk || content.caption_en : content.caption_en || content.caption_uk;
 const classes = ['project-block__media', ...mediaStyleClasses(content)];
 const style = mediaStyleInline(content) || undefined;
-const frame = ['none', 'browser', 'canvas'].includes(content.frame || '') ? content.frame : 'none';
+const frame = normalizeMediaFrame(content.frame);
 ---
 <figure class="project-block__figure">
   <div class:list={['case-media-shell', `case-media-shell--${frame}`]}>

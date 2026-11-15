@@ -1,0 +1,551 @@
+{
+  "source": "https://www.behance.net/gallery/190829863/Design-of-the-Personal-and-management-consultations",
+  "project": {
+    "id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+    "slug": "hartick-recruitment",
+    "title_en": "HARTICK — Recruitment Landing Page",
+    "title_uk": "HARTICK — Рекрутинговий лендинг",
+    "description_en": "A recruitment landing-page concept bringing the role, workplace, offer and application into one candidate-focused reading experience.",
+    "description_uk": "Концепт рекрутингового лендингу, що поєднує роль, робоче середовище, умови та заявку в послідовну історію для кандидата.",
+    "category_en": "Recruitment · Website concept",
+    "category_uk": "Рекрутинг · Концепт сайту",
+    "case_theme": "journal",
+    "thumbnail_url": "/images/projects/hartick/01-hero.jpg",
+    "cover_url": null,
+    "is_protected": false,
+    "is_published": false,
+    "status": "draft"
+  },
+  "rows": [
+    {
+      "id": "7aa936d0-7eb1-4507-bf2a-9032601bb672",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 0,
+      "full_width": false,
+      "presentation": {
+        "variant": "panorama",
+        "accent": "mint",
+        "label_en": "",
+        "label_uk": ""
+      }
+    },
+    {
+      "id": "6e7e92bc-f527-4697-bb58-786bb356b068",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 1,
+      "full_width": false,
+      "presentation": {
+        "variant": "margin",
+        "accent": "mint",
+        "label_en": "Reading the opportunity",
+        "label_uk": "Знайомство з пропозицією"
+      }
+    },
+    {
+      "id": "88d1496b-0c1f-4fa6-9610-dc6b7272c62d",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 2,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "mint",
+        "label_en": "The working environment",
+        "label_uk": "Робоче середовище"
+      }
+    },
+    {
+      "id": "08b4ce74-0b3f-4f60-b660-5d4c31f3389d",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 3,
+      "full_width": false,
+      "presentation": {
+        "variant": "showcase",
+        "accent": "mint",
+        "label_en": "The offer",
+        "label_uk": "Умови пропозиції"
+      }
+    },
+    {
+      "id": "8542b628-6076-4791-a432-4444b1aa23da",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 4,
+      "full_width": false,
+      "presentation": {
+        "variant": "margin",
+        "accent": "mint",
+        "label_en": "The reasons to consider it",
+        "label_uk": "Аргументи для вибору"
+      }
+    },
+    {
+      "id": "1dfa0d25-0d1c-42c8-a79e-9eed2656dcdf",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 5,
+      "full_width": false,
+      "presentation": {
+        "variant": "gallery",
+        "accent": "mint",
+        "label_en": "Context and confidence",
+        "label_uk": "Контекст і довіра"
+      }
+    },
+    {
+      "id": "27c93b49-75b8-4528-8944-bd791e2385e2",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 6,
+      "full_width": false,
+      "presentation": {
+        "variant": "margin",
+        "accent": "mint",
+        "label_en": "The expectations",
+        "label_uk": "Очікування до кандидата"
+      }
+    },
+    {
+      "id": "cc355129-97bf-419a-b44b-dbbd8c8f3a9c",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 7,
+      "full_width": false,
+      "presentation": {
+        "variant": "panorama",
+        "accent": "mint",
+        "label_en": "The application",
+        "label_uk": "Подання заявки"
+      }
+    },
+    {
+      "id": "d7e1fca2-12ac-4ec0-8f68-7bd2bfe97a37",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "position": 8,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "mint",
+        "label_en": "",
+        "label_uk": ""
+      }
+    }
+  ],
+  "columns": [
+    {
+      "id": "67a2d0eb-e8f5-466a-bf73-c445b4fea746",
+      "row_id": "7aa936d0-7eb1-4507-bf2a-9032601bb672",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "1cfa5fca-f53a-4a2a-91cf-86184d3719e0",
+      "row_id": "6e7e92bc-f527-4697-bb58-786bb356b068",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "915f45cd-26bd-41f3-bc35-dddca6da8402",
+      "row_id": "6e7e92bc-f527-4697-bb58-786bb356b068",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "09bf64ee-e8d2-4767-9d98-3be91177fd75",
+      "row_id": "88d1496b-0c1f-4fa6-9610-dc6b7272c62d",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "40828ae6-c724-4ff5-875b-4a13160aff5e",
+      "row_id": "08b4ce74-0b3f-4f60-b660-5d4c31f3389d",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "cc61dc3b-618d-4181-8fed-858febbc360d",
+      "row_id": "8542b628-6076-4791-a432-4444b1aa23da",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "bbcda46c-808d-487b-b6ce-924cc068ac61",
+      "row_id": "8542b628-6076-4791-a432-4444b1aa23da",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "419415e5-90f1-4ceb-9d0f-e20788f1cbaa",
+      "row_id": "1dfa0d25-0d1c-42c8-a79e-9eed2656dcdf",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "d94b8009-8b5d-4c45-b9f7-8f0e91ebe931",
+      "row_id": "1dfa0d25-0d1c-42c8-a79e-9eed2656dcdf",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "bd0ab85d-1e22-41de-aa29-b01d79f65cea",
+      "row_id": "27c93b49-75b8-4528-8944-bd791e2385e2",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "05f86b7b-2357-4458-b13b-9508dd82b039",
+      "row_id": "27c93b49-75b8-4528-8944-bd791e2385e2",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "7449801f-abcd-45bb-8f13-192c358e42ef",
+      "row_id": "cc355129-97bf-419a-b44b-dbbd8c8f3a9c",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "c5afec1b-c455-4d09-9406-b5071ffbd486",
+      "row_id": "d7e1fca2-12ac-4ec0-8f68-7bd2bfe97a37",
+      "position": 0,
+      "span": "1/1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/01-hero.jpg",
+        "alt": "HARTICK landing-page opening with medical photography, a teal circular backdrop and vacancy summary labels",
+        "caption_en": "The opening screen · original recruitment-page concept",
+        "caption_uk": "Перший екран · оригінальний концепт рекрутингової сторінки",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "b1aa5052-5ed1-4371-80a4-51da69747047",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "67a2d0eb-e8f5-466a-bf73-c445b4fea746",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>The brief</h2><p>Explore a recruitment landing page for HARTICK’s personnel-consulting presentation. A single opportunity becomes the organising unit: responsibilities, workplace, employer, benefits, requirements and an application step.</p>",
+        "text_en": "<h2>The brief</h2><p>Explore a recruitment landing page for HARTICK’s personnel-consulting presentation. A single opportunity becomes the organising unit: responsibilities, workplace, employer, benefits, requirements and an application step.</p>",
+        "text_uk": "<h2>Задача</h2><p>Дослідити формат рекрутингового лендингу для презентації HARTICK у сфері кадрового консалтингу. Сторінка вибудовується навколо однієї пропозиції: обов’язків, робочого середовища, роботодавця, переваг, вимог і подання заявки.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "14759f32-dd99-4d35-9641-55e4bc86388f",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "1cfa5fca-f53a-4a2a-91cf-86184d3719e0",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>My contribution</h2><p>I designed the page layout and UI presentation, using typography, photography, colour and illustrations to organise the vacancy content into distinct reading sections.</p>",
+        "text_en": "<h2>My contribution</h2><p>I designed the page layout and UI presentation, using typography, photography, colour and illustrations to organise the vacancy content into distinct reading sections.</p>",
+        "text_uk": "<h2>Мій внесок</h2><p>Спроєктував структуру сторінки та UI-подачу: за допомогою типографіки, фотографій, кольору й ілюстрацій розділив наповнення вакансії на окремі змістові секції.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "bf5b263e-0b62-4665-ba0d-f28b01ffdfa1",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "1cfa5fca-f53a-4a2a-91cf-86184d3719e0",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/02-responsibilities.jpg",
+        "alt": "Responsibilities section combining long-form paragraphs with a short highlighted list",
+        "caption_en": "Long-form copy and a concise list share a clear section.",
+        "caption_uk": "Розгорнутий опис і короткий список в одній чітко відокремленій секції.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "28a4237e-0bb4-47d5-a254-792deb26368c",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "915f45cd-26bd-41f3-bc35-dddca6da8402",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>More than a list of duties.</h2><p>A dedicated workplace section moves the story from what the person would do to the environment around the role. Photography anchors the longer explanation, while the offset image edge, pale circular accent and fine patterns give the section a recognisable visual character.</p>",
+        "text_en": "<h2>More than a list of duties.</h2><p>A dedicated workplace section moves the story from what the person would do to the environment around the role. Photography anchors the longer explanation, while the offset image edge, pale circular accent and fine patterns give the section a recognisable visual character.</p>",
+        "text_uk": "<h2>Більше, ніж перелік обов’язків.</h2><p>Окрема секція про робоче середовище переводить історію від задач людини до контексту майбутньої роботи. Фотографія підтримує розгорнутий опис, а зміщений край зображення, світлий круглий акцент і тонкі патерни надають секції впізнаваного характеру.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "3d64d71c-d775-43d8-b0eb-47ad9f2681e5",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "09bf64ee-e8d2-4767-9d98-3be91177fd75",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/03-workplace.jpg",
+        "alt": "Workplace section with architectural photography, an offset teal edge and editorial text",
+        "caption_en": "Workplace presentation from the original concept.",
+        "caption_uk": "Подача робочого середовища в оригінальному концепті.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "90ada2ff-7fa3-480e-8fe3-a0299a9b82d3",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "09bf64ee-e8d2-4767-9d98-3be91177fd75",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>The offer deserves its own pause.</h2><p>Employer identity and compensation move into a soft teal band, separated from the longer body copy. This creates a visible chapter break and gives the practical offer details their own place in the page hierarchy.</p>",
+        "text_en": "<h2>The offer deserves its own pause.</h2><p>Employer identity and compensation move into a soft teal band, separated from the longer body copy. This creates a visible chapter break and gives the practical offer details their own place in the page hierarchy.</p>",
+        "text_uk": "<h2>Умовам потрібен власний простір.</h2><p>Інформація про роботодавця й оплату переходить у м’яку бірюзову смугу, відокремлену від розгорнутих описів. Це створює помітну паузу й надає практичним деталям пропозиції власне місце в ієрархії сторінки.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "f21d76a7-135a-499e-8eb5-de4785df1b3b",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "40828ae6-c724-4ff5-875b-4a13160aff5e",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/04-employer-pay.jpg",
+        "alt": "Teal employer-identity and compensation band from the original landing-page concept",
+        "caption_en": "Employer and compensation layout · original sample content.",
+        "caption_uk": "Блок роботодавця й оплати · оригінальне демонстраційне наповнення.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "2ac04bb1-c2b6-435a-8fd5-74f07c5f4f96",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "40828ae6-c724-4ff5-875b-4a13160aff5e",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Let the benefits read at a glance.</h2><p>Five illustrated benefits sit above the career and location notes. Switching from paragraphs to icons and short labels changes the reading pace while keeping the more detailed context nearby.</p><p>The same teal accents connect these compact elements to the rest of the page.</p>",
+        "text_en": "<h2>Let the benefits read at a glance.</h2><p>Five illustrated benefits sit above the career and location notes. Switching from paragraphs to icons and short labels changes the reading pace while keeping the more detailed context nearby.</p><p>The same teal accents connect these compact elements to the rest of the page.</p>",
+        "text_uk": "<h2>Дати перевагам коротку й наочну подачу.</h2><p>П’ять ілюстрованих переваг розташовані над нотатками про кар’єру й місце роботи. Перехід від абзаців до іконок і коротких підписів змінює темп читання, залишаючи детальніший контекст поруч.</p><p>Спільні бірюзові акценти пов’язують ці компактні елементи з рештою сторінки.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "58e61f65-3c5b-401c-9a79-c0ee5a8f5a54",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "cc61dc3b-618d-4181-8fed-858febbc360d",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/05-benefits-career.jpg",
+        "alt": "Five illustrated benefits above career and location content",
+        "caption_en": "Benefits, career and location as connected information groups.",
+        "caption_uk": "Переваги, кар’єра та місце роботи як пов’язані інформаційні групи.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "1ef57595-02e4-48ae-976b-62bb8274040d",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "bbcda46c-808d-487b-b6ce-924cc068ac61",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A place in the decision.</h2><p>The location section extends beyond an address, pairing the map with nearby amenity categories. It gives the surrounding area a distinct place within the vacancy presentation.</p>",
+        "text_en": "<h2>A place in the decision.</h2><p>The location section extends beyond an address, pairing the map with nearby amenity categories. It gives the surrounding area a distinct place within the vacancy presentation.</p>",
+        "text_uk": "<h2>Місце теж впливає на вибір.</h2><p>Секція локації виходить за межі адреси: карта доповнена категоріями місцевої інфраструктури. Так оточення отримує окреме місце в презентації вакансії.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "00c15252-f553-4657-a246-a942c52bc2b0",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "419415e5-90f1-4ceb-9d0f-e20788f1cbaa",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/06-location.jpg",
+        "alt": "Map section with local amenity categories and an offset teal frame",
+        "caption_en": "Location layout · map and categories shown as design content.",
+        "caption_uk": "Подача локації · карта й категорії як елементи макета.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "f2fbe7ae-765e-4750-8203-fd26d29e7a99",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "419415e5-90f1-4ceb-9d0f-e20788f1cbaa",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A space for voices.</h2><p>The testimonial component uses a portrait, name and short quotation in its own section. Its lighter treatment creates another pause between practical information blocks.</p>",
+        "text_en": "<h2>A space for voices.</h2><p>The testimonial component uses a portrait, name and short quotation in its own section. Its lighter treatment creates another pause between practical information blocks.</p>",
+        "text_uk": "<h2>Простір для відгуків.</h2><p>Компонент відгуків поєднує портрет, ім’я та коротку цитату в окремій секції. Легша подача створює ще одну паузу між практичними інформаційними блоками.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "8878a67b-c7f2-4959-9f9b-6f159de33a04",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "d94b8009-8b5d-4c45-b9f7-8f0e91ebe931",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/07-testimonial.jpg",
+        "alt": "Testimonial component with a portrait, name, sample quotation and carousel arrows",
+        "caption_en": "Testimonial layout · sample copy.",
+        "caption_uk": "Оформлення відгуку · демонстраційний текст.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "4483b8da-0ae2-4a89-8f03-39ab3ce7f543",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "d94b8009-8b5d-4c45-b9f7-8f0e91ebe931",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Separate expectations from benefits.</h2><p>Requirements appear as a bulleted list after the contextual content. Giving them a separate section keeps the candidate expectations distinct from the reasons to consider the role.</p><p>The original artwork pairs that list with small circular graphics.</p>",
+        "text_en": "<h2>Separate expectations from benefits.</h2><p>Requirements appear as a bulleted list after the contextual content. Giving them a separate section keeps the candidate expectations distinct from the reasons to consider the role.</p><p>The original artwork pairs that list with small circular graphics.</p>",
+        "text_uk": "<h2>Відокремити очікування від переваг.</h2><p>Вимоги подані маркованим списком після контекстних секцій. Окремий блок розділяє очікування до кандидата й аргументи на користь пропозиції.</p><p>В оригінальному макеті цей список доповнений невеликими круглими графіками.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "ad129509-2753-47d5-a205-cdb6e1d6d4e1",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "bd0ab85d-1e22-41de-aa29-b01d79f65cea",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/08-requirements.jpg",
+        "alt": "Requirements list alongside two illustrative circular skill graphics",
+        "caption_en": "Requirements layout · percentages are illustrative graphics, not assessment results.",
+        "caption_uk": "Подача вимог · відсотки є демонстраційною графікою, а не результатами оцінювання.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "1b97751d-3b00-4acf-bb9b-49df0c7bf543",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "05f86b7b-2357-4458-b13b-9508dd82b039",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>End with a direct next step.</h2><p>The final teal panel brings together contact details, a message and an optional CV attachment. Professional-profile fields offer additional ways to share context. The application becomes a visible conclusion to the information that came before it.</p>",
+        "text_en": "<h2>End with a direct next step.</h2><p>The final teal panel brings together contact details, a message and an optional CV attachment. Professional-profile fields offer additional ways to share context. The application becomes a visible conclusion to the information that came before it.</p>",
+        "text_uk": "<h2>Завершити зрозумілим наступним кроком.</h2><p>Фінальна бірюзова панель поєднує контактні дані, повідомлення та необов’язкове прикріплення CV. Поля професійних профілів дають додатковий спосіб поділитися інформацією. Заявка стає помітним завершенням попередньої розповіді.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "8e0f93a7-4245-4d53-ac75-49592f35a8e3",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "7449801f-abcd-45bb-8f13-192c358e42ef",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/hartick/09-application.jpg",
+        "alt": "Application section with contact fields, message, optional CV upload and professional profile links",
+        "caption_en": "Application form design · no live submission in this case study.",
+        "caption_uk": "Дизайн форми заявки · без активного надсилання в цьому кейсі.",
+        "frame": "paper",
+        "borderRadius": "none",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "1abdb7c0-c906-4a88-910c-755618c151c1",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "7449801f-abcd-45bb-8f13-192c358e42ef",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>About this work</h2><p>A desktop website concept presented on Behance in 2024. Original screens are preserved as design material. Vacancy copy, figures, locations and testimonials are illustrative; this case describes the interface concept rather than a live recruitment service or measured hiring outcomes.</p>",
+        "text_en": "<h2>About this work</h2><p>A desktop website concept presented on Behance in 2024. Original screens are preserved as design material. Vacancy copy, figures, locations and testimonials are illustrative; this case describes the interface concept rather than a live recruitment service or measured hiring outcomes.</p>",
+        "text_uk": "<h2>Про цю роботу</h2><p>Десктопний концепт сайту, представлений на Behance у 2024 році. Оригінальні екрани збережено як дизайн-матеріал. Тексти вакансії, цифри, локації та відгуки є демонстраційними; кейс описує інтерфейсний концепт, а не активний рекрутинговий сервіс чи виміряні результати найму.</p>",
+        "textStyle": "callout",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b43b56ad-4eba-406a-b5a5-bbcb3bec89ca",
+      "project_id": "c9666ca7-89c5-4d74-bc04-b84551f508bc",
+      "column_id": "c5afec1b-c455-4d09-9406-b5071ffbd486",
+      "position": 0,
+      "layout": "1/1"
+    }
+  ]
+}
