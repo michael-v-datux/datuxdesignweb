@@ -172,3 +172,7 @@
 .case-theme--workbench .admin-preview-blocks .mdm-breadth,.case-theme--workbench .admin-preview-blocks .mdm-chain,.case-theme--workbench .admin-preview-blocks .mdm-notes { grid-template-columns:1fr; }
 .case-theme--workbench .case-reader__links { scrollbar-width:none; }
 .case-theme--workbench .case-reader__links::-webkit-scrollbar { display:none; }
+/* Keep the reusable explorer functional when inserted into another case theme. */
+.case-section--workbench-explorer.is-enhanced > .project-row { display:block; }
+.case-section--workbench-explorer.is-enhanced > .project-row > .project-column { width:100%;max-width:100%; }
+.case-section--workbench-explorer.is-enhanced > .project-row > .project-column[hidden] { display:none; }

@@ -5146,6 +5146,20 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   display: none;
 }
 
+/* Keep the reusable explorer functional when inserted into another case theme. */
+.case-section--workbench-explorer.is-enhanced > .project-row {
+  display: block;
+}
+
+.case-section--workbench-explorer.is-enhanced > .project-row > .project-column {
+  width: 100%;
+  max-width: 100%;
+}
+
+.case-section--workbench-explorer.is-enhanced > .project-row > .project-column[hidden] {
+  display: none;
+}
+
 .hero{
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
