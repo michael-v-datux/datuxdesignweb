@@ -15,6 +15,9 @@ export type MediaShadow = 'none' | 'sm' | 'md' | 'lg';
 export interface BlockContent {
   align?: BlockAlign;
   textAlign?: BlockTextAlign;
+  textStyle?: 'body' | 'lead' | 'callout';
+  caption_en?: string;
+  caption_uk?: string;
   text?: string;
   text_en?: string;
   text_uk?: string;

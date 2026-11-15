@@ -1,6 +1,6 @@
 ---
 import { blockAlign, blockText, blockTextAlign } from '@/lib/projects/blocks';
-import { mediaStyleClasses, mediaStyleInline } from '@/lib/projects/media-styles';
+import ProjectMedia from './ProjectMedia.astro';
 import type { ProjectBlock } from '@/lib/projects/types';
 
 interface Props {
@@ -15,12 +15,11 @@ const text = blockText(content, lang);
 const alignClass = `project-block--align-${blockAlign(content)}`;
 const textAlignClass =
   type === 'text' ? `project-block__text--align-${blockTextAlign(content)}` : '';
-const mediaClasses = type !== 'text' ? mediaStyleClasses(content) : [];
-const mediaInlineStyle = type !== 'text' ? mediaStyleInline(content) : '';
+const textStyle = ['body', 'lead', 'callout'].includes(content.textStyle || '') ? content.textStyle : 'body';
 ---
 
 <article
-  class:list={['project-block', `project-block--${type}`, layoutClass, alignClass]}
+  class:list={['project-block', `project-block--${type}`, layoutClass, alignClass, type === 'text' && `project-block--text-${textStyle}`]}
   data-block-id={block.id}
   data-block-type={type}
 >
@@ -29,7 +28,7 @@ const mediaInlineStyle = type !== 'text' ? mediaStyleInline(content) : '';
       {/<[a-z][\s\S]*>/i.test(text) ? (
         <div class="project-block__html text-lg leading-relaxed" set:html={text} />
       ) : (
-        <p class="text-lg leading-relaxed whitespace-pre-wrap">{text}</p>
+        <p class="project-block__html whitespace-pre-wrap">{text}</p>
       )}
     </div>
   )}
@@ -38,37 +37,7 @@ const mediaInlineStyle = type !== 'text' ? mediaStyleInline(content) : '';
     <p class="project-block__empty text-neutral-400 text-sm">—</p>
   )}
 
-  {type === 'image' && content.url && (
-    <figure class:list={['project-block__media', ...mediaClasses]} style={mediaInlineStyle || undefined}>
-      <img
-        src={content.url}
-        alt={content.alt || ''}
-        loading="lazy"
-        class="project-block__image"
-      />
-    </figure>
-  )}
-
-  {type === 'media' && content.url && (
-    <figure class:list={['project-block__media', ...mediaClasses]} style={mediaInlineStyle || undefined}>
-      {content.mediaType === 'video' ? (
-        <video
-          src={content.url}
-          class="project-block__video"
-          controls={!content.autoplay}
-          autoplay={content.autoplay}
-          loop={content.loop}
-          muted={content.muted ?? true}
-          playsinline
-        />
-      ) : (
-        <img
-          src={content.url}
-          alt={content.alt || ''}
-          loading="lazy"
-          class="project-block__image"
-        />
-      )}
-    </figure>
+  {type !== 'text' && content.url && (
+    <ProjectMedia {content} video={type === 'media' && content.mediaType === 'video'} {lang} />
   )}
 </article>

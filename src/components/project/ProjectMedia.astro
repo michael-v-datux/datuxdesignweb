@@ -1,0 +1,22 @@
+---
+import type { BlockContent } from '@/lib/projects/types';
+import { mediaStyleClasses, mediaStyleInline } from '@/lib/projects/media-styles';
+interface Props { content: BlockContent; video?: boolean; lang: string; }
+const { content, video = false, lang } = Astro.props;
+const caption = lang === 'uk' ? content.caption_uk || content.caption_en : content.caption_en || content.caption_uk;
+const classes = ['project-block__media', ...mediaStyleClasses(content)];
+const style = mediaStyleInline(content) || undefined;
+---
+<figure class="project-block__figure">
+  {video ? (
+    <div class:list={classes} {style}>
+      <video src={content.url} class="project-block__video" controls={!content.autoplay} autoplay={content.autoplay} loop={content.loop} muted={content.muted ?? true} playsinline />
+    </div>
+  ) : (
+    <button type="button" class:list={[...classes, 'project-block__image-button']} {style} data-case-image data-image-src={content.url} data-image-caption={caption || content.alt || ''} aria-label={lang === 'uk' ? 'Збільшити зображення' : 'Enlarge image'}>
+      <img src={content.url} alt={content.alt || ''} loading="lazy" class="project-block__image" />
+      <span class="case-image-hint" aria-hidden="true">↗</span>
+    </button>
+  )}
+  {caption && <figcaption class="project-block__caption">{caption}</figcaption>}
+</figure>

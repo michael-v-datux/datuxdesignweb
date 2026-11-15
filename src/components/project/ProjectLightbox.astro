@@ -1,0 +1,22 @@
+---
+const uk = Astro.props.lang === 'uk';
+---
+<dialog class="case-lightbox" data-case-lightbox aria-label={uk ? 'Перегляд зображень' : 'Image viewer'}>
+  <div class="case-lightbox__toolbar">
+    <span data-lightbox-count aria-live="polite"></span>
+    <div class="case-lightbox__tools">
+      <button type="button" data-lightbox-zoom aria-pressed="false" data-fit-label={uk ? 'За розміром екрана' : 'Fit to screen'} data-zoom-label={uk ? 'Збільшити' : 'Zoom in'}>{uk ? 'Збільшити' : 'Zoom in'}</button>
+      <a data-lightbox-original target="_blank" rel="noopener noreferrer">{uk ? 'Оригінал ↗' : 'Original ↗'}</a>
+      <button type="button" data-lightbox-close aria-label={uk ? 'Закрити перегляд' : 'Close image viewer'}>✕</button>
+    </div>
+  </div>
+  <div class="case-lightbox__stage" data-lightbox-stage>
+    <img data-lightbox-image alt="" />
+  </div>
+  <div class="case-lightbox__footer">
+    <button type="button" data-lightbox-prev aria-label={uk ? 'Попереднє зображення' : 'Previous image'}>←</button>
+    <p data-lightbox-caption aria-live="polite"></p>
+    <button type="button" data-lightbox-next aria-label={uk ? 'Наступне зображення' : 'Next image'}>→</button>
+  </div>
+</dialog>
+<script is:inline src="/scripts/case-lightbox.js"></script>

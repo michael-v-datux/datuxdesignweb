@@ -23,17 +23,28 @@ function readState() {
 function openModal(name) {
   const modal = document.querySelector(`[data-admin-modal="${name}"]`);
   if (!modal) return;
+  modal._returnFocus = document.activeElement;
+  if (!document.querySelector('[data-admin-modal].is-open')) {
+    modal._bodyOverflow = document.body.style.overflow;
+  }
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+  modal.setAttribute('aria-label', modal.querySelector('.admin-modal__title')?.textContent || 'Edit content');
   modal.setAttribute('aria-hidden', 'false');
   modal.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  modal.querySelector('.admin-modal__close')?.focus();
 }
 
 function closeModal(modal) {
   modal.setAttribute('aria-hidden', 'true');
   modal.classList.remove('is-open');
+  if (!document.querySelector('[data-admin-modal].is-open')) document.body.style.overflow = modal._bodyOverflow || '';
+  modal._returnFocus?.focus({ preventScroll: true });
 }
 
 function closeAllModals() {
-  document.querySelectorAll('[data-admin-modal]').forEach(closeModal);
+  document.querySelectorAll('[data-admin-modal].is-open').forEach(closeModal);
 }
 
 const IMAGE_ACCEPT = 'image/jpeg,image/png,image/gif,image/webp,image/svg+xml';
@@ -162,9 +173,13 @@ function buildContentFromForm(form, type) {
   if (type === 'text') {
     const text_en = form.text_en?.value?.trim() ?? form.text?.value?.trim() ?? '';
     const text_uk = form.text_uk?.value?.trim() ?? '';
-    return { text_en, text_uk, text: text_en || text_uk, align, textAlign };
+    return { text_en, text_uk, text: text_en || text_uk, align, textAlign, textStyle: form.querySelector('[name="text_style"]')?.value || 'body' };
   }
-  const mediaStyle = mediaStyleFromForm(form);
+  const mediaStyle = {
+    ...mediaStyleFromForm(form),
+    caption_en: form.querySelector('[name="caption_en"]')?.value.trim() || '',
+    caption_uk: form.querySelector('[name="caption_uk"]')?.value.trim() || '',
+  };
   if (type === 'image') {
     return {
       url: form.querySelector('[name="url"]')?.value?.trim() ?? '',
@@ -187,6 +202,12 @@ function buildContentFromForm(form, type) {
 
 function fillBlockForm(form, block) {
   const content = block.content || {};
+  for (const name of ['caption_en', 'caption_uk']) {
+    const input = form.querySelector(`[name="${name}"]`);
+    if (input) input.value = content[name] || '';
+  }
+  const styleInput = form.querySelector('[name="text_style"]');
+  if (styleInput) styleInput.value = content.textStyle || 'body';
   const typeEl = form.querySelector('[name="type"]');
   if (typeEl) typeEl.value = block.type;
   const layoutEl = form.querySelector('[name="layout"]');
@@ -247,6 +268,15 @@ function initModals() {
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeAllModals();
+    if (e.key !== 'Tab') return;
+    const modal = [...document.querySelectorAll('[data-admin-modal].is-open')].at(-1);
+    if (!modal) return;
+    const items = [...modal.querySelectorAll('button, a[href], input, select, textarea, [contenteditable="true"], [tabindex="0"]')]
+      .filter(el => !el.disabled && el.getClientRects().length > 0);
+    const first = items[0], last = items.at(-1);
+    if (!first) return;
+    if (e.shiftKey && (document.activeElement === first || !modal.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !modal.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
   });
 }
 

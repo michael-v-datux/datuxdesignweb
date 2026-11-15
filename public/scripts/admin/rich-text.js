@@ -42,7 +42,7 @@ export async function mountRichText(textarea) {
     modules: {
       toolbar: [
         [{ header: [2, 3, false] }],
-        ['bold', 'italic', 'underline', 'link'],
+        ['bold', 'italic', 'underline', 'link', 'blockquote'],
         [{ list: 'ordered' }, { list: 'bullet' }],
         ['clean'],
       ],

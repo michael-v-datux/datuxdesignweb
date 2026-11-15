@@ -44,3 +44,14 @@ const { showWidth = true } = Astro.props;
     <option value="justify">Justify</option>
   </select>
 </div>
+
+
+<div class="admin-form__field hidden" data-field-text>
+  <label class="admin-form__label">Text style</label>
+  <select name="text_style" class="admin-input">
+    <option value="body">Body · standard section</option>
+    <option value="lead">Lead · larger introduction</option>
+    <option value="callout">Callout · key insight</option>
+  </select>
+  <p class="admin-form__hint">Consistent type and spacing, shared with the public page.</p>
+</div>

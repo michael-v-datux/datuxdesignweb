@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { resolveProjectBlocks } from '@/lib/projects/blocks';
 import { fetchProjectLayoutReadonly } from '@/lib/projects/layout';
 import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
+import ProjectLightbox from '@/components/project/ProjectLightbox.astro';
 import { projectCardThumbnail } from '@/lib/projects/card-labels';
 import bcrypt from 'bcryptjs';
 
@@ -116,7 +117,7 @@ if (!notFound && projectData) {
       </a>
     </section>
   ) : (
-    <section id="project-page" class="container mx-auto py-12 px-6 max-w-screen-xl">
+    <section id="project-page" class="case-study container mx-auto px-6 max-w-screen-xl">
       {project.isProtected && !unlocked ? (
         <div id="project-password-container">
           <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
@@ -167,10 +168,20 @@ if (!notFound && projectData) {
         </div>
       ) : (
         <>
-          <h1 class="text-3xl font-bold mb-4">{project.title}</h1>
-          {project.subtitle && <p class="text-lg text-gray-600 mb-8">{project.subtitle}</p>}
+          <header class="case-hero">
+            <a class="case-hero__back" href={`/${lang}/#selected-projects`}>
+              <span aria-hidden="true">←</span> {lang === 'uk' ? 'Усі проєкти' : 'All projects'}
+            </a>
+            <p class="case-hero__eyebrow">{projectData?.[`category_${lang}`] || projectData?.category_en || (lang === 'uk' ? 'Вибраний проєкт' : 'Selected work')}</p>
+            <h1 class="case-hero__title">{project.title}</h1>
+            {project.subtitle && <p class="case-hero__description">{project.subtitle}</p>}
+            <div class="case-hero__rule" aria-hidden="true"></div>
+          </header>
           {project.cover && (
-            <img src={project.cover} alt={project.title} class="w-full rounded-lg mb-8" />
+            <button type="button" class="case-cover" data-case-image data-image-src={project.cover} data-image-caption={project.title} aria-label={lang === 'uk' ? 'Збільшити обкладинку' : 'Enlarge cover'}>
+              <img src={project.cover} alt={project.title} />
+              <span class="case-image-hint" aria-hidden="true">↗</span>
+            </button>
           )}
 
           {blocks.length > 0 || (layout?.rows?.length ?? 0) > 0 ? (
@@ -228,4 +239,6 @@ if (!notFound && projectData) {
       )}
     </section>
   )}
+  <ProjectLightbox lang={lang ?? 'en'} />
 </Layout>
+

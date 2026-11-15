@@ -47,7 +47,7 @@ function renderTextBlock(content, lang) {
   if (isHtml(raw)) {
     return `<div class="project-block__text ${ta}"><div class="project-block__html">${raw}</div></div>`;
   }
-  return `<div class="project-block__text ${ta}"><p class="text-lg leading-relaxed whitespace-pre-wrap">${escapeHtml(raw)}</p></div>`;
+  return `<div class="project-block__text ${ta}"><p class="project-block__html whitespace-pre-wrap">${escapeHtml(raw)}</p></div>`;
 }
 
 function mediaFigureClasses(content) {
@@ -76,7 +76,7 @@ function mediaFigureStyle(content) {
   return '';
 }
 
-function renderMediaBlock(block) {
+function renderMediaBlock(block, lang) {
   const { content, type } = block;
   if (!content?.url) {
     return '<p class="project-block__empty text-neutral-400 text-sm">No media URL</p>';
@@ -85,19 +85,22 @@ function renderMediaBlock(block) {
   const figClass = mediaFigureClasses(content);
   const figStyle = mediaFigureStyle(content);
   const styleAttr = figStyle ? ` style="${figStyle}"` : '';
+  const rawCaption = lang === 'uk' ? content.caption_uk || content.caption_en : content.caption_en || content.caption_uk;
+  const caption = rawCaption ? `<figcaption class="project-block__caption">${escapeHtml(rawCaption)}</figcaption>` : '';
   if (type === 'media' && content.mediaType === 'video') {
-    return `<figure class="${figClass}"${styleAttr}><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></figure>`;
+    return `<figure class="project-block__figure"><div class="${figClass}"${styleAttr}><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></div>${caption}</figure>`;
   }
-  return `<figure class="${figClass}"${styleAttr}><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
+  return `<figure class="project-block__figure"><div class="${figClass}"${styleAttr}><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></div>${caption}</figure>`;
 }
 
 function renderBlockArticle(block, lang, layoutSpan, interactive) {
   const content = block.content || {};
   const span = layoutSpan || block.layout || '1/1';
   const inner =
-    block.type === 'text' ? renderTextBlock(content, lang) : renderMediaBlock(block);
+    block.type === 'text' ? renderTextBlock(content, lang) : renderMediaBlock(block, lang);
+  const textStyle = ['body', 'lead', 'callout'].includes(content.textStyle) ? content.textStyle : 'body';
   const dragAttr = interactive ? ' draggable="true"' : '';
-  return `<article class="project-block project-block--${block.type} ${layoutClass(span)} ${alignClass(content)} admin-preview__block" data-block-id="${escapeHtml(block.id)}"${dragAttr} title="Click to edit">${inner}</article>`;
+  return `<article class="project-block project-block--${block.type} ${layoutClass(span)} ${alignClass(content)} ${block.type === 'text' ? `project-block--text-${textStyle}` : ''} admin-preview__block" data-block-id="${escapeHtml(block.id)}"${dragAttr} title="Click to edit">${inner}</article>`;
 }
 
 function previewAddBtn(label, attrs) {
