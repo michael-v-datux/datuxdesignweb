@@ -18,7 +18,7 @@ const frame = normalizeMediaFrame(content.frame);
     </div>
   ) : (
     <button type="button" class:list={[...classes, 'project-block__image-button']} {style} data-case-image data-image-src={content.url} data-image-caption={caption || content.alt || ''} aria-label={lang === 'uk' ? 'Збільшити зображення' : 'Enlarge image'}>
-      <img src={content.url} alt={content.alt || ''} loading="lazy" class="project-block__image" />
+      <img src={content.url} alt={content.alt || ''} width={content.width} height={content.height} loading="lazy" class="project-block__image" />
       <span class="case-image-hint" aria-hidden="true">↗</span>
     </button>
   )}

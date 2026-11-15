@@ -39,9 +39,21 @@
       }
     },
     {
-      "id": "641b6539-b22b-4828-bdaa-2a557539660a",
+      "id": "89b82c62-3e0f-463e-aea2-04be69db2e08",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
       "position": 2,
+      "full_width": false,
+      "presentation": {
+        "variant": "sequence",
+        "accent": "rose",
+        "label_en": "The product path",
+        "label_uk": "Шлях у продукті"
+      }
+    },
+    {
+      "id": "641b6539-b22b-4828-bdaa-2a557539660a",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 3,
       "full_width": false,
       "presentation": {
         "variant": "margin",
@@ -51,45 +63,81 @@
       }
     },
     {
+      "id": "b8b3ffb6-1319-46a9-8cbb-4ae8a91843fb",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 4,
+      "full_width": false,
+      "presentation": {
+        "variant": "mission",
+        "accent": "rose",
+        "label_en": "02 / The first visit",
+        "label_uk": "02 / Перше знайомство"
+      }
+    },
+    {
       "id": "d3e55f4b-c0d1-4612-9229-e25c79bad55c",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
-      "position": 3,
+      "position": 5,
       "full_width": false,
       "presentation": {
         "variant": "statement",
         "accent": "rose",
-        "label_en": "02 / The conversation",
-        "label_uk": "02 / Розмова"
+        "label_en": "03 / The conversation",
+        "label_uk": "03 / Розмова"
+      }
+    },
+    {
+      "id": "9599c6b4-e4cd-468e-a649-0c5e14861ebd",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 6,
+      "full_width": false,
+      "presentation": {
+        "variant": "states",
+        "accent": "rose",
+        "label_en": "04 / Context and control",
+        "label_uk": "04 / Контекст і керування"
       }
     },
     {
       "id": "43787894-c6fb-492b-a440-5ea88a6bb58c",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
-      "position": 4,
+      "position": 7,
       "full_width": false,
       "presentation": {
         "variant": "devices",
         "accent": "rose",
-        "label_en": "03 / Three tasks on mobile",
-        "label_uk": "03 / Три задачі на мобільному"
+        "label_en": "05 / Three tasks on mobile",
+        "label_uk": "05 / Три задачі на мобільному"
+      }
+    },
+    {
+      "id": "0dc1112e-9b3d-40ee-93af-01512f01271c",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "position": 8,
+      "full_width": false,
+      "presentation": {
+        "variant": "states",
+        "accent": "rose",
+        "label_en": "06 / Access and confirmation",
+        "label_uk": "06 / Доступ і підтвердження"
       }
     },
     {
       "id": "232f5f88-2ea9-4e6b-aac0-788bb0c2ec6a",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
-      "position": 5,
+      "position": 9,
       "full_width": false,
       "presentation": {
         "variant": "showcase",
         "accent": "rose",
-        "label_en": "04 / Account and access",
-        "label_uk": "04 / Акаунт і доступ"
+        "label_en": "07 / A shared panel language",
+        "label_uk": "07 / Спільна мова панелей"
       }
     },
     {
       "id": "cae64435-50bd-4b28-abd2-35cf09066453",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
-      "position": 6,
+      "position": 10,
       "full_width": false,
       "presentation": {
         "variant": "conversation",
@@ -101,7 +149,7 @@
     {
       "id": "09bed3ba-d756-4c99-8e92-d8b8d4570099",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
-      "position": 7,
+      "position": 11,
       "full_width": false,
       "presentation": {
         "variant": "plain",
@@ -189,6 +237,66 @@
       "row_id": "09bed3ba-d756-4c99-8e92-d8b8d4570099",
       "position": 0,
       "span": "1/1"
+    },
+    {
+      "id": "3c2be945-58fd-4b2a-babc-aa8e16500410",
+      "row_id": "89b82c62-3e0f-463e-aea2-04be69db2e08",
+      "position": 0,
+      "span": "1/4"
+    },
+    {
+      "id": "bac19052-f224-4da4-9dfa-9d0e84eff142",
+      "row_id": "89b82c62-3e0f-463e-aea2-04be69db2e08",
+      "position": 1,
+      "span": "1/4"
+    },
+    {
+      "id": "6119cadb-24aa-4e2f-b982-211a1a695737",
+      "row_id": "89b82c62-3e0f-463e-aea2-04be69db2e08",
+      "position": 2,
+      "span": "1/4"
+    },
+    {
+      "id": "ddeeb32c-e071-4ac5-8685-058d55985843",
+      "row_id": "89b82c62-3e0f-463e-aea2-04be69db2e08",
+      "position": 3,
+      "span": "1/4"
+    },
+    {
+      "id": "d5a214a4-f6b5-4b58-b8ca-b23f2ee61505",
+      "row_id": "b8b3ffb6-1319-46a9-8cbb-4ae8a91843fb",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "8da1afb6-2c42-4cbf-9963-a3704b433d52",
+      "row_id": "b8b3ffb6-1319-46a9-8cbb-4ae8a91843fb",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "2d85f2cd-fa0c-442b-b243-825fb95dedaf",
+      "row_id": "9599c6b4-e4cd-468e-a649-0c5e14861ebd",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "ad298aff-0eb6-4363-bd96-0bd8c9af72e0",
+      "row_id": "9599c6b4-e4cd-468e-a649-0c5e14861ebd",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "ae3d5459-c2c2-406d-b748-883f3238afde",
+      "row_id": "0dc1112e-9b3d-40ee-93af-01512f01271c",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "840c60db-cdd4-4ba2-b0ac-fb68c4ef7079",
+      "row_id": "0dc1112e-9b3d-40ee-93af-01512f01271c",
+      "position": 1,
+      "span": "1/2"
     }
   ],
   "blocks": [
@@ -204,7 +312,9 @@
         "shadow": "none",
         "objectFit": "contain",
         "aspectRatio": "auto",
-        "align": "center"
+        "align": "center",
+        "width": 1920,
+        "height": 1024
       },
       "id": "ce92c1f1-49d7-4f3f-9d3d-074c2abd840c",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
@@ -272,7 +382,9 @@
         "shadow": "none",
         "objectFit": "contain",
         "aspectRatio": "auto",
-        "align": "center"
+        "align": "center",
+        "width": 1920,
+        "height": 2095
       },
       "id": "d87dfaa4-490b-49f5-af2a-29b3dc84fbc7",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
@@ -324,7 +436,9 @@
         "shadow": "none",
         "objectFit": "contain",
         "aspectRatio": "auto",
-        "align": "center"
+        "align": "center",
+        "width": 430,
+        "height": 824
       },
       "id": "1d6aa40e-64da-40e4-8e44-9873dd3fba74",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
@@ -360,7 +474,9 @@
         "shadow": "none",
         "objectFit": "contain",
         "aspectRatio": "auto",
-        "align": "center"
+        "align": "center",
+        "width": 430,
+        "height": 746
       },
       "id": "a9e86966-725e-49d8-b4ab-9a9f8e9c7641",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
@@ -396,7 +512,9 @@
         "shadow": "none",
         "objectFit": "contain",
         "aspectRatio": "auto",
-        "align": "center"
+        "align": "center",
+        "width": 430,
+        "height": 824
       },
       "id": "814bda80-d354-4099-976f-241a141d93fa",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
@@ -432,7 +550,9 @@
         "shadow": "none",
         "objectFit": "contain",
         "aspectRatio": "auto",
-        "align": "center"
+        "align": "center",
+        "width": 1920,
+        "height": 1080
       },
       "id": "606dea39-feae-4a81-8188-e4c182196831",
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
@@ -475,9 +595,9 @@
     {
       "type": "text",
       "content": {
-        "text": "<h2>Scope and outcome</h2><p>Play.AI was a launched product. I designed the interface and presentation deck, working with an existing logo. All product screens in this case come from my second design iteration.</p>",
-        "text_en": "<h2>Scope and outcome</h2><p>Play.AI was a launched product. I designed the interface and presentation deck, working with an existing logo. All product screens in this case come from my second design iteration.</p>",
-        "text_uk": "<h2>Обсяг роботи й результат</h2><p>Play.AI був запущеним продуктом. Я працював над дизайном інтерфейсу й презентації, використовуючи вже готовий логотип. Усі продуктові екрани в цьому кейсі взяті з моєї другої дизайн-ітерації.</p>",
+        "text": "<h2>Scope and live product</h2><p>Play.AI was a launched product. I designed the interface and presentation deck, working with an existing logo. The screens here come from my second iteration, with selected first-iteration and mobile explorations labelled alongside them.</p><p><a href=\"https://eroplay.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Visit EroPlay.ai ↗</a> — the live interface differs from the design iterations documented in this case.</p>",
+        "text_en": "<h2>Scope and live product</h2><p>Play.AI was a launched product. I designed the interface and presentation deck, working with an existing logo. The screens here come from my second iteration, with selected first-iteration and mobile explorations labelled alongside them.</p><p><a href=\"https://eroplay.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Visit EroPlay.ai ↗</a> — the live interface differs from the design iterations documented in this case.</p>",
+        "text_uk": "<h2>Обсяг роботи й чинний продукт</h2><p>Play.AI був запущеним продуктом. Я працював над дизайном інтерфейсу й презентації, використовуючи вже готовий логотип. Тут показана моя друга ітерація та окремі екрани з першої й мобільної ітерацій, позначені в підписах.</p><p><a href=\"https://eroplay.ai/\" target=\"_blank\" rel=\"noopener noreferrer\">Переглянути EroPlay.ai ↗</a> — чинний інтерфейс відрізняється від дизайн-ітерацій, представлених у цьому кейсі.</p>",
         "textStyle": "callout",
         "textAlign": "left",
         "align": "left"
@@ -486,6 +606,260 @@
       "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
       "column_id": "e0c15b91-5755-4ad2-87d9-3518ac3dab6d",
       "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2><span>01</span> Choose a scenario</h2><p>Browse the catalogue and open a story.</p>",
+        "text_en": "<h2><span>01</span> Choose a scenario</h2><p>Browse the catalogue and open a story.</p>",
+        "text_uk": "<h2><span>01</span> Обрати сценарій</h2><p>Переглянути каталог і відкрити історію.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "5c91306b-bfb6-49c3-900a-44b4617efa64",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "3c2be945-58fd-4b2a-babc-aa8e16500410",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2><span>02</span> Get the context</h2><p>Read the setting and character information.</p>",
+        "text_en": "<h2><span>02</span> Get the context</h2><p>Read the setting and character information.</p>",
+        "text_uk": "<h2><span>02</span> Зрозуміти контекст</h2><p>Ознайомитися із ситуацією й персонажем.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "8a39b91f-825f-4605-83c5-907cb8ebbc7a",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "bac19052-f224-4da4-9dfa-9d0e84eff142",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2><span>03</span> Take a turn</h2><p>Write a reply, with hints and reply suggestions nearby.</p>",
+        "text_en": "<h2><span>03</span> Take a turn</h2><p>Write a reply, with hints and reply suggestions nearby.</p>",
+        "text_uk": "<h2><span>03</span> Зробити хід</h2><p>Написати відповідь; підказки й варіанти реплік залишаються поруч.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "c3700ea6-b680-4606-8f93-0f1155f82937",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "6119cadb-24aa-4e2f-b982-211a1a695737",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2><span>04</span> Continue</h2><p>Account and Premium prompts explain the next access step.</p>",
+        "text_en": "<h2><span>04</span> Continue</h2><p>Account and Premium prompts explain the next access step.</p>",
+        "text_uk": "<h2><span>04</span> Продовжити</h2><p>Запрошення до входу й Premium пояснюють наступний крок доступу.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "2e44af0f-8e76-4282-8145-263e14cc5666",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "ddeeb32c-e071-4ac5-8685-058d55985843",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Explain the interaction before the first turn.</h2><p>The first-visit panel introduces character-based interaction and explains that the user’s words and actions shape the story. A single Play action leads into the conversation.</p><p>The panel sits over the chat, keeping the introduction connected to the place where interaction happens.</p>",
+        "text_en": "<h2>Explain the interaction before the first turn.</h2><p>The first-visit panel introduces character-based interaction and explains that the user’s words and actions shape the story. A single Play action leads into the conversation.</p><p>The panel sits over the chat, keeping the introduction connected to the place where interaction happens.</p>",
+        "text_uk": "<h2>Пояснити взаємодію до першої репліки.</h2><p>Панель першого візиту знайомить із взаємодією з персонажем і пояснює, що слова та дії користувача впливають на історію. Одна дія Play веде до розмови.</p><p>Панель розташована поверх чату: пояснення залишається пов’язаним із місцем, де відбувається взаємодія.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "207abb59-0e7a-4b19-b54f-243060ccfc7d",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "d5a214a4-f6b5-4b58-b8ca-b23f2ee61505",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/v3-first-visit.webp",
+        "alt": "First-iteration first-visit introduction displayed over the conversation, with a Play action",
+        "caption_en": "First visit · first iteration",
+        "caption_uk": "Перший візит · перша ітерація",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center",
+        "width": 430,
+        "height": 746
+      },
+      "id": "fe7a6f61-7da9-41db-9858-9b2fd8001ca7",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "8da1afb6-2c42-4cbf-9963-a3704b433d52",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Scenario information</h2><p>The information view pairs a character portrait with a short description and a Back to the chat action. Context has its own screen, with a direct route back to the conversation.</p>",
+        "text_en": "<h2>Scenario information</h2><p>The information view pairs a character portrait with a short description and a Back to the chat action. Context has its own screen, with a direct route back to the conversation.</p>",
+        "text_uk": "<h2>Інформація про сценарій</h2><p>Екран інформації поєднує портрет персонажа, короткий опис і дію Back to the chat. Контекст має окремий простір і пряме повернення до розмови.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "aebbfd89-49c9-4ae9-9163-2315395b678f",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "2d85f2cd-fa0c-442b-b243-825fb95dedaf",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/v3-scenario-info.webp",
+        "alt": "Character information view with a portrait, scenario description and Back to the chat button",
+        "caption_en": "Scenario information · mobile exploration",
+        "caption_uk": "Інформація про сценарій · мобільна ітерація",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center",
+        "width": 430,
+        "height": 746
+      },
+      "id": "efd8bd22-e77d-454c-8272-824bf9655ca2",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "2d85f2cd-fa0c-442b-b243-825fb95dedaf",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Reset confirmation</h2><p>Resetting the dialogue has a separate confirmation step. The panel states that messages and other chat content will be removed, then offers Yes and No actions.</p>",
+        "text_en": "<h2>Reset confirmation</h2><p>Resetting the dialogue has a separate confirmation step. The panel states that messages and other chat content will be removed, then offers Yes and No actions.</p>",
+        "text_uk": "<h2>Підтвердження перезапуску</h2><p>Скидання діалогу має окремий крок підтвердження. Панель пояснює, що повідомлення й інший контент чату будуть видалені, та пропонує дії Yes і No.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "9d64a631-f818-4d3e-b78e-692d685690d4",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "ad298aff-0eb6-4363-bd96-0bd8c9af72e0",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/v3-reset-confirmation.webp",
+        "alt": "Dialogue-reset confirmation explaining removal of chat content and offering Yes and No actions",
+        "caption_en": "Reset confirmation · mobile exploration",
+        "caption_uk": "Підтвердження скидання · мобільна ітерація",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center",
+        "width": 430,
+        "height": 746
+      },
+      "id": "483aa007-81d0-4a66-a9d9-f0f1b108f115",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "ad298aff-0eb6-4363-bd96-0bd8c9af72e0",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Choose a plan</h2><p>The Premium panel groups the feature list, monthly and annual options, and the Upgrade and Cancel actions. The billing choice is visible before the user proceeds.</p>",
+        "text_en": "<h2>Choose a plan</h2><p>The Premium panel groups the feature list, monthly and annual options, and the Upgrade and Cancel actions. The billing choice is visible before the user proceeds.</p>",
+        "text_uk": "<h2>Обрати план</h2><p>Панель Premium об’єднує перелік можливостей, місячний і річний варіанти та дії Upgrade і Cancel. Вибір періоду оплати видно до наступного кроку.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "3b879a27-1198-4750-93aa-fa8bc2c77cc6",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "ae3d5459-c2c2-406d-b748-883f3238afde",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/v3-premium-plan.webp",
+        "alt": "Second-iteration Premium panel with monthly and annual billing choices and Upgrade and Cancel actions",
+        "caption_en": "Premium selection · second iteration. Prices are original design content.",
+        "caption_uk": "Вибір Premium · друга ітерація. Ціни збережено з оригінального макета.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center",
+        "width": 430,
+        "height": 824
+      },
+      "id": "7f55a9bb-c0af-45db-879a-430b885bff15",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "ae3d5459-c2c2-406d-b748-883f3238afde",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Confirm the subscription</h2><p>The success state shows the plan, duration, next payment and cost, followed by a route to Premium scenarios. It closes the payment step with a summary of the subscription.</p>",
+        "text_en": "<h2>Confirm the subscription</h2><p>The success state shows the plan, duration, next payment and cost, followed by a route to Premium scenarios. It closes the payment step with a summary of the subscription.</p>",
+        "text_uk": "<h2>Підтвердити підписку</h2><p>Стан успішної оплати показує план, тривалість, наступний платіж і вартість та пропонує перейти до Premium-сценаріїв. Крок оплати завершується підсумком підписки.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "56e6de68-ee9d-4041-b459-fdd53a1e6504",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "840c60db-cdd4-4ba2-b0ac-fb68c4ef7079",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/playai/v3-premium-success.webp",
+        "alt": "Second-iteration successful-payment state with subscription details and a route to Premium scenarios",
+        "caption_en": "Subscription confirmation · second iteration. Sample name, date and price.",
+        "caption_uk": "Підтвердження підписки · друга ітерація. Демонстраційні ім’я, дата й ціна.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center",
+        "width": 430,
+        "height": 824
+      },
+      "id": "e9eee64d-e34b-4446-af23-acafcdffc6ad",
+      "project_id": "588ed0b4-5a95-4d68-9171-0da974057d9a",
+      "column_id": "840c60db-cdd4-4ba2-b0ac-fb68c4ef7079",
+      "position": 1,
       "layout": "1/1"
     }
   ]

@@ -24,6 +24,8 @@ export interface BlockContent {
   text_uk?: string;
   url?: string;
   alt?: string;
+  width?: number;
+  height?: number;
   mediaType?: 'image' | 'video';
   autoplay?: boolean;
   loop?: boolean;

@@ -8,17 +8,20 @@
     {
       "file": "v2-desktop-chat.webp",
       "nodeId": "3:4244",
-      "name": "Chat - Desktop"
+      "name": "Chat - Desktop",
+      "sectionId": "3:3421"
     },
     {
       "file": "v2-catalogue.webp",
       "nodeId": "3:4837",
-      "name": "Card BG - Second"
+      "name": "Card BG - Second",
+      "sectionId": "3:3421"
     },
     {
       "file": "v2-account-panels.webp",
       "nodeId": "3:5034",
-      "name": "Desktop - pop-up"
+      "name": "Desktop - pop-up",
+      "sectionId": "3:3421"
     },
     {
       "file": "v2-mobile-home.webp",
@@ -29,7 +32,8 @@
         "y": 108,
         "width": 430,
         "height": 824
-      }
+      },
+      "sectionId": "3:3421"
     },
     {
       "file": "v2-mobile-chat.webp",
@@ -40,7 +44,8 @@
         "y": 108,
         "width": 430,
         "height": 746
-      }
+      },
+      "sectionId": "3:3421"
     },
     {
       "file": "v2-mobile-login.webp",
@@ -51,8 +56,83 @@
         "y": 108,
         "width": 430,
         "height": 824
+      },
+      "sectionId": "3:3421"
+    },
+    {
+      "file": "v3-first-visit.webp",
+      "nodeId": "3:2905",
+      "name": "Chat - Notification (first visit)",
+      "sectionId": "3:2008",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 746
+      }
+    },
+    {
+      "file": "v3-scenario-info.webp",
+      "nodeId": "3:1264",
+      "name": "Chat - Scenario info.",
+      "sectionId": "3:144",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 746
+      }
+    },
+    {
+      "file": "v3-reset-confirmation.webp",
+      "nodeId": "3:1528",
+      "name": "Chat - Reset dialog (pressed)",
+      "sectionId": "3:144",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 746
+      }
+    },
+    {
+      "file": "v3-premium-plan.webp",
+      "nodeId": "3:5840",
+      "name": "Premium",
+      "sectionId": "3:3421",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 824
+      }
+    },
+    {
+      "file": "v3-premium-success.webp",
+      "nodeId": "3:6119",
+      "name": "Premium — successful payment",
+      "sectionId": "3:3421",
+      "exportBounds": {
+        "x": 0,
+        "y": 108,
+        "width": 430,
+        "height": 824
       }
     }
   ],
-  "exportMethod": "Figma native PNG export; mobile content exported with temporary slices, removed after export. Lossless WebP encoding without resizing or retouching."
+  "exportMethod": "Figma native PNG export; mobile content exported with temporary slices, removed after export. Lossless WebP encoding without resizing or retouching.",
+  "allowedSections": [
+    {
+      "id": "3:3421",
+      "name": "second itteration"
+    },
+    {
+      "id": "3:2008",
+      "name": "first itteration"
+    },
+    {
+      "id": "3:144",
+      "name": "mobile"
+    }
+  ]
 }
