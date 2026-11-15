@@ -72,7 +72,8 @@ export function setRichTextValue(form, name, html) {
   textarea.value = html || '';
   const quill = editors.get(textarea);
   if (quill) {
-    quill.root.innerHTML = html || '';
+    quill.clipboard.dangerouslyPasteHTML(html || '');
+    textarea.value = quill.root.innerHTML;
   }
 }
 
@@ -88,7 +89,9 @@ export function destroyRichTextInForm(form) {
     const quill = editors.get(textarea);
     const wrap = quill?.root?.parentElement;
     if (wrap?.classList.contains('ql-container')) {
-      wrap.parentElement?.remove();
+      const toolbar = wrap.previousElementSibling;
+      if (toolbar?.classList.contains('ql-toolbar')) toolbar.remove();
+      wrap.remove();
     }
     textarea.classList.remove('hidden');
     editors.delete(textarea);

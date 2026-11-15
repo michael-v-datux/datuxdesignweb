@@ -1,4 +1,4 @@
-import { groupBlocksIntoRows, layoutFraction } from '/scripts/lib/project-rows.js';
+import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
 
 function escapeHtml(str) {
   return String(str ?? '')
@@ -11,13 +11,6 @@ function escapeHtml(str) {
 function layoutClass(layout) {
   const key = String(layout || '1/1').replace('/', '-');
   return `project-block--layout-${key}`;
-}
-
-function columnFlexStyle(span) {
-  const f = layoutFraction(span);
-  if (f >= 1 - 0.001) return 'flex: 1 1 100%; max-width: 100%;';
-  const pct = (f * 100).toFixed(3);
-  return `flex: 1 1 calc(${pct}% - 0.625rem); max-width: calc(${pct}% - 0.625rem);`;
 }
 
 function alignClass(content) {
@@ -52,7 +45,7 @@ function renderTextBlock(content, lang) {
   const ta = textAlignClass(content, 'text');
   if (!raw) return '<p class="project-block__empty text-neutral-400 text-sm">—</p>';
   if (isHtml(raw)) {
-    return `<div class="project-block__text project-block__text--html ${ta}">${raw}</div>`;
+    return `<div class="project-block__text ${ta}"><div class="project-block__html">${raw}</div></div>`;
   }
   return `<div class="project-block__text ${ta}"><p class="text-lg leading-relaxed whitespace-pre-wrap">${escapeHtml(raw)}</p></div>`;
 }
@@ -89,7 +82,7 @@ function renderMediaBlock(block) {
   const figClass = mediaFigureClasses(content);
   const figStyle = mediaFigureStyle(content);
   const styleAttr = figStyle ? ` style="${figStyle}"` : '';
-  if (type === 'media' || content.mediaType === 'video') {
+  if (type === 'media' && content.mediaType === 'video') {
     return `<figure class="${figClass}"${styleAttr}><video src="${escapeHtml(content.url)}" class="project-block__video" controls muted playsinline></video></figure>`;
   }
   return `<figure class="${figClass}"${styleAttr}><img src="${escapeHtml(content.url)}" alt="${alt}" class="project-block__image" loading="lazy" /></figure>`;
@@ -113,15 +106,15 @@ function previewAddBtn(label, attrs) {
 
 function renderPreviewColumn(col, rowId, lang, interactive) {
   const blocks = col.blocks
-    .map((b) => renderBlockArticle(b, lang, col.span, interactive))
+    .map((b) => renderBlockArticle(b, lang, '1/1', interactive))
     .join('');
   const addBlock = interactive
     ? previewAddBtn('+ Block', { 'preview-add-block': '', 'column-id': col.id })
     : '';
   const dropClass = interactive ? ' admin-preview-col__body--droppable' : '';
   return `
-    <div class="admin-preview-col" data-column-id="${escapeHtml(col.id)}" data-row-id="${escapeHtml(rowId)}" style="${columnFlexStyle(col.span)}">
-      <div class="admin-preview-col__body${dropClass}" data-preview-column-body>${blocks || '<p class="admin-preview-col__empty">Empty</p>'}</div>
+    <div class="project-column project-column--layout-${String(col.span).replace('/', '-')} admin-preview-col" data-column-id="${escapeHtml(col.id)}" data-row-id="${escapeHtml(rowId)}">
+      <div class="project-column admin-preview-col__body${dropClass}" data-preview-column-body>${blocks || '<p class="admin-preview-col__empty">Empty</p>'}</div>
       ${addBlock}
     </div>
   `;

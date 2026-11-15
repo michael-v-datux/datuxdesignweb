@@ -1,0 +1,19 @@
+.site-admin-link {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 45;
+  padding: 0.65rem 1rem;
+  border: 1px solid #4338ca;
+  border-radius: 999px;
+  background: #fff;
+  color: #3730a3;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  text-decoration: none;
+
+  &[hidden] { display: none; }
+  &:hover { background: #eef2ff; }
+  &:focus-visible { outline: 3px solid #818cf8; outline-offset: 3px; }
+}

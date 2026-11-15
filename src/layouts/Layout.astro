@@ -82,6 +82,10 @@ const footerLinks = [
   <body class="bg-white text-gray-800 font-base flex flex-col min-h-screen">
     <script is:inline src="/scripts/page-enter-reveal.js"></script>
     <Navbar {translations} {lang} />
+    <a href="/admin/dashboard" class="site-admin-link" data-admin-link hidden>
+      {lang === 'uk' ? 'Адмінка ↗' : 'Admin ↗'}
+    </a>
+    <script is:inline src="/scripts/admin-link.js"></script>
     
     <main class="flex-1">
       <slot />

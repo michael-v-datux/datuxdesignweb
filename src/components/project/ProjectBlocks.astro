@@ -1,43 +1,31 @@
 ---
 import ProjectRow from './ProjectRow.astro';
+import ProjectBlock from './ProjectBlock.astro';
 import { groupBlocksIntoRows } from '@/lib/projects/rows';
-import type {
-  ProjectBlock as ProjectBlockType,
-  ProjectLayout,
-} from '@/lib/projects/types';
+import type { ProjectBlock as ProjectBlockType, ProjectLayout } from '@/lib/projects/types';
 
 interface Props {
   blocks?: ProjectBlockType[];
   layout?: ProjectLayout | null;
   lang: string;
 }
-
 const { blocks = [], layout, lang } = Astro.props;
-
-function blocksForRow(
-  row: ProjectLayout['rows'][number]
-): ProjectBlockType[] {
-  return row.columns.flatMap((col) =>
-    col.blocks.map((block) => ({
-      ...block,
-      layout: col.span,
-    }))
-  );
-}
-
-const useExplicitLayout = Boolean(layout?.rows?.length);
 const explicitRows = layout?.rows ?? [];
 const packedRows = groupBlocksIntoRows(blocks);
 ---
 
 <div class="project-blocks">
-  {
-    useExplicitLayout
-      ? explicitRows.map((row) => (
-          <ProjectRow blocks={blocksForRow(row)} lang={lang} fullWidth={row.full_width} />
-        ))
-      : packedRows.map((rowBlocks) => (
-          <ProjectRow blocks={rowBlocks} lang={lang} />
-        ))
-  }
+  {explicitRows.length ? explicitRows.map((row) => (
+    <div class:list={['project-row', row.columns.length === 1 && 'project-row--single', row.full_width && 'project-row--full-width']}>
+      {row.columns.map((column) => (
+        <div class:list={['project-column', `project-column--layout-${column.span.replace('/', '-')}`]} data-column-id={column.id}>
+          {column.blocks.map((block) => (
+            <ProjectBlock block={{ ...block, layout: '1/1' }} {lang} />
+          ))}
+        </div>
+      ))}
+    </div>
+  )) : packedRows.map((blocks) => (
+    <ProjectRow {blocks} {lang} />
+  ))}
 </div>
