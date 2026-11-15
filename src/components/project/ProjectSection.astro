@@ -1,0 +1,29 @@
+---
+import ProjectBlock from './ProjectBlock.astro';
+import { sectionClasses, sectionLabel, sectionNumber, normalizePresentation, columnStateTitle } from '../../../public/scripts/lib/case-design.js';
+import type { ProjectRow } from '@/lib/projects/types';
+interface Props { row: ProjectRow; rows: ProjectRow[]; lang: string; }
+const { row, rows, lang } = Astro.props;
+const states = normalizePresentation(row.presentation).variant === 'states' && row.columns.length === 2;
+const sectionId = `case-states-${row.id}`;
+---
+<section class={sectionClasses(row)} data-case-states={states ? sectionId : undefined}>
+  <span class="case-section__index" aria-hidden="true">{sectionNumber(row, rows)}</span>
+  {sectionLabel(row, lang) && <p class="case-section__label">{sectionLabel(row, lang)}</p>}
+  {states && (
+    <div class="case-states__tabs" role="tablist" aria-label={lang === 'uk' ? 'Стани інтерфейсу' : 'Interface states'} hidden>
+      {row.columns.map((column, index) => (
+        <button type="button" role="tab" id={`${sectionId}-tab-${index}`} aria-controls={`${sectionId}-panel-${index}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-state-select={index}>
+          <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span> {columnStateTitle(column, lang, index)}
+        </button>
+      ))}
+    </div>
+  )}
+  <div class:list={['project-row', row.columns.length === 1 && 'project-row--single']}>
+    {row.columns.map((column, index) => (
+      <div class:list={['project-column', `project-column--layout-${column.span.replace('/', '-')}`]} data-column-id={column.id} id={states ? `${sectionId}-panel-${index}` : undefined} data-state-panel={states ? index : undefined}>
+        {column.blocks.map((block) => <ProjectBlock block={{ ...block, layout: '1/1' }} {lang} />)}
+      </div>
+    ))}
+  </div>
+</section>

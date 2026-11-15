@@ -1,11 +1,13 @@
 ---
-const { value = 'classic' } = Astro.props;
+import { normalizeCaseTheme } from '../../../public/scripts/lib/case-design.js';
+const value = normalizeCaseTheme(Astro.props.value);
 ---
 <div class="admin-form__field">
   <label class="admin-form__label" for="case-theme">Case visual theme</label>
   <select class="admin-input" id="case-theme" name="case_theme">
-    <option value="classic" selected={value !== 'fluid'}>Classic · geometric / editorial</option>
+    <option value="classic" selected={value === 'classic'}>Classic · geometric / editorial</option>
     <option value="fluid" selected={value === 'fluid'}>Fluid · waves / expressive typography</option>
+    <option value="playful" selected={value === 'playful'}>Playful · mint / checkpoints / tickets</option>
   </select>
   <p class="admin-help">Sets the hero and visual language. Section compositions remain individually editable.</p>
 </div>

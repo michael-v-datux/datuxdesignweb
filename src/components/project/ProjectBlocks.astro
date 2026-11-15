@@ -1,36 +1,15 @@
 ---
 import ProjectRow from './ProjectRow.astro';
-import { sectionClasses, sectionLabel, sectionNumber } from '../../../public/scripts/lib/case-design.js';
-import ProjectBlock from './ProjectBlock.astro';
+import ProjectSection from './ProjectSection.astro';
 import { groupBlocksIntoRows } from '@/lib/projects/rows';
 import type { ProjectBlock as ProjectBlockType, ProjectLayout } from '@/lib/projects/types';
-
-interface Props {
-  blocks?: ProjectBlockType[];
-  layout?: ProjectLayout | null;
-  lang: string;
-}
+interface Props { blocks?: ProjectBlockType[]; layout?: ProjectLayout | null; lang: string; }
 const { blocks = [], layout, lang } = Astro.props;
 const explicitRows = layout?.rows ?? [];
 const packedRows = groupBlocksIntoRows(blocks);
 ---
-
 <div class="project-blocks">
   {explicitRows.length ? explicitRows.map((row) => (
-    <section class={sectionClasses(row)}>
-      <span class="case-section__index" aria-hidden="true">{sectionNumber(row, explicitRows)}</span>
-      {sectionLabel(row, lang) && <p class="case-section__label">{sectionLabel(row, lang)}</p>}
-      <div class:list={['project-row', row.columns.length === 1 && 'project-row--single']}>
-      {row.columns.map((column) => (
-        <div class:list={['project-column', `project-column--layout-${column.span.replace('/', '-')}`]} data-column-id={column.id}>
-          {column.blocks.map((block) => (
-            <ProjectBlock block={{ ...block, layout: '1/1' }} {lang} />
-          ))}
-        </div>
-      ))}
-      </div>
-    </section>
-  )) : packedRows.map((blocks) => (
-    <ProjectRow {blocks} {lang} />
-  ))}
+    <ProjectSection {row} rows={explicitRows} {lang} />
+  )) : packedRows.map((blocks) => <ProjectRow {blocks} {lang} />)}
 </div>

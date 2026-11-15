@@ -3,6 +3,7 @@ import CaseThemeField from "../../../components/admin/CaseThemeField.astro";
 import AdminLayout from "../../../layouts/AdminLayout.astro";
 import AdminPageHeader from "../../../components/admin/AdminPageHeader.astro";
 import { getAdminSupabase } from "../../../lib/supabaseServer";
+import { normalizeCaseTheme } from '../../../../public/scripts/lib/case-design.js';
 import bcrypt from "bcryptjs";
 
 const supabase = getAdminSupabase();
@@ -38,7 +39,7 @@ if (Astro.request.method === "POST") {
     error = "Slug, Title EN та Title UK є обов'язковими полями.";
   } else {
     const payload: Record<string, any> = {
-      case_theme: formData.get("case_theme") === "fluid" ? "fluid" : "classic",
+      case_theme: normalizeCaseTheme(formData.get("case_theme")),
       slug,
       title_en,
       title_uk,

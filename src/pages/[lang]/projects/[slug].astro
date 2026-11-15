@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import { normalizeCaseTheme } from '../../../../public/scripts/lib/case-design.js';
 import Layout from '@/layouts/Layout.astro';
 import { getTranslations } from '@/utils/getTranslations';
 import { supabase } from '@/lib/supabaseClient';
@@ -117,7 +118,7 @@ if (!notFound && projectData) {
       </a>
     </section>
   ) : (
-    <section id="project-page" class:list={["case-study container mx-auto px-6 max-w-screen-xl", projectData?.case_theme === "fluid" && "case-theme--fluid"]}>
+    <section id="project-page" class:list={["case-study container mx-auto px-6 max-w-screen-xl", `case-theme--${normalizeCaseTheme(projectData?.case_theme)}`]}>
       {project.isProtected && !unlocked ? (
         <div id="project-password-container">
           <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
@@ -169,7 +170,9 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            {projectData?.case_theme === 'fluid' ? (
+            {projectData?.case_theme === 'playful' ? (
+              <div class="case-hero__quest" aria-hidden="true"><i></i><span></span><b>↗</b></div>
+            ) : projectData?.case_theme === 'fluid' ? (
               <div class="case-hero__fluid" aria-hidden="true"><span></span><span></span><span></span><i></i><i></i></div>
             ) : (
               <div class="case-hero__art" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
@@ -245,5 +248,6 @@ if (!notFound && projectData) {
     </section>
   )}
   <ProjectLightbox lang={lang ?? 'en'} />
+  <script type="module" src="/scripts/case-states.js?v=20261115-quest1"></script>
 </Layout>
 

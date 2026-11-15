@@ -1,0 +1,637 @@
+{
+  "source": "https://www.behance.net/gallery/83395963/Redesign-of-quest-room-website",
+  "project": {
+    "id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+    "slug": "enigma-escape-games",
+    "title_en": "ENIGMA — Escape Games",
+    "title_uk": "ENIGMA — Квест-кімнати",
+    "description_en": "A playful desktop redesign connecting room discovery, reservation screens and personalised gift certificates.",
+    "description_uk": "Грайливий редизайн десктопного сайту, що поєднує знайомство з квестами, вибір кімнати, екрани бронювання та персоналізовані сертифікати.",
+    "category_en": "Website redesign · 2019",
+    "category_uk": "Редизайн сайту · 2019",
+    "case_theme": "playful",
+    "thumbnail_url": "/images/projects/enigma/01-hero.jpg",
+    "cover_url": null,
+    "is_protected": false,
+    "is_published": false,
+    "status": "draft"
+  },
+  "rows": [
+    {
+      "id": "8fb7896f-39b2-4349-8c86-7eddd4620efc",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 0,
+      "full_width": false,
+      "presentation": {
+        "variant": "sequence",
+        "accent": "mint",
+        "label_en": "The visitor journey",
+        "label_uk": "Шлях відвідувача"
+      }
+    },
+    {
+      "id": "9b0a8ab6-9d4e-468e-a4a3-a546f5fd9fb4",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 1,
+      "full_width": false,
+      "presentation": {
+        "variant": "panorama",
+        "accent": "mint",
+        "label_en": "",
+        "label_uk": ""
+      }
+    },
+    {
+      "id": "93b1404b-71c3-4fb8-9a1b-65667bd8e6c0",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 2,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "mint",
+        "label_en": "The brief",
+        "label_uk": "Задача"
+      }
+    },
+    {
+      "id": "4f915915-415e-4990-a711-b7c6127ba0cd",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 3,
+      "full_width": false,
+      "presentation": {
+        "variant": "mission",
+        "accent": "mint",
+        "label_en": "Introduce the experience",
+        "label_uk": "Знайомство з грою"
+      }
+    },
+    {
+      "id": "4972d9ec-9e3a-4764-808a-417c2f9c6228",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 4,
+      "full_width": false,
+      "presentation": {
+        "variant": "mission",
+        "accent": "mint",
+        "label_en": "Help people choose",
+        "label_uk": "Допомога з вибором"
+      }
+    },
+    {
+      "id": "f1e64611-c3df-4332-ae17-e4bdebcde0bc",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 5,
+      "full_width": false,
+      "presentation": {
+        "variant": "states",
+        "accent": "mint",
+        "label_en": "From a date to the details",
+        "label_uk": "Від дати до деталей"
+      }
+    },
+    {
+      "id": "fce58f37-f312-4bcc-81ec-101fa2e6bf08",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 6,
+      "full_width": false,
+      "presentation": {
+        "variant": "ticket",
+        "accent": "mint",
+        "label_en": "Give an experience",
+        "label_uk": "Подарувати враження"
+      }
+    },
+    {
+      "id": "d35bd520-f9c2-491c-a60a-ebd94ead6e3f",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 7,
+      "full_width": false,
+      "presentation": {
+        "variant": "statement",
+        "accent": "mint",
+        "label_en": "The visual language",
+        "label_uk": "Візуальна мова"
+      }
+    },
+    {
+      "id": "3de51d70-86a9-43e7-8dd4-d9244fd44429",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 8,
+      "full_width": false,
+      "presentation": {
+        "variant": "gallery",
+        "accent": "mint",
+        "label_en": "Beyond the reservation",
+        "label_uk": "Поза бронюванням"
+      }
+    },
+    {
+      "id": "9fb49a0e-be5e-45a0-9836-02975c37278f",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "position": 9,
+      "full_width": false,
+      "presentation": {
+        "variant": "plain",
+        "accent": "mint",
+        "label_en": "",
+        "label_uk": ""
+      }
+    }
+  ],
+  "columns": [
+    {
+      "id": "57de1106-f722-48f8-bfe0-4f4fba61de3e",
+      "row_id": "8fb7896f-39b2-4349-8c86-7eddd4620efc",
+      "position": 0,
+      "span": "1/3"
+    },
+    {
+      "id": "1745884a-7620-4db0-b6a4-3212a1c56a71",
+      "row_id": "8fb7896f-39b2-4349-8c86-7eddd4620efc",
+      "position": 1,
+      "span": "1/3"
+    },
+    {
+      "id": "812d260a-b521-428e-a695-6385415e54c3",
+      "row_id": "8fb7896f-39b2-4349-8c86-7eddd4620efc",
+      "position": 2,
+      "span": "1/3"
+    },
+    {
+      "id": "096d1e24-ca7d-47b1-972f-13b3319de8c0",
+      "row_id": "9b0a8ab6-9d4e-468e-a4a3-a546f5fd9fb4",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "8d7f366f-5d8c-4e27-b33b-53d6b2f61165",
+      "row_id": "93b1404b-71c3-4fb8-9a1b-65667bd8e6c0",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "cc46057c-f756-45d7-a79c-06787e6d7f9b",
+      "row_id": "93b1404b-71c3-4fb8-9a1b-65667bd8e6c0",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "5bea6e9a-5bba-4903-969d-edab1eda7df6",
+      "row_id": "4f915915-415e-4990-a711-b7c6127ba0cd",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "4b83dcdb-cc92-4ca9-ac8e-f0d4bca7f2f2",
+      "row_id": "4f915915-415e-4990-a711-b7c6127ba0cd",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "1f0e3608-1147-4e24-b107-86af09892790",
+      "row_id": "4972d9ec-9e3a-4764-808a-417c2f9c6228",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "a8721223-b1bb-4ce6-9771-795c853da8b5",
+      "row_id": "4972d9ec-9e3a-4764-808a-417c2f9c6228",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "8e8c5dbc-cc77-4224-95e2-99ace58b081f",
+      "row_id": "f1e64611-c3df-4332-ae17-e4bdebcde0bc",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "546a1ceb-3f89-45d5-a764-e006b3f8d416",
+      "row_id": "f1e64611-c3df-4332-ae17-e4bdebcde0bc",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "e93791a0-7e83-4834-a905-65f789e46462",
+      "row_id": "fce58f37-f312-4bcc-81ec-101fa2e6bf08",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "3ea92653-ffcc-4dd1-a946-6beb7320e8b1",
+      "row_id": "fce58f37-f312-4bcc-81ec-101fa2e6bf08",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "b765958b-8bc6-4b88-b8a3-1b1050662e4b",
+      "row_id": "d35bd520-f9c2-491c-a60a-ebd94ead6e3f",
+      "position": 0,
+      "span": "1/1"
+    },
+    {
+      "id": "bcd049bf-c35c-4b94-b941-be8174c39bab",
+      "row_id": "3de51d70-86a9-43e7-8dd4-d9244fd44429",
+      "position": 0,
+      "span": "1/2"
+    },
+    {
+      "id": "3931db61-4015-4ac8-a2a9-9cc59e0104a7",
+      "row_id": "3de51d70-86a9-43e7-8dd4-d9244fd44429",
+      "position": 1,
+      "span": "1/2"
+    },
+    {
+      "id": "028b7531-04c0-4a6e-95e2-15597a58c88d",
+      "row_id": "9fb49a0e-be5e-45a0-9836-02975c37278f",
+      "position": 0,
+      "span": "1/1"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>01 / Discover</h2><p>Understand the game and what to expect.</p>",
+        "text_en": "<h2>01 / Discover</h2><p>Understand the game and what to expect.</p>",
+        "text_uk": "<h2>01 / Знайомство</h2><p>Зрозуміти формат гри та чого очікувати.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "436031aa-b3ce-4a3b-8da3-3075cdbac215",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "57de1106-f722-48f8-bfe0-4f4fba61de3e",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>02 / Compare</h2><p>Find a room that fits the group.</p>",
+        "text_en": "<h2>02 / Compare</h2><p>Find a room that fits the group.</p>",
+        "text_uk": "<h2>02 / Вибір</h2><p>Знайти кімнату, що підходить команді.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "9070303f-d495-42e5-b6dd-0d01b571a09d",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "1745884a-7620-4db0-b6a4-3212a1c56a71",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>03 / Reserve</h2><p>Choose a date and review the booking details.</p>",
+        "text_en": "<h2>03 / Reserve</h2><p>Choose a date and review the booking details.</p>",
+        "text_uk": "<h2>03 / Бронювання</h2><p>Обрати дату й переглянути деталі бронювання.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "f964e567-9c13-4163-ba84-12bcd24c2e35",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "812d260a-b521-428e-a695-6385415e54c3",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/01-hero.jpg",
+        "alt": "ENIGMA homepage hero with a binocular illustration and Find Your Way Out headline",
+        "caption_en": "The homepage opening · original desktop concept",
+        "caption_uk": "Перший екран головної · оригінальний десктопний концепт",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "e94dc5d6-7e21-4d92-b559-ab47c24d243f",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "096d1e24-ca7d-47b1-972f-13b3319de8c0",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Make the adventure approachable.</h2><p>ENIGMA’s website needed to introduce the escape-game experience and give visitors a clear route to choosing a room. The redesign brings that journey together with gift certificates, cooperation information and contact screens.</p>",
+        "text_en": "<h2>Make the adventure approachable.</h2><p>ENIGMA’s website needed to introduce the escape-game experience and give visitors a clear route to choosing a room. The redesign brings that journey together with gift certificates, cooperation information and contact screens.</p>",
+        "text_uk": "<h2>Зробити пригоду зрозумілою.</h2><p>Сайт ENIGMA мав знайомити відвідувачів із форматом квест-гри та давати зрозумілий шлях до вибору кімнати. Редизайн поєднує цей сценарій із подарунковими сертифікатами, інформацією про співпрацю та контактами.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "cc65535f-8408-47ae-b4b4-f2c570fed7b7",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "8d7f366f-5d8c-4e27-b33b-53d6b2f61165",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>My contribution</h2><p>I designed the desktop page layouts and UI direction, connecting the room catalogue, reservation states and supporting pages through shared navigation, typography, colour and illustrations.</p><p>The case focuses on those interface decisions and the screens created for them.</p>",
+        "text_en": "<h2>My contribution</h2><p>I designed the desktop page layouts and UI direction, connecting the room catalogue, reservation states and supporting pages through shared navigation, typography, colour and illustrations.</p><p>The case focuses on those interface decisions and the screens created for them.</p>",
+        "text_uk": "<h2>Мій внесок</h2><p>Спроєктував десктопні макети та UI-напрям: поєднав каталог кімнат, стани бронювання й допоміжні сторінки спільною навігацією, типографікою, кольором та ілюстраціями.</p><p>Кейс зосереджений на цих інтерфейсних рішеннях і створених для них екранах.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "c1c9efd9-83c8-4002-a070-61c143f58f3d",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "cc46057c-f756-45d7-a79c-06787e6d7f9b",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Explain the game before asking for a booking.</h2><p>The homepage introduces the format through illustrations and short explanations: a time limit, a team and the option to ask the moderator for help.</p><p>These essentials give newcomers context before they move to the room catalogue. The light visual language frames the experience as a shared adventure.</p>",
+        "text_en": "<h2>Explain the game before asking for a booking.</h2><p>The homepage introduces the format through illustrations and short explanations: a time limit, a team and the option to ask the moderator for help.</p><p>These essentials give newcomers context before they move to the room catalogue. The light visual language frames the experience as a shared adventure.</p>",
+        "text_uk": "<h2>Пояснити гру перед бронюванням.</h2><p>Головна знайомить із форматом через ілюстрації та короткі пояснення: обмежений час, команду й можливість звернутися до модератора по допомогу.</p><p>Ці базові речі дають новачкам контекст перед переходом до каталогу кімнат. Світла візуальна мова представляє досвід як спільну пригоду.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "ccf948d8-829c-4bb0-9b7a-77d180b745dc",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "5bea6e9a-5bba-4903-969d-edab1eda7df6",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/02-game-basics.jpg",
+        "alt": "Illustrated homepage explanation of the game duration, group size, moderator help and finish goal",
+        "caption_en": "Game essentials explained visually.",
+        "caption_uk": "Базові правила гри через візуальне пояснення.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "66366c37-6caa-42d8-a52f-c2e3debb84f6",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "4b83dcdb-cc92-4ca9-ac8e-f0d4bca7f2f2",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Put the deciding details beside each room.</h2><p>Each room pairs a thematic image and short story with group size, difficulty, physical activity, duration, age guidance and a price. A booking action sits alongside that information.</p><p>The repeated structure makes the rooms comparable while alternating image placement keeps the page lively.</p>",
+        "text_en": "<h2>Put the deciding details beside each room.</h2><p>Each room pairs a thematic image and short story with group size, difficulty, physical activity, duration, age guidance and a price. A booking action sits alongside that information.</p><p>The repeated structure makes the rooms comparable while alternating image placement keeps the page lively.</p>",
+        "text_uk": "<h2>Показати важливі деталі біля кожної кімнати.</h2><p>Кожна кімната поєднує тематичне фото й коротку історію з кількістю учасників, складністю, фізичною активністю, тривалістю, віковими рекомендаціями та ціною. Поруч розташована дія бронювання.</p><p>Повторювана структура допомагає порівнювати кімнати, а чергування зображень підтримує живий ритм сторінки.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b3b42051-9187-4cca-882a-6cb134164dfd",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "1f0e3608-1147-4e24-b107-86af09892790",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/03-rooms.jpg",
+        "alt": "Two escape-room listings with images, group size, difficulty, duration, age guidance and booking actions",
+        "caption_en": "A consistent information structure across different scenarios.",
+        "caption_uk": "Єдина структура інформації для різних сценаріїв.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "f93d3793-d1a3-4faf-967c-c990783fb95c",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "a8721223-b1bb-4ce6-9771-795c853da8b5",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Choose a date</h2><p>The initial state keeps the calendar prominent and indicates availability by day. The order panel asks the visitor to select a date before showing the remaining details.</p>",
+        "text_en": "<h2>Choose a date</h2><p>The initial state keeps the calendar prominent and indicates availability by day. The order panel asks the visitor to select a date before showing the remaining details.</p>",
+        "text_uk": "<h2>Оберіть дату</h2><p>У початковому стані головне місце займає календар із доступністю за днями. Панель замовлення пропонує спочатку обрати дату, щоб побачити решту деталей.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "0b1e54a8-605f-4234-becc-8bd9e0f3efc5",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "8e8c5dbc-cc77-4224-95e2-99ace58b081f",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/04-calendar.jpg",
+        "alt": "Initial booking screen with date availability and an empty order-details panel",
+        "caption_en": "Initial calendar state · dates and availability are sample design content.",
+        "caption_uk": "Початковий стан календаря · дати й доступність є демонстраційними.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "09f49bb7-9078-40b3-94c5-d58e5852562b",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "8e8c5dbc-cc77-4224-95e2-99ace58b081f",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>Review the booking</h2><p>After a date is selected, the side panel contains the time, participant count, contact fields, certificate code and total. Keeping these details beside the calendar connects the selection with the information needed to reserve.</p>",
+        "text_en": "<h2>Review the booking</h2><p>After a date is selected, the side panel contains the time, participant count, contact fields, certificate code and total. Keeping these details beside the calendar connects the selection with the information needed to reserve.</p>",
+        "text_uk": "<h2>Перегляньте бронювання</h2><p>Після вибору дати бічна панель містить час, кількість учасників, контактні поля, код сертифіката й підсумкову суму. Розміщення поруч із календарем пов’язує вибір дати з інформацією, потрібною для бронювання.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "0ddf6886-4732-4cdf-bcfe-d1a59c6e2dfa",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "546a1ceb-3f89-45d5-a764-e006b3f8d416",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/05-order-details.jpg",
+        "alt": "Booking state with a selected date, time and participant fields, contact information, gift certificate code and total",
+        "caption_en": "Selected-date state · a UI design, not a live booking form.",
+        "caption_uk": "Стан з обраною датою · дизайн інтерфейсу, а не активна форма бронювання.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "4a71ce99-28f9-4e0c-a834-fbbdc71bb66b",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "546a1ceb-3f89-45d5-a764-e006b3f8d416",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A gift that feels personal.</h2><p>The certificate screen places its configuration next to a preview. Room choice, participant count, recipient name, visit date, a personal message and delivery type are brought into the same composition.</p><p>The preview makes the personalised result visible alongside the choices that shape it.</p>",
+        "text_en": "<h2>A gift that feels personal.</h2><p>The certificate screen places its configuration next to a preview. Room choice, participant count, recipient name, visit date, a personal message and delivery type are brought into the same composition.</p><p>The preview makes the personalised result visible alongside the choices that shape it.</p>",
+        "text_uk": "<h2>Подарунок з особистим змістом.</h2><p>На екрані сертифіката налаштування розташовані поруч із прев’ю. Вибір кімнати, кількість учасників, ім’я отримувача, дата візиту, особисте повідомлення та спосіб доставки зібрані в одній композиції.</p><p>Прев’ю показує персоналізований результат поруч із параметрами, які його формують.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "aa845d5c-8d1e-4314-bbe3-5e89c6e1749d",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "e93791a0-7e83-4834-a905-65f789e46462",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/06-gift-builder.jpg",
+        "alt": "Gift certificate configuration alongside a personalised certificate preview",
+        "caption_en": "Configuration and preview share one screen.",
+        "caption_uk": "Налаштування та прев’ю на одному екрані.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "91bad95d-01ed-44b8-8ccf-09d1634ceb3b",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "3ea92653-ffcc-4dd1-a946-6beb7320e8b1",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A playful brand.<br>A practical route.</h2><p>Mint highlights, bold headings and friendly illustrations set the tone. Repeated navigation, room facts and form patterns keep the practical tasks connected.</p>",
+        "text_en": "<h2>A playful brand.<br>A practical route.</h2><p>Mint highlights, bold headings and friendly illustrations set the tone. Repeated navigation, room facts and form patterns keep the practical tasks connected.</p>",
+        "text_uk": "<h2>Грайливий характер.<br>Зрозумілий маршрут.</h2><p>М’ятні акценти, виразні заголовки та дружні ілюстрації задають настрій. Повторювана навігація, характеристики кімнат і патерни форм поєднують практичні задачі.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "b78beacc-7fd5-44ce-99c4-e4c3c195f019",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "b765958b-8bc6-4b88-b8a3-1b1050662e4b",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A separate path for partners.</h2><p>Cooperation has its own page for franchise and scenario-writing offers, keeping those details apart from the visitor’s booking journey.</p>",
+        "text_en": "<h2>A separate path for partners.</h2><p>Cooperation has its own page for franchise and scenario-writing offers, keeping those details apart from the visitor’s booking journey.</p>",
+        "text_uk": "<h2>Окремий шлях для партнерів.</h2><p>Співпраця має власну сторінку з пропозиціями франшизи та написання сценаріїв. Ці деталі відокремлені від шляху відвідувача до бронювання.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "0072303c-0bd2-4966-85a9-63f6a3ca2c1f",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "bcd049bf-c35c-4b94-b941-be8174c39bab",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/07-cooperation.jpg",
+        "alt": "Cooperation page with franchise and quest scenario-writing information",
+        "caption_en": "Cooperation page · original desktop concept.",
+        "caption_uk": "Сторінка співпраці · оригінальний десктопний концепт.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "a8e2e0ea-2a0b-4df1-9208-8bcd61a70e6e",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "bcd049bf-c35c-4b94-b941-be8174c39bab",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>A recognisable ending.</h2><p>The contact screen reuses the same illustrated language and furniture-line footer, with a short enquiry form and direct contact information.</p>",
+        "text_en": "<h2>A recognisable ending.</h2><p>The contact screen reuses the same illustrated language and furniture-line footer, with a short enquiry form and direct contact information.</p>",
+        "text_uk": "<h2>Впізнаване завершення.</h2><p>Контактний екран продовжує ту саму ілюстративну мову й футер із лінією меблів. Тут розміщені коротка форма звернення та прямі контакти.</p>",
+        "textStyle": "body",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "f0d37f43-e70f-43cc-b8f7-8a5628e0175e",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "3931db61-4015-4ac8-a2a9-9cc59e0104a7",
+      "position": 0,
+      "layout": "1/1"
+    },
+    {
+      "type": "image",
+      "content": {
+        "url": "/images/projects/enigma/08-contact.jpg",
+        "alt": "Contact form and illustrated footer with furniture icons",
+        "caption_en": "A shared visual language across supporting pages.",
+        "caption_uk": "Спільна візуальна мова допоміжних сторінок.",
+        "frame": "none",
+        "borderRadius": "lg",
+        "shadow": "none",
+        "objectFit": "contain",
+        "aspectRatio": "auto",
+        "align": "center"
+      },
+      "id": "21a03390-be5d-4648-aeef-e6fc2911ecd6",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "3931db61-4015-4ac8-a2a9-9cc59e0104a7",
+      "position": 1,
+      "layout": "1/1"
+    },
+    {
+      "type": "text",
+      "content": {
+        "text": "<h2>About this work</h2><p>Desktop website redesign concept, 2019. Original sample copy, dates and prices are preserved in the screens. Booking and certificate screens show UI states rather than a live service; no measured conversion or usability results are claimed.</p>",
+        "text_en": "<h2>About this work</h2><p>Desktop website redesign concept, 2019. Original sample copy, dates and prices are preserved in the screens. Booking and certificate screens show UI states rather than a live service; no measured conversion or usability results are claimed.</p>",
+        "text_uk": "<h2>Про цю роботу</h2><p>Десктопний концепт редизайну сайту 2019 року. На екранах збережено оригінальні демонстраційні тексти, дати й ціни. Бронювання та сертифікати показані як стани інтерфейсу, а не активний сервіс; виміряні результати конверсії чи юзабіліті не заявляються.</p>",
+        "textStyle": "callout",
+        "textAlign": "left",
+        "align": "left"
+      },
+      "id": "95db4d28-4b82-4a4d-97d6-836784a901ae",
+      "project_id": "54a8e9ab-35de-4217-ba0c-a50bb9b8dadc",
+      "column_id": "028b7531-04c0-4a6e-95e2-15597a58c88d",
+      "position": 0,
+      "layout": "1/1"
+    }
+  ]
+}

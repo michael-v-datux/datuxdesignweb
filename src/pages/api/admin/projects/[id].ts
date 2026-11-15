@@ -1,4 +1,5 @@
 import type { APIRoute } from "astro";
+import { normalizeCaseTheme } from '../../../../../public/scripts/lib/case-design.js';
 import bcrypt from "bcryptjs";
 import { getAdminSupabase } from "../../../../lib/supabaseServer";
 import { normalizePublishFields } from "../../../../lib/projects/publish-state";
@@ -40,7 +41,7 @@ export const PATCH: APIRoute = async ({ params, request }) => {
   } = payload || {};
 
   const update: Record<string, any> = {};
-  if (payload.case_theme !== undefined) update.case_theme = payload.case_theme === "fluid" ? "fluid" : "classic";
+  if (payload.case_theme !== undefined) update.case_theme = normalizeCaseTheme(payload.case_theme);
 
   if (slug !== undefined) update.slug = slug;
   if (title_en !== undefined) update.title_en = title_en;

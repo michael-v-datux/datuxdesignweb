@@ -1,5 +1,7 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
-export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama'];
+export const CASE_THEMES = ['classic', 'fluid', 'playful'];
+export function normalizeCaseTheme(value) { return CASE_THEMES.includes(value) ? value : 'classic'; }
+export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states'];
 export const SECTION_ACCENTS = ['violet', 'mint', 'rose', 'amber'];
 export function normalizePresentation(value) {
   const p = value && typeof value === 'object' && !Array.isArray(value) ? value : {};
@@ -21,6 +23,10 @@ export function sectionLabel(row, lang) {
   return lang === 'uk' ? p.label_uk || p.label_en : p.label_en || p.label_uk;
 }
 export const SECTION_TEMPLATES = [
+  { id: 'mission', title: 'Mission chapter', detail: 'Numbered checkpoint · story + visual', accent: 'mint' },
+  { id: 'ticket', title: 'Experience ticket', detail: 'Perforated card · text + image', accent: 'mint' },
+  { id: 'sequence', title: 'Journey steps', detail: 'Three steps · a connected route', accent: 'mint' },
+  { id: 'states', title: 'Screen states', detail: 'Two screens · accessible tabs on the site', accent: 'mint' },
   { id: 'flow', title: 'Flowing story', detail: 'Soft contours · image + narrative', accent: 'violet' },
   { id: 'brand', title: 'Brand interlude', detail: 'Gradient stage · logo + statement', accent: 'rose' },
   { id: 'panorama', title: 'Panoramic visual', detail: 'Edge-to-edge artwork · generous scale', accent: 'violet' },
@@ -40,7 +46,9 @@ export function makeSectionTemplate(id) {
     url: '', alt: '', frame, borderRadius: 'lg', shadow: 'none', objectFit: 'contain', aspectRatio: 'auto',
   } });
   let columns;
-  if (id === 'statement') columns = [{ span: '1/1', blocks: [text(
+  if (id === 'sequence') columns = ['01', '02', '03'].map(n => ({ span: '1/3', blocks: [text(`<h2>${n} / A clear step</h2><p>Explain this part of the journey.</p>`, `<h2>${n} / Зрозумілий крок</h2><p>Поясніть цю частину шляху.</p>`)] }));
+  else if (id === 'states') columns = [{ span: '1/2', blocks: [text('<h2>Choose a date</h2>', '<h2>Оберіть дату</h2>'), image('none')] }, { span: '1/2', blocks: [text('<h2>Review details</h2>', '<h2>Перегляньте деталі</h2>'), image('none')] }];
+  else if (id === 'statement') columns = [{ span: '1/1', blocks: [text(
     '<h2>One clear design decision.</h2><p>Explain the insight, the choice you made, and why it matters.</p>',
     '<h2>Одне чітке дизайн-рішення.</h2><p>Опишіть інсайт, прийняте рішення та чому воно важливе.</p>', 'lead')] }];
   else if (id === 'showcase' || id === 'panorama') columns = [{ span: '1/1', blocks: [image()] }];
@@ -66,6 +74,15 @@ export function duplicateBlockRows(blocks, blockId, cloneId, now) {
 }
 
 export function sectionNumber(row, rows) {
-  const chapters = rows.filter(r => ['editorial', 'contrast'].includes(normalizePresentation(r.presentation).variant));
+  const chapters = rows.filter(r => ['editorial', 'contrast', 'mission', 'states'].includes(normalizePresentation(r.presentation).variant));
   return String(Math.max(1, chapters.findIndex(r => r.id === row.id) + 1)).padStart(2, '0');
+}
+
+/** Use the first text heading as the screen-state label; never render its HTML. */
+export function columnStateTitle(column, lang, index) {
+  const c = column.blocks?.find(b => b.type === 'text')?.content || {};
+  const text = lang === 'uk' ? c.text_uk || c.text_en || c.text : c.text_en || c.text_uk || c.text;
+  const heading = typeof text === 'string' ? text.match(/<h[2-6][^>]*>([\s\S]*?)<\/h[2-6]>/i)?.[1] : '';
+  const title = (heading || '').replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '\"').replace(/&#39;/g, "'").trim().slice(0, 90);
+  return title || `${lang === 'uk' ? 'Стан' : 'State'} ${index + 1}`;
 }
