@@ -70,7 +70,7 @@
   .system-library h3 { margin-top: 0; }
   .system-library ul { padding-left: 1.1rem; font-size: .85rem; line-height: 1.9; }
   .system-library .system-count { color: #9aaac0; font: .7rem ui-monospace,monospace; }
-  .system-doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .system-doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
   .system-doc-grid details { padding: 1rem; border: 1px solid #d8e1ed; border-radius: .75rem; background: white; }
   .system-doc-grid summary { color: #0345a1; font-size: .85rem; cursor: pointer; }
   .system-doc-grid img { display: block; width: 100%; height: auto; background: white; margin-top: 1rem; }

@@ -4129,6 +4129,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+  align-items: start;
 }
 .case-theme--system .system-doc-grid details {
   padding: 1rem;
