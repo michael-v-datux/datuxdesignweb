@@ -11,6 +11,7 @@ import { resolveProjectBlocks } from '@/lib/projects/blocks';
 import { fetchProjectLayoutReadonly } from '@/lib/projects/layout';
 import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
 import CaseChapterNav from '@/components/project/CaseChapterNav.astro';
+import SearchHeroArt from '@/components/project/SearchHeroArt.astro';
 import ProjectLightbox from '@/components/project/ProjectLightbox.astro';
 import { projectCardThumbnail } from '@/lib/projects/card-labels';
 
@@ -179,6 +180,7 @@ if (!notFound && projectData) {
             <p class="case-hero__eyebrow">{projectData?.[`category_${lang}`] || projectData?.category_en || (lang === 'uk' ? 'Вибраний проєкт' : 'Selected work')}</p>
             <h1 class="case-hero__title">{project.title.endsWith('™') ? <>{project.title.slice(0, -1)}<sup>™</sup></> : project.title}</h1>
             {project.subtitle && <p class="case-hero__description">{project.subtitle}</p>}
+            {projectData?.case_theme === 'search' && <SearchHeroArt />}
             <div class="case-hero__rule" aria-hidden="true"></div>
           </header>
           <CaseChapterNav {layout} lang={lang ?? 'en'} />

@@ -209,3 +209,11 @@
  .mdm-private-review { padding:22px; }
 } }
 @media(prefers-reduced-motion:reduce) { .case-theme--workbench .mdm-reference { transition:none; } }
+.case-theme--workbench {
+ .mdm-wizard-map {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;}
+ .mdm-wizard-map>div {padding:22px;border:1px solid #c9d8ec;background:#f4f8fd;border-radius:8px;}
+ .mdm-wizard-map span {font:11px ui-monospace,monospace;color:#6b88ae;}
+ .mdm-wizard-map h3 {font-size:17px;margin:14px 0 12px;}
+ .mdm-wizard-map p,.mdm-wizard-map__intro {font-size:13px;line-height:1.8;}
+}
+@media(max-width:767px){.case-theme--workbench .mdm-wizard-map {grid-template-columns:1fr;}}
