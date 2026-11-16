@@ -28,6 +28,8 @@
  .project-block__html strong { color:#204b69; }
  .project-block__html a { color:#1b608b; text-underline-offset:5px; }
  .project-block__media { background:#fff; border:1px solid #d7dfe2; border-radius:8px; box-shadow:0 18px 40px #26425b08; }
+ .case-media-shell--canvas { padding:clamp(16px,3vw,40px); border:1px solid #d3dfe5; border-radius:12px; background:#e8eff3; }
+ .case-media-shell--canvas .project-block__media { border:1px solid #c9d5dd; border-radius:5px; box-shadow:0 16px 36px #23476418; }
  .project-block__image { width:100%; height:auto; max-height:none; display:block; object-fit:contain; }
  .project-block__caption { color:#6a7d89; font:11px/1.8 ui-monospace,monospace; margin-top:14px; }
  .case-image-hint { background:#e8f1f5; color:#1e5b83; }
