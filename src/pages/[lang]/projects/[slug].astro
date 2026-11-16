@@ -164,7 +164,7 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            {['system', 'workbench'].includes(projectData?.case_theme) ? null : projectData?.case_theme === 'dialogue' ? (
+            {['system', 'workbench', 'search'].includes(projectData?.case_theme) ? null : projectData?.case_theme === 'dialogue' ? (
               <div class="case-hero__dialogue" aria-hidden="true"><span><i></i><i></i><i></i></span><span>↗</span></div>
             ) : projectData?.case_theme === 'journal' ? null : projectData?.case_theme === 'playful' ? (
               <div class="case-hero__quest" aria-hidden="true"><i></i><span></span><b>↗</b></div>

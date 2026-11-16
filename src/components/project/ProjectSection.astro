@@ -6,7 +6,7 @@ interface Props { row: ProjectRow; rows: ProjectRow[]; lang: string; }
 const { row, rows, lang } = Astro.props;
 const presentation = normalizePresentation(row.presentation);
 const explorer = presentation.variant === 'workbench-explorer';
-const states = (presentation.variant === 'states' && row.columns.length === 2) || (explorer && row.columns.length >= 2);
+const states = (presentation.variant === 'states' || explorer) && row.columns.length >= 2;
 const sectionId = `case-states-${row.id}`;
 const chapterRows = rows.filter(r => { const p = normalizePresentation(r.presentation); return p.anchor && (p.nav_en || p.nav_uk); });
 const chapterIndex = chapterRows.findIndex(r => r.id === row.id);

@@ -1,4 +1,4 @@
-import { CASE_THEMES } from '/scripts/lib/case-design.js?v=20261115-explorer1';
+import { CASE_THEMES } from '/scripts/lib/case-design.js?v=20261116-search1';
 
 function initBackToTop() {
   const button = document.querySelector('[data-back-to-top]');
