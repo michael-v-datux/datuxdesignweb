@@ -12,6 +12,7 @@ import { fetchProjectLayoutReadonly } from '@/lib/projects/layout';
 import ProjectBlocks from '@/components/project/ProjectBlocks.astro';
 import CaseChapterNav from '@/components/project/CaseChapterNav.astro';
 import SearchHeroArt from '@/components/project/SearchHeroArt.astro';
+import NetworkHeroArt from '@/components/project/NetworkHeroArt.astro';
 import ProjectLightbox from '@/components/project/ProjectLightbox.astro';
 import { projectCardThumbnail } from '@/lib/projects/card-labels';
 
@@ -165,7 +166,7 @@ if (!notFound && projectData) {
       ) : (
         <>
           <header class="case-hero">
-            {['system', 'workbench', 'search'].includes(projectData?.case_theme) ? null : projectData?.case_theme === 'dialogue' ? (
+            {['system', 'workbench', 'search', 'network'].includes(projectData?.case_theme) ? null : projectData?.case_theme === 'dialogue' ? (
               <div class="case-hero__dialogue" aria-hidden="true"><span><i></i><i></i><i></i></span><span>↗</span></div>
             ) : projectData?.case_theme === 'journal' ? null : projectData?.case_theme === 'playful' ? (
               <div class="case-hero__quest" aria-hidden="true"><i></i><span></span><b>↗</b></div>
@@ -181,6 +182,7 @@ if (!notFound && projectData) {
             <h1 class="case-hero__title">{project.title.endsWith('™') ? <>{project.title.slice(0, -1)}<sup>™</sup></> : project.title}</h1>
             {project.subtitle && <p class="case-hero__description">{project.subtitle}</p>}
             {projectData?.case_theme === 'search' && <SearchHeroArt />}
+            {projectData?.case_theme === 'network' && <NetworkHeroArt />}
             <div class="case-hero__rule" aria-hidden="true"></div>
           </header>
           <CaseChapterNav {layout} lang={lang ?? 'en'} />

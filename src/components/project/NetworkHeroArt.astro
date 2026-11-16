@@ -1,0 +1,27 @@
+---
+const groups = [
+  { color: '#148cba', labels: ['1A', '1B', '2', '3'] },
+  { color: '#738b37', labels: ['4', '5', '6'] },
+  { color: '#b24c6c', labels: ['7', '8', '9'] },
+  { color: '#be7729', labels: ['10', '11'] },
+];
+---
+<div class="dn-hero-art" aria-hidden="true">
+  <svg viewBox="0 0 720 350" fill="none">
+    <path d="M26 291C119 274 116 197 236 204S349 310 451 271 513 140 696 111" stroke="#d1dfeb" stroke-width="47" />
+    <path d="M26 291C119 274 116 197 236 204S349 310 451 271 513 140 696 111" stroke="#eaf1f5" stroke-width="43" />
+    {groups.map((group, i) => <g>
+      <path d={`M360 87V121H${100 + i * 173}V159`} stroke={group.color} stroke-opacity=".55" />
+      <rect x={40 + i * 173} y="159" width="120" height="132" rx="8" fill="#fffdf9" stroke="#d3dce2" />
+      <path d={`M${40 + i * 173} 167a8 8 0 0 1 8-8h104a8 8 0 0 1 8 8v5h-120z`} fill={group.color} />
+      {group.labels.map((label, n) => <g>
+        <circle cx={58 + i * 173} cy={191 + n * 25} r="3" fill={group.color} />
+        <text x={72 + i * 173} y={195 + n * 25} fill="#43576b" font-family="ui-monospace, monospace" font-size="12">PA {label}</text>
+      </g>)}
+    </g>)}
+    <rect x="235" y="22" width="250" height="65" rx="8" fill="#163e64" />
+    <circle cx="259" cy="54" r="5" fill="#d8e8f4" />
+    <text x="277" y="59" fill="#fffdf9" font-family="ui-monospace, monospace" font-size="15">danube-region.eu</text>
+    <text x="44" y="333" fill="#65798b" font-family="ui-monospace, monospace" font-size="10" letter-spacing="2">WORDPRESS MULTISITE / 13 WEBSITES</text>
+  </svg>
+</div>
