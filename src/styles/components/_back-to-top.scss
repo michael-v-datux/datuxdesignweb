@@ -1,0 +1,21 @@
+.back-to-top {
+  --top-bg:#fff; --top-ink:#374151; --top-icon:#f0f3f7; --top-outline:linear-gradient(110deg,#91b7e6,#edc6d0,#f0dfaa); --top-radius:999px;
+  position:fixed;right:max(24px,env(safe-area-inset-right));bottom:max(var(--back-top-bottom,24px),env(safe-area-inset-bottom));z-index:44;
+  display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:7px 16px 7px 8px;
+  border:1px solid transparent;border-radius:var(--top-radius);background:linear-gradient(var(--top-bg),var(--top-bg)) padding-box,var(--top-outline) border-box;
+  color:var(--top-ink);font:500 12px/1.2 'Lexend',sans-serif;text-decoration:none;box-shadow:0 5px 24px #13243016;
+  transition:box-shadow .2s ease,translate .2s ease;animation:back-top-appear .2s ease both;
+  &[hidden] { display:none; }
+  &:hover { translate:0 -3px;box-shadow:0 8px 28px #13243028;color:var(--top-ink); }
+  &:focus-visible { outline:3px solid var(--top-ink);outline-offset:4px; }
+  &__icon { display:grid;place-items:center;width:32px;height:32px;flex:0 0 32px;border-radius:calc(var(--top-radius) * .7);background:var(--top-icon); }
+  &[data-theme='fluid'] { --top-bg:#f5f1ff;--top-ink:#6041a0;--top-icon:#e7ddfa;--top-outline:linear-gradient(135deg,#b2a0e0,#e3b1d2);--top-radius:22px; }
+  &[data-theme='playful'] { --top-bg:#f0f8ee;--top-ink:#244c35;--top-icon:#b8edc9;--top-outline:linear-gradient(#81ad8c,#81ad8c);--top-radius:8px; }
+  &[data-theme='journal'] { --top-bg:#fffdf6;--top-ink:#285e63;--top-icon:#dcecea;--top-outline:linear-gradient(#91b9b5,#91b9b5);--top-radius:5px; }
+  &[data-theme='dialogue'] { --top-bg:#111321;--top-ink:#ff9b80;--top-icon:#35252c;--top-outline:linear-gradient(#df8c77,#df8c77); }
+  &[data-theme='system'] { --top-bg:#f6f8fc;--top-ink:#0345a1;--top-icon:#e0e9f7;--top-outline:linear-gradient(#8eacd6,#8eacd6);--top-radius:4px; }
+  &[data-theme='workbench'] { --top-bg:#173038;--top-ink:#abefdd;--top-icon:#284a4f;--top-outline:linear-gradient(#6eb8aa,#6eb8aa);--top-radius:6px; }
+}
+@keyframes back-top-appear { from { opacity:0;translate:0 8px; } to { opacity:1;translate:0 0; } }
+@media(max-width:639px) { .back-to-top { right:max(16px,env(safe-area-inset-right));padding:7px; &__label { display:none; } } }
+@media(prefers-reduced-motion:reduce) { .back-to-top { animation:none;transition:none; &:hover { translate:none; } } }
