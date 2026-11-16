@@ -5331,10 +5331,12 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   color: #6b88ae;
 }
 .case-theme--workbench .mdm-wizard-map h3 {
+  color: #243651;
   font-size: 17px;
   margin: 14px 0 12px;
 }
 .case-theme--workbench .mdm-wizard-map p, .case-theme--workbench .mdm-wizard-map__intro {
+  color: #536782;
   font-size: 13px;
   line-height: 1.8;
 }
