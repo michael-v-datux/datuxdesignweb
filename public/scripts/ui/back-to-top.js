@@ -9,6 +9,31 @@ function initBackToTop() {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const obstructions = [document.getElementById('cookie-banner'), document.querySelector('[data-admin-link]')].filter(Boolean);
   let visible = false, queued = false, focusOnArrival = false;
+  let visibilityAnimation;
+  const setVisible = (next, immediate) => {
+    if (next === visible) return;
+    visible = next;
+    const wasHidden = button.hidden;
+    const current = getComputedStyle(button);
+    const from = { opacity: wasHidden ? 0 : current.opacity, translate: wasHidden ? '0 8px' : current.translate };
+    visibilityAnimation?.cancel();
+    button.inert = !next;
+    if (immediate || reducedMotion.matches || !button.animate) {
+      button.hidden = !next;
+      return;
+    }
+    button.hidden = false;
+    const animation = button.animate([from, { opacity: next ? 1 : 0, translate: next ? '0 0' : '0 8px' }], {
+      duration: next ? 200 : 180, easing: 'ease-out', fill: 'forwards'
+    });
+    visibilityAnimation = animation;
+    animation.finished.then(() => {
+      if (visibilityAnimation !== animation) return;
+      button.hidden = !visible;
+      animation.cancel();
+      visibilityAnimation = undefined;
+    }).catch(() => {});
+  };
   const update = () => {
     queued = false;
     const theme = CASE_THEMES.find(name => caseRoot?.classList.contains(`case-theme--${name}`));
@@ -16,8 +41,7 @@ function initBackToTop() {
     const threshold = Math.max(640, innerHeight * .85);
     const blocked = !!document.querySelector('dialog[open], #mobile-menu.open') || getComputedStyle(document.body).overflow === 'hidden';
     const canScroll = document.documentElement.scrollHeight - innerHeight > threshold;
-    visible = !blocked && canScroll && scrollY > (visible ? threshold * .55 : threshold);
-    button.hidden = !visible;
+    setVisible(!blocked && canScroll && scrollY > (visible ? threshold * .55 : threshold), blocked);
     let bottom = 24;
     const rightEdge = innerWidth - 160;
     for (const element of obstructions) {
@@ -43,6 +67,12 @@ function initBackToTop() {
   addEventListener('scroll', schedule, { passive: true });
   addEventListener('resize', schedule, { passive: true });
   addEventListener('pageshow', schedule);
+  reducedMotion.addEventListener('change', () => {
+    if (!reducedMotion.matches) return;
+    visibilityAnimation?.cancel();
+    visibilityAnimation = undefined;
+    button.hidden = !visible;
+  });
   const observer = new MutationObserver(schedule);
   [document.body, caseRoot, ...obstructions, document.getElementById('mobile-menu'), ...document.querySelectorAll('dialog')].filter(Boolean).forEach(element => observer.observe(element, { attributes: true, attributeFilter: ['class', 'style', 'hidden', 'open'] }));
   obstructions.forEach(element => element.addEventListener('transitionend', schedule));

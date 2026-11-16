@@ -4341,14 +4341,14 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   width: 100%;
   max-width: none;
   padding: 0;
-  background: #111c21;
-  color: #e9f1f1;
+  background: #111b2b;
+  color: #e7ebf3;
 }
 
 .case-theme--workbench {
-  --section-ink:#e9f1f1;
-  --section-accent:#7de3cf;
-  --section-soft:#203339;
+  --section-ink:#e7ebf3;
+  --section-accent:#8bb9ff;
+  --section-soft:#1a273f;
 }
 .case-theme--workbench > .project-blocks {
   max-width: 1328px;
@@ -4358,14 +4358,14 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--workbench .case-hero {
   padding: 72px max(48px, (100% - 1232px) / 2) 66px;
   margin: 0;
-  background: radial-gradient(ellipse at 90% 0%, rgba(43, 85, 81, 0.2901960784), transparent 65%), #111c21;
+  background: radial-gradient(ellipse at 90% 0%, rgba(34, 54, 94, 0.2901960784), transparent 65%), #111b2b;
 }
 .case-theme--workbench .case-hero__back {
   margin-bottom: 68px;
-  color: #9bafb2;
+  color: #93a0ba;
 }
 .case-theme--workbench .case-hero__eyebrow {
-  color: #7de3cf;
+  color: #8bb9ff;
   font: 11px/1.6 ui-monospace, monospace;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4374,7 +4374,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   font-size: clamp(5rem, 16vw, 13rem);
   line-height: 0.95;
   letter-spacing: -0.085em;
-  color: #eff8f5;
+  color: #edf1fa;
   max-width: none;
 }
 .case-theme--workbench .case-hero__title sup {
@@ -4387,19 +4387,19 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   max-width: 42ch;
   font-size: clamp(1.15rem, 2.1vw, 1.55rem);
   line-height: 1.6;
-  color: #a6bbbe;
+  color: #9eacc6;
   margin-top: 2rem;
 }
 .case-theme--workbench .case-hero__rule {
   width: 100%;
   height: 1px;
-  background: #33474c;
+  background: #2c3953;
   margin-top: 2.5rem;
 }
 .case-theme--workbench .case-section {
-  --section-ink:#e9f1f1;
-  --section-accent:#7de3cf;
-  --section-soft:#203339;
+  --section-ink:#e7ebf3;
+  --section-accent:#8bb9ff;
+  --section-soft:#1a273f;
   margin-bottom: 88px;
   padding: 0;
   background: none;
@@ -4410,18 +4410,18 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   display: none;
 }
 .case-theme--workbench .case-section__label {
-  color: #7de3cf;
+  color: #8bb9ff;
   font: 10px/1.6 ui-monospace, monospace;
   letter-spacing: 0.12em;
   padding-top: 24px;
-  border-top: 1px solid #33474c;
+  border-top: 1px solid #2c3953;
   margin-bottom: 32px;
 }
 .case-theme--workbench .case-section__label::before {
   width: 6px;
   height: 6px;
   border-radius: 1px;
-  background: #7de3cf;
+  background: #8bb9ff;
 }
 .case-theme--workbench .project-row {
   margin-bottom: 0;
@@ -4440,10 +4440,10 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--workbench .project-block__html {
   font-size: 16px;
   line-height: 1.85;
-  color: #aebfc2;
+  color: #a7b3c9;
 }
 .case-theme--workbench .project-block__html h2 {
-  color: #f0f6f5;
+  color: #eff2f7;
   font-size: clamp(2rem, 4.1vw, 3.6rem);
   letter-spacing: -0.045em;
   line-height: 1.14;
@@ -4451,7 +4451,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   margin: 0 0 24px;
 }
 .case-theme--workbench .project-block__html h3 {
-  color: #e1efed;
+  color: #dee5f2;
   font-size: 18px;
   margin: 0 0 14px;
   line-height: 1.4;
@@ -4461,18 +4461,18 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   max-width: 72ch;
 }
 .case-theme--workbench .project-block__html strong {
-  color: #e1efed;
+  color: #dee5f2;
   font-weight: 550;
 }
 .case-theme--workbench .project-block__html a {
-  color: #8de3d1;
+  color: #83a7ed;
   text-underline-offset: 5px;
 }
 .case-theme--workbench .project-row--single .project-block--text-body {
   max-width: none;
 }
 .case-theme--workbench .project-block__caption {
-  color: #8ea5a9;
+  color: #8594b2;
   font: 11px/1.7 ui-monospace, monospace;
   margin-top: 16px;
 }
@@ -4508,29 +4508,29 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 .case-theme--workbench .case-section--statement {
   padding: 48px;
-  background: #d4eee6;
+  background: #dceaff;
   border-radius: 8px;
 }
 .case-theme--workbench .case-section--statement::after {
   display: none;
 }
 .case-theme--workbench .case-section--statement .project-block__html {
-  color: #41605f;
+  color: #384969;
 }
 .case-theme--workbench .case-section--statement h2, .case-theme--workbench .case-section--statement strong {
-  color: #173c3b;
+  color: #102143;
 }
 .case-theme--workbench .case-section--statement .case-section__label {
-  color: #35625d;
-  border-color: #98bfb4;
+  color: #2b416c;
+  border-color: #8ea2c9;
 }
 .case-theme--workbench .case-section--statement .case-section__label::before {
-  background: #35625d;
+  background: #2b416c;
 }
 .case-theme--workbench .case-section--states {
   padding: 32px;
-  background: #1a2a30;
-  border: 1px solid #344b51;
+  background: #152035;
+  border: 1px solid #2c3b59;
   border-radius: 8px;
 }
 .case-theme--workbench .case-section--states .case-section__label {
@@ -4543,16 +4543,16 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   margin-bottom: 32px;
 }
 .case-theme--workbench .case-states__tabs button {
-  color: #a8bfc2;
-  background: #142329;
-  border: 1px solid #3a5359;
+  color: #a0aeca;
+  background: #101a2d;
+  border: 1px solid #324261;
   padding: 12px 20px;
   border-radius: 4px;
 }
 .case-theme--workbench .case-states__tabs button[aria-selected=true] {
-  color: #123932;
-  background: #94e0ce;
-  border-color: #94e0ce;
+  color: #0b1d40;
+  background: #a6c8ff;
+  border-color: #a6c8ff;
 }
 .case-theme--workbench .case-section--states [data-state-panel] {
   background: transparent;
@@ -4575,12 +4575,12 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   margin: 8px 0 40px;
 }
 .case-theme--workbench .mdm-meta div {
-  border-left: 1px solid #385057;
+  border-left: 1px solid #30405f;
   padding-left: 18px;
 }
 .case-theme--workbench .mdm-meta dt {
   font: 10px ui-monospace, monospace;
-  color: #7e9a9f;
+  color: #7386aa;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   margin-bottom: 10px;
@@ -4588,13 +4588,13 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--workbench .mdm-meta dd {
   font-size: 14px;
   line-height: 1.7;
-  color: #d5e5e5;
+  color: #d1d9e9;
   margin: 0;
 }
 .case-theme--workbench .mdm-route {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  border: 1px solid #3a5056;
+  border: 1px solid #32415e;
   border-radius: 6px;
   overflow: hidden;
 }
@@ -4605,18 +4605,18 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   gap: 20px;
   text-decoration: none;
   font-size: 14px;
-  background: #19292f;
-  border-right: 1px solid #3a5056;
+  background: #141f34;
+  border-right: 1px solid #32415e;
 }
 .case-theme--workbench .mdm-route a:last-child {
   border: 0;
 }
 .case-theme--workbench .mdm-route span {
   font: 11px ui-monospace, monospace;
-  color: #7e999e;
+  color: #7385a9;
 }
 .case-theme--workbench .mdm-route a:hover {
-  background: #223b40;
+  background: #1b2a47;
 }
 .case-theme--workbench .mdm-notes {
   display: grid;
@@ -4625,13 +4625,13 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   margin: 30px 0;
 }
 .case-theme--workbench .mdm-notes > div {
-  border-top: 1px solid #486067;
+  border-top: 1px solid #3f5070;
   padding-top: 20px;
 }
 .case-theme--workbench .mdm-notes b {
   display: block;
   font: 11px ui-monospace, monospace;
-  color: #7de3cf;
+  color: #8bb9ff;
   margin-bottom: 14px;
 }
 .case-theme--workbench .mdm-notes p {
@@ -4641,13 +4641,13 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--workbench .mdm-artifact {
   margin-top: 28px;
   padding: 20px 24px;
-  border: 1px solid #3c5359;
+  border: 1px solid #344361;
   border-radius: 6px;
-  background: #192a30;
+  background: #141f35;
   align-self: start;
 }
 .case-theme--workbench .mdm-artifact summary {
-  color: #c8e1df;
+  color: #c2cfe7;
   font-size: 14px;
   cursor: pointer;
 }
@@ -4683,13 +4683,13 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   margin: 32px 0;
 }
 .case-theme--workbench .mdm-chain > div {
-  border: 1px solid #425c62;
+  border: 1px solid #394a6b;
   padding: 24px;
   border-radius: 5px;
 }
 .case-theme--workbench .mdm-chain span {
   font: 11px ui-monospace, monospace;
-  color: #7de3cf;
+  color: #8bb9ff;
 }
 .case-theme--workbench .mdm-chain h3 {
   margin-top: 20px;
@@ -4704,7 +4704,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   border-radius: 3px;
 }
 .case-theme--workbench .mdm-result {
-  border-left: 3px solid #7de3cf;
+  border-left: 3px solid #8bb9ff;
   padding: 8px 0 8px 24px;
   margin-top: 32px;
 }
@@ -4713,8 +4713,8 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 .case-theme--workbench .mdm-private {
   padding: 20px 24px;
-  background: #192a30;
-  border: 1px solid #344b51;
+  background: #141f35;
+  border: 1px solid #2c3b59;
   border-radius: 6px;
   font-size: 13px;
   line-height: 1.85;
@@ -4723,12 +4723,12 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   scroll-margin-top: 110px;
 }
 .case-theme--workbench a:focus-visible, .case-theme--workbench button:focus-visible, .case-theme--workbench summary:focus-visible {
-  outline: 3px solid #7de3cf;
+  outline: 3px solid #8bb9ff;
   outline-offset: 5px;
 }
 .case-theme--workbench #project-password-container {
-  background: #f5f8f8;
-  color: #253e43;
+  background: #f4f6f9;
+  color: #1e2d4a;
   padding: 80px 24px;
   min-height: 75vh;
 }
@@ -4771,7 +4771,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
     gap: 24px;
     padding: 16px 20px;
     border-right: 0;
-    border-bottom: 1px solid #3a5056;
+    border-bottom: 1px solid #32415e;
   }
   .case-theme--workbench .mdm-notes, .case-theme--workbench .mdm-chain, .case-theme--workbench .mdm-grid {
     grid-template-columns: 1fr;
@@ -4793,21 +4793,21 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   gap: 24px;
   padding: 16px max(24px, (100% - 1232px) / 2);
   margin: 0 0 48px;
-  background: rgba(16, 32, 38, 0.9607843137);
-  border-block: 1px solid #436067;
+  background: rgba(12, 22, 42, 0.9607843137);
+  border-block: 1px solid #394c71;
   -webkit-backdrop-filter: blur(18px);
           backdrop-filter: blur(18px);
 }
 .case-theme--workbench .case-reader__label {
   flex: 0 0 auto;
-  color: #84a4a9;
+  color: #798db4;
   font: 10px ui-monospace, monospace;
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 .case-theme--workbench .case-reader__label b {
   margin-left: 12px;
-  color: #b9f0e3;
+  color: #b5caf4;
   font-weight: 400;
 }
 .case-theme--workbench .case-reader__links {
@@ -4821,15 +4821,15 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 .case-theme--workbench .case-reader a {
   padding: 8px;
-  color: #9db6ba;
+  color: #94a4c3;
   white-space: nowrap;
   font-size: 11px;
   text-decoration: none;
   border-radius: 3px;
 }
 .case-theme--workbench .case-reader a[aria-current] {
-  background: #7de3cf;
-  color: #163f39;
+  background: #8bb9ff;
+  color: #0e2147;
 }
 .case-theme--workbench .case-reader__progress {
   position: absolute;
@@ -4837,7 +4837,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   left: 0;
   right: 0;
   height: 2px;
-  background: #7de3cf;
+  background: #8bb9ff;
   transform: scaleX(var(--read-progress, 0));
   transform-origin: left;
 }
@@ -4846,8 +4846,8 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 .case-theme--workbench .case-section--workbench-explorer {
   position: relative;
-  border: 1px solid #4a656c;
-  background: linear-gradient(135deg, #20383d, #15262d);
+  border: 1px solid #405276;
+  background: linear-gradient(135deg, #1a2843, #101c32);
   border-radius: 10px;
   padding: 32px;
 }
@@ -4877,10 +4877,10 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   gap: 12px;
   text-align: left;
   padding: 16px;
-  border: 1px solid #425e65;
+  border: 1px solid #394b6e;
   border-radius: 5px;
-  background: #14282e;
-  color: #a4c0c4;
+  background: #0f1b33;
+  color: #9baccd;
   font-size: 13px;
   line-height: 1.4;
 }
@@ -4889,9 +4889,9 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   opacity: 0.7;
 }
 .case-theme--workbench .case-section--workbench-explorer .case-states__tabs button[aria-selected=true] {
-  background: #b8eedf;
-  color: #183e38;
-  border-color: #b8eedf;
+  background: #bfd7ff;
+  color: #112345;
+  border-color: #bfd7ff;
 }
 .case-theme--workbench .case-section--workbench-explorer > .project-row {
   display: block;
@@ -4929,7 +4929,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   align-items: start;
 }
 .case-theme--workbench .mdm-breadth__title {
-  color: #d8f8ee;
+  color: #d7e3f9;
   font-size: clamp(2rem, 4.5vw, 4rem);
   line-height: 1.12;
   letter-spacing: -0.05em;
@@ -4943,9 +4943,9 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--workbench .mdm-breadth__scope span {
   padding: 9px 12px;
   font: 11px ui-monospace, monospace;
-  border: 1px solid #3c5b62;
+  border: 1px solid #33466b;
   border-radius: 3px;
-  color: #9dc9c9;
+  color: #93a9d3;
 }
 .case-theme--workbench .mdm-evidence-strip {
   display: flex;
@@ -4956,43 +4956,43 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   font: 10px ui-monospace, monospace;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #8bacae;
+  color: #8194b8;
 }
 .case-theme--workbench .mdm-evidence-strip::before {
   content: "";
   height: 6px;
   width: 6px;
-  background: #7de3cf;
+  background: #8bb9ff;
   border-radius: 50%;
 }
 .case-theme--workbench .mdm-evidence-strip span + span::before {
   content: "/";
   margin-right: 12px;
-  color: #48656b;
+  color: #3e5175;
 }
 .case-theme--workbench .mdm-task {
   display: grid;
   grid-template-columns: 90px 1fr;
   gap: 28px;
-  border-top: 1px solid #3e575e;
+  border-top: 1px solid #354667;
   padding-top: 24px;
   margin-top: 24px;
 }
 .case-theme--workbench .mdm-task > span {
   font: 11px/1.5 ui-monospace, monospace;
-  color: #7de3cf;
+  color: #8bb9ff;
 }
 .case-theme--workbench .mdm-task p {
   margin-bottom: 0;
 }
 .case-theme--workbench .mdm-attribution {
   font-size: 12px;
-  color: #8fa7ab;
+  color: #8696b4;
   line-height: 1.85;
   margin-top: 24px;
 }
 .case-theme--workbench .mdm-attribution a {
-  color: #b5cec9;
+  color: #aebbd5;
 }
 .case-theme--workbench .mdm-wide-note {
   display: grid;
@@ -5070,11 +5070,11 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   }
 }
 .admin-section-template__thumb--workbench-explorer {
-  background: #183238;
+  background: #12213e;
 }
 
 .case-theme--workbench[data-project-preview] {
-  background: #111c21;
+  background: #111b2b;
   padding: 16px;
 }
 
@@ -5105,25 +5105,25 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   top: 0;
   font: clamp(130px, 20vw, 240px)/1 ui-monospace, monospace;
   letter-spacing: -0.1em;
-  color: rgba(125, 227, 207, 0.0392156863);
+  color: rgba(139, 185, 255, 0.0392156863);
   pointer-events: none;
 }
 
 .case-theme--workbench .case-section--workbench-explorer .case-image-hint {
-  background: #daf3eb;
-  color: #21443d;
+  background: #d5e1f8;
+  color: #1a2b4b;
 }
 
 .case-theme--workbench .admin-preview__hero {
   padding: 24px;
-  background: #1a3138;
-  border: 1px solid #46636a;
+  background: #14223e;
+  border: 1px solid #3c4f74;
   border-radius: 8px;
-  color: #e7f5f1;
+  color: #e4ebf8;
 }
 
 .case-theme--workbench .admin-preview__hero p, .case-theme--workbench .admin-preview__states-hint {
-  color: #a8c5c7;
+  color: #a0b0cf;
 }
 
 .case-theme--workbench .admin-preview-blocks .case-section--editorial > .project-row {
@@ -5170,7 +5170,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 .case-theme--workbench .mdm-case-footer .mdm-case-footer__eyebrow {
   margin: 0 0 18px;
-  color: #87abae;
+  color: #7c91b9;
   font: 10px/1.7 ui-monospace, monospace;
   letter-spacing: 0.1em;
 }
@@ -5197,9 +5197,9 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   flex-direction: column;
   gap: 10px;
   padding: 22px 36px 22px 20px;
-  border: 1px solid #3a555c;
+  border: 1px solid #314365;
   border-radius: 6px;
-  background: #192d34;
+  background: #13203a;
   text-decoration: none;
   transition: background 0.18s ease, border-color 0.18s ease;
 }
@@ -5207,10 +5207,10 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   font-size: 20px;
   line-height: 1.2;
   font-weight: 500;
-  color: #c6f4e7;
+  color: #c4d5f6;
 }
 .case-theme--workbench .mdm-reference small {
-  color: #90acb1;
+  color: #8698bb;
   font-size: 11px;
   line-height: 1.6;
 }
@@ -5218,16 +5218,16 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   position: absolute;
   top: 18px;
   right: 16px;
-  color: #77c8b6;
+  color: #678dd8;
   font-size: 17px;
   font-weight: 400;
 }
 .case-theme--workbench .mdm-reference:hover {
-  background: #223d43;
-  border-color: #6b9e97;
+  background: #1b2b4a;
+  border-color: #5d78ac;
 }
 .case-theme--workbench .mdm-case-footer__sources .mdm-case-footer__context-note {
-  color: #7e9b9f;
+  color: #7386aa;
   font-size: 12px;
   line-height: 1.8;
   margin-bottom: 18px;
@@ -5237,8 +5237,8 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 .case-theme--workbench .mdm-private-review {
   padding: 26px 28px;
-  border-left: 2px solid #6ebca9;
-  background: #1a3036;
+  border-left: 2px solid #5e83cc;
+  background: #14223c;
   border-radius: 0 7px 7px 0;
 }
 .case-theme--workbench .mdm-private-review .mdm-case-footer__eyebrow {
@@ -5246,25 +5246,25 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   align-items: center;
   gap: 10px;
   font-size: 9px;
-  color: #9bcbc2;
+  color: #90a8d6;
 }
 .case-theme--workbench .mdm-private-review i {
   display: block;
   width: 6px;
   height: 6px;
-  border: 1px solid #9bcbc2;
+  border: 1px solid #90a8d6;
   border-radius: 50%;
   flex: 0 0 6px;
 }
 .case-theme--workbench .mdm-private-review h3 {
-  color: #d6eee7;
+  color: #d1ddf3;
   font-size: 20px;
   line-height: 1.4;
   max-width: 23ch;
   margin-bottom: 16px;
 }
 .case-theme--workbench .mdm-private-review p:last-child {
-  color: #9bb6b8;
+  color: #92a2c1;
   font-size: 13px;
   line-height: 1.9;
   margin: 0;
@@ -5274,18 +5274,18 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   grid-template-columns: 1fr 1.2fr;
   gap: 40px;
   grid-column: 1/-1;
-  border-top: 1px solid #314a51;
+  border-top: 1px solid #293959;
   padding-top: 24px;
 }
 .case-theme--workbench .mdm-case-footer__rights p {
-  color: #769499;
+  color: #6a7ea5;
   font-size: 11px;
   line-height: 1.85;
   margin: 0;
   max-width: none;
 }
 .case-theme--workbench .mdm-case-footer__rights a {
-  color: #91b6b5;
+  color: #879ac0;
 }
 
 @media (max-width: 767px) {
@@ -6099,7 +6099,6 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   text-decoration: none;
   box-shadow: 0 5px 24px rgba(19, 36, 48, 0.0862745098);
   transition: box-shadow 0.2s ease, translate 0.2s ease;
-  animation: back-top-appear 0.2s ease both;
 }
 .back-to-top[hidden] {
   display: none;
@@ -6157,23 +6156,13 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   --top-radius:4px;
 }
 .back-to-top[data-theme=workbench] {
-  --top-bg:#173038;
-  --top-ink:#abefdd;
-  --top-icon:#284a4f;
-  --top-outline:linear-gradient(#6eb8aa,#6eb8aa);
+  --top-bg:#172b49;
+  --top-ink:#b5d2ff;
+  --top-icon:#28446c;
+  --top-outline:linear-gradient(#6e9bd8,#6e9bd8);
   --top-radius:6px;
 }
 
-@keyframes back-top-appear {
-  from {
-    opacity: 0;
-    translate: 0 8px;
-  }
-  to {
-    opacity: 1;
-    translate: 0 0;
-  }
-}
 @media (max-width: 639px) {
   .back-to-top {
     right: max(16px, env(safe-area-inset-right));
