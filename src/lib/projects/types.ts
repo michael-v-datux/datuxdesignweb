@@ -66,6 +66,8 @@ export interface SectionPresentation {
   anchor?: string;
   nav_en?: string;
   nav_uk?: string;
+  tabs_label_en?: string;
+  tabs_label_uk?: string;
 }
 
 export interface ProjectRow {

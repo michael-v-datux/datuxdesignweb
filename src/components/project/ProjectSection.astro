@@ -15,7 +15,7 @@ const chapterIndex = chapterRows.findIndex(r => r.id === row.id);
   <span class="case-section__index" aria-hidden="true">{sectionNumber(row, rows)}</span>
   {sectionLabel(row, lang) && <p class="case-section__label">{sectionLabel(row, lang)}</p>}
   {states && (
-    <div class="case-states__tabs" role="tablist" aria-label={explorer ? (lang === 'uk' ? 'Робочі області продукту' : 'Product work areas') : (lang === 'uk' ? 'Стани інтерфейсу' : 'Interface states')} hidden>
+    <div class="case-states__tabs" role="tablist" aria-label={(lang === 'uk' ? presentation.tabs_label_uk || presentation.tabs_label_en : presentation.tabs_label_en || presentation.tabs_label_uk) || (explorer ? (lang === 'uk' ? 'Робочі області продукту' : 'Product work areas') : (lang === 'uk' ? 'Стани інтерфейсу' : 'Interface states'))} hidden>
       {row.columns.map((column, index) => (
         <button type="button" role="tab" id={`${sectionId}-tab-${index}`} aria-controls={`${sectionId}-panel-${index}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-state-select={index}>
           <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span> {columnStateTitle(column, lang, index)}

@@ -1,5 +1,5 @@
 import { groupBlocksIntoRows } from '/scripts/lib/project-rows.js';
-import { CASE_THEMES, normalizeMediaFrame, normalizeCaseTheme, sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261116-network1';
+import { CASE_THEMES, normalizeMediaFrame, normalizeCaseTheme, sectionClasses, sectionLabel, sectionNumber } from '/scripts/lib/case-design.js?v=20261117-folio1';
 
 function escapeHtml(str) {
   return String(str ?? '')

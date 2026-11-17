@@ -1,5 +1,5 @@
 /** Shared presentation vocabulary for public pages, previews and section templates. */
-export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal', 'dialogue', 'system', 'workbench', 'search', 'network'];
+export const CASE_THEMES = ['classic', 'fluid', 'playful', 'journal', 'dialogue', 'system', 'workbench', 'search', 'network', 'folio'];
 export function normalizeCaseTheme(value) { return CASE_THEMES.includes(value) ? value : 'classic'; }
 export const SECTION_VARIANTS = ['plain', 'editorial', 'showcase', 'statement', 'gallery', 'contrast', 'flow', 'brand', 'panorama', 'mission', 'ticket', 'sequence', 'states', 'margin', 'conversation', 'devices', 'system-index', 'system-foundations', 'system-detail', 'system-library', 'system-application', 'workbench-explorer'];
 export const MEDIA_FRAMES = ['none', 'browser', 'canvas', 'paper'];
@@ -15,6 +15,8 @@ export function normalizePresentation(value) {
     anchor: typeof p.anchor === 'string' && /^[a-z][a-z0-9-]{0,59}$/.test(p.anchor.trim()) ? p.anchor.trim() : '',
     nav_en: typeof p.nav_en === 'string' ? p.nav_en.trim().slice(0, 40) : '',
     nav_uk: typeof p.nav_uk === 'string' ? p.nav_uk.trim().slice(0, 40) : '',
+    tabs_label_en: typeof p.tabs_label_en === 'string' ? p.tabs_label_en.trim().slice(0, 100) : '',
+    tabs_label_uk: typeof p.tabs_label_uk === 'string' ? p.tabs_label_uk.trim().slice(0, 100) : '',
   };
 }
 export function sectionClasses(row) {
