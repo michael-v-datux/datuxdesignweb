@@ -7537,6 +7537,10 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   --section-soft:#e8eef5;
 }
 .case-theme--folio .case-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  -moz-column-gap: 64px;
+       column-gap: 64px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -7545,10 +7549,12 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   background: #e7eff7;
 }
 .case-theme--folio .case-hero__back {
+  grid-column: 1/-1;
   color: #536d80;
   margin-bottom: 72px;
 }
 .case-theme--folio .case-hero__eyebrow {
+  grid-column: 1;
   position: relative;
   z-index: 2;
   color: #0b6ab3;
@@ -7556,16 +7562,18 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   letter-spacing: 0.08em;
 }
 .case-theme--folio .case-hero__title {
+  grid-column: 1;
   position: relative;
   z-index: 2;
   max-width: 10ch;
   color: #123e61;
-  font-size: clamp(4rem, 8.6vw, 8.4rem);
+  font-size: clamp(4rem, 6.7vw, 7rem);
   line-height: 0.96;
   letter-spacing: -0.065em;
   margin-bottom: 32px;
 }
 .case-theme--folio .case-hero__description {
+  grid-column: 1;
   position: relative;
   z-index: 2;
   max-width: 38ch;
@@ -7574,94 +7582,113 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   color: #526b7d;
 }
 .case-theme--folio .case-hero__rule {
+  grid-column: 1/-1;
   margin-top: 56px;
   background: #b9ccdd;
   height: 1px;
 }
 .case-theme--folio .mm-hero-art {
-  position: absolute;
-  z-index: 0;
-  right: max(24px, (100% - 1250px) / 2);
-  top: 175px;
-  width: 41%;
-  height: 335px;
+  grid-column: 2;
+  grid-row: 2/5;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 1.25;
+  min-width: 0;
 }
 .case-theme--folio .mm-hero-art__sheet {
   position: absolute;
-  width: 84%;
-  height: 255px;
   border: 1px solid #9bb8d0;
   background: #fffefa;
-  box-shadow: 0 30px 65px rgba(40, 72, 104, 0.0862745098);
+  box-shadow: 0 24px 50px rgba(40, 72, 104, 0.0862745098);
 }
 .case-theme--folio .mm-hero-art__sheet--back {
-  top: 0;
-  right: 0;
-  transform: rotate(7deg);
+  top: 5%;
+  right: 3%;
+  width: 78%;
+  height: 62%;
+  transform: rotate(8deg);
   background: #0b6ab3;
-  padding: 24px;
+  padding: 8%;
 }
 .case-theme--folio .mm-hero-art__sheet--back > i {
   display: block;
-  width: 44%;
-  height: 50px;
+  width: 50%;
+  height: 28%;
   background: #c2d7eb;
-  margin-bottom: 18px;
+  margin-bottom: 12%;
 }
 .case-theme--folio .mm-hero-art__sheet--back > b {
   display: block;
-  width: 70%;
+  width: 85%;
   height: 2px;
   background: rgba(255, 255, 255, 0.5490196078);
-  margin: 10px 0;
+  margin: 8% 0;
 }
 .case-theme--folio .mm-hero-art__sheet--front {
-  left: 0;
-  top: 57px;
+  left: 3%;
+  top: 31%;
+  width: 88%;
+  height: 56%;
   transform: rotate(-5deg);
-  padding: 24px;
-  display: flex;
+  padding: 7%;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 10%;
   align-items: center;
-  gap: 22px;
 }
-.case-theme--folio .mm-hero-art__sheet--front > span {
-  color: #123e61;
-  font: 500 clamp(60px, 7vw, 105px)/1 "Lexend", sans-serif;
-  letter-spacing: -0.09em;
+.case-theme--folio .mm-hero-art__graphic {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50% 50% 10% 50%;
+  background: #c2d7eb;
+  position: relative;
 }
-.case-theme--folio .mm-hero-art__sheet--front > div {
-  flex: 1;
+.case-theme--folio .mm-hero-art__graphic::after {
+  content: "";
+  position: absolute;
+  width: 54%;
+  height: 54%;
+  right: -8%;
+  bottom: -8%;
+  border-radius: 50%;
+  background: #674462;
 }
-.case-theme--folio .mm-hero-art__sheet--front i {
+.case-theme--folio .mm-hero-art__lines i {
   display: block;
-  width: 76%;
-  height: 54px;
+  width: 70%;
+  height: 22px;
   background: #d6e5f3;
-  margin-bottom: 16px;
+  margin-bottom: 22%;
 }
-.case-theme--folio .mm-hero-art__sheet--front b {
+.case-theme--folio .mm-hero-art__lines b {
   display: block;
   height: 2px;
   background: #b8c8d5;
-  margin: 10px 0;
+  margin: 12% 0;
 }
-.case-theme--folio .mm-hero-art__sheet--front em {
-  position: absolute;
-  left: 25px;
-  bottom: 20px;
-  font: 9px/1 ui-monospace, monospace;
-  color: #6c8293;
-  font-style: normal;
+.case-theme--folio .mm-hero-art__sheet--document {
+  right: 0;
+  bottom: 0;
+  width: 30%;
+  height: 47%;
+  transform: rotate(5deg);
+  padding: 5%;
 }
-.case-theme--folio .mm-hero-art__dot {
-  position: absolute;
-  right: 5%;
-  bottom: -5px;
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  background: #674462;
-  box-shadow: 0 12px 25px rgba(67, 52, 63, 0.0705882353);
+.case-theme--folio .mm-hero-art__sheet--document i {
+  display: block;
+  width: 100%;
+  height: 35%;
+  background: #0b6ab3;
+  margin-bottom: 25%;
+}
+.case-theme--folio .mm-hero-art__sheet--document b {
+  display: block;
+  height: 2px;
+  background: #b8c8d5;
+  margin: 20% 0;
 }
 .case-theme--folio > .project-blocks {
   max-width: 1328px;
@@ -7871,6 +7898,16 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 .case-theme--folio .mm-note {
   margin-top: 20px !important;
 }
+.case-theme--folio .mm-selection-note {
+  padding-top: 22px;
+  border-top: 1px solid #c8d6df;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.case-theme--folio .mm-selection-note strong {
+  display: block;
+  margin-bottom: 8px;
+}
 .case-theme--folio .mm-reference {
   padding: 24px 28px;
   border-left: 3px solid #b0cbe0;
@@ -8028,26 +8065,11 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 @media (max-width: 1023px) {
   .case-theme--folio .case-hero {
     padding-inline: 32px;
+    -moz-column-gap: 40px;
+         column-gap: 40px;
   }
   .case-theme--folio .case-hero__title {
-    font-size: clamp(4rem, 9vw, 6.4rem);
-  }
-  .case-theme--folio .mm-hero-art {
-    width: 40%;
-    right: 20px;
-    top: 210px;
-    height: 260px;
-    opacity: 0.78;
-  }
-  .case-theme--folio .mm-hero-art__sheet {
-    height: 210px;
-  }
-  .case-theme--folio .mm-hero-art__sheet--front {
-    padding: 18px;
-    gap: 12px;
-  }
-  .case-theme--folio .mm-hero-art__sheet--front > span {
-    font-size: 70px;
+    font-size: clamp(3.25rem, 6.7vw, 5rem);
   }
   .case-theme--folio > .project-blocks {
     padding-inline: 32px;
@@ -8065,6 +8087,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 }
 @media (max-width: 767px) {
   .case-theme--folio .case-hero {
+    grid-template-columns: minmax(0, 1fr);
     padding: 34px 24px 28px;
   }
   .case-theme--folio .case-hero__back {
@@ -8080,25 +8103,11 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
     font-size: 16px;
   }
   .case-theme--folio .mm-hero-art {
-    position: relative;
+    grid-column: 1;
+    grid-row: auto;
     width: 100%;
-    height: 250px;
-    top: auto;
-    right: auto;
-    max-width: 390px;
-    margin: 30px auto 0;
-    opacity: 1;
-  }
-  .case-theme--folio .mm-hero-art__sheet {
-    height: 190px;
-  }
-  .case-theme--folio .mm-hero-art__sheet--front {
-    top: 40px;
-  }
-  .case-theme--folio .mm-hero-art__dot {
-    width: 46px;
-    height: 46px;
-    bottom: 0;
+    max-width: 330px;
+    margin: 28px auto 0;
   }
   .case-theme--folio .case-hero__rule {
     margin-top: 30px;
