@@ -8585,103 +8585,131 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   animation: pop 0.3s ease-out forwards;
 }
 
-#selected-projects .project-card {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+#selected-projects .project-card--editorial {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.12;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #dee3e4;
+  border-radius: 16px;
+  background: #f3f5f4;
+  color: #203b48;
+  text-align: left;
+  isolation: isolate;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-#selected-projects .project-card.visible {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+#selected-projects .project-card--editorial:hover, #selected-projects .project-card--editorial:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(23, 53, 67, 0.0705882353);
+  border-color: #aabfc7;
 }
-#selected-projects .project-card--text {
+#selected-projects .project-card--editorial:focus-visible {
+  outline: 3px solid #3c728a;
+  outline-offset: 5px;
+}
+#selected-projects .project-card--editorial .project-card__number {
+  position: absolute;
+  z-index: 2;
+  left: 24px;
+  top: 22px;
+  font: 11px/1 ui-monospace, monospace;
+  letter-spacing: 0.06em;
+  color: #657e89;
+}
+#selected-projects .project-card--editorial .project-card__arrow {
+  position: absolute;
+  z-index: 2;
+  right: 22px;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #bfcdd1;
+  border-radius: 50%;
+  font-size: 16px;
+  color: #486a79;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+#selected-projects .project-card--editorial .project-card__art {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 76%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+#selected-projects .project-card--editorial .project-card__caption {
+  position: absolute;
+  z-index: 2;
+  left: 24px;
+  right: 24px;
+  bottom: 23px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  text-align: center;
-  transition: background-color 0.3s ease;
+  gap: 9px;
 }
-#selected-projects .project-card--text:hover {
-  background-color: #f5f5f5;
+#selected-projects .project-card--editorial .project-card__name {
+  color: #203b48;
+  font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
 }
-#selected-projects .project-card--image {
-  border-color: transparent;
+#selected-projects .project-card--editorial .project-card__reveal {
+  color: #536f7c;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
-#selected-projects .project-card--image:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-}
-#selected-projects .project-card--image:hover .project-card__img {
-  transform: scale(1.04);
-}
-#selected-projects .project-card--image:hover .project-card__overlay {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.08) 100%);
-}
-#selected-projects .project-card--image:hover .category {
+#selected-projects .project-card--editorial:hover .project-card__reveal, #selected-projects .project-card--editorial:focus-visible .project-card__reveal {
   opacity: 1;
   transform: translateY(0);
 }
-#selected-projects .project-card__img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  transition: transform 0.5s ease;
+#selected-projects .project-card--editorial:hover .project-card__art, #selected-projects .project-card--editorial:focus-visible .project-card__art {
+  transform: translateY(-4px) rotate(-1deg);
 }
-#selected-projects .project-card__overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.25rem;
-  padding: 1.25rem 1rem;
-  text-align: center;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.28) 42%, transparent 100%);
-  transition: background 0.35s ease;
-}
-#selected-projects .project-card__body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.25rem;
-  width: 100%;
-  height: 100%;
-}
-#selected-projects .project-card .category {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-#selected-projects .project-card--text .category {
-  color: #262626;
-  opacity: 0;
-}
-#selected-projects .project-card--text:hover .category {
-  opacity: 1;
-}
-#selected-projects .project-card--image .category {
-  color: rgba(255, 255, 255, 0.92);
-  opacity: 0;
-  transform: translateY(4px);
-}
-#selected-projects .project-card .title {
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-}
-#selected-projects .project-card--text .title {
-  color: #262626;
-}
-#selected-projects .project-card--image .title {
-  color: #fff;
+#selected-projects .project-card--editorial:hover .project-card__arrow, #selected-projects .project-card--editorial:focus-visible .project-card__arrow {
+  background: #e1eaed;
+  transform: rotate(45deg);
 }
 
+@media (hover: none), (pointer: coarse) {
+  #selected-projects .project-card--editorial .project-card__reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 639px) {
+  #selected-projects .project-card--editorial {
+    aspect-ratio: 1.16;
+  }
+  #selected-projects .project-card--editorial .project-card__name {
+    font-size: 2rem;
+  }
+  #selected-projects .project-card--editorial .project-card__reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #selected-projects .project-card--editorial, #selected-projects .project-card--editorial * {
+    transition: none !important;
+  }
+  #selected-projects .project-card--editorial:hover, #selected-projects .project-card--editorial:focus-visible {
+    transform: none;
+  }
+  #selected-projects .project-card--editorial .project-card__art {
+    transform: none !important;
+  }
+}
 .availability .quote {
   font-family: font-secondary;
 }
@@ -11753,9 +11781,6 @@ video {
 .h-\[1em\]{
   height: 1em;
 }
-.h-\[300px\]{
-  height: 300px;
-}
 .h-\[30px\]{
   height: 30px;
 }
@@ -12040,10 +12065,6 @@ video {
 }
 .border{
   border-width: 1px;
-}
-.border-neutral-200{
-  --tw-border-opacity: 1;
-  border-color: rgb(229 229 229 / var(--tw-border-opacity, 1));
 }
 .border-neutral-300{
   --tw-border-opacity: 1;

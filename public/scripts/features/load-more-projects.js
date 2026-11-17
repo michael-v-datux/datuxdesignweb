@@ -1,60 +1,17 @@
+import { projectCardMarkup } from '../lib/project-cards.js?v=20261117-cards1';
 const btn = document.getElementById('load-more');
 const grid = document.getElementById('projects-grid');
 const lang = document.documentElement.lang;
 
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function buildProjectCard(p) {
-  const a = document.createElement('a');
-  a.href = `/${p.lang}/projects/${encodeURIComponent(p.slug)}`;
-  a.className =
-    'project-card group block w-full h-[300px] border border-neutral-200 rounded-xl relative overflow-hidden mx-auto opacity-0 translate-y-4';
-
-  const title = escapeHtml(p.title);
-  const category = p.category ? escapeHtml(p.category) : '';
-  const thumbnail = p.thumbnail ? escapeHtml(p.thumbnail) : '';
-
-  if (thumbnail) {
-    a.classList.add('project-card--image');
-    const categoryHtml = category
-      ? `<span class="category">${category}</span>`
-      : '';
-    a.innerHTML = `
-      <img src="${thumbnail}" alt="" class="project-card__img" loading="lazy" decoding="async" />
-      <div class="project-card__overlay">
-        ${categoryHtml}
-        <span class="title">${title}</span>
-      </div>
-    `;
-  } else {
-    a.classList.add('project-card--text');
-    const categoryHtml = category
-      ? `<span class="category">${category}</span>`
-      : '';
-    a.innerHTML = `
-      <div class="project-card__body">
-        ${categoryHtml}
-        <span class="title">${title}</span>
-      </div>
-    `;
-  }
-
-  return a;
+function buildProjectCard(project) {
+  const template=document.createElement('template');
+  template.innerHTML=projectCardMarkup(project);
+  return template.content.firstElementChild;
 }
 
 if (btn) {
-  let offset = 3;
+  let offset = grid.querySelectorAll('.project-card').length;
   const limit = 3;
-
-  document.querySelectorAll('.project-card').forEach((card, i) => {
-    setTimeout(() => card.classList.add('visible'), i * 100);
-  });
 
   const labelLoadMore = btn.dataset.labelLoadMore || 'Load more';
   const labelLoading = btn.dataset.labelLoading || 'Loading...';
@@ -69,11 +26,10 @@ if (btn) {
       if (!res.ok) throw new Error('Failed to load');
       const newProjects = await res.json();
 
-      newProjects.forEach((p, index) => {
+      newProjects.forEach((p) => {
         if (!p.title) return;
         const card = buildProjectCard(p);
         grid.appendChild(card);
-        setTimeout(() => card.classList.add('visible'), 100 * index);
       });
 
       offset += newProjects.length;
@@ -86,6 +42,7 @@ if (btn) {
     } catch (e) {
       console.error(e);
       btn.textContent = labelError;
+      btn.disabled = false;
     }
   });
 }
