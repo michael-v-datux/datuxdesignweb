@@ -1,4 +1,4 @@
-import { projectCardMarkup } from '../lib/project-cards.js?v=20261117-cards1';
+import { projectCardMarkup } from '../lib/project-cards.js?v=20261117-cards2';
 const btn = document.getElementById('load-more');
 const grid = document.getElementById('projects-grid');
 const lang = document.documentElement.lang;

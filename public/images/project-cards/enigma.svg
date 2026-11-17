@@ -1,4 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380" style="--accent:#479d7c;--tint:#e1efe6">
-<defs><linearGradient id="paper" x2=".7" y2="1"><stop stop-color="#fffefa"/><stop offset="1" stop-color="#f4f7f5"/></linearGradient><pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#479d7c" opacity=".14"/></pattern><filter id="shade" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#479d7c" flood-opacity=".08"/></filter></defs>
-<ellipse cx="300" cy="192" rx="211" ry="143" fill="#e1efe6" opacity=".58"/><rect x="83" y="52" width="434" height="284" fill="url(#dots)"/>
-<g fill="none" stroke="#479d7c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" filter="url(#shade)"><rect x="144" y="76" width="312" height="230" rx="18" fill="url(#paper)"/><path d="M178 110h95v58h-40v47h87v57M307 110h115v66h-64v54h64v42h-63M178 144v128h99M178 237h54M275 168h45v-58M320 168v34M391 110v30"/><circle cx="178" cy="110" r="7" fill="var(--accent)" stroke="none"/><path d="m422 272 32 0m-10-10 10 10-10 10" stroke-width="4"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="380" viewBox="0 0 600 380" style="--accent:url(#accent);--tint:url(#soft)">
+<defs>
+<linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffffff"/><stop offset=".65" stop-color="#fcfdff"/><stop offset="1" stop-color="#eaf0f9"/></linearGradient>
+<linearGradient id="accent" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffeda6"/><stop offset="1" stop-color="#a5c6eb"/></linearGradient>
+<linearGradient id="soft" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffeda6" stop-opacity=".5"/><stop offset="1" stop-color="#a5c6eb" stop-opacity=".65"/></linearGradient>
+<radialGradient id="glow"><stop stop-color="#ffeda6" stop-opacity=".48"/><stop offset=".6" stop-color="#a5c6eb" stop-opacity=".24"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+<filter id="shade" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#333333" flood-opacity=".11"/></filter>
+</defs>
+<ellipse cx="300" cy="203" rx="246" ry="175" fill="url(#glow)"/>
+<g fill="none" stroke="#797b85" stroke-opacity=".8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#shade)"><rect x="144" y="76" width="312" height="230" rx="18" fill="url(#paper)"/><path d="M178 110h95v58h-40v47h87v57M307 110h115v66h-64v54h64v42h-63M178 144v128h99M178 237h54M275 168h45v-58M320 168v34M391 110v30"/><circle cx="178" cy="110" r="7" fill="var(--accent)" stroke="none"/><path d="m422 272 32 0m-10-10 10 10-10 10" stroke-width="4"/></g></svg>

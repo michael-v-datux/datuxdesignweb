@@ -19,7 +19,7 @@ export function projectCardMarkup(project) {
   const profile=CARD_PROFILES[project.slug];
   const title=profile?.name||project.title;
   const reveal=profile?.reveal||project.category||'';
-  const thumbnail=profile?`/images/project-cards/${profile.key}.svg`:project.thumbnail;
+  const thumbnail=profile?`/images/project-cards/${profile.key}.svg?v=20261117-site2`:project.thumbnail;
   const label=profile?`${profile.name} — ${profile.reveal}`:project.title;
   const lang=project.lang==='uk'?'uk':'en';
   return `<a href="/${lang}/projects/${encodeURIComponent(project.slug)}" class="project-card project-card--editorial" aria-label="${escape(label)}" data-card-profile="${escape(profile?.key||'other')}">
