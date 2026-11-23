@@ -135,7 +135,7 @@ export default {
     message: "Message",
     send: "Send",
     emailTitle: "Send an email",
-    emailTitleSub: "via service you prefer",
+    emailTitleSub: "or via the service you prefer",
 
     // Validation hints
     hints: {
@@ -163,7 +163,8 @@ export default {
       failed: "Failed to send the form. Please try again.",
       network: "Network error. Please check your connection and try again."
     },
-    emailCopied: "Email copied!"
+    emailCopyFailed: "Could not copy. Select the address above to copy it.",
+    emailCopied: "Email address copied"
   },
   footer: {
     copyright: "All content, including password-protected case studies, is the author's intellectual property and may not be copied, shared, or reproduced in any form without explicit permission.",

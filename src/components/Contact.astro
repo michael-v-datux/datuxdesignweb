@@ -21,6 +21,7 @@ const { translations } = Astro.props;
         data-error-failed={translations.contact.submitErrors.failed}
         data-error-network={translations.contact.submitErrors.network}
         data-email-copied={translations.contact.emailCopied}
+        data-email-copy-failed={translations.contact.emailCopyFailed}
       >
         <!-- Honeypot -->
         <div style="display:none;">
@@ -87,7 +88,7 @@ const { translations } = Astro.props;
       <a class="contact-direct-email" href="mailto:michael.v@datux.design">michael.v@datux.design</a>
       <h4 class="email-service-sub font-light mb-12">{translations.contact.emailTitleSub}</h4>
       <div id="email-toggle" class="flex justify-center relative mail-services-b">
-        <button class="relative w-10 h-10 z-10 hover:bg-transparent">
+        <button type="button" aria-label={translations.contact.emailTitleSub} aria-controls="email-tooltip" aria-expanded="false" class="relative w-10 h-10 z-10 hover:bg-transparent">
           <svg id="email-icon" viewBox="0 -20 75 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full transition-transform duration-300">
             <!-- lid – верхня частина -->
             <g id="lid" class="transition-transform duration-300 origin-top">
@@ -100,9 +101,9 @@ const { translations } = Astro.props;
           </svg>
         </button>
 
-        <div id="copy-tooltip" class="copy-tooltip text-xs text-green-600 mt-2 hidden absolute">Email copied!</div>
+        <div id="copy-tooltip" class="email-copy-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 
-        <div id="email-tooltip" class="email-tooltip absolute bottom-[calc(100%+20px)] -translate-y-1/2 p-4 rounded-[24px] bg-white z-20 transition-all duration-300 opacity-0 scale-95 pointer-events-none">
+        <div id="email-tooltip" inert class="email-tooltip absolute bottom-[calc(100%+20px)] -translate-y-1/2 p-4 rounded-[24px] bg-white z-20 transition-all duration-300 opacity-0 scale-95 pointer-events-none">
           <div class="tooltip-gradient-border absolute inset-0 -z-10 rounded-[20px]"></div>
           <div class="flex gap-5 relative z-10">
             <a href="mailto:michael.v@datux.design?subject=Hello" target="_blank" title="Apple Mail">
@@ -117,7 +118,7 @@ const { translations } = Astro.props;
             <a href="https://compose.mail.yahoo.com/?to=michael.v@datux.design" target="_blank" title="Yahoo">
               <img src="/icons/yahoo.svg" alt="Yahoo" class="w-8 h-8" />
             </a>
-            <button id="copy-email" class="w-8 h-8" title="Copy Email">
+            <button type="button" id="copy-email" class="w-8 h-8" title="Copy Email">
               <img src="/icons/default-mail.svg" alt="Copy Email" class="w-full h-full" />
             </button>
           </div>

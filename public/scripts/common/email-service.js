@@ -1,4 +1,4 @@
-import { initContactFormValidation } from "../features/contact-validation.js?v=20261123-contact1";
+import { initContactFormValidation } from "../features/contact-validation.js?v=20261123-contact3";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
       form.dataset.errorFailed || 'Failed to send the form. Please try again.';
     const labelErrorNetwork =
       form.dataset.errorNetwork || 'Network error. Please check your connection and try again.';
-    const labelEmailCopied = form.dataset.emailCopied || 'Email copied!';
 
     const errorBox = document.createElement("div");
     errorBox.id = "form-error";
@@ -100,18 +99,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const icon = document.getElementById("email-icon");
 
   if (toggleBtn && tooltip && icon) {
+    const feedback = document.getElementById("copy-tooltip");
+    let feedbackTimer;
     const closeTooltip = () => {
       tooltip.classList.remove("visible");
       icon.classList.remove("opened");
+      tooltip.inert = true;
+      toggleBtn.setAttribute("aria-expanded", "false");
     };
 
     toggleBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       const isOpen = tooltip.classList.contains("visible");
-      isOpen ? closeTooltip() : (tooltip.classList.add("visible"), icon.classList.add("opened"));
+      if (isOpen) closeTooltip();
+      else {
+        clearTimeout(feedbackTimer);
+        if (feedback) feedback.hidden = true;
+        tooltip.inert = false;
+        tooltip.classList.add("visible");
+        icon.classList.add("opened");
+        toggleBtn.setAttribute("aria-expanded", "true");
+      }
     });
 
-    tooltip.addEventListener("click", (e) => e.stopPropagation());
+    tooltip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (e.target.closest("a,button")) closeTooltip();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && tooltip.classList.contains("visible")) {
+        closeTooltip();
+        toggleBtn.focus();
+      }
+    });
 
     document.addEventListener("click", (e) => {
       if (!tooltip.contains(e.target) && !toggleBtn.contains(e.target)) {
@@ -120,39 +140,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const showNotification = (message) => {
-      const notif = document.createElement("div");
-      notif.textContent = message;
-      Object.assign(notif.style, {
-        position: "fixed",
-        bottom: "20px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        background: "#dcfce7",
-        color: "#166534",
-        padding: "10px 16px",
-        border: "1px solid #bbf7d0",
-        borderRadius: "6px",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-        zIndex: "9999",
-        opacity: "0",
-        transition: "opacity 0.3s ease",
-      });
-      document.body.appendChild(notif);
-      setTimeout(() => {
-        notif.style.opacity = "1";
-      }, 10);
-      setTimeout(() => {
-        notif.style.opacity = "0";
-        setTimeout(() => notif.remove(), 300);
-      }, 1500);
+      if (!feedback) return;
+      clearTimeout(feedbackTimer);
+      feedback.textContent = message;
+      feedback.hidden = false;
+      feedback.classList.toggle("email-copy-feedback--above",
+        toggleBtn.parentElement.getBoundingClientRect().bottom + feedback.offsetHeight + 20 > window.innerHeight);
+      feedbackTimer = setTimeout(() => { feedback.hidden = true; }, 2800);
     };
 
     if (copyBtn) {
-      copyBtn.addEventListener("click", (e) => {
+      copyBtn.addEventListener("click", async (e) => {
         e.stopPropagation();
-        navigator.clipboard.writeText("michael.v@datux.design");
-        showNotification(labelEmailCopied);
         closeTooltip();
+        toggleBtn.focus();
+        try {
+          await navigator.clipboard.writeText("michael.v@datux.design");
+          showNotification(form?.dataset.emailCopied || "Email address copied");
+        } catch {
+          showNotification(form?.dataset.emailCopyFailed || "Could not copy the address.");
+        }
       });
     }
   }

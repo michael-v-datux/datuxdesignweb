@@ -8959,6 +8959,76 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   outline-offset: 4px;
 }
 
+#email-tooltip a, #email-tooltip button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  padding: 6px;
+  background: transparent;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+#email-tooltip a:hover, #email-tooltip button:hover {
+  background: linear-gradient(to bottom right, #fbe6e6, #e6f1ff, #fef9e7);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(51, 51, 51, 0.0784313725);
+}
+
+#email-tooltip a:active, #email-tooltip button:active {
+  transform: translateY(0) scale(0.91);
+  box-shadow: inset 0 1px 4px rgba(51, 51, 51, 0.1019607843);
+}
+
+#email-tooltip a:focus-visible, #email-tooltip button:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+#email-tooltip .flex {
+  gap: 8px;
+}
+
+.email-copy-feedback {
+  position: absolute;
+  bottom: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: -moz-max-content;
+  width: max-content;
+  max-width: min(310px, 85vw);
+  padding: 12px 18px;
+  border: 2px solid transparent;
+  border-radius: 16px;
+  background: linear-gradient(#fff, #fff) padding-box, linear-gradient(to bottom right, #fbe6e6, #e6f1ff, #fef9e7) border-box;
+  color: #333;
+  font: 400 13px/1.6 "Lexend", "Geologica", sans-serif;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(51, 51, 51, 0.1411764706);
+  z-index: 30;
+  pointer-events: none;
+}
+
+.email-copy-feedback[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #email-tooltip a, #email-tooltip button, .language-switch__option {
+    transition: none !important;
+  }
+}
+.email-copy-feedback {
+  top: calc(100% + 14px);
+  bottom: auto;
+}
+
+.email-copy-feedback.email-copy-feedback--above {
+  top: auto;
+  bottom: calc(100% + 14px);
+}
+
 .career-snapshot {
   margin-top: 44px;
   padding-top: 26px;
@@ -9087,6 +9157,67 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   }
   .case-access-intro .case-access-intro__summary {
     font-size: 14px;
+  }
+}
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(251, 230, 230, 0.3019607843), rgba(230, 241, 255, 0.4), rgba(254, 249, 231, 0.4));
+  font-family: "Lexend", "Geologica", sans-serif;
+  font-size: 11px;
+  line-height: 1;
+}
+
+.language-switch__current {
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #333;
+  color: #fff;
+  font-weight: 500;
+}
+
+.language-switch .language-switch__option {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 8px 9px;
+  color: #555;
+  border-radius: 999px;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.language-switch__option span {
+  font-size: 12px;
+  opacity: 0.55;
+}
+
+.language-switch .language-switch__option:hover {
+  background: #fff;
+  color: #333;
+}
+
+.language-switch .language-switch__option:active {
+  transform: scale(0.94);
+}
+
+.language-switch .language-switch__option:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+@media (max-width: 639px) {
+  .navbar-mobile-row {
+    position: relative;
+    min-height: 42px;
+  }
+  .navbar-mobile-row .logo-wrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 .not-found {
@@ -12491,10 +12622,6 @@ video {
 .text-green-500{
   --tw-text-opacity: 1;
   color: rgb(34 197 94 / var(--tw-text-opacity, 1));
-}
-.text-green-600{
-  --tw-text-opacity: 1;
-  color: rgb(22 163 74 / var(--tw-text-opacity, 1));
 }
 .text-green-700{
   --tw-text-opacity: 1;
