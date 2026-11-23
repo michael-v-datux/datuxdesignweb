@@ -1,4 +1,4 @@
-import { initContactFormValidation } from "../features/contact-validation.js?v=20261123-contact3";
+import { initContactFormValidation } from "../features/contact-validation.js?v=20261123-validation4";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");
@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       validation.markSubmitAttempt();
       if (!validation.validateAll()) {
+        validation.focusFirstInvalid();
         return;
       }
 

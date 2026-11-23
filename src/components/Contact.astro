@@ -12,12 +12,12 @@ const { translations } = Astro.props;
     <!-- Contact Form Column -->
     <div class="bg-gradient-to-br from-[#fbe6e6] via-[#e6f1ff] to-[#fef9e7] p-6 rounded-2xl relative" id="form-wrapper">
       <h3 class="text-xl font-semibold mb-4">{translations.contact.formTitle}</h3>
+      <p class="contact-required-note"><span aria-hidden="true">*</span> {translations.contact.requiredFields}</p>
       <form
         id="contact-form"
         class="flex flex-col gap-4"
         action="https://formspree.io/f/xeozqggl"
         method="POST"
-        novalidate
         data-error-failed={translations.contact.submitErrors.failed}
         data-error-network={translations.contact.submitErrors.network}
         data-email-copied={translations.contact.emailCopied}
@@ -30,35 +30,40 @@ const { translations } = Astro.props;
         </div>
 
         <!-- Name -->
-        <div>
-            <label for="name" class="block text-sm font-medium mb-1">{translations.contact.name}</label>
-            <input id="name" name="name" type="text" class="border border-neutral-300 rounded px-4 py-2 w-full" />
+        <div class="contact-field">
+            <label for="name" class="block text-sm font-medium mb-1">{translations.contact.name} <span aria-hidden="true">*</span></label>
+            <p id="name-hint" class="contact-field-hint">{translations.contact.hints.name}</p>
+            <input id="name" name="name" type="text" required autocomplete="name" aria-describedby="name-hint" class="border border-neutral-300 rounded px-4 py-2 w-full" />
             <p id="name-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.name}</p>
         </div>
         <!-- Email -->
-        <div>
-            <label for="email" class="block text-sm font-medium mb-1">{translations.contact.email}</label>
-            <input id="email" name="email" type="email" class="border border-neutral-300 rounded px-4 py-2 w-full" />
+        <div class="contact-field">
+            <label for="email" class="block text-sm font-medium mb-1">{translations.contact.email} <span aria-hidden="true">*</span></label>
+            <p id="email-hint" class="contact-field-hint">{translations.contact.hints.email}</p>
+            <input id="email" name="email" type="email" required autocomplete="email" aria-describedby="email-hint" class="border border-neutral-300 rounded px-4 py-2 w-full" />
             <p id="email-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.email}</p>
         </div>
         <!-- Vacancy -->
-        <div>
+        <div class="contact-field">
             <label for="vacancy" class="block text-sm font-medium mb-1">{translations.contact.vacancy} <span class="text-neutral-500 font-normal">({translations.contact.optional})</span></label>
+            <p id="vacancy-hint" class="contact-field-hint">{translations.contact.hints.vacancy}</p>
             <div class="relative">
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 select-none pointer-events-none">https://</span>
-                <input id="vacancy" name="vacancy" type="text" class="pl-[70px] border border-neutral-300 rounded px-4 py-2 w-full" />
+                <input id="vacancy" name="vacancy" type="text" aria-describedby="vacancy-hint" class="pl-[70px] border border-neutral-300 rounded px-4 py-2 w-full" />
             </div>
             <p id="vacancy-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.vacancy}</p>
         </div>
         <!-- Message -->
-        <div>
-            <label for="message" class="block text-sm font-medium mb-1">{translations.contact.message}</label>
-            <textarea id="message" name="message" rows="4" class="border border-neutral-300 rounded px-4 py-2 w-full"></textarea>
+        <div class="contact-field">
+            <label for="message" class="block text-sm font-medium mb-1">{translations.contact.message} <span aria-hidden="true">*</span></label>
+            <p id="message-hint" class="contact-field-hint">{translations.contact.hints.message}</p>
+            <textarea id="message" name="message" rows="4" required minlength="6" aria-describedby="message-hint" class="border border-neutral-300 rounded px-4 py-2 w-full"></textarea>
             <p id="message-error" class="text-red-500 text-xs mt-1 hidden">{translations.contact.errors.message}</p>
         </div>
 
         <input type="hidden" name="_subject" value="New message from portfolio site!" />
-        <button type="submit" id="submit-btn" class="btn-primary py-2 px-4 rounded w-fit self-end opacity-50 cursor-not-allowed" disabled>
+        <p id="contact-validation-summary" class="contact-validation-summary" role="status" aria-live="polite" hidden>{translations.contact.validationSummary}</p>
+        <button type="submit" id="submit-btn" class="btn-primary py-2 px-4 rounded w-fit self-end opacity-50 cursor-not-allowed" aria-disabled="true">
             {translations.contact.send}
         </button>
       </form>

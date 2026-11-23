@@ -132,6 +132,8 @@ export default {
     email: "Email",
     vacancy: "Company, vacancy or project link",
     optional: "optional",
+    requiredFields: "Required fields",
+    validationSummary: "Please check the highlighted fields before sending.",
     message: "Message",
     send: "Send",
     emailTitle: "Send an email",
@@ -139,7 +141,7 @@ export default {
 
     // Validation hints
     hints: {
-      name: "Full name is preferable, but not mandatory.",
+      name: "Please enter your name.",
       email: "Example: you@email.com",
       vacancy: "Optional. Enter a valid link, without https://",
       message: "At least 6 characters."

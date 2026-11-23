@@ -1,5 +1,14 @@
 @use '../abstracts' as *;
 
+.contact-required-note { margin:-6px 0 18px;color:#555;font-size:12px; }
+.contact-field-hint { display:none;margin:0 0 6px;color:#555;font-size:12px;line-height:1.5; }
+.contact-field:focus-within .contact-field-hint { display:block; }
+.contact-field [aria-invalid="true"] { border-color:#a63850;box-shadow:0 0 0 1px #a6385033; }
+.contact-field p[id$="-error"],.contact-validation-summary { color:#9d2943;font-size:12px;line-height:1.5; }
+.contact-validation-summary { margin:0; }
+.contact-validation-summary[hidden] { display:none; }
+#submit-btn[aria-disabled="true"]:hover { transform:none; }
+
 @keyframes spin-ring {
     0% { stroke-dashoffset: 100; transform: rotate(0deg); }
     100% { stroke-dashoffset: 0; transform: rotate(360deg); }

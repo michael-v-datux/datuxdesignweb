@@ -5,6 +5,6 @@ const alternate=lang==='uk'?'en':'uk';
 <div class="language-switch" role="group" aria-label={lang==='uk'?'Мова сайту':'Site language'}>
   {['en','uk'].map(code=>code===lang ?
     <span class="language-switch__current" aria-current="true">{code.toUpperCase()}</span> :
-    <a {id} class="lang-switcher language-switch__option" {href} data-alt-lang={alternate} aria-label={lang==='uk'?'Switch to English':'Перемкнути на українську'}>{code.toUpperCase()}<span aria-hidden="true">↗</span></a>
+    <a {id} class="lang-switcher language-switch__option" {href} data-alt-lang={alternate} aria-label={lang==='uk'?'Switch to English':'Перемкнути на українську'}>{code.toUpperCase()}</a>
   )}
 </div>

@@ -4,6 +4,7 @@
  */
 export function initContactFormValidation(form, btn, honeypot) {
   if (!form || !btn) return null;
+  form.noValidate = true;
 
   const fields = {
     name: {
@@ -41,6 +42,7 @@ export function initContactFormValidation(form, btn, honeypot) {
   };
 
   const dirty = new Set();
+  const summary = document.getElementById("contact-validation-summary");
   let submitAttempted = false;
   let inputTimer;
 
@@ -56,13 +58,17 @@ export function initContactFormValidation(form, btn, honeypot) {
       if (error) {
         error.classList.toggle("hidden", !showError);
       }
+      input.setAttribute("aria-invalid", String(showError));
+      input.setAttribute("aria-describedby", `${key}-hint${showError ? ` ${key}-error` : ""}`);
 
       if (!valid) isValid = false;
     });
 
-    btn.disabled = !isValid;
+    // Keep invalid submissions blocked while allowing activation to reveal errors.
+    btn.setAttribute("aria-disabled", String(!isValid));
     btn.classList.toggle("opacity-50", !isValid);
     btn.classList.toggle("cursor-not-allowed", !isValid);
+    if (summary) summary.hidden = !submitAttempted || isValid;
 
     return isValid;
   };
@@ -71,7 +77,6 @@ export function initContactFormValidation(form, btn, honeypot) {
     if (!input) return;
 
     input.addEventListener("input", () => {
-      dirty.add(input);
       clearTimeout(inputTimer);
       inputTimer = setTimeout(validateAll, 300);
     });
@@ -80,12 +85,13 @@ export function initContactFormValidation(form, btn, honeypot) {
       if (key === "vacancy") {
         input.value = input.value.trim().replace(/^https?:\/\//i, "");
       }
-      if (!dirty.has(input)) return;
+      dirty.add(input);
       validateAll();
     });
   });
 
   const resetValidationState = () => {
+    clearTimeout(inputTimer);
     dirty.clear();
     submitAttempted = false;
     Object.values(fields).forEach(({ error }) => {
@@ -101,6 +107,13 @@ export function initContactFormValidation(form, btn, honeypot) {
     validateAll,
     markSubmitAttempt() {
       submitAttempted = true;
+    },
+    focusFirstInvalid() {
+      const firstInvalid = Object.values(fields).find(({ input, validate }) => input && !validate(input.value))?.input;
+      if (firstInvalid) {
+        firstInvalid.focus({ preventScroll: true });
+        firstInvalid.scrollIntoView({ block: "center", behavior: "auto" });
+      }
     },
     resetValidationState,
     isHoneypotFilled() {
