@@ -406,6 +406,33 @@ header#navbar {
   font-size: 0.875rem;
 }
 
+.hero__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero__profile-link {
+  color: #525252;
+  font-size: 14px;
+  padding: 10px 4px;
+  text-underline-offset: 4px;
+}
+
+.hero__profile-link:hover {
+  color: #333;
+  text-decoration: underline;
+}
+
+.hero__actions a:focus-visible {
+  outline: 3px solid #4f46e5;
+  outline-offset: 4px;
+}
+
 .about h2 {
   font-family: secondary-font;
   font-weight: lighter;
@@ -8401,7 +8428,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 
 .text-pink-g {
   font-family: font-secondary;
-  background: linear-gradient(29.94deg, #ff0000 -41.57%, #9dd6ff 73.54%);
+  background: linear-gradient(29.94deg, #974d69 -41.57%, #5967a4 73.54%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -8410,7 +8437,7 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
 
 .text-sky-g {
   font-family: font-secondary;
-  background: linear-gradient(90.08deg, #a5c6eb 29.29%, #ffeda6 91.43%, #ffe16a 98.05%);
+  background: linear-gradient(90.08deg, #536b9a 29.29%, #8b6229 91.43%, #86601f 98.05%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -8917,6 +8944,151 @@ html[lang=uk] .case-theme--journal .project-block__caption::before {
   line-height: 1.4;
 }
 
+.contact-direct-email {
+  display: block;
+  margin: 2px 0 18px;
+  color: #333;
+  font-size: clamp(14px, 2vw, 18px);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  overflow-wrap: anywhere;
+}
+
+.contact-direct-email:focus-visible {
+  outline: 3px solid #4f46e5;
+  outline-offset: 4px;
+}
+
+.career-snapshot {
+  margin-top: 44px;
+  padding-top: 26px;
+  border-top: 1px solid #dedede;
+}
+
+.career-snapshot h3 {
+  margin: 0 0 22px;
+  font-family: "Lexend", "Geologica", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+.career-snapshot ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.career-snapshot li {
+  min-width: 0;
+  padding-left: 14px;
+  border-left: 1px solid #d5d5d5;
+}
+
+.career-snapshot .career-snapshot__period {
+  font: 400 12px/1.5 "Lexend", "Geologica", sans-serif;
+  color: #4b4247;
+  margin: 0 0 10px;
+}
+
+.career-snapshot h4 {
+  font: 500 14px/1.6 "Lexend", "Geologica", sans-serif;
+  color: #333;
+  margin: 0 0 4px;
+}
+
+.career-snapshot .career-snapshot__company {
+  font: 400 13px/1.6 "Lexend", "Geologica", sans-serif;
+  color: #4b4247;
+  margin: 0;
+}
+
+.career-snapshot__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  margin-top: 10px;
+}
+
+.career-snapshot__links a {
+  font-size: 11px;
+  color: #3e353a;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.career-snapshot .career-snapshot__current {
+  margin: 24px 0 0;
+  font: 400 14px/1.8 "Lexend", "Geologica", sans-serif;
+  color: #4b4247;
+}
+
+.case-study #project-password-container {
+  padding: 64px 24px 48px;
+}
+
+.case-access-intro {
+  max-width: 640px;
+  margin: 0 auto 28px;
+  text-align: center;
+}
+
+.case-access-intro .case-access-intro__label {
+  font-size: 12px;
+  color: #737373;
+  margin: 0 0 14px;
+}
+
+.case-access-intro h1 {
+  margin: 0 0 18px;
+  font: 600 clamp(30px, 4vw, 48px)/1.15 "Lexend", "Geologica", sans-serif;
+  letter-spacing: -0.035em;
+  color: #333;
+}
+
+.case-access-intro .case-access-intro__summary {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #666;
+}
+
+.case-access-help {
+  max-width: 500px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.case-access-help p {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #666;
+  margin: 0 0 12px;
+}
+
+.case-access-help a:focus-visible, .career-snapshot a:focus-visible {
+  outline: 3px solid #4f46e5;
+  outline-offset: 4px;
+}
+
+@media (max-width: 639px) {
+  .career-snapshot ol {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .career-snapshot li {
+    padding-left: 18px;
+  }
+  .case-study #project-password-container {
+    padding: 40px 20px;
+  }
+  .case-access-intro .case-access-intro__summary {
+    font-size: 14px;
+  }
+}
 .not-found {
   min-height: calc(100vh - 12rem);
   display: flex;
@@ -11670,20 +11842,11 @@ video {
   margin-left: auto;
   margin-right: auto;
 }
-.\!mb-4{
-  margin-bottom: 1rem !important;
-}
-.\!mb-\[2rem\]{
-  margin-bottom: 2rem !important;
-}
 .\!mt-0{
   margin-top: 0px !important;
 }
 .mb-1{
   margin-bottom: 0.25rem;
-}
-.mb-10{
-  margin-bottom: 2.5rem;
 }
 .mb-12{
   margin-bottom: 3rem;
@@ -11796,9 +11959,6 @@ video {
 .h-\[42px\]{
   height: 42px;
 }
-.h-\[70px\]{
-  height: 70px;
-}
 .h-full{
   height: 100%;
 }
@@ -11846,9 +12006,6 @@ video {
 }
 .w-\[42px\]{
   width: 42px;
-}
-.w-\[70px\]{
-  width: 70px;
 }
 .w-\[calc\(100\%-2rem\)\]{
   width: calc(100% - 2rem);
@@ -12277,6 +12434,9 @@ video {
 }
 .font-medium{
   font-weight: 500;
+}
+.font-normal{
+  font-weight: 400;
 }
 .font-semibold{
   font-weight: 600;

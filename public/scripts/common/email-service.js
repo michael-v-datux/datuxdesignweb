@@ -1,4 +1,4 @@
-import { initContactFormValidation } from "../features/contact-validation.js";
+import { initContactFormValidation } from "../features/contact-validation.js?v=20261123-contact1";
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contact-form");

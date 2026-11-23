@@ -1,0 +1,5 @@
+
+.hero__actions { display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:28px;position:relative;z-index:2; }
+.hero__profile-link { color:#525252;font-size:14px;padding:10px 4px;text-underline-offset:4px; }
+.hero__profile-link:hover { color:#333;text-decoration:underline; }
+.hero__actions a:focus-visible { outline:3px solid #4f46e5;outline-offset:4px; }

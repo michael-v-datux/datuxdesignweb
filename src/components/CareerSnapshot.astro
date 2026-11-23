@@ -1,0 +1,23 @@
+---
+const { translations } = Astro.props;
+const lang = Astro.params.lang === 'uk' ? 'uk' : 'en';
+const career = translations.about.career;
+---
+<div class="career-snapshot">
+  <h3>{career.title}</h3>
+  <ol>
+    {career.items.map((item, index) => (
+      <li>
+        <p class="career-snapshot__period">{item.period}</p>
+        <h4>{item.role}</h4>
+        <p class="career-snapshot__company">{item.company}</p>
+        {index === 2 && <div class="career-snapshot__links">
+          <a href={`/${lang}/projects/master-data-management-solutions`}>eptos ↗</a>
+          <a href={`/${lang}/projects/search-engine`}>Search ↗</a>
+          <a href={`/${lang}/projects/design-system`}>Proximity ↗</a>
+        </div>}
+      </li>
+    ))}
+  </ol>
+  <p class="career-snapshot__current">{career.current}</p>
+</div>

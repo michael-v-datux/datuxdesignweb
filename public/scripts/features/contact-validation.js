@@ -20,6 +20,7 @@ export function initContactFormValidation(form, btn, honeypot) {
       input: document.getElementById("vacancy"),
       error: document.getElementById("vacancy-error"),
       validate: (val) => {
+        if (!val.trim()) return true;
         const cleaned = val.trim().replace(/^https?:\/\//i, "");
         const allowed = /^[a-z0-9\-._~:/?#\[\]@!$&'()*+,;=]+$/i.test(cleaned);
         let isURL = false;

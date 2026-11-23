@@ -115,9 +115,16 @@ if (!notFound && projectData) {
     <section id="project-page" class:list={["case-study container mx-auto px-6 max-w-screen-xl", `case-theme--${normalizeCaseTheme(projectData?.case_theme)}`]}>
       {project.isProtected && !unlocked ? (
         <div id="project-password-container">
+          <div class="case-access-intro">
+            <p class="case-access-intro__label">{projectData?.private_materials ? translations.protectedProjects.privateLabel : translations.protectedProjects.subtitle}</p>
+            <h1>{project.title}</h1>
+            {project.subtitle && <p class="case-access-intro__summary">{project.subtitle}</p>}
+          </div>
+          <div class="case-access-help">
+            <p>{translations.protectedProjects.requestHint}</p>
+            <a class="btn-secondary" href={`mailto:michael.v@datux.design?subject=${encodeURIComponent(lang === 'uk' ? `Доступ до кейсу — ${project.title}` : `Portfolio access — ${project.title}`)}&body=${encodeURIComponent(lang === 'uk' ? `Привіт, Михайле!\n\nХочу переглянути кейс ${project.title}:\n${Astro.url.origin}${Astro.url.pathname}\n\nКоротко про мене та мету перегляду:\n` : `Hi Michael,\n\nI would like to review ${project.title}:\n${Astro.url.origin}${Astro.url.pathname}\n\nA little about me and my interest in this work:\n`)}`}>{translations.protectedProjects.requestAccess}</a>
+          </div>
           <form method="POST" class="project-pass-form flex flex-col items-center gap-4">
-            <h1 class="text-2xl font-semibold mb-4">{translations.protectedProjects.title}</h1>
-            <p class="mb-10">{projectData?.private_materials ? (lang === 'uk' ? `${project.title} · приватний перегляд матеріалів` : `${project.title} · private portfolio review`) : translations.protectedProjects.subtitle}</p>
             {projectData?.private_materials && <p class="case-private-note">{lang === 'uk' ? 'Цей кейс поширюється з обмеженим доступом, поки статус дозволу на публікацію матеріалів не уточнено. Будь ласка, не копіюйте, не публікуйте й не передавайте матеріали або пароль іншим.' : 'This case is shared with restricted access while publication permissions are being clarified. Please do not copy, publish or redistribute the materials or share the access password.'}</p>}
 
             <div class="relative w-full max-w-xs">
@@ -163,6 +170,7 @@ if (!notFound && projectData) {
 
             {errorMsg && <p class="text-red-500 text-sm">{errorMsg}</p>}
           </form>
+
         </div>
       ) : (
         <>

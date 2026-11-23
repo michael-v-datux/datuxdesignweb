@@ -37,6 +37,11 @@ const { translations } = Astro.props;
       {translations.hero.subtitleLine1}<br />
       {translations.hero.subtitleLine2}
     </p>
+    <div class="hero__actions">
+      <a href="#selected-projects" class="btn-primary">{translations.hero.viewWork}</a>
+      <a href="/resume/michael-vyhivskyi-cv.pdf" class="btn-secondary" download>{translations.hero.downloadCv}</a>
+      <a href="https://www.linkedin.com/in/phil-good/" class="hero__profile-link" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    </div>
   </div>
 </section>
 

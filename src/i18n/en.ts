@@ -35,7 +35,9 @@ export default {
       precision: "precision"
     },
     subtitleLine1: "Hi there, I’m Michael Vyhivskyi — a UX/UI & Product Designer",
-    subtitleLine2: "with 6+ years of experience crafting intuitive, scalable interfaces.",
+    subtitleLine2: "focused on complex B2B workflows and design systems.",
+    viewWork: "View selected work",
+    downloadCv: "Download CV",
     orbEasterEgg: {
       ariaLabel: "Hidden orb message",
       tag: "scan",
@@ -48,7 +50,7 @@ export default {
     items: [
       {
         title: "Systematic UX Thinking",
-        description: "Over 5 years in B2B product design taught me to approach challenges through structure, logic, and consistency. I design with systems in mind and users at the center.",
+        description: "My work on B2B products centers on structure, logic, and consistency. I design with systems in mind and users at the center.",
         style: "bordered"
       },
       {
@@ -128,7 +130,8 @@ export default {
     formTitle: "Contact via form",
     name: "Name",
     email: "Email",
-    vacancy: "Company, Vacancy or Project link",
+    vacancy: "Company, vacancy or project link",
+    optional: "optional",
     message: "Message",
     send: "Send",
     emailTitle: "Send an email",
@@ -138,7 +141,7 @@ export default {
     hints: {
       name: "Full name is preferable, but not mandatory.",
       email: "Example: you@email.com",
-      vacancy: "Enter a valid link, without https://",
+      vacancy: "Optional. Enter a valid link, without https://",
       message: "At least 6 characters."
     },
 
@@ -170,6 +173,15 @@ export default {
     terms: "Terms of Use",
   },
   about: {
+    career: {
+      title: "My background",
+      items: [
+        { period: "2016–2017", role: "Frontend development", company: "NewWestMedia" },
+        { period: "2017–2019", role: "UX/UI design", company: "mcpk" },
+        { period: "2019–2024", role: "Enterprise UX", company: "Paradine" },
+      ],
+      current: "Since 2024: freelance work, independent projects including Lexum, and continued study.",
+    },
     title: "Designing for complexity, clarity, and people",
     description: [
       "Specializing in designing digital products for complex systems, mainly in B2B SaaS, I focus on making tools intuitive, beautiful, and business-effective.",
@@ -177,6 +189,9 @@ export default {
     ]
   },
   protectedProjects: {
+    requestAccess: "Request access",
+    requestHint: "Don’t have the password? Email me with a little context about your interest in this work, and we can discuss access.",
+    privateLabel: "Private portfolio review",
     defaultTitle: "Project",
     title: "Protected Project",
     subtitle: "This project is password protected.",
