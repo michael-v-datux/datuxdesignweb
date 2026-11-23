@@ -35,7 +35,7 @@ export default {
       precision: "precision"
     },
     subtitleLine1: "Hi there, I’m Michael Vyhivskyi — a UX/UI & Product Designer",
-    subtitleLine2: "focused on complex B2B workflows and design systems.",
+    subtitleLine2: "focused on making complex B2B products clear and easy to use.",
     viewWork: "View selected work",
     downloadCv: "Download CV",
     orbEasterEgg: {
@@ -188,7 +188,9 @@ export default {
     title: "Designing for complexity, clarity, and people",
     description: [
       "Specializing in designing digital products for complex systems, mainly in B2B SaaS, I focus on making tools intuitive, beautiful, and business-effective.",
-      "That means translating ambiguity into clarity and workflows into experiences people enjoy using. From building a design system from scratch to refining an onboarding flow, the goal remains: thinking in systems and design for humans."
+      "That means translating ambiguity into clarity and workflows into experiences people enjoy using. From building a design system from scratch to refining an onboarding flow, the goal remains: thinking in systems and design for humans.",
+      "I started in frontend development before moving into UX/UI design for web and mobile products. That technical background helps me consider how a design will work in practice, from responsive layouts to developer handoff. I use wireframes, prototypes, research, and usability testing to explore and refine solutions.",
+      "My work also extends into visual communication, including release presentations, customer stories, and visual identity. Alongside interface design, I work on structure, copy, and graphics to make complex information easier to understand."
     ]
   },
   protectedProjects: {
