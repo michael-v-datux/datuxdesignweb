@@ -188,9 +188,7 @@ export default {
     title: "Designing for complexity, clarity, and people",
     description: [
       "Specializing in designing digital products for complex systems, mainly in B2B SaaS, I focus on making tools intuitive, beautiful, and business-effective.",
-      "That means translating ambiguity into clarity and workflows into experiences people enjoy using. From building a design system from scratch to refining an onboarding flow, the goal remains: thinking in systems and design for humans.",
-      "I started in frontend development before moving into UX/UI design for web and mobile products. That technical background helps me consider how a design will work in practice, from responsive layouts to developer handoff. I use wireframes, prototypes, research, and usability testing to explore and refine solutions.",
-      "My work also extends into visual communication, including release presentations, customer stories, and visual identity. Alongside interface design, I work on structure, copy, and graphics to make complex information easier to understand."
+      "That means translating ambiguity into clarity and workflows into experiences people enjoy using. From building a design system from scratch to refining an onboarding flow, the goal remains: thinking in systems and design for humans."
     ]
   },
   protectedProjects: {
